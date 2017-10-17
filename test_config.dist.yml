@@ -1,0 +1,10 @@
+username: '' # Your Billbee Username
+password: '' # Your Billbee API Password
+api_key:  '' # Your Billbee API Key
+sample_product: '' # A existing product (Id)
+shop_id: '' # A existing shop (Id)
+tag: '' # A order tag which is set at over 20 products
+sample_order: '' # A existing order (Id)
+sample_order_number: '' # A existing order (External Reference)
+partner_id: '' # A order id from a external system
+partner: '' # The partner name of the external system. Take a look in Partner-Class
