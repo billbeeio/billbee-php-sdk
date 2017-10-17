@@ -1,0 +1,4 @@
+.idea
+vendor
+test_config.yml
+composer.lock
