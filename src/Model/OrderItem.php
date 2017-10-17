@@ -90,6 +90,4 @@ class OrderItem
      * @JsonField(name="DontAdjustStock", type="bool")
      */
     public $dontAdjustStock;
-
-
 }

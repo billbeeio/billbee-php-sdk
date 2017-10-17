@@ -14,19 +14,19 @@ namespace BillbeeDe\BillbeeAPI\Type;
 
 class OrderState
 {
-    CONST ORDERED = 1;
-    CONST CONFIRMED = 2;
-    CONST PAID = 3;
-    CONST SHIPPED = 4;
-    CONST RECLAMATION = 5;
-    CONST DELETED = 6;
-    CONST CLOSED = 7;
-    CONST CANCELED = 8;
-    CONST ARCHIVED = 9;
+    const ORDERED = 1;
+    const CONFIRMED = 2;
+    const PAID = 3;
+    const SHIPPED = 4;
+    const RECLAMATION = 5;
+    const DELETED = 6;
+    const CLOSED = 7;
+    const CANCELED = 8;
+    const ARCHIVED = 9;
     # CONST NOT_USED = 10;
-    CONST DEMAND_NOTE = 11;
-    CONST DEMAND_NOTE2 = 12;
-    CONST PACKED = 13;
-    CONST OFFERED = 14;
-    CONST REMINDER = 15;
+    const DEMAND_NOTE = 11;
+    const DEMAND_NOTE2 = 12;
+    const PACKED = 13;
+    const OFFERED = 14;
+    const REMINDER = 15;
 }

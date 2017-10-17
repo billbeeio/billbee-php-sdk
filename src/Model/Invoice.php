@@ -119,7 +119,7 @@ class Invoice
      * @var string
      * @JsonField(name="ShopName", type="string")
      */
-    public $shopName  = null;
+    public $shopName = null;
 
     /**
      * @var InvoicePosition[]

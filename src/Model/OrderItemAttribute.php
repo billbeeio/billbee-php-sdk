@@ -39,5 +39,4 @@ class OrderItemAttribute
      * @JsonField(name="Price", type="float")
      */
     public $price;
-
 }

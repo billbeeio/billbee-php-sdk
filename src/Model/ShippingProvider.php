@@ -33,5 +33,4 @@ class ShippingProvider
      * @JsonField(name="products", type="BillbeeDe\BillbeeAPI\Model\ShippingProduct[]")
      */
     public $products = '';
-
 }

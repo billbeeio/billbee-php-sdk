@@ -119,6 +119,5 @@ class StockTest extends TestCase
         $stock->setStockId(1);
         $expected = '{"Sku":"foobar","Reason":"Import","OldQuantity":12.33,"NewQuantity":5,"DeltaQuantity":7.33,"StockId":1}';
         $this->assertSame($expected, json_encode($stock));
-
     }
 }

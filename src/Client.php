@@ -394,7 +394,6 @@ class Client
             [],
             GetOrderResponse::class
         );
-
     }
 
     /**
