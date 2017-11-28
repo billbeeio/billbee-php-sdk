@@ -18,7 +18,7 @@ class OrderItemAttribute
 {
     /**
      * @var int
-     * @JsonField(name="Id", type="int")
+     * @JsonField(name="Id", type="string")
      */
     public $id;
 
