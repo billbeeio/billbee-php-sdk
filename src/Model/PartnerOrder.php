@@ -2,7 +2,7 @@
 /**
  * This file is part of the Billbee API package.
  *
- * Copyright 2017 by Billbee GmbH
+ * Copyright 2017 - 2018 by Billbee GmbH
  *
  * For the full copyright and license information, please read the LICENSE
  * file that was distributed with this source code.
@@ -54,8 +54,8 @@ class PartnerOrder
     public $createdAt;
 
     /**
-     * @var bool
-     * @JsonField(name="PaidAt", type="bool")
+     * @var \DateTime
+     * @JsonField(name="PaidAt", type="datetime")
      */
     public $paidAt;
 

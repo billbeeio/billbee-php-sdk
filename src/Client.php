@@ -2,7 +2,7 @@
 /**
  * This file is part of the Billbee API package.
  *
- * Copyright 2017 by Billbee GmbH
+ * Copyright 2017 - 2018 by Billbee GmbH
  *
  * For the full copyright and license information, please read the LICENSE
  * file that was distributed with this source code.
@@ -26,6 +26,7 @@ use BillbeeDe\BillbeeAPI\Response\GetInvoicesResponse;
 use BillbeeDe\BillbeeAPI\Response\GetOrderByPartnerResponse;
 use BillbeeDe\BillbeeAPI\Response\GetOrderResponse;
 use BillbeeDe\BillbeeAPI\Response\GetOrdersResponse;
+use BillbeeDe\BillbeeAPI\Response\GetPatchableFieldsResponse;
 use BillbeeDe\BillbeeAPI\Response\GetProductResponse;
 use BillbeeDe\BillbeeAPI\Response\GetProductsResponse;
 use BillbeeDe\BillbeeAPI\Response\GetShippingProvidersResponse;
@@ -239,7 +240,8 @@ class Client
         \DateTime $minDate = null,
         \DateTime $maxDate = null,
         $typeIds = []
-    ) {
+    )
+    {
         $query = [
             'page' => max(1, $page),
             'pageSize' => max(1, $pageSize),
@@ -301,7 +303,8 @@ class Client
         $minimumOrderId = null,
         \DateTime $modifiedAtMin = null,
         \DateTime $modifiedAtMax = null
-    ) {
+    )
+    {
         $query = [
             'page' => max(1, $page),
             'pageSize' => max(1, $pageSize),
@@ -373,6 +376,24 @@ class Client
             'orders',
             $query,
             GetOrdersResponse::class
+        );
+    }
+
+    /**
+     * Returns a list of fields which can be updated with the patchOrder call
+     *
+     * @return GetPatchableFieldsResponse
+     *
+     * @throws QuotaExceededException If the maximum number of calls per second exceeded
+     * @throws InvalidJsonException If the response is not valid
+     * @throws \Exception If the response can not be parsed
+     */
+    public function getPatchableFields()
+    {
+        return $this->requestGET(
+            'orders/PatchableFields',
+            [],
+            GetPatchableFieldsResponse::class
         );
     }
 
@@ -602,6 +623,29 @@ class Client
         return $res === null;
     }
 
+    // PATCH
+
+    /**
+     * Updates one or more fields of an order
+     *
+     * @param int $orderId The internal id of the order
+     * @param array $model The fields to patch
+     *
+     * @return GetOrderResponse The order
+     *
+     * @throws QuotaExceededException If the maximum number of calls per second exceeded
+     * @throws InvalidJsonException If the response is not valid
+     * @throws \Exception If the response can not be parsed
+     */
+    public function patchOrder($orderId, $model)
+    {
+        return $this->requestPATCH(
+            'orders/' . $orderId,
+            $model,
+            GetOrderResponse::class
+        );
+    }
+
     //
     // INVOICE
     //
@@ -637,7 +681,8 @@ class Client
         \DateTime $minPayDate = null,
         \DateTime $maxPayDate = null,
         $includePositions = false
-    ) {
+    )
+    {
         $query = [
             'page' => max(1, $page),
             'pageSize' => max(1, $pageSize),
@@ -755,7 +800,8 @@ class Client
         $node,
         $query,
         $responseClass
-    ) {
+    )
+    {
         return $this->internalRequest($responseClass, function () use ($node, $query) {
             return $this->client->request('GET', $node, [
                 'query' => $query
@@ -780,7 +826,8 @@ class Client
         $node,
         $data,
         $responseClass
-    ) {
+    )
+    {
         return $this->internalRequest($responseClass, function () use ($data, $node) {
             $field = is_string($data) ? 'body' : 'json';
             return $this->client->request('POST', $node, [
@@ -809,10 +856,41 @@ class Client
         $node,
         $data,
         $responseClass
-    ) {
+    )
+    {
         return $this->internalRequest($responseClass, function () use ($data, $node) {
             $field = is_string($data) ? 'body' : 'json';
             return $this->client->request('PUT', $node, [
+                $field => $data,
+                'headers' => [
+                    'Content-Type' => 'application/json',
+                ]
+            ]);
+        });
+    }
+
+    /**
+     * Starts an PATCH request
+     *
+     * @param string $node The requested node
+     * @param mixed $data The body
+     * @param string $responseClass The response class
+     *
+     * @return mixed The mapped response object
+     *
+     * @throws QuotaExceededException If the maximum number of calls per second exceeded
+     * @throws InvalidJsonException If the response is not valid
+     * @throws \Exception If the response can not be parsed
+     */
+    protected function requestPATCH(
+        $node,
+        $data,
+        $responseClass
+    )
+    {
+        return $this->internalRequest($responseClass, function () use ($data, $node) {
+            $field = is_string($data) ? 'body' : 'json';
+            return $this->client->request('PATCH', $node, [
                 $field => $data,
                 'headers' => [
                     'Content-Type' => 'application/json',

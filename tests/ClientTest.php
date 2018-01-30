@@ -2,7 +2,7 @@
 /**
  * This file is part of the Billbee API package.
  *
- * Copyright 2017 by Billbee GmbH
+ * Copyright 2017 - 2018 by Billbee GmbH
  *
  * For the full copyright and license information, please read the LICENSE
  * file that was distributed with this source code.
@@ -36,6 +36,7 @@ use BillbeeDe\BillbeeAPI\Response\GetInvoicesResponse;
 use BillbeeDe\BillbeeAPI\Response\GetOrderByPartnerResponse;
 use BillbeeDe\BillbeeAPI\Response\GetOrderResponse;
 use BillbeeDe\BillbeeAPI\Response\GetOrdersResponse;
+use BillbeeDe\BillbeeAPI\Response\GetPatchableFieldsResponse;
 use BillbeeDe\BillbeeAPI\Response\GetProductResponse;
 use BillbeeDe\BillbeeAPI\Response\GetProductsResponse;
 use BillbeeDe\BillbeeAPI\Response\GetShippingProvidersResponse;
@@ -476,6 +477,36 @@ class ClientTest extends TestCase
         $this->assertInstanceOf(InvoiceDocument::class, $res->data);
         $this->assertNotEmpty($res->data->pdfData);
         $this->assertEmpty($res->data->pdfDownloadUrl);
+    }
+
+    public function testGetPatchableFields()
+    {
+        $client = $this->getClient();
+        /** @var GetPatchableFieldsResponse $result */
+        $result = $client->getPatchableFields();
+        $this->assertInstanceOf(GetPatchableFieldsResponse::class, $result);
+        $this->assertGreaterThanOrEqual(1, $result->data);
+    }
+
+    public function testPatchOrder()
+    {
+        $client = $this->getClient();
+        $orderResponse = $client->getOrder($this->sampleOrderId);
+        $order = $orderResponse->data;
+
+        $oldPrefix = $order->invoiceNumberPrefix;
+        $newPrefix = substr(md5($oldPrefix), 0, 8);
+
+        $model = ['InvoiceNumberPrefix' => $newPrefix];
+        $patchOrderResult = $client->patchOrder($this->sampleOrderId, $model);
+        $this->assertEquals(0, $patchOrderResult->errorCode);
+        $patchedOrder = $patchOrderResult->data;
+        $this->assertEquals($newPrefix, $patchedOrder->invoiceNumberPrefix);
+
+        $orderResponse = $client->getOrder($this->sampleOrderId);
+        $order = $orderResponse->data;
+        $this->assertEquals($newPrefix, $order->invoiceNumberPrefix);
+
     }
 
     public function getClient()

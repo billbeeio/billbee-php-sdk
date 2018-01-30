@@ -1,9 +1,10 @@
+# To pass all tests you need >=20 orders with the state "confirmed" (bestätigt)
 username: '' # Your Billbee Username
 password: '' # Your Billbee API Password
 api_key:  '' # Your Billbee API Key
-sample_product: '' # A existing product (Id)
+sample_product: '' # A existing product (Id) with an valid SKU
 shop_id: '' # A existing shop (Id)
-tag: '' # A order tag which is set at over 20 products
+tag: '' # A order tag which is set at over 20 orders
 sample_order: '' # A existing order (Id)
 sample_order_number: '' # A existing order (External Reference)
 partner_id: '' # A order id from a external system

@@ -10,10 +10,15 @@
  * Created by Julian Finkler <julian@mintware.de>
  */
 
-namespace BillbeeDe\BillbeeAPI\Type;
+namespace BillbeeDe\BillbeeAPI\Response;
 
-class InvoiceType
+use MintWare\JOM\JsonField;
+
+class GetPatchableFieldsResponse extends BaseResponse
 {
-    const INVOICE = 'invoice';
-    const CREDIT = 'creditnote';
+    /**
+     * @var string[]
+     * @JsonField(name="Data", type="array")
+     */
+    public $data = [];
 }
