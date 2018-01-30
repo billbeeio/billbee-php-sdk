@@ -89,8 +89,6 @@ class Client extends AbstractClient
             'headers' => [
                 'X-Billbee-Api-Key' => $apiKey,
             ],
-            'proxy' => 'localhost:8888',
-            'verify' => false,
         ]);
 
         $this->jom = new ObjectMapper();
