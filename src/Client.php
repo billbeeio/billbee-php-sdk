@@ -35,11 +35,14 @@ use BillbeeDe\BillbeeAPI\Response\UpdateStockResponse;
 use BillbeeDe\BillbeeAPI\Type\OrderState;
 use BillbeeDe\BillbeeAPI\Type\Partner;
 use GuzzleHttp\Exception\ClientException;
+use function GuzzleHttp\Psr7\parse_response;
+use GuzzleHttp\RequestOptions;
 use MintWare\JOM\Exception\InvalidJsonException;
 use MintWare\JOM\ObjectMapper;
+use Psr\Http\Message\RequestInterface;
 use Psr\Http\Message\ResponseInterface;
 
-class Client
+class Client extends AbstractClient
 {
     /**
      * The API Endpoint
@@ -49,17 +52,27 @@ class Client
     protected $endpoint = 'https://app01.billbee.de/api/v1/';
 
     /**
-     * The guzzle client
-     * @var \GuzzleHttp\Client
-     */
-    protected $client = null;
-
-    /**
      * The JSON Object Mapper
      *
      * @var ObjectMapper
      */
     protected $jom = null;
+
+    /**
+     * If true, the requests will be performed using a batch call.
+     * Each single call returns null.
+     * Call the executeBatch methodto execute all calls and retrieve the responses
+     *
+     * @var bool
+     */
+    public $useBatching = false;
+
+    /**
+     * Contains all requests in batch mode
+     *
+     * @var array
+     */
+    protected $requestPool = [];
 
     /**
      * Instantiates a new Billbee API client
@@ -70,13 +83,14 @@ class Client
      */
     public function __construct($username, $apiPassword, $apiKey)
     {
-        // Setup the HTTP client
-        $this->client = new \GuzzleHttp\Client([
+        parent::__construct([
             'base_uri' => $this->endpoint,
             'auth' => [$username, $apiPassword],
             'headers' => [
                 'X-Billbee-Api-Key' => $apiKey,
-            ]
+            ],
+            'proxy' => 'localhost:8888',
+            'verify' => false,
         ]);
 
         $this->jom = new ObjectMapper();
@@ -784,6 +798,55 @@ class Client
     }
 
     /**
+     * Execute all requests in the pool
+     *
+     * @return BaseResponse[]|mixed[]
+     *
+     * @throws QuotaExceededException If the maximum number of calls per second exceeded
+     * @throws InvalidJsonException If the response is not valid
+     * @throws \Exception If the response can not be parsed
+     */
+    public function executeBatch()
+    {
+        $responses = [];
+        if ($this->getPoolSize() > 0) {
+            $boundaries = [];
+            foreach ($this->requestPool as $_request) {
+                $boundaries[] = $this->requestToBoundary($_request['request']);
+            }
+
+            $boundary = "--batch\r\n";
+            $boundary .= implode("\r\n--batch\r\n", $boundaries);
+            $boundary .= "\r\n--batch--\r\n";
+
+            $request = $this->createRequest('POST', 'batch', [
+                'headers' => [
+                    'Content-Type' => 'multipart/mixed; boundary="batch"',
+                    'Mime-Version' => '1.0',
+                ],
+                'body' => $boundary
+            ]);
+
+            $responses = $this->internalRequest(null, function () use ($request) {
+                return $request;
+            }, true);
+
+            $this->requestPool = [];
+        }
+        return $responses;
+    }
+
+    /**
+     * Returns the number of requests in the pool
+     *
+     * @return int
+     */
+    public function getPoolSize()
+    {
+        return count($this->requestPool);
+    }
+
+    /**
      * Starts an GET request
      *
      * @param string $node The requested node
@@ -803,7 +866,7 @@ class Client
     )
     {
         return $this->internalRequest($responseClass, function () use ($node, $query) {
-            return $this->client->request('GET', $node, [
+            return $this->createRequest('GET', $node, [
                 'query' => $query
             ]);
         });
@@ -830,7 +893,7 @@ class Client
     {
         return $this->internalRequest($responseClass, function () use ($data, $node) {
             $field = is_string($data) ? 'body' : 'json';
-            return $this->client->request('POST', $node, [
+            return $this->createRequest('POST', $node, [
                 $field => $data,
                 'headers' => [
                     'Content-Type' => 'application/json',
@@ -860,7 +923,7 @@ class Client
     {
         return $this->internalRequest($responseClass, function () use ($data, $node) {
             $field = is_string($data) ? 'body' : 'json';
-            return $this->client->request('PUT', $node, [
+            return $this->createRequest('PUT', $node, [
                 $field => $data,
                 'headers' => [
                     'Content-Type' => 'application/json',
@@ -890,7 +953,7 @@ class Client
     {
         return $this->internalRequest($responseClass, function () use ($data, $node) {
             $field = is_string($data) ? 'body' : 'json';
-            return $this->client->request('PATCH', $node, [
+            return $this->createRequest('PATCH', $node, [
                 $field => $data,
                 'headers' => [
                     'Content-Type' => 'application/json',
@@ -905,18 +968,27 @@ class Client
      * @param string $responseClass The response class
      * @param callable $request A callable which "do" the request
      *
+     * @param bool $ignorePool If true and batching is enabled, the request will be executed instead of queueing to pool
      * @return mixed The mapped response object
      *
-     * @throws QuotaExceededException If the maximum number of calls per second exceeded
      * @throws InvalidJsonException If the response is not valid
+     * @throws QuotaExceededException If the maximum number of calls per second exceeded
      * @throws \Exception If the response can not be parsed
      */
-    private function internalRequest($responseClass, callable $request)
+    private function internalRequest($responseClass, callable $request, $ignorePool = false)
     {
-        try {
+        if ($this->useBatching === true && $ignorePool === false) {
+            $this->requestPool[] = [
+                'responseClass' => $responseClass,
+                'request' => $request()
+            ];
+            return null;
+        }
 
+
+        try {
             /** @var ResponseInterface $res */
-            $res = $request();
+            $res = $this->sendAsync($request(), [RequestOptions::SYNCHRONOUS => true])->wait();
         } catch (ClientException $ex) {
             if ($ex->getCode() == 429) {
                 throw new QuotaExceededException($ex->getMessage());
@@ -926,18 +998,91 @@ class Client
         }
 
         $contents = $res->getBody()->getContents();
-
         $data = null;
-        try {
-            if (trim($contents) != '') {
-                $data = $this->jom->mapJson($contents, $responseClass);
+        if ($responseClass !== null) {
+            try {
+                if (trim($contents) != '' && trim($responseClass) != '') {
+                    $data = $this->jom->mapJson($contents, $responseClass);
+                } elseif (trim($contents) != '') {
+                    $data = $contents;
+                }
+            } catch (InvalidJsonException $exception) {
+                throw $exception;
+            } catch (\Exception $exception) {
+                throw $exception;
             }
-        } catch (InvalidJsonException $exception) {
-            throw $exception;
-        } catch (\Exception $exception) {
-            throw $exception;
+        } else {
+            $data = [];
+            $responses = $this->getResponsesFromBody($contents);
+            foreach ($responses as $i => $response) {
+                $responseClass = $this->requestPool[$i]['responseClass'];
+                $contents = parse_response($response)->getBody()->getContents();
+                try {
+                    if (trim($contents) != '' && trim($responseClass) != '') {
+                        $data[$i] = $this->jom->mapJson($contents, $responseClass);
+                    } elseif (trim($contents) != '') {
+                        $data[$i] = $contents;
+                    }
+                } catch (InvalidJsonException $exception) {
+                    $data[$i] = $exception;
+                } catch (\Exception $exception) {
+                    $data[$i] = $exception;
+                }
+            }
         }
 
         return $data;
+    }
+
+    /**
+     * Converts the response of the batch call in single responses
+     *
+     * @param string $batchResult
+     * @return array
+     */
+    private function getResponsesFromBody($batchResult)
+    {
+        $lines = explode("\r\n", $batchResult, 2);
+        $batchName = $lines[0];
+
+        $messages = array_filter(explode($batchName . "\r\n", $batchResult));
+
+        $responses = [];
+        foreach ($messages as $message) {
+            $message = str_replace($batchName . "--\r\n", '', $message);
+            $tmpResponse = explode("\r\n\r\n", $message, 2);
+            $responses[] = $tmpResponse[1];
+        }
+        return $responses;
+    }
+
+    /**
+     * Converts a request to a batch boundary
+     * @param RequestInterface $request The request
+     * @return string The boundary
+     */
+    private function requestToBoundary(RequestInterface $request)
+    {
+        $uri = $request->getUri();
+        $plainRequest = '';
+        $route = $uri->getPath();
+        if (strlen($uri->getQuery()) > 0) {
+            $route .= '?' . $uri->getQuery();
+        }
+        $plainRequest .= "Content-Type: application/http; msgtype=request\r\n";
+        $plainRequest .= "\r\n";
+        $plainRequest .= sprintf("%s %s HTTP/%s\r\n", $request->getMethod(), $route, $request->getProtocolVersion());
+        $plainRequest .= sprintf("Host: %s\r\n", $uri->getHost());
+        $headers = $request->getHeaders();
+        foreach ($headers as $name => $values) {
+            if (strtolower($name) == 'host') {
+                continue;
+            }
+            $plainRequest .= sprintf("%s: %s\r\n", $name, implode(", ", $values));
+        }
+
+        $plainRequest .= "\r\n";
+        $plainRequest .= $request->getBody()->getContents();
+        return $plainRequest;
     }
 }

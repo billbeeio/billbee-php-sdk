@@ -506,7 +506,25 @@ class ClientTest extends TestCase
         $orderResponse = $client->getOrder($this->sampleOrderId);
         $order = $orderResponse->data;
         $this->assertEquals($newPrefix, $order->invoiceNumberPrefix);
+    }
 
+    public function testBatchRequests()
+    {
+        $client = $this->getClient();
+        $client->useBatching = true;
+        $this->assertEquals(0, $client->getPoolSize());
+        $this->assertNull($client->getProducts(1, 1));
+        $this->assertEquals(1, $client->getPoolSize());
+        $this->assertNull($client->getOrders(1, 1));
+        $this->assertNull($client->getEvents(3, 1));
+        $this->assertEquals(3, $client->getPoolSize());
+
+        $results = $client->executeBatch();
+        $this->assertEquals(0, $client->getPoolSize());
+        $this->assertCount(3, $results);
+        $this->assertInstanceOf(GetProductsResponse::class, $results[0]);
+        $this->assertInstanceOf(GetOrdersResponse::class, $results[1]);
+        $this->assertInstanceOf(GetEventsResponse::class, $results[2]);
     }
 
     public function getClient()
