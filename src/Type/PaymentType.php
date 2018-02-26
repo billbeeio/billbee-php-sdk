@@ -83,4 +83,17 @@ class PaymentType
     const PAYPAL_DEBIT = 80;
     const PAYPAL_CREDIT_CARD = 81;
     const WISH = 82;
+    const BANCONTACT_MISTER_CASH = 83;
+    const BELFIUS_DIRECT_NET = 84;
+    const KBC_CBC_BETAALKNOP = 85;
+    const NOVALNET_PRZELEWY24 = 86;
+    const NOVALNET_VORKASSE = 87;
+    const NOVALNET_INSTANTBANK = 88;
+    const NOVALNET_IDEAL = 89;
+    const NOVALNET_EPS = 90;
+    const NOVALNET_GIROPAY = 91;
+    const NOVALNET_BARZAHLEN = 92;
+    const REAL_DE = 93;
+    const FRUUGO = 94;
+    const CDISCOUNT = 95;
 }
