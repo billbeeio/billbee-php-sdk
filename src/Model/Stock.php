@@ -59,7 +59,7 @@ class Stock implements \JsonSerializable
     {
         $this->sku = $sku;
         $this->oldQuantity = $oldQuantity;
-        if ($newQuantity == null) {
+        if ($newQuantity === null) {
             $newQuantity = $oldQuantity;
         }
         $this->setNewQuantity($newQuantity);
