@@ -388,7 +388,7 @@ class Client extends AbstractClient
             $query['modifiedAtMax'] = $modifiedAtMax->format('c');
         }
 
-        if (is_numeric($articleTitleSource) && $articleTitleSource > 0) {
+        if (is_numeric($articleTitleSource)) {
             if ($articleTitleSource < 0 || $articleTitleSource > 2) {
                 throw new \InvalidArgumentException('orderStateId must be either 0, 1 or 2');
             }
