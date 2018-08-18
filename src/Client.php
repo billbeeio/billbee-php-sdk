@@ -297,6 +297,8 @@ class Client extends AbstractClient
      * @param null $minimumOrderId If given, all delivered orders have an Id greater than or equal to the given minimumOrderId
      * @param \DateTime|null $modifiedAtMin If given, the last modification has to be newer than the given date
      * @param \DateTime|null $modifiedAtMax If given, the last modification has to be older or equal than the given date.
+     * @param int $articleTitleSource The source field for the article title. 0 = Order Position (default), 1 = Article Title, 2 = Article Invoice Text
+     * @param boolean $excludeTags If true the list of tags passed to the call are used to filter orders to not include these tags
      *
      * @return GetOrdersResponse The orders
      *
@@ -314,7 +316,9 @@ class Client extends AbstractClient
         $tag = [],
         $minimumOrderId = null,
         \DateTime $modifiedAtMin = null,
-        \DateTime $modifiedAtMax = null
+        \DateTime $modifiedAtMax = null,
+        $articleTitleSource = 0,
+        $excludeTags = false
     )
     {
         $query = [
@@ -382,6 +386,17 @@ class Client extends AbstractClient
 
         if ($modifiedAtMax !== null && $modifiedAtMax instanceof \DateTime) {
             $query['modifiedAtMax'] = $modifiedAtMax->format('c');
+        }
+
+        if (is_numeric($articleTitleSource) && $articleTitleSource > 0) {
+            if ($articleTitleSource < 0 || $articleTitleSource > 2) {
+                throw new \InvalidArgumentException('orderStateId must be either 0, 1 or 2');
+            }
+            $query['articleTitleSource'] = $articleTitleSource;
+        }
+
+        if (is_bool($excludeTags) && $excludeTags === true) {
+            $query['excludeTags'] = 'true';
         }
 
         return $this->requestGET(

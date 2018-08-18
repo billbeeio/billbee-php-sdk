@@ -279,7 +279,9 @@ class ClientTest extends TestCase
             $this->tag,
             1,
             new \DateTime('01.01.2017'),
-            new \DateTime()
+            new \DateTime(),
+            0,
+            false
         );
 
         $this->assertInstanceOf(GetOrdersResponse::class, $orders);
