@@ -21,6 +21,8 @@ use BillbeeDe\BillbeeAPI\Model\StockCode;
 use BillbeeDe\BillbeeAPI\Response\BaseResponse;
 use BillbeeDe\BillbeeAPI\Response\CreateDeliveryNoteResponse;
 use BillbeeDe\BillbeeAPI\Response\CreateInvoiceResponse;
+use BillbeeDe\BillbeeAPI\Response\GetCustomFieldDefinitionResponse;
+use BillbeeDe\BillbeeAPI\Response\GetCustomFieldDefinitionsResponse;
 use BillbeeDe\BillbeeAPI\Response\GetEventsResponse;
 use BillbeeDe\BillbeeAPI\Response\GetInvoicesResponse;
 use BillbeeDe\BillbeeAPI\Response\GetOrderByPartnerResponse;
@@ -94,7 +96,7 @@ class Client extends AbstractClient
         $this->jom = new ObjectMapper();
     }
 
-    //#region PRODUCTS
+    #region PRODUCTS
 
     /**
      * Get a list of all products optionally filtered by date
@@ -203,9 +205,9 @@ class Client extends AbstractClient
         );
     }
 
-    //#endregion
+    #endregion
 
-    //#region PROVISIONING
+    #region PROVISIONING
 
     /**
      * Returns information about Billbee terms and conditions
@@ -225,9 +227,9 @@ class Client extends AbstractClient
         );
     }
 
-    //#endregion
+    #endregion
 
-    //#region EVENTS
+    #region EVENTS
 
     /**
      * Get a list of all events optionally filtered by date and / or event type
@@ -275,9 +277,9 @@ class Client extends AbstractClient
         );
     }
 
-    //#endregion
+    #endregion
 
-    //#region ORDERS
+    #region ORDERS
 
     // GET
 
@@ -654,9 +656,9 @@ class Client extends AbstractClient
         );
     }
 
-    //#endregion
+    #endregion
 
-    //#region INVOICE
+    #region INVOICE
 
     /**
      * Get a list of all invoices
@@ -764,9 +766,9 @@ class Client extends AbstractClient
         );
     }
 
-    //#endregion
+    #endregion
 
-    //#region SHIPMENTS
+    #region SHIPMENTS
 
     /**
      * Query all defined shipping providers
@@ -790,7 +792,60 @@ class Client extends AbstractClient
         return $response;
     }
 
-    //#endregion
+    #endregion
+
+    #region PRODUCT CUSTOM FIELDS
+
+    /**
+     * Get a list of all custom fields
+     *
+     * @param int $page The start page
+     * @param int $pageSize The page size
+     * @return GetCustomFieldDefinitionsResponse The Response
+     *
+     * @throws QuotaExceededException If the maximum number of calls per second exceeded
+     * @throws InvalidJsonException If the response is not valid
+     * @throws \Exception If the response can not be parsed
+     */
+    public function getCustomFieldDefinitions($page = 1, $pageSize = 50)
+    {
+        $query = [
+            'page' => max(1, $page),
+            'pageSize' => max(1, $pageSize),
+        ];
+
+        return $this->requestGET(
+            'products/custom-fields',
+            $query,
+            GetCustomFieldDefinitionsResponse::class
+        );
+    }
+
+    /**
+     * Get a single custom field
+     *
+     * @param int $id The id of the custom field
+     * @return GetCustomFieldDefinitionResponse The Response
+     *
+     * @throws QuotaExceededException If the maximum number of calls per second exceeded
+     * @throws InvalidJsonException If the response is not valid
+     * @throws \InvalidArgumentException If the id is not an integer or negative
+     * @throws \Exception If the response can not be parsed
+     */
+    public function getCustomFieldDefinition($id)
+    {
+        if (!is_integer($id) || $id < 1) {
+            throw new \InvalidArgumentException('Id must be an instance of integer and positive');
+        }
+
+        return $this->requestGET(
+            'products/custom-fields/' . $id,
+            [],
+            GetCustomFieldDefinitionResponse::class
+        );
+    }
+
+    #endregion
 
     /**
      * Execute all requests in the pool

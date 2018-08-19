@@ -9,3 +9,4 @@ sample_order: '' # A existing order (Id)
 sample_order_number: '' # A existing order (External Reference)
 partner_id: '' # A order id from a external system
 partner: '' # The partner name of the external system. Take a look in Partner-Class
+custom_field_definition_id: '' # The id of a custom field definition

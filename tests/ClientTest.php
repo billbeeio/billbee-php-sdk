@@ -14,6 +14,7 @@ namespace BillbeeDe\Tests\BillbeeAPI;
 
 use BillbeeDe\BillbeeAPI\Client;
 use BillbeeDe\BillbeeAPI\Exception\QuotaExceededException;
+use BillbeeDe\BillbeeAPI\Model\CustomFieldDefinition;
 use BillbeeDe\BillbeeAPI\Model\DeliveryNoteDocument;
 use BillbeeDe\BillbeeAPI\Model\Event;
 use BillbeeDe\BillbeeAPI\Model\Invoice;
@@ -59,6 +60,7 @@ class ClientTest extends TestCase
     protected $sampleOrderNumber = '';
     protected $partner = '';
     protected $partnerId = '';
+    protected $customFieldDefinitionId = '';
 
     public function __construct($name = null, array $data = [], $dataName = '')
     {
@@ -76,6 +78,7 @@ class ClientTest extends TestCase
             $this->sampleOrderNumber,
             $this->partner,
             $this->partnerId,
+            $this->customFieldDefinitionId,
             ) = [
             $data['username'],
             $data['password'],
@@ -87,6 +90,7 @@ class ClientTest extends TestCase
             $data['sample_order_number'],
             $data['partner'],
             $data['partner_id'],
+            $data['custom_field_definition_id'],
         ];
     }
 
@@ -526,6 +530,47 @@ class ClientTest extends TestCase
         $this->assertInstanceOf(GetProductsResponse::class, $results[0]);
         $this->assertInstanceOf(GetOrdersResponse::class, $results[1]);
         $this->assertInstanceOf(GetEventsResponse::class, $results[2]);
+        $client->useBatching = false;
+    }
+
+    public function testGetCustomFieldDefinitions()
+    {
+        $client = $this->getClient();
+        sleep(1);
+
+        $definitions = $client->getCustomFieldDefinitions();
+        $this->assertGreaterThanOrEqual(0, count($definitions->data));
+
+        if (count($definitions->data) > 0) {
+            $this->assertInstanceOf(CustomFieldDefinition::class, $definitions->data[0]);
+        }
+    }
+
+    public function testGetCustomFieldDefinitionFailsNaN()
+    {
+        $client = $this->getClient();
+        sleep(1);
+
+        $this->expectException(\InvalidArgumentException::class);
+        $this->expectExceptionMessage('Id must be an instance of integer and positive');
+        $client->getCustomFieldDefinition('hello');
+    }
+
+    public function testGetCustomFieldDefinitionFailsNegative()
+    {
+        $client = $this->getClient();
+
+        $this->expectException(\InvalidArgumentException::class);
+        $this->expectExceptionMessage('Id must be an instance of integer and positive');
+        $client->getCustomFieldDefinition(-1);
+    }
+
+    public function testGetCustomFieldDefinition()
+    {
+        $client = $this->getClient();
+
+        $definition = $client->getCustomFieldDefinition($this->customFieldDefinitionId);
+        $this->assertInstanceOf(CustomFieldDefinition::class, $definition->data);
     }
 
     public function getClient()
