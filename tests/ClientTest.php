@@ -221,7 +221,7 @@ class ClientTest extends TestCase
         sleep(1);
 
         $invoices = $client->getInvoices(
-            2,
+            1,
             10,
             new \DateTime('01.01.2017'),
             new \DateTime(),
@@ -245,7 +245,7 @@ class ClientTest extends TestCase
         sleep(1);
 
         $invoices = $client->getInvoices(
-            2,
+            1,
             10,
             new \DateTime('01.01.2017'),
             new \DateTime(),
@@ -503,6 +503,7 @@ class ClientTest extends TestCase
         $patchedOrder = $patchOrderResult->data;
         $this->assertEquals($newPrefix, $patchedOrder->invoiceNumberPrefix);
 
+        sleep(1);
         $orderResponse = $client->getOrder($this->sampleOrderId);
         $order = $orderResponse->data;
         $this->assertEquals($newPrefix, $order->invoiceNumberPrefix);

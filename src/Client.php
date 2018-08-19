@@ -94,9 +94,7 @@ class Client extends AbstractClient
         $this->jom = new ObjectMapper();
     }
 
-    //
-    // PRODUCTS
-    //
+    //#region PRODUCTS
 
     /**
      * Get a list of all products optionally filtered by date
@@ -205,9 +203,9 @@ class Client extends AbstractClient
         );
     }
 
-    //
-    // PROVISIONING
-    //
+    //#endregion
+
+    //#region PROVISIONING
 
     /**
      * Returns information about Billbee terms and conditions
@@ -227,9 +225,9 @@ class Client extends AbstractClient
         );
     }
 
-    //
-    // EVENTS
-    //
+    //#endregion
+
+    //#region EVENTS
 
     /**
      * Get a list of all events optionally filtered by date and / or event type
@@ -252,8 +250,7 @@ class Client extends AbstractClient
         \DateTime $minDate = null,
         \DateTime $maxDate = null,
         $typeIds = []
-    )
-    {
+    ) {
         $query = [
             'page' => max(1, $page),
             'pageSize' => max(1, $pageSize),
@@ -278,9 +275,9 @@ class Client extends AbstractClient
         );
     }
 
-    //
-    // ORDERS
-    //
+    //#endregion
+
+    //#region ORDERS
 
     // GET
 
@@ -315,8 +312,7 @@ class Client extends AbstractClient
         $minimumOrderId = null,
         \DateTime $modifiedAtMin = null,
         \DateTime $modifiedAtMax = null
-    )
-    {
+    ) {
         $query = [
             'page' => max(1, $page),
             'pageSize' => max(1, $pageSize),
@@ -658,9 +654,9 @@ class Client extends AbstractClient
         );
     }
 
-    //
-    // INVOICE
-    //
+    //#endregion
+
+    //#region INVOICE
 
     /**
      * Get a list of all invoices
@@ -693,8 +689,7 @@ class Client extends AbstractClient
         \DateTime $minPayDate = null,
         \DateTime $maxPayDate = null,
         $includePositions = false
-    )
-    {
+    ) {
         $query = [
             'page' => max(1, $page),
             'pageSize' => max(1, $pageSize),
@@ -769,9 +764,9 @@ class Client extends AbstractClient
         );
     }
 
-    //
-    // SHIPMENTS
-    //
+    //#endregion
+
+    //#region SHIPMENTS
 
     /**
      * Query all defined shipping providers
@@ -794,6 +789,8 @@ class Client extends AbstractClient
         $response->data = $providers;
         return $response;
     }
+
+    //#endregion
 
     /**
      * Execute all requests in the pool
@@ -861,8 +858,7 @@ class Client extends AbstractClient
         $node,
         $query,
         $responseClass
-    )
-    {
+    ) {
         return $this->internalRequest($responseClass, function () use ($node, $query) {
             return $this->createRequest('GET', $node, [
                 'query' => $query
@@ -887,8 +883,7 @@ class Client extends AbstractClient
         $node,
         $data,
         $responseClass
-    )
-    {
+    ) {
         return $this->internalRequest($responseClass, function () use ($data, $node) {
             $field = is_string($data) ? 'body' : 'json';
             return $this->createRequest('POST', $node, [
@@ -917,8 +912,7 @@ class Client extends AbstractClient
         $node,
         $data,
         $responseClass
-    )
-    {
+    ) {
         return $this->internalRequest($responseClass, function () use ($data, $node) {
             $field = is_string($data) ? 'body' : 'json';
             return $this->createRequest('PUT', $node, [
@@ -947,8 +941,7 @@ class Client extends AbstractClient
         $node,
         $data,
         $responseClass
-    )
-    {
+    ) {
         return $this->internalRequest($responseClass, function () use ($data, $node) {
             $field = is_string($data) ? 'body' : 'json';
             return $this->createRequest('PATCH', $node, [
