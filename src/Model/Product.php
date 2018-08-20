@@ -399,4 +399,10 @@ class Product
      * @JsonField(name="TaricNumber", type="string")
      */
     public $taricNumber = '';
+
+    /**
+     * @var CustomFieldDefinition[]
+     * @JsonField(name="CustomFields", type="\BillbeeDe\BillbeeAPI\Model\ProductCustomField[]")
+     */
+    public $customFields = '';
 }
