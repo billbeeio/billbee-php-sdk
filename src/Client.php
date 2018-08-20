@@ -38,6 +38,7 @@ use BillbeeDe\BillbeeAPI\Response\GetTermsInfoResponse;
 use BillbeeDe\BillbeeAPI\Response\UpdateStockResponse;
 use BillbeeDe\BillbeeAPI\Type\OrderState;
 use BillbeeDe\BillbeeAPI\Type\Partner;
+use BillbeeDe\BillbeeAPI\Type\ArticleSource;
 use GuzzleHttp\Exception\ClientException;
 use function GuzzleHttp\Psr7\parse_response;
 use GuzzleHttp\RequestOptions;
@@ -298,7 +299,7 @@ class Client extends AbstractClient
      * @param null $minimumOrderId If given, all delivered orders have an Id greater than or equal to the given minimumOrderId
      * @param \DateTime|null $modifiedAtMin If given, the last modification has to be newer than the given date
      * @param \DateTime|null $modifiedAtMax If given, the last modification has to be older or equal than the given date.
-     * @param int $articleTitleSource The source field for the article title. 0 = Order Position (default), 1 = Article Title, 2 = Article Invoice Text
+     * @param int $articleTitleSource The source field for the article title.
      * @param boolean $excludeTags If true the list of tags passed to the call are used to filter orders to not include these tags
      *
      * @return GetOrdersResponse The orders
@@ -318,7 +319,7 @@ class Client extends AbstractClient
         $minimumOrderId = null,
         \DateTime $modifiedAtMin = null,
         \DateTime $modifiedAtMax = null,
-        $articleTitleSource = 0,
+        $articleTitleSource = ArticleSource::ORDER_POSITION,
         $excludeTags = false
     )
     {
@@ -390,12 +391,10 @@ class Client extends AbstractClient
             $query['modifiedAtMax'] = $modifiedAtMax->format('c');
         }
 
-        if (is_numeric($articleTitleSource)) {
-            if ($articleTitleSource < 0 || $articleTitleSource > 2) {
-                throw new \InvalidArgumentException('orderStateId must be either 0, 1 or 2');
-            }
-            $query['articleTitleSource'] = $articleTitleSource;
+        if (!is_numeric($articleTitleSource) || $articleTitleSource < 0 || $articleTitleSource > 2) {
+            throw new \InvalidArgumentException('The articleTitleSource is invalid. Check ' . ArticleSource::class . ' for valid values');
         }
+        $query['articleTitleSource'] = $articleTitleSource;
 
         if (is_bool($excludeTags) && $excludeTags === true) {
             $query['excludeTags'] = 'true';

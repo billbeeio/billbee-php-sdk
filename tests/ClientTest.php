@@ -315,7 +315,9 @@ class ClientTest extends TestCase
             $this->tag,
             1,
             new \DateTime('01.01.2017'),
-            new \DateTime()
+            new \DateTime(),
+            ArticleSource::ORDER_POSITION,
+            false
         );
 
         $this->assertEquals($orders, $orders2);
@@ -362,7 +364,43 @@ class ClientTest extends TestCase
             new \DateTime()
         );
     }
-    
+
+    public function testGetOrdersFailsArticleSourceInvalid()
+    {
+        $client = $this->getClient();
+
+        $this->expectException(\InvalidArgumentException::class);
+        $this->expectExceptionMessage('The articleTitleSource is invalid. Check ' . ArticleSource::class . ' for valid values');
+
+        $client->getOrders(
+            2,
+            19,
+            new \DateTime('01.01.2017'),
+            new \DateTime(),
+            [1],
+            [],
+            $this->tag,
+            1,
+            new \DateTime('01.01.2017'),
+            new \DateTime(),
+            3
+        );
+
+        $client->getOrders(
+            2,
+            19,
+            new \DateTime('01.01.2017'),
+            new \DateTime(),
+            [1],
+            [],
+            $this->tag,
+            1,
+            new \DateTime('01.01.2017'),
+            new \DateTime(),
+            false
+        );
+    }
+
     public function testGetOrder()
     {
         $client = $this->getClient();
