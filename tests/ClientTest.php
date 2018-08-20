@@ -283,7 +283,7 @@ class ClientTest extends TestCase
         $client = $this->getClient();
         sleep(1);
         $orders = $client->getOrders(
-            2,
+            1,
             19,
             new \DateTime('01.01.2017'),
             new \DateTime(),
@@ -294,7 +294,7 @@ class ClientTest extends TestCase
             new \DateTime('01.01.2017'),
             new \DateTime(),
             ArticleSource::ORDER_POSITION,
-            false
+            true
         );
 
         $this->assertInstanceOf(GetOrdersResponse::class, $orders);
@@ -306,7 +306,7 @@ class ClientTest extends TestCase
 
         sleep(1);
         $orders2 = $client->getOrders(
-            2,
+            1,
             19,
             new \DateTime('01.01.2017'),
             new \DateTime(),
@@ -317,7 +317,7 @@ class ClientTest extends TestCase
             new \DateTime('01.01.2017'),
             new \DateTime(),
             ArticleSource::ORDER_POSITION,
-            false
+            true
         );
 
         $this->assertEquals($orders, $orders2);

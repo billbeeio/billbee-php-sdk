@@ -6,8 +6,6 @@
  *
  * For the full copyright and license information, please read the LICENSE
  * file that was distributed with this source code.
- *
- *
  */
 
 namespace BillbeeDe\BillbeeAPI\Type;

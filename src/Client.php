@@ -321,8 +321,7 @@ class Client extends AbstractClient
         \DateTime $modifiedAtMax = null,
         $articleTitleSource = ArticleSource::ORDER_POSITION,
         $excludeTags = false
-    )
-    {
+    ) {
         $query = [
             'page' => max(1, $page),
             'pageSize' => max(1, $pageSize),
@@ -391,7 +390,7 @@ class Client extends AbstractClient
         }
 
         if (!is_numeric($articleTitleSource) || $articleTitleSource < 0 || $articleTitleSource > 2) {
-            throw new \InvalidArgumentException('The articleTitleSource is invalid. Check ' . ArticleSource::class . ' for valid values');
+            throw new \InvalidArgumentException(sprintf('The articleTitleSource is invalid. Check %s for valid values', ArticleSource::class));
         }
         $query['articleTitleSource'] = $articleTitleSource;
 
