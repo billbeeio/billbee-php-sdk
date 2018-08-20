@@ -323,7 +323,6 @@ class Client extends AbstractClient
         $excludeTags = false
     )
     {
-
         $query = [
             'page' => max(1, $page),
             'pageSize' => max(1, $pageSize),
