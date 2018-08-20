@@ -50,7 +50,7 @@ class OrderItem
      * @var float
      * @JsonField(name="UnrebatedTotalPrice", type="float")
      */
-    public $unrebatedTotalPrice ;
+    public $unrebatedTotalPrice;
 
     /**
      * @var float
