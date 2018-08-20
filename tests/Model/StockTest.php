@@ -26,6 +26,7 @@ class StockTest extends TestCase
         $this->assertSame(12.33, $stock->getOldQuantity());
         $this->assertSame(12.33, $stock->getNewQuantity());
         $this->assertSame(0.00, $stock->getDeltaQuantity());
+        $this->assertSame(false, $stock->getAutosubtractReservedAmount());
     }
 
     public function testCreateFromProduct()
@@ -65,6 +66,14 @@ class StockTest extends TestCase
         $this->assertSame(null, $stock->getReason());
         $stock->setReason('Import');
         $this->assertSame('Import', $stock->getReason());
+    }
+
+    public function testGetSetAutosubtractReservedAmount()
+    {
+        $stock = new Stock('asdf', 12.33);
+        $this->assertSame(false, $stock->getAutosubtractReservedAmount());
+        $stock->setAutosubtractReservedAmount(true);
+        $this->assertTrue($stock->getAutosubtractReservedAmount());
     }
 
     public function testGetSetOldQuantity()
@@ -111,13 +120,14 @@ class StockTest extends TestCase
         $stock = new Stock('foobar', 12.33);
         $stock
             ->setReason('Import')
-            ->setNewQuantity(5);
+            ->setNewQuantity(5)
+            ->setAutosubtractReservedAmount(true);
 
-        $expected = '{"Sku":"foobar","Reason":"Import","OldQuantity":12.33,"NewQuantity":5,"DeltaQuantity":7.33}';
+        $expected = '{"Sku":"foobar","Reason":"Import","OldQuantity":12.33,"NewQuantity":5,"DeltaQuantity":7.33,"AutosubtractReservedAmount":true}';
         $this->assertSame($expected, json_encode($stock));
 
         $stock->setStockId(1);
-        $expected = '{"Sku":"foobar","Reason":"Import","OldQuantity":12.33,"NewQuantity":5,"DeltaQuantity":7.33,"StockId":1}';
+        $expected = '{"Sku":"foobar","Reason":"Import","OldQuantity":12.33,"NewQuantity":5,"DeltaQuantity":7.33,"AutosubtractReservedAmount":true,"StockId":1}';
         $this->assertSame($expected, json_encode($stock));
     }
 }
