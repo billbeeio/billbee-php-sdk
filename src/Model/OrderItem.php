@@ -48,6 +48,12 @@ class OrderItem
 
     /**
      * @var float
+     * @JsonField(name="UnrebatedTotalPrice", type="float")
+     */
+    public $unrebatedTotalPrice;
+
+    /**
+     * @var float
      * @JsonField(name="TaxAmount", type="float")
      */
     public $taxAmount;

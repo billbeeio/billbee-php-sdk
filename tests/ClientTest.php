@@ -14,6 +14,7 @@ namespace BillbeeDe\Tests\BillbeeAPI;
 
 use BillbeeDe\BillbeeAPI\Client;
 use BillbeeDe\BillbeeAPI\Exception\QuotaExceededException;
+use BillbeeDe\BillbeeAPI\Model\CustomFieldDefinition;
 use BillbeeDe\BillbeeAPI\Model\DeliveryNoteDocument;
 use BillbeeDe\BillbeeAPI\Model\Event;
 use BillbeeDe\BillbeeAPI\Model\Invoice;
@@ -28,6 +29,8 @@ use BillbeeDe\BillbeeAPI\Model\ShippingProvider;
 use BillbeeDe\BillbeeAPI\Model\Stock;
 use BillbeeDe\BillbeeAPI\Model\StockCode;
 use BillbeeDe\BillbeeAPI\Model\TermsInfo;
+use BillbeeDe\BillbeeAPI\Model\WebHook;
+use BillbeeDe\BillbeeAPI\Model\WebHookFilter;
 use BillbeeDe\BillbeeAPI\Response\BaseResponse;
 use BillbeeDe\BillbeeAPI\Response\CreateDeliveryNoteResponse;
 use BillbeeDe\BillbeeAPI\Response\CreateInvoiceResponse;
@@ -59,6 +62,9 @@ class ClientTest extends TestCase
     protected $sampleOrderNumber = '';
     protected $partner = '';
     protected $partnerId = '';
+    protected $customFieldDefinitionId = '';
+    protected $webHookUri = '';
+    protected $testDeleteWebHooks = false;
 
     public function __construct($name = null, array $data = [], $dataName = '')
     {
@@ -76,6 +82,9 @@ class ClientTest extends TestCase
             $this->sampleOrderNumber,
             $this->partner,
             $this->partnerId,
+            $this->customFieldDefinitionId,
+            $this->webHookUri,
+            $this->testDeleteWebHooks,
             ) = [
             $data['username'],
             $data['password'],
@@ -87,6 +96,9 @@ class ClientTest extends TestCase
             $data['sample_order_number'],
             $data['partner'],
             $data['partner_id'],
+            $data['custom_field_definition_id'],
+            $data['web_hook_uri'],
+            $data['test_delete_web_hooks'],
         ];
     }
 
@@ -221,7 +233,7 @@ class ClientTest extends TestCase
         sleep(1);
 
         $invoices = $client->getInvoices(
-            2,
+            1,
             10,
             new \DateTime('01.01.2017'),
             new \DateTime(),
@@ -245,7 +257,7 @@ class ClientTest extends TestCase
         sleep(1);
 
         $invoices = $client->getInvoices(
-            2,
+            1,
             10,
             new \DateTime('01.01.2017'),
             new \DateTime(),
@@ -288,6 +300,64 @@ class ClientTest extends TestCase
         $this->assertInstanceOf(Order::class, $orders->data[0]);
         $this->assertGreaterThan(0, count($orders->data[0]->orderItems));
         $this->assertInstanceOf(OrderItem::class, $orders->data[0]->orderItems[0]);
+
+        sleep(1);
+        $orders2 = $client->getOrders(
+            2,
+            19,
+            new \DateTime('01.01.2017'),
+            new \DateTime(),
+            $this->shopId, // No array
+            2, // No array
+            $this->tag,
+            1,
+            new \DateTime('01.01.2017'),
+            new \DateTime()
+        );
+
+        $this->assertEquals($orders, $orders2);
+    }
+
+    public function testGetOrdersFailsShopIdNaN()
+    {
+        $client = $this->getClient();
+
+        $this->expectException(\InvalidArgumentException::class);
+        $this->expectExceptionMessage('shopId must be an instance of int or an array of int');
+
+        $client->getOrders(
+            2,
+            19,
+            new \DateTime('01.01.2017'),
+            new \DateTime(),
+            ['hello'],
+            [2],
+            $this->tag,
+            1,
+            new \DateTime('01.01.2017'),
+            new \DateTime()
+        );
+    }
+
+    public function testGetOrdersFailsOrderStateIdNaN()
+    {
+        $client = $this->getClient();
+
+        $this->expectException(\InvalidArgumentException::class);
+        $this->expectExceptionMessage('orderStateId must be an instance of int or an array of int');
+
+        $client->getOrders(
+            2,
+            19,
+            new \DateTime('01.01.2017'),
+            new \DateTime(),
+            [1],
+            ['hello'],
+            $this->tag,
+            1,
+            new \DateTime('01.01.2017'),
+            new \DateTime()
+        );
     }
 
     public function testGetOrder()
@@ -503,6 +573,7 @@ class ClientTest extends TestCase
         $patchedOrder = $patchOrderResult->data;
         $this->assertEquals($newPrefix, $patchedOrder->invoiceNumberPrefix);
 
+        sleep(1);
         $orderResponse = $client->getOrder($this->sampleOrderId);
         $order = $orderResponse->data;
         $this->assertEquals($newPrefix, $order->invoiceNumberPrefix);
@@ -525,6 +596,157 @@ class ClientTest extends TestCase
         $this->assertInstanceOf(GetProductsResponse::class, $results[0]);
         $this->assertInstanceOf(GetOrdersResponse::class, $results[1]);
         $this->assertInstanceOf(GetEventsResponse::class, $results[2]);
+        $client->useBatching = false;
+    }
+
+    public function testGetCustomFieldDefinitions()
+    {
+        $client = $this->getClient();
+        sleep(1);
+
+        $definitions = $client->getCustomFieldDefinitions();
+        $this->assertGreaterThanOrEqual(0, count($definitions->data));
+
+        if (count($definitions->data) > 0) {
+            $this->assertInstanceOf(CustomFieldDefinition::class, $definitions->data[0]);
+        }
+    }
+
+    public function testGetCustomFieldDefinitionFailsNaN()
+    {
+        $client = $this->getClient();
+        sleep(1);
+
+        $this->expectException(\InvalidArgumentException::class);
+        $this->expectExceptionMessage('Id must be an instance of integer and positive');
+        $client->getCustomFieldDefinition('hello');
+    }
+
+    public function testGetCustomFieldDefinitionFailsNegative()
+    {
+        $client = $this->getClient();
+
+        $this->expectException(\InvalidArgumentException::class);
+        $this->expectExceptionMessage('Id must be an instance of integer and positive');
+        $client->getCustomFieldDefinition(-1);
+    }
+
+    public function testGetCustomFieldDefinition()
+    {
+        $client = $this->getClient();
+
+        $definition = $client->getCustomFieldDefinition($this->customFieldDefinitionId);
+        $this->assertInstanceOf(CustomFieldDefinition::class, $definition->data);
+    }
+
+    public function testGetAllWebHooks()
+    {
+        $client = $this->getClient();
+        $webHooks = $client->getWebHooks();
+        $this->assertTrue(is_array($webHooks));
+
+        if (count($webHooks) > 0) {
+            $this->assertInstanceOf(WebHook::class, $webHooks[0]);
+        }
+    }
+
+    public function testWebHookFilters()
+    {
+        $client = $this->getClient();
+        $filters = $client->getWebHookFilters();
+        $this->assertTrue(is_array($filters));
+        $this->assertGreaterThan(0, count($filters));
+
+        $this->assertInstanceOf(WebHookFilter::class, $filters[0]);
+    }
+
+    public function testCreateUpdateGetDeleteWebHook()
+    {
+        $client = $this->getClient();
+
+        $hook = new WebHook();
+        $hook->id = md5('Hello World' . time());
+        $hook->secret = md5('4711');
+        $hook->description = 'A nice webhook';
+        $hook->filters = ['*'];
+        $hook->webHookUri = $this->webHookUri;
+
+        $this->createWebHookAndCompare($client, $hook);
+
+        $hook->description = 'A updated web hook';
+        $updateRes = $client->updateWebHook($hook);
+        $this->assertTrue($updateRes);
+
+        $this->getWebHookAndCompare($client, $hook);
+
+        $getRes = $client->deleteWebHook($hook);
+        $this->assertTrue($getRes);
+
+        try {
+            $client->getWebHook($hook->id);
+            $this->fail('The webhook was not deleted');
+        } catch (\Exception $ex) {
+        }
+
+        $this->createWebHookAndCompare($client, $hook);
+        $this->getWebHookAndCompare($client, $hook);
+        $client->deleteWebHookById($hook->id);
+        $this->assertTrue($getRes);
+
+        try {
+            $client->getWebHook($hook->id);
+            $this->fail('The webhook was not deleted');
+        } catch (\Exception $ex) {
+        }
+    }
+
+    private function createWebHookAndCompare($client, $hook)
+    {
+        sleep(1);
+        $createRes = $client->createWebHook($hook);
+        $this->assertEquals($hook->id, $createRes->id);
+        $this->assertEquals($hook->secret, $createRes->secret);
+        $this->assertEquals($hook->description, $createRes->description);
+        $this->assertEquals($hook->filters, $createRes->filters);
+        $this->assertEquals($hook->webHookUri, $createRes->webHookUri);
+    }
+
+    private function getWebHookAndCompare($client, $hook)
+    {
+        sleep(1);
+        $getRes = $client->getWebHook($hook->id);
+        $this->assertEquals($hook->id, $getRes->id);
+        $this->assertEquals($hook->secret, $getRes->secret);
+        $this->assertEquals($hook->description, $getRes->description);
+        $this->assertEquals($hook->filters, $getRes->filters);
+        $this->assertEquals($hook->webHookUri, $getRes->webHookUri);
+    }
+
+    public function testDeleteWebHookFailsInvalidId()
+    {
+        $client = $this->getClient();
+
+        $this->expectException(\InvalidArgumentException::class);
+        $this->expectExceptionMessage('The id of the webHook cannot be empty');
+        $client->deleteWebHookById(null);
+    }
+
+    public function testUpdateWebHookFailsInvalidId()
+    {
+        $client = $this->getClient();
+
+        $this->expectException(\InvalidArgumentException::class);
+        $this->expectExceptionMessage('The id of the webHook cannot be empty');
+        $client->updateWebHook(new WebHook());
+    }
+
+    public function testDeleteAllWebHooks()
+    {
+        if ($this->testDeleteWebHooks === true) {
+            $client = $this->getClient();
+            $res = $client->deleteAllWebHooks();
+            $this->assertTrue($res);
+        }
     }
 
     public function getClient()
