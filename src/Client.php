@@ -13,39 +13,18 @@
 namespace BillbeeDe\BillbeeAPI;
 
 use BillbeeDe\BillbeeAPI\Exception\QuotaExceededException;
-use BillbeeDe\BillbeeAPI\Model\Order;
-use BillbeeDe\BillbeeAPI\Model\Shipment;
-use BillbeeDe\BillbeeAPI\Model\ShippingProvider;
-use BillbeeDe\BillbeeAPI\Model\Stock;
-use BillbeeDe\BillbeeAPI\Model\StockCode;
-use BillbeeDe\BillbeeAPI\Model\WebHook;
-use BillbeeDe\BillbeeAPI\Model\WebHookFilter;
-use BillbeeDe\BillbeeAPI\Response\BaseResponse;
-use BillbeeDe\BillbeeAPI\Response\CreateDeliveryNoteResponse;
-use BillbeeDe\BillbeeAPI\Response\CreateInvoiceResponse;
-use BillbeeDe\BillbeeAPI\Response\GetCustomFieldDefinitionResponse;
-use BillbeeDe\BillbeeAPI\Response\GetCustomFieldDefinitionsResponse;
-use BillbeeDe\BillbeeAPI\Response\GetEventsResponse;
-use BillbeeDe\BillbeeAPI\Response\GetInvoicesResponse;
-use BillbeeDe\BillbeeAPI\Response\GetOrderByPartnerResponse;
-use BillbeeDe\BillbeeAPI\Response\GetOrderResponse;
-use BillbeeDe\BillbeeAPI\Response\GetOrdersResponse;
-use BillbeeDe\BillbeeAPI\Response\GetPatchableFieldsResponse;
-use BillbeeDe\BillbeeAPI\Response\GetProductResponse;
-use BillbeeDe\BillbeeAPI\Response\GetProductsResponse;
-use BillbeeDe\BillbeeAPI\Response\GetShippingProvidersResponse;
-use BillbeeDe\BillbeeAPI\Response\GetTermsInfoResponse;
-use BillbeeDe\BillbeeAPI\Response\UpdateStockResponse;
+use BillbeeDe\BillbeeAPI\Model as Model;
+use BillbeeDe\BillbeeAPI\Response as Response;
+use BillbeeDe\BillbeeAPI\Type\ArticleSource;
 use BillbeeDe\BillbeeAPI\Type\OrderState;
 use BillbeeDe\BillbeeAPI\Type\Partner;
-use BillbeeDe\BillbeeAPI\Type\ArticleSource;
 use GuzzleHttp\Exception\ClientException;
-use function GuzzleHttp\Psr7\parse_response;
 use GuzzleHttp\RequestOptions;
 use MintWare\JOM\Exception\InvalidJsonException;
 use MintWare\JOM\ObjectMapper;
 use Psr\Http\Message\RequestInterface;
 use Psr\Http\Message\ResponseInterface;
+use function GuzzleHttp\Psr7\parse_response;
 
 class Client extends AbstractClient
 {
@@ -66,7 +45,7 @@ class Client extends AbstractClient
     /**
      * If true, the requests will be performed using a batch call.
      * Each single call returns null.
-     * Call the executeBatch methodto execute all calls and retrieve the responses
+     * Call the executeBatch method to execute all calls and retrieve the responses
      *
      * @var bool
      */
@@ -109,7 +88,7 @@ class Client extends AbstractClient
      * @param int $page The start page
      * @param int $pageSize The page size
      * @param \DateTime|null $minCreatedAt The date of creation of the products
-     * @return GetProductsResponse The Response
+     * @return Response\GetProductsResponse The Response
      *
      * @throws QuotaExceededException If the maximum number of calls per second exceeded
      * @throws InvalidJsonException If the response is not valid
@@ -129,7 +108,7 @@ class Client extends AbstractClient
         return $this->requestGET(
             'products',
             $query,
-            GetProductsResponse::class
+            Response\GetProductsResponse::class
         );
     }
 
@@ -138,7 +117,7 @@ class Client extends AbstractClient
      *
      * @param int $productId The product Id
      *
-     * @return GetProductResponse The product response
+     * @return Response\GetProductResponse The product response
      *
      * @throws QuotaExceededException If the maximum number of calls per second exceeded
      * @throws InvalidJsonException If the response is not valid
@@ -149,7 +128,7 @@ class Client extends AbstractClient
         return $this->requestGET(
             'products/' . $productId,
             [],
-            GetProductResponse::class
+            Response\GetProductResponse::class
         );
     }
 
@@ -160,27 +139,27 @@ class Client extends AbstractClient
     /**
      * Updates the stock for a single product
      *
-     * @param Stock $stockModel The stock model
-     * @return UpdateStockResponse The Response
+     * @param Model\Stock $stockModel The stock model
+     * @return Response\UpdateStockResponse The Response
      *
      * @throws QuotaExceededException If the maximum number of calls per second exceeded
      * @throws InvalidJsonException If the response is not valid
      * @throws \Exception If the response cannot be parsed
      */
-    public function updateStock(Stock $stockModel)
+    public function updateStock(Model\Stock $stockModel)
     {
         return $this->requestPOST(
             'products/updatestock',
             $stockModel,
-            UpdateStockResponse::class
+            Response\UpdateStockResponse::class
         );
     }
 
     /**
      * Updates the stock for multiple products
      *
-     * @param Stock[] $stockModels The stock models
-     * @return UpdateStockResponse[] The Response
+     * @param Model\Stock[] $stockModels The stock models
+     * @return Response\UpdateStockResponse[] The Response
      *
      * @throws QuotaExceededException If the maximum number of calls per second exceeded
      * @throws InvalidJsonException If the response is not valid
@@ -191,26 +170,26 @@ class Client extends AbstractClient
         return $this->requestPOST(
             'products/updatestockmultiple',
             $stockModels,
-            UpdateStockResponse::class . '[]'
+            Response\UpdateStockResponse::class . '[]'
         );
     }
 
     /**
      * Updates the stock code for a single  products
      *
-     * @param StockCode $stockCodeModel The stock code model
-     * @return BaseResponse The Response
+     * @param Model\StockCode $stockCodeModel The stock code model
+     * @return Response\BaseResponse The Response
      *
      * @throws QuotaExceededException If the maximum number of calls per second exceeded
      * @throws InvalidJsonException If the response is not valid
      * @throws \Exception If the response cannot be parsed
      */
-    public function updateStockCode(StockCode $stockCodeModel)
+    public function updateStockCode(Model\StockCode $stockCodeModel)
     {
         return $this->requestPOST(
             'products/updatestockcode',
             $this->jom->objectToJson($stockCodeModel),
-            BaseResponse::class
+            Response\BaseResponse::class
         );
     }
 
@@ -225,7 +204,7 @@ class Client extends AbstractClient
     /**
      * Returns information about Billbee terms and conditions
      *
-     * @return GetTermsInfoResponse The terms info response
+     * @return Response\GetTermsInfoResponse The terms info response
      *
      * @throws QuotaExceededException If the maximum number of calls per second exceeded
      * @throws InvalidJsonException If the response is not valid
@@ -236,7 +215,7 @@ class Client extends AbstractClient
         return $this->requestGET(
             'automaticprovision/termsinfo',
             [],
-            GetTermsInfoResponse::class
+            Response\GetTermsInfoResponse::class
         );
     }
 
@@ -257,7 +236,7 @@ class Client extends AbstractClient
      * @param \DateTime $maxDate End date
      * @param array $typeIds An array of event type id's
      *
-     * @return GetEventsResponse The events
+     * @return Response\GetEventsResponse The events
      *
      * @throws QuotaExceededException If the maximum number of calls per second exceeded
      * @throws InvalidJsonException If the response is not valid
@@ -290,7 +269,7 @@ class Client extends AbstractClient
         return $this->requestGET(
             'events',
             $query,
-            GetEventsResponse::class
+            Response\GetEventsResponse::class
         );
     }
 
@@ -318,7 +297,7 @@ class Client extends AbstractClient
      * @param int $articleTitleSource The source field for the article title.
      * @param boolean $excludeTags If true the list of tags passed to the call are used to filter orders to not include these tags
      *
-     * @return GetOrdersResponse The orders
+     * @return Response\GetOrdersResponse The orders
      *
      * @throws QuotaExceededException If the maximum number of calls per second exceeded
      * @throws InvalidJsonException If the response is not valid
@@ -417,14 +396,14 @@ class Client extends AbstractClient
         return $this->requestGET(
             'orders',
             $query,
-            GetOrdersResponse::class
+            Response\GetOrdersResponse::class
         );
     }
 
     /**
      * Returns a list of fields which can be updated with the patchOrder call
      *
-     * @return GetPatchableFieldsResponse
+     * @return Response\GetPatchableFieldsResponse
      *
      * @throws QuotaExceededException If the maximum number of calls per second exceeded
      * @throws InvalidJsonException If the response is not valid
@@ -435,7 +414,7 @@ class Client extends AbstractClient
         return $this->requestGET(
             'orders/PatchableFields',
             [],
-            GetPatchableFieldsResponse::class
+            Response\GetPatchableFieldsResponse::class
         );
     }
 
@@ -444,7 +423,7 @@ class Client extends AbstractClient
      *
      * @param int $id The internal billbee id of the order
      *
-     * @return GetOrderResponse The order response
+     * @return Response\GetOrderResponse The order response
      *
      * @throws QuotaExceededException If the maximum number of calls per second exceeded
      * @throws InvalidJsonException If the response is not valid
@@ -455,7 +434,7 @@ class Client extends AbstractClient
         return $this->requestGET(
             'orders/' . $id,
             [],
-            GetOrderResponse::class
+            Response\GetOrderResponse::class
         );
     }
 
@@ -464,7 +443,7 @@ class Client extends AbstractClient
      *
      * @param string $extRef The internal billbee id of the order
      *
-     * @return GetOrderResponse The order response
+     * @return Response\GetOrderResponse The order response
      *
      * @throws QuotaExceededException If the maximum number of calls per second exceeded
      * @throws InvalidJsonException If the response is not valid
@@ -475,7 +454,7 @@ class Client extends AbstractClient
         return $this->requestGET(
             'orders/findbyextref/' . $extRef,
             [],
-            GetOrderResponse::class
+            Response\GetOrderResponse::class
         );
     }
 
@@ -486,7 +465,7 @@ class Client extends AbstractClient
      * @param string $externalId The order id in the partner system
      * @param string $partner The partner name. Possible partners in Partner-Class
      *
-     * @return GetOrderResponse The order response
+     * @return Response\GetOrderResponse The order response
      *
      * @throws QuotaExceededException If the maximum number of calls per second exceeded
      * @throws InvalidJsonException If the response is not valid
@@ -499,7 +478,7 @@ class Client extends AbstractClient
         return $this->requestGET(
             'orders/find/' . $externalId . '/' . $partner,
             [],
-            GetOrderByPartnerResponse::class
+            Response\GetOrderByPartnerResponse::class
         );
     }
 
@@ -510,21 +489,21 @@ class Client extends AbstractClient
     /**
      * Get a single order by its internal billbee id
      *
-     * @param Order $order The order Data
+     * @param Model\Order $order The order Data
      * @param int $shopId The id of the shop
      *
-     * @return BaseResponse The response
+     * @return Response\BaseResponse The response
      *
      * @throws QuotaExceededException If the maximum number of calls per second exceeded
      * @throws InvalidJsonException If the response is not valid
      * @throws \Exception If the response cannot be parsed
      */
-    public function createOrder(Order $order, $shopId)
+    public function createOrder(Model\Order $order, $shopId)
     {
         return $this->requestPOST(
             'orders?shopId=' . $shopId,
             $this->jom->objectToJson($order),
-            BaseResponse::class
+            Response\BaseResponse::class
         );
     }
 
@@ -534,7 +513,7 @@ class Client extends AbstractClient
      * @param int $orderId The internal id of the order
      * @param string[] $tags Tags to attach
      *
-     * @return BaseResponse The response
+     * @return Response\BaseResponse The response
      *
      * @throws QuotaExceededException If the maximum number of calls per second exceeded
      * @throws InvalidJsonException If the response is not valid
@@ -548,7 +527,7 @@ class Client extends AbstractClient
         return $this->requestPOST(
             'orders/' . $orderId . '/tags',
             json_encode(['Tags' => $tags]),
-            BaseResponse::class
+            Response\BaseResponse::class
         );
     }
 
@@ -556,7 +535,7 @@ class Client extends AbstractClient
      * Attach one or more tags to an order
      *
      * @param int $orderId The internal id of the order
-     * @param Shipment $shipment The Shipment
+     * @param Model\Shipment $shipment The Shipment
      *
      * @return bool True if the shipment was added
      *
@@ -564,12 +543,12 @@ class Client extends AbstractClient
      * @throws InvalidJsonException If the response is not valid
      * @throws \Exception If the response cannot be parsed
      */
-    public function addOrderShipment($orderId, Shipment $shipment)
+    public function addOrderShipment($orderId, Model\Shipment $shipment)
     {
         $res = $this->requestPOST(
             'orders/' . $orderId . '/shipment',
             $this->jom->objectToJson($shipment),
-            BaseResponse::class
+            Response\BaseResponse::class
         );
         return $res === '' || $res === null;
     }
@@ -580,7 +559,7 @@ class Client extends AbstractClient
      * @param int $orderId The internal id of the order
      * @param bool $includePdf If true, the PDF is included in the response as base64 encoded string
      *
-     * @return CreateDeliveryNoteResponse The response
+     * @return Response\CreateDeliveryNoteResponse The response
      *
      * @throws QuotaExceededException If the maximum number of calls per second exceeded
      * @throws InvalidJsonException If the response is not valid
@@ -591,7 +570,7 @@ class Client extends AbstractClient
         return $this->requestPOST(
             'orders/CreateDeliveryNote/' . $orderId . '?includePdf=' . ($includePdf ? 'True' : 'False'),
             [],
-            CreateDeliveryNoteResponse::class
+            Response\CreateDeliveryNoteResponse::class
         );
     }
 
@@ -601,7 +580,7 @@ class Client extends AbstractClient
      * @param int $orderId The internal id of the order
      * @param bool $includePdf If true, the PDF is included in the response as base64 encoded string
      *
-     * @return CreateDeliveryNoteResponse The response
+     * @return Response\CreateDeliveryNoteResponse The response
      *
      * @throws QuotaExceededException If the maximum number of calls per second exceeded
      * @throws InvalidJsonException If the response is not valid
@@ -613,7 +592,7 @@ class Client extends AbstractClient
         return $this->requestPOST(
             $node,
             [],
-            CreateInvoiceResponse::class
+            Response\CreateInvoiceResponse::class
         );
     }
 
@@ -627,7 +606,7 @@ class Client extends AbstractClient
      * @param int $orderId The internal id of the order
      * @param string[] $tags Tags to attach
      *
-     * @return BaseResponse The response
+     * @return Response\BaseResponse The response
      *
      * @throws QuotaExceededException If the maximum number of calls per second exceeded
      * @throws InvalidJsonException If the response is not valid
@@ -641,7 +620,7 @@ class Client extends AbstractClient
         return $this->requestPUT(
             'orders/' . $orderId . '/tags',
             json_encode(['Tags' => $tags]),
-            BaseResponse::class
+            Response\BaseResponse::class
         );
     }
 
@@ -664,7 +643,7 @@ class Client extends AbstractClient
         $res = $this->requestPUT(
             'orders/' . $orderId . '/orderstate',
             json_encode(['NewStateId' => $newState]),
-            BaseResponse::class
+            Response\BaseResponse::class
         );
         return $res === null;
     }
@@ -679,7 +658,7 @@ class Client extends AbstractClient
      * @param int $orderId The internal id of the order
      * @param array $model The fields to patch
      *
-     * @return GetOrderResponse The order
+     * @return Response\GetOrderResponse The order
      *
      * @throws QuotaExceededException If the maximum number of calls per second exceeded
      * @throws InvalidJsonException If the response is not valid
@@ -690,7 +669,7 @@ class Client extends AbstractClient
         return $this->requestPATCH(
             'orders/' . $orderId,
             $model,
-            GetOrderResponse::class
+            Response\GetOrderResponse::class
         );
     }
 
@@ -708,7 +687,7 @@ class Client extends AbstractClient
      * @param \DateTime $minInvoiceDate Specifies the oldest invoice date to include
      * @param \DateTime $maxInvoiceDate Specifies the newest invoice date to include
      * @param int $page Specifies the page to request
-     * @param int $pageSize Specifies the pagesize. Defaults to 50, max value is 250
+     * @param int $pageSize Specifies the number of elements per page. Defaults to 50, max value is 250
      * @param array $shopId Specifies a list of shop ids for which invoices should be included
      * @param array $orderStateId Specifies a list of state ids to include in the response
      * @param array $tag Specifies a list of tags to include in the response
@@ -716,7 +695,7 @@ class Client extends AbstractClient
      * @param \DateTime $maxPayDate Specifies the newest pay date to include
      * @param bool $includePositions Specifies to include the positions
      *
-     * @return GetInvoicesResponse The Invoices
+     * @return Response\GetInvoicesResponse The Invoices
      *
      * @throws QuotaExceededException If the maximum number of calls per second exceeded
      * @throws InvalidJsonException If the response is not valid
@@ -804,7 +783,7 @@ class Client extends AbstractClient
         return $this->requestGET(
             'orders/invoices',
             $query,
-            GetInvoicesResponse::class
+            Response\GetInvoicesResponse::class
         );
     }
 
@@ -819,7 +798,7 @@ class Client extends AbstractClient
     /**
      * Query all defined shipping providers
      *
-     * @return GetShippingProvidersResponse The shipping providers response
+     * @return Response\GetShippingProvidersResponse The shipping providers response
      *
      * @throws QuotaExceededException If the maximum number of calls per second exceeded
      * @throws InvalidJsonException If the response is not valid
@@ -830,10 +809,10 @@ class Client extends AbstractClient
         $providers = $this->requestGET(
             'shipment/shippingproviders',
             [],
-            ShippingProvider::class . '[]'
+            Model\ShippingProvider::class . '[]'
         );
 
-        $response = new GetShippingProvidersResponse();
+        $response = new Response\GetShippingProvidersResponse();
         $response->data = $providers;
         return $response;
     }
@@ -851,7 +830,7 @@ class Client extends AbstractClient
      *
      * @param int $page The start page
      * @param int $pageSize The page size
-     * @return GetCustomFieldDefinitionsResponse The Response
+     * @return Response\GetCustomFieldDefinitionsResponse The Response
      *
      * @throws QuotaExceededException If the maximum number of calls per second exceeded
      * @throws InvalidJsonException If the response is not valid
@@ -867,7 +846,7 @@ class Client extends AbstractClient
         return $this->requestGET(
             'products/custom-fields',
             $query,
-            GetCustomFieldDefinitionsResponse::class
+            Response\GetCustomFieldDefinitionsResponse::class
         );
     }
 
@@ -875,7 +854,7 @@ class Client extends AbstractClient
      * Get a single custom field
      *
      * @param int $id The id of the custom field
-     * @return GetCustomFieldDefinitionResponse The Response
+     * @return Response\GetCustomFieldDefinitionResponse The Response
      *
      * @throws QuotaExceededException If the maximum number of calls per second exceeded
      * @throws InvalidJsonException If the response is not valid
@@ -891,7 +870,7 @@ class Client extends AbstractClient
         return $this->requestGET(
             'products/custom-fields/' . $id,
             [],
-            GetCustomFieldDefinitionResponse::class
+            Response\GetCustomFieldDefinitionResponse::class
         );
     }
 
@@ -906,7 +885,7 @@ class Client extends AbstractClient
     /**
      * Get a list of all registered web hooks
      *
-     * @return WebHook[] The Response
+     * @return Model\WebHook[] The Response
      *
      * @throws QuotaExceededException If the maximum number of calls per second exceeded
      * @throws InvalidJsonException If the response is not valid
@@ -917,7 +896,7 @@ class Client extends AbstractClient
         return $this->requestGET(
             'webhooks',
             [],
-            WebHook::class . '[]'
+            Model\WebHook::class . '[]'
         );
     }
 
@@ -925,7 +904,7 @@ class Client extends AbstractClient
      * Get a web hook by id
      *
      * @param int $id The id of the web hook
-     * @return WebHook The Response
+     * @return Model\WebHook The Response
      *
      * @throws InvalidJsonException If the response is not valid
      * @throws QuotaExceededException If the maximum number of calls per second exceeded
@@ -935,7 +914,7 @@ class Client extends AbstractClient
         return $this->requestGET(
             'webhooks/' . $id,
             [],
-            WebHook::class
+            Model\WebHook::class
         );
     }
 
@@ -953,7 +932,7 @@ class Client extends AbstractClient
         return $this->requestGET(
             'webhooks/filters',
             [],
-            WebHookFilter::class . '[]'
+            Model\WebHookFilter::class . '[]'
         );
     }
 
@@ -964,18 +943,19 @@ class Client extends AbstractClient
     /**
      * Creates a new web hook
      *
-     * @return WebHook The created web hook
+     * @param Model\WebHook $webHook The web hook which should be created
+     * @return Model\WebHook The created web hook
      *
      * @throws QuotaExceededException If the maximum number of calls per second exceeded
      * @throws InvalidJsonException If the response is not valid
      * @throws \Exception If the response cannot be parsed
      */
-    public function createWebHook(WebHook $webHook)
+    public function createWebHook(Model\WebHook $webHook)
     {
         return $this->requestPOST(
             'webhooks',
             $this->jom->objectToJson($webHook),
-            WebHook::class
+            Model\WebHook::class
         );
     }
 
@@ -986,7 +966,7 @@ class Client extends AbstractClient
     /**
      * Updates a web hook
      *
-     * @param WebHook $webHook The web hook
+     * @param Model\WebHook $webHook The web hook
      * @return bool True if the web hook was updated
      *
      * @throws QuotaExceededException If the maximum number of calls per second exceeded
@@ -994,7 +974,7 @@ class Client extends AbstractClient
      * @throws \InvalidArgumentException If the web hook has no id
      * @throws \Exception If the response cannot be parsed
      */
-    public function updateWebHook(WebHook $webHook)
+    public function updateWebHook(Model\WebHook $webHook)
     {
         if ($webHook->id === null) {
             throw new \InvalidArgumentException('The id of the webHook cannot be empty');
@@ -1003,7 +983,7 @@ class Client extends AbstractClient
         $res = $this->requestPUT(
             'webhooks/' . $webHook->id,
             $this->jom->objectToJson($webHook),
-            WebHook::class
+            Model\WebHook::class
         );
 
         return $res === null;
@@ -1027,7 +1007,7 @@ class Client extends AbstractClient
         $res = $this->requestDELETE(
             'webhooks',
             [],
-            BaseResponse::class
+            Response\BaseResponse::class
         );
         return $res === null;
     }
@@ -1035,6 +1015,7 @@ class Client extends AbstractClient
     /**
      * Deletes an existing WebHook registration
      *
+     * @param int $id The id of the web hook which should be deleted
      * @return bool True if the web hook was deleted
      *
      * @throws QuotaExceededException If the maximum number of calls per second exceeded
@@ -1044,7 +1025,7 @@ class Client extends AbstractClient
      */
     public function deleteWebHookById($id)
     {
-        $webHook = new WebHook();
+        $webHook = new Model\WebHook();
         $webHook->id = $id;
         return $this->deleteWebHook($webHook);
     }
@@ -1052,6 +1033,7 @@ class Client extends AbstractClient
     /**
      * Deletes an existing WebHook registration
      *
+     * @param Model\WebHook $webHook The web hook which should be deleted
      * @return bool True if the web hook was deleted
      *
      * @throws QuotaExceededException If the maximum number of calls per second exceeded
@@ -1059,7 +1041,7 @@ class Client extends AbstractClient
      * @throws \InvalidArgumentException If the web hook has no id
      * @throws \Exception If the response cannot be parsed
      */
-    public function deleteWebHook(WebHook $webHook)
+    public function deleteWebHook(Model\WebHook $webHook)
     {
         if ($webHook->id === null) {
             throw new \InvalidArgumentException('The id of the webHook cannot be empty');
@@ -1068,7 +1050,7 @@ class Client extends AbstractClient
         $res = $this->requestDELETE(
             'webhooks/' . $webHook->id,
             [],
-            BaseResponse::class
+            Response\BaseResponse::class
         );
         return $res === null;
     }
@@ -1080,7 +1062,7 @@ class Client extends AbstractClient
     /**
      * Execute all requests in the pool
      *
-     * @return BaseResponse[]|mixed[]
+     * @return Response\BaseResponse[]|mixed[]
      *
      * @throws QuotaExceededException If the maximum number of calls per second exceeded
      * @throws InvalidJsonException If the response is not valid
