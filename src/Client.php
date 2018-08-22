@@ -101,6 +101,8 @@ class Client extends AbstractClient
 
     #region PRODUCTS
 
+    #region GET
+
     /**
      * Get a list of all products optionally filtered by date
      *
@@ -130,6 +132,30 @@ class Client extends AbstractClient
             GetProductsResponse::class
         );
     }
+
+    /**
+     * Get a single product by Id
+     *
+     * @param int $productId The product Id
+     *
+     * @return GetProductResponse The product response
+     *
+     * @throws QuotaExceededException If the maximum number of calls per second exceeded
+     * @throws InvalidJsonException If the response is not valid
+     * @throws \Exception If the response cannot be parsed
+     */
+    public function getProduct($productId)
+    {
+        return $this->requestGET(
+            'products/' . $productId,
+            [],
+            GetProductResponse::class
+        );
+    }
+
+    #endregion
+
+    #region POST
 
     /**
      * Updates the stock for a single product
@@ -188,29 +214,13 @@ class Client extends AbstractClient
         );
     }
 
-    /**
-     * Get a single product by Id
-     *
-     * @param int $productId The product Id
-     *
-     * @return GetProductResponse The product response
-     *
-     * @throws QuotaExceededException If the maximum number of calls per second exceeded
-     * @throws InvalidJsonException If the response is not valid
-     * @throws \Exception If the response cannot be parsed
-     */
-    public function getProduct($productId)
-    {
-        return $this->requestGET(
-            'products/' . $productId,
-            [],
-            GetProductResponse::class
-        );
-    }
+    #endregion
 
     #endregion
 
     #region PROVISIONING
+
+    #region GET
 
     /**
      * Returns information about Billbee terms and conditions
@@ -232,7 +242,11 @@ class Client extends AbstractClient
 
     #endregion
 
+    #endregion
+
     #region EVENTS
+
+    #region GET
 
     /**
      * Get a list of all events optionally filtered by date and / or event type
@@ -282,9 +296,11 @@ class Client extends AbstractClient
 
     #endregion
 
+    #endregion
+
     #region ORDERS
 
-    // GET
+    #region GET
 
     /**
      * Get a list of all orders optionally filtered by date
@@ -487,7 +503,9 @@ class Client extends AbstractClient
         );
     }
 
-    // POST
+    #endregion
+
+    #region POST
 
     /**
      * Get a single order by its internal billbee id
@@ -599,7 +617,9 @@ class Client extends AbstractClient
         );
     }
 
-    // PUT
+    #endregion
+
+    #region PUT
 
     /**
      * Updates/Sets the tags attached to an order
@@ -649,7 +669,9 @@ class Client extends AbstractClient
         return $res === null;
     }
 
-    // PATCH
+    #endregion
+
+    #region PATCH
 
     /**
      * Updates one or more fields of an order
@@ -674,7 +696,11 @@ class Client extends AbstractClient
 
     #endregion
 
+    #endregion
+
     #region INVOICE
+
+    #region GET
 
     /**
      * Get a list of all invoices
@@ -784,7 +810,11 @@ class Client extends AbstractClient
 
     #endregion
 
+    #endregion
+
     #region SHIPMENTS
+
+    #region GET
 
     /**
      * Query all defined shipping providers
@@ -810,7 +840,11 @@ class Client extends AbstractClient
 
     #endregion
 
+    #endregion
+
     #region PRODUCT CUSTOM FIELDS
+
+    #region GET
 
     /**
      * Get a list of all custom fields
@@ -860,6 +894,8 @@ class Client extends AbstractClient
             GetCustomFieldDefinitionResponse::class
         );
     }
+
+    #endregion
 
     #endregion
 
