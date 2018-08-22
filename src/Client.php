@@ -12,6 +12,7 @@
 
 namespace BillbeeDe\BillbeeAPI;
 
+use BillbeeDe\BillbeeAPI\Exception\InvalidIdException;
 use BillbeeDe\BillbeeAPI\Exception\QuotaExceededException;
 use BillbeeDe\BillbeeAPI\Model\Order;
 use BillbeeDe\BillbeeAPI\Model\Shipment;
@@ -23,6 +24,9 @@ use BillbeeDe\BillbeeAPI\Model\WebHookFilter;
 use BillbeeDe\BillbeeAPI\Response\BaseResponse;
 use BillbeeDe\BillbeeAPI\Response\CreateDeliveryNoteResponse;
 use BillbeeDe\BillbeeAPI\Response\CreateInvoiceResponse;
+use BillbeeDe\BillbeeAPI\Response\GetCustomerAddressesResponse;
+use BillbeeDe\BillbeeAPI\Response\GetCustomerResponse;
+use BillbeeDe\BillbeeAPI\Response\GetCustomersResponse;
 use BillbeeDe\BillbeeAPI\Response\GetCustomFieldDefinitionResponse;
 use BillbeeDe\BillbeeAPI\Response\GetCustomFieldDefinitionsResponse;
 use BillbeeDe\BillbeeAPI\Response\GetEventsResponse;
@@ -406,7 +410,10 @@ class Client extends AbstractClient
         }
 
         if (!is_numeric($articleTitleSource) || $articleTitleSource < 0 || $articleTitleSource > 2) {
-            throw new \InvalidArgumentException(sprintf('The articleTitleSource is invalid. Check %s for valid values', ArticleSource::class));
+            throw new \InvalidArgumentException(sprintf(
+                'The articleTitleSource is invalid. Check %s for valid values',
+                ArticleSource::class
+            ));
         }
         $query['articleTitleSource'] = $articleTitleSource;
 
@@ -879,13 +886,13 @@ class Client extends AbstractClient
      *
      * @throws QuotaExceededException If the maximum number of calls per second exceeded
      * @throws InvalidJsonException If the response is not valid
-     * @throws \InvalidArgumentException If the id is not an integer or negative
+     * @throws InvalidIdException If the id is not an integer or negative
      * @throws \Exception If the response cannot be parsed
      */
     public function getCustomFieldDefinition($id)
     {
         if (!is_integer($id) || $id < 1) {
-            throw new \InvalidArgumentException('Id must be an instance of integer and positive');
+            throw new InvalidIdException();
         }
 
         return $this->requestGET(
@@ -1071,6 +1078,119 @@ class Client extends AbstractClient
             BaseResponse::class
         );
         return $res === null;
+    }
+
+    #endregion
+
+    #endregion
+
+    #region CUSTOMERS
+
+    #region GET
+
+    /**
+     * Get a list of all customers
+     *
+     * @return GetCustomersResponse The Response
+     *
+     * @throws QuotaExceededException If the maximum number of calls per second exceeded
+     * @throws InvalidJsonException If the response is not valid
+     * @throws \Exception If the response cannot be parsed
+     */
+    public function getCustomers()
+    {
+        return $this->requestGET(
+            'customers',
+            [],
+            GetCustomersResponse::class
+        );
+    }
+
+    /**
+     * Get a single customers
+     *
+     * @param int $id The id of the customer
+     * @return GetCustomersResponse The Response
+     *
+     * @throws QuotaExceededException If the maximum number of calls per second exceeded
+     * @throws InvalidJsonException If the response is not valid
+     * @throws InvalidIdException If the id is not an integer or negative
+     * @throws \Exception If the response cannot be parsed
+     */
+    public function getCustomer($id)
+    {
+        if ($id === null || !is_integer($id) || $id < 1) {
+            throw new InvalidIdException();
+        }
+        return $this->requestGET(
+            'customers/' . $id,
+            [],
+            GetCustomerResponse::class
+        );
+    }
+
+    /**
+     * Get the addresses for a single customers
+     *
+     * @param int $id The id of the customer
+     * @param int $page The start page
+     * @param int $pageSize The page size
+     *
+     * @return GetCustomerAddressesResponse The Response
+     *
+     * @throws QuotaExceededException If the maximum number of calls per second exceeded
+     * @throws InvalidJsonException If the response is not valid
+     * @throws InvalidIdException If the id is not an integer or negative
+     * @throws \Exception If the response cannot be parsed
+     */
+    public function getCustomerAddresses($id, $page = 1, $pageSize = 50)
+    {
+        if ($id === null || !is_integer($id) || $id < 1) {
+            throw new InvalidIdException();
+        }
+
+        $query = [
+            'page' => max(1, $page),
+            'pageSize' => max(1, $pageSize),
+        ];
+
+        return $this->requestGET(
+            'customers/' . $id . '/addresses',
+            $query,
+            GetCustomerAddressesResponse::class
+        );
+    }
+
+    /**
+     * Get the orders for a single customers
+     *
+     * @param int $id The id of the customer
+     * @param int $page The start page
+     * @param int $pageSize The page size
+     *
+     * @return GetOrdersResponse The Response
+     *
+     * @throws QuotaExceededException If the maximum number of calls per second exceeded
+     * @throws InvalidJsonException If the response is not valid
+     * @throws InvalidIdException If the id is not an integer or negative
+     * @throws \Exception If the response cannot be parsed
+     */
+    public function getCustomerOrders($id, $page = 1, $pageSize = 50)
+    {
+        if ($id === null || !is_integer($id) || $id < 1) {
+            throw new InvalidIdException();
+        }
+
+        $query = [
+            'page' => max(1, $page),
+            'pageSize' => max(1, $pageSize),
+        ];
+
+        return $this->requestGET(
+            'customers/' . $id . '/addresses',
+            $query,
+            GetOrdersResponse::class
+        );
     }
 
     #endregion
