@@ -160,7 +160,7 @@ class Order
 
     /**
      * @var float
-     * @JsonField(name="TotalCost", type="float")
+     * @JsonField(name="AdjustmentCost", type="float")
      */
     public $adjustmentCost;
 
