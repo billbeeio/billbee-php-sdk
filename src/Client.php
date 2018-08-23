@@ -16,9 +16,6 @@ use BillbeeDe\BillbeeAPI\Exception\InvalidIdException;
 use BillbeeDe\BillbeeAPI\Exception\QuotaExceededException;
 use BillbeeDe\BillbeeAPI\Model as Model;
 use BillbeeDe\BillbeeAPI\Response as Response;
-use BillbeeDe\BillbeeAPI\Response\GetCustomerAddressesResponse;
-use BillbeeDe\BillbeeAPI\Response\GetCustomerResponse;
-use BillbeeDe\BillbeeAPI\Response\GetCustomersResponse;
 use BillbeeDe\BillbeeAPI\Type\ArticleSource;
 use BillbeeDe\BillbeeAPI\Type\OrderState;
 use BillbeeDe\BillbeeAPI\Type\Partner;
@@ -1077,7 +1074,7 @@ class Client extends AbstractClient
     /**
      * Get a list of all customers
      *
-     * @return GetCustomersResponse The Response
+     * @return Response\GetCustomersResponse The Response
      *
      * @throws QuotaExceededException If the maximum number of calls per second exceeded
      * @throws InvalidJsonException If the response is not valid
@@ -1088,7 +1085,7 @@ class Client extends AbstractClient
         return $this->requestGET(
             'customers',
             [],
-            GetCustomersResponse::class
+            Response\GetCustomersResponse::class
         );
     }
 
@@ -1096,7 +1093,7 @@ class Client extends AbstractClient
      * Get a single customers
      *
      * @param int $id The id of the customer
-     * @return GetCustomersResponse The Response
+     * @return Response\GetCustomersResponse The Response
      *
      * @throws QuotaExceededException If the maximum number of calls per second exceeded
      * @throws InvalidJsonException If the response is not valid
@@ -1111,7 +1108,7 @@ class Client extends AbstractClient
         return $this->requestGET(
             'customers/' . $id,
             [],
-            GetCustomerResponse::class
+            Response\GetCustomerResponse::class
         );
     }
 
@@ -1122,7 +1119,7 @@ class Client extends AbstractClient
      * @param int $page The start page
      * @param int $pageSize The page size
      *
-     * @return GetCustomerAddressesResponse The Response
+     * @return Response\GetCustomerAddressesResponse The Response
      *
      * @throws QuotaExceededException If the maximum number of calls per second exceeded
      * @throws InvalidJsonException If the response is not valid
@@ -1143,7 +1140,7 @@ class Client extends AbstractClient
         return $this->requestGET(
             'customers/' . $id . '/addresses',
             $query,
-            GetCustomerAddressesResponse::class
+            Response\GetCustomerAddressesResponse::class
         );
     }
 
@@ -1188,7 +1185,7 @@ class Client extends AbstractClient
      *
      * @param Model\Customer $customer The customer
      * @param Model\CustomerAddress $address The customers address
-     * @return GetCustomersResponse The created customer
+     * @return Response\GetCustomersResponse The created customer
      *
      * @throws QuotaExceededException If the maximum number of calls per second exceeded
      * @throws InvalidJsonException If the response is not valid
@@ -1202,7 +1199,7 @@ class Client extends AbstractClient
         return $this->requestPOST(
             'customers',
             json_encode($customerModel),
-            GetCustomerResponse::class
+            Response\GetCustomerResponse::class
         );
     }
 
@@ -1214,7 +1211,7 @@ class Client extends AbstractClient
      * Updates a customer
      *
      * @param Model\Customer $customer The customer
-     * @return GetCustomersResponse The customer
+     * @return Response\GetCustomersResponse The customer
      *
      * @throws QuotaExceededException If the maximum number of calls per second exceeded
      * @throws InvalidJsonException If the response is not valid
@@ -1230,7 +1227,7 @@ class Client extends AbstractClient
         return $this->requestPUT(
             'customers/' . $customer->id,
             $this->jom->objectToJson($customer),
-            GetCustomerResponse::class
+            Response\GetCustomerResponse::class
         );
     }
 
