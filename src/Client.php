@@ -14,6 +14,8 @@ namespace BillbeeDe\BillbeeAPI;
 
 use BillbeeDe\BillbeeAPI\Exception\InvalidIdException;
 use BillbeeDe\BillbeeAPI\Exception\QuotaExceededException;
+use BillbeeDe\BillbeeAPI\Model\Customer;
+use BillbeeDe\BillbeeAPI\Model\CustomerAddress;
 use BillbeeDe\BillbeeAPI\Model\Order;
 use BillbeeDe\BillbeeAPI\Model\Shipment;
 use BillbeeDe\BillbeeAPI\Model\ShippingProvider;
@@ -98,6 +100,10 @@ class Client extends AbstractClient
             'headers' => [
                 'X-Billbee-Api-Key' => $apiKey,
             ],
+            "defaults" => array("allow_redirects" => true, "exceptions" => true, "decode_content" => true,),
+            'cookies' => true,
+            'verify' => false,
+            'proxy' => "localhost:8888",
         ]);
 
         $this->jom = new ObjectMapper();
@@ -1187,9 +1193,64 @@ class Client extends AbstractClient
         ];
 
         return $this->requestGET(
-            'customers/' . $id . '/addresses',
+            'customers/' . $id . '/orders',
             $query,
             GetOrdersResponse::class
+        );
+    }
+
+    #endregion
+
+    #region POST
+
+    /**
+     * Creates a new customers
+     *
+     * @param Customer $customer The customer
+     * @param CustomerAddress $address The customers address
+     * @return GetCustomersResponse The created customer
+     *
+     * @throws QuotaExceededException If the maximum number of calls per second exceeded
+     * @throws InvalidJsonException If the response is not valid
+     * @throws \Exception If the response cannot be parsed
+     */
+    public function createCustomer(Customer $customer, CustomerAddress $address)
+    {
+        $customerModel = json_decode($this->jom->objectToJson($customer), true);
+        $customerModel['Address'] = json_decode($this->jom->objectToJson($address), true);
+
+        return $this->requestPOST(
+            'customers',
+            json_encode($customerModel),
+            GetCustomerResponse::class
+        );
+    }
+
+    #endregion
+
+    #region PUT
+
+    /**
+     * Updates a customer
+     *
+     * @param Customer $customer The customer
+     * @return GetCustomersResponse The customer
+     *
+     * @throws QuotaExceededException If the maximum number of calls per second exceeded
+     * @throws InvalidJsonException If the response is not valid
+     * @throws InvalidIdException If the customers id is invalid
+     * @throws \Exception If the response cannot be parsed
+     */
+    public function updateCustomer(Customer $customer)
+    {
+        if (!is_integer($customer->id) || $customer->id < 1) {
+            throw new InvalidIdException();
+        }
+
+        return $this->requestPUT(
+            'customers/' . $customer->id,
+            $this->jom->objectToJson($customer),
+            GetCustomerResponse::class
         );
     }
 
