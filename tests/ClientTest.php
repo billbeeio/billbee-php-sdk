@@ -13,6 +13,7 @@
 namespace BillbeeDe\Tests\BillbeeAPI;
 
 use BillbeeDe\BillbeeAPI\Client;
+use BillbeeDe\BillbeeAPI\Exception\InvalidIdException;
 use BillbeeDe\BillbeeAPI\Exception\QuotaExceededException;
 use BillbeeDe\BillbeeAPI\Model\CustomFieldDefinition;
 use BillbeeDe\BillbeeAPI\Model\DeliveryNoteDocument;
@@ -658,7 +659,7 @@ class ClientTest extends TestCase
         $client = $this->getClient();
         sleep(1);
 
-        $this->expectException(\InvalidArgumentException::class);
+        $this->expectException(InvalidIdException::class);
         $this->expectExceptionMessage('Id must be an instance of integer and positive');
         $client->getCustomFieldDefinition('hello');
     }
@@ -667,7 +668,7 @@ class ClientTest extends TestCase
     {
         $client = $this->getClient();
 
-        $this->expectException(\InvalidArgumentException::class);
+        $this->expectException(InvalidIdException::class);
         $this->expectExceptionMessage('Id must be an instance of integer and positive');
         $client->getCustomFieldDefinition(-1);
     }
