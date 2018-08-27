@@ -76,8 +76,7 @@ class Client extends AbstractClient
             ],
             "defaults" => array("allow_redirects" => true, "exceptions" => true, "decode_content" => true,),
             'cookies' => true,
-            'verify' => false,
-            'proxy' => "localhost:8888",
+            'verify' => false
         ]);
 
         $this->jom = new ObjectMapper();
