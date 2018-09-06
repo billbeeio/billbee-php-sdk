@@ -1,5 +1,9 @@
 # Changelog
 
+## v1.1.5 (27 Aug 2018)
+
+- Removed dev proxy from client ([PR #9](https://github.com/billbeeio/billbee-php-sdk/pull/9))
+
 ## v1.1.4 (23 Aug 2018)
 
 - `articleTitleSource` and `excludeTags` arguments added to `getOrders()` ([PR #5](https://github.com/billbeeio/billbee-php-sdk/pull/5)) 
