@@ -73,11 +73,7 @@ class Client extends AbstractClient
             'auth' => [$username, $apiPassword],
             'headers' => [
                 'X-Billbee-Api-Key' => $apiKey,
-            ],
-            "defaults" => array("allow_redirects" => true, "exceptions" => true, "decode_content" => true,),
-            'cookies' => true,
-            'verify' => false,
-            'proxy' => "localhost:8888",
+            ]
         ]);
 
         $this->jom = new ObjectMapper();
