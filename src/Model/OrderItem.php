@@ -29,8 +29,8 @@ class OrderItem
     public $transactionId;
 
     /**
-     * @var object
-     * @JsonField(name="Product", type="object")
+     * @var Product
+     * @JsonField(name="Product", type="BillbeeDe\BillbeeAPI\Model\Product")
      */
     public $product;
 
