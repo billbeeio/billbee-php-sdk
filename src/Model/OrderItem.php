@@ -96,4 +96,12 @@ class OrderItem
      * @JsonField(name="DontAdjustStock", type="bool")
      */
     public $dontAdjustStock;
+
+    /**
+     * Contains the used serial number
+     *
+     * @var string
+     * @JsonField(name="SerialNumber", type="string")
+     */
+    public $serialNumber;
 }
