@@ -16,9 +16,7 @@ use BillbeeDe\BillbeeAPI\Exception\InvalidIdException;
 use BillbeeDe\BillbeeAPI\Exception\QuotaExceededException;
 use BillbeeDe\BillbeeAPI\Model as Model;
 use BillbeeDe\BillbeeAPI\Response as Response;
-use BillbeeDe\BillbeeAPI\Type\ArticleSource;
-use BillbeeDe\BillbeeAPI\Type\OrderState;
-use BillbeeDe\BillbeeAPI\Type\Partner;
+use BillbeeDe\BillbeeAPI\Type as Type;
 use GuzzleHttp\Exception\ClientException;
 use GuzzleHttp\RequestOptions;
 use MintWare\JOM\Exception\InvalidJsonException;
@@ -315,7 +313,7 @@ class Client extends AbstractClient
         $minimumOrderId = null,
         \DateTime $modifiedAtMin = null,
         \DateTime $modifiedAtMax = null,
-        $articleTitleSource = ArticleSource::ORDER_POSITION,
+        $articleTitleSource = Type\ArticleSource::ORDER_POSITION,
         $excludeTags = false
     ) {
         $query = [
@@ -388,7 +386,7 @@ class Client extends AbstractClient
         if (!is_numeric($articleTitleSource) || $articleTitleSource < 0 || $articleTitleSource > 2) {
             throw new \InvalidArgumentException(sprintf(
                 'The articleTitleSource is invalid. Check %s for valid values',
-                ArticleSource::class
+                Type\ArticleSource::class
             ));
         }
         $query['articleTitleSource'] = $articleTitleSource;
@@ -475,7 +473,7 @@ class Client extends AbstractClient
      * @throws InvalidJsonException If the response is not valid
      * @throws \Exception If the response cannot be parsed
      *
-     * @see Partner
+     * @see Type\Partner
      */
     public function getOrderByPartner($externalId, $partner)
     {
@@ -600,6 +598,41 @@ class Client extends AbstractClient
         );
     }
 
+    /**
+     * Sends a message to the customer
+     *
+     * @param int $orderId The internal id of the order
+     * @param Model\MessageForCustomer $message The message model
+     * @return bool True if the message was send, otherwise false
+     *
+     * @throws QuotaExceededException If the maximum number of calls per second exceeded
+     * @throws InvalidJsonException If the response is not valid
+     * @throws \Exception If the response cannot be parsed
+     * @throws \InvalidArgumentException If the request is not valid
+     */
+    public function sendMessage($orderId, Model\MessageForCustomer $message)
+    {
+        if ($message->sendMode < 0 || $message->sendMode > 4) {
+            $msg = sprintf("The sendMode is invalid. Check the %s class for valid values", Type\SendMode::class);
+            throw new \InvalidArgumentException($msg);
+        } elseif (!is_array($message->subject) || count($message->subject) == 0) {
+            throw new \InvalidArgumentException("You have to specify a message subject");
+        } elseif (!is_array($message->body) || count($message->body) == 0) {
+            throw new \InvalidArgumentException("You have to specify a message body");
+        } elseif ($message->sendMode == Type\SendMode::EXTERNAL_EMAIL && empty($message->alternativeEmailAddress)) {
+            $msg = "With sendMode == 4 it's required to specify an alternativeEmailAddress";
+            throw new \InvalidArgumentException($msg);
+        }
+
+        $res = $this->requestPOST(
+            'orders/' . $orderId . '/send-message',
+            $this->jom->objectToJson($message),
+            Response\BaseResponse::class
+        );
+
+        return $res === '' || $res === null;
+    }
+
     #endregion
 
     #region PUT
@@ -640,7 +673,7 @@ class Client extends AbstractClient
      * @throws InvalidJsonException If the response is not valid
      * @throws \Exception If the response cannot be parsed
      *
-     * @see OrderState
+     * @see Type\OrderState
      */
     public function setOrderState($orderId, $newState)
     {

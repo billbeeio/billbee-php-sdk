@@ -17,8 +17,14 @@ use MintWare\JOM\JsonField;
 class TranslatableText
 {
     /** @JsonField(name="Text", type="string") */
-    public $text = '';
+    public $text;
 
     /** @JsonField(name="LanguageCode", type="string") */
-    public $languageCode = '';
+    public $languageCode;
+
+    public function __construct($text = '', $languageCode = '')
+    {
+        $this->text = $text;
+        $this->languageCode = $languageCode;
+    }
 }
