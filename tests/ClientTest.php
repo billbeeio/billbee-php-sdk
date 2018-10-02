@@ -21,6 +21,7 @@ use BillbeeDe\BillbeeAPI\Model\Event;
 use BillbeeDe\BillbeeAPI\Model\Invoice;
 use BillbeeDe\BillbeeAPI\Model\InvoiceDocument;
 use BillbeeDe\BillbeeAPI\Model\InvoicePosition;
+use BillbeeDe\BillbeeAPI\Model\MessageForCustomer;
 use BillbeeDe\BillbeeAPI\Model\Order;
 use BillbeeDe\BillbeeAPI\Model\OrderItem;
 use BillbeeDe\BillbeeAPI\Model\PartnerOrder;
@@ -30,6 +31,7 @@ use BillbeeDe\BillbeeAPI\Model\ShippingProvider;
 use BillbeeDe\BillbeeAPI\Model\Stock;
 use BillbeeDe\BillbeeAPI\Model\StockCode;
 use BillbeeDe\BillbeeAPI\Model\TermsInfo;
+use BillbeeDe\BillbeeAPI\Model\TranslatableText;
 use BillbeeDe\BillbeeAPI\Model\WebHook;
 use BillbeeDe\BillbeeAPI\Model\WebHookFilter;
 use BillbeeDe\BillbeeAPI\Response\BaseResponse;
@@ -789,6 +791,42 @@ class ClientTest extends TestCase
             $res = $client->deleteAllWebHooks();
             $this->assertTrue($res);
         }
+    }
+
+    public function testSendMessageFailsSendMode()
+    {
+        $client = $this->getClient();
+
+        $this->expectException(\InvalidArgumentException::class);
+        $this->expectExceptionMessage('The sendMode is invalid. Check the BillbeeDe\\BillbeeAPI\\Type\\SendMode class for valid values');
+        $client->sendMessage(null, new MessageForCustomer([], [], 6));
+    }
+
+    public function testSendMessageFailsNoSubject()
+    {
+        $client = $this->getClient();
+
+        $this->expectException(\InvalidArgumentException::class);
+        $this->expectExceptionMessage('You have to specify a message subject');
+        $client->sendMessage(null, new MessageForCustomer([], [], 0));
+    }
+
+    public function testSendMessageFailsNoBody()
+    {
+        $client = $this->getClient();
+
+        $this->expectException(\InvalidArgumentException::class);
+        $this->expectExceptionMessage('You have to specify a message body');
+        $client->sendMessage(null, new MessageForCustomer([new TranslatableText()], [], 0));
+    }
+
+    public function testSendMessageFailsNoExternalAddress()
+    {
+        $client = $this->getClient();
+
+        $this->expectException(\InvalidArgumentException::class);
+        $this->expectExceptionMessage('With sendMode == 4 it\'s required to specify an alternativeEmailAddress');
+        $client->sendMessage(null, new MessageForCustomer([new TranslatableText()], [new TranslatableText()], 4));
     }
 
     public function getClient()
