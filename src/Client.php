@@ -234,6 +234,7 @@ class Client extends AbstractClient
      * @param \DateTime $minDate Start date
      * @param \DateTime $maxDate End date
      * @param array $typeIds An array of event type id's
+     * @param int $orderId Filter for specific order id
      *
      * @return Response\GetEventsResponse The events
      *
@@ -246,7 +247,8 @@ class Client extends AbstractClient
         $pageSize = 50,
         \DateTime $minDate = null,
         \DateTime $maxDate = null,
-        $typeIds = []
+        $typeIds = [],
+        $orderId = null
     ) {
         $query = [
             'page' => max(1, $page),
@@ -263,6 +265,10 @@ class Client extends AbstractClient
 
         if (is_array($typeIds) && count($typeIds) > 0) {
             $query['typeId'] = $typeIds;
+        }
+
+        if ($orderId != null) {
+            $query['orderId'] = $orderId;
         }
 
         return $this->requestGET(
