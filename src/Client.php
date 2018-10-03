@@ -25,7 +25,6 @@ use Psr\Http\Message\RequestInterface;
 use Psr\Http\Message\ResponseInterface;
 use function GuzzleHttp\Psr7\parse_response;
 use Psr\Log\LoggerInterface;
-use Psr\Log\NullLogger;
 
 class Client extends AbstractClient
 {
@@ -80,12 +79,7 @@ class Client extends AbstractClient
         ]);
 
         $this->jom = new ObjectMapper();
-
-        if ($logger == null) {
-            $logger = new NullLogger();
-        }
-
-        $this->logger = $logger;
+        $this->setLogger($logger);
     }
 
     #region PRODUCTS
