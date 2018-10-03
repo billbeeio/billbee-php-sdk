@@ -1,5 +1,11 @@
 # Changelog
 
+## v1.2.0 (3 Oct 2018)
+
+- sendMessage endpoint implemented ([PR #11](https://github.com/billbeeio/billbee-php-sdk/pull/11))
+- serialNumber in OrderItem added and orderId parameter added in getEvents ([PR #12](https://github.com/billbeeio/billbee-php-sdk/pull/12))
+- Added logger interface ([PR #13](https://github.com/billbeeio/billbee-php-sdk/pull/13))
+
 ## v1.1.5 (27 Aug 2018)
 
 - Removed dev proxy from client ([PR #9](https://github.com/billbeeio/billbee-php-sdk/pull/9))
