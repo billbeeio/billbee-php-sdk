@@ -62,11 +62,6 @@ class Client extends AbstractClient
     protected $requestPool = [];
 
     /**
-     * @var \Psr\Log\LoggerInterface
-     */
-    protected $logger;
-
-    /**
      * Instantiates a new Billbee API client
      *
      * @param string $username The Billbee username
@@ -1341,27 +1336,6 @@ class Client extends AbstractClient
     public function getPoolSize()
     {
         return count($this->requestPool);
-    }
-
-    /**
-     * Returns the current registered logger
-     * @return LoggerInterface
-     */
-    public function getLogger()
-    {
-        return $this->logger;
-    }
-
-    /**
-     * Sets the logger
-     * @param LoggerInterface $logger
-     */
-    public function setLogger(LoggerInterface $logger = null)
-    {
-        if ($logger == null) {
-            $logger = new NullLogger();
-        }
-        $this->logger = $logger;
     }
 
     /**
