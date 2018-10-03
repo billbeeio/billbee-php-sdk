@@ -52,6 +52,8 @@ use BillbeeDe\BillbeeAPI\Type\ArticleSource;
 use BillbeeDe\BillbeeAPI\Type\EventType;
 use BillbeeDe\BillbeeAPI\Type\OrderState;
 use PHPUnit\Framework\TestCase;
+use Psr\Log\LoggerInterface;
+use Psr\Log\NullLogger;
 use Symfony\Component\Yaml\Yaml;
 
 class ClientTest extends TestCase
@@ -827,6 +829,25 @@ class ClientTest extends TestCase
         $this->expectException(\InvalidArgumentException::class);
         $this->expectExceptionMessage('With sendMode == 4 it\'s required to specify an alternativeEmailAddress');
         $client->sendMessage(null, new MessageForCustomer([new TranslatableText()], [new TranslatableText()], 4));
+    }
+
+    public function testGetSetLogger()
+    {
+        $client = $this->getClient();
+        $this->assertInstanceOf(LoggerInterface::class, $client->getLogger());
+        $this->assertInstanceOf(NullLogger::class, $client->getLogger());
+
+        $client->setLogger(new EchoLogger());
+        $this->assertInstanceOf(LoggerInterface::class, $client->getLogger());
+        $this->assertInstanceOf(EchoLogger::class, $client->getLogger());
+
+        $client->setLogger();
+        $this->assertInstanceOf(LoggerInterface::class, $client->getLogger());
+        $this->assertInstanceOf(NullLogger::class, $client->getLogger());
+
+        $client->setLogger(null);
+        $this->assertInstanceOf(LoggerInterface::class, $client->getLogger());
+        $this->assertInstanceOf(NullLogger::class, $client->getLogger());
     }
 
     public function getClient()

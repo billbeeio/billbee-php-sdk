@@ -14,6 +14,8 @@ namespace BillbeeDe\BillbeeAPI;
 
 use GuzzleHttp\Psr7 as Psr7;
 use Psr\Http\Message\RequestInterface;
+use Psr\Log\LoggerInterface;
+use Psr\Log\NullLogger;
 
 /**
  * Helper class to make guzzle methods protected instead of private
@@ -21,6 +23,9 @@ use Psr\Http\Message\RequestInterface;
  */
 abstract class AbstractClient extends \GuzzleHttp\Client
 {
+    /** @var \Psr\Log\LoggerInterface */
+    protected $logger;
+
     protected function createRequest($method, $uri, $options)
     {
         $options = $this->prepareDefaults($options);
@@ -30,6 +35,11 @@ abstract class AbstractClient extends \GuzzleHttp\Client
         $version = isset($options['version']) ? $options['version'] : '1.1';
         // Merge the URI into the base URI.
         $uri = $this->buildUri($uri, $options);
+
+        $this->logger->info(sprintf('Created request: %s %s', strtoupper($method), $uri));
+        if (count($headers) > 0 || strlen($body) > 0) {
+            $this->logger->debug('Request headers + body', ['headers' => $headers, 'body' => $body]);
+        }
         return $this->applyOptions(new Psr7\Request($method, $uri, $headers, $body, $version), $options);
     }
 
@@ -202,5 +212,26 @@ abstract class AbstractClient extends \GuzzleHttp\Client
             . 'Please use the "form_params" request option to send a '
             . 'application/x-www-form-urlencoded request, or the "multipart" '
             . 'request option to send a multipart/form-data request.');
+    }
+
+    /**
+     * Returns the current registered logger
+     * @return LoggerInterface
+     */
+    public function getLogger()
+    {
+        return $this->logger;
+    }
+
+    /**
+     * Sets the logger
+     * @param LoggerInterface $logger
+     */
+    public function setLogger(LoggerInterface $logger = null)
+    {
+        if ($logger == null) {
+            $logger = new NullLogger();
+        }
+        $this->logger = $logger;
     }
 }
