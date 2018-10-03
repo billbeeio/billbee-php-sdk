@@ -24,6 +24,8 @@ use MintWare\JOM\ObjectMapper;
 use Psr\Http\Message\RequestInterface;
 use Psr\Http\Message\ResponseInterface;
 use function GuzzleHttp\Psr7\parse_response;
+use Psr\Log\LoggerInterface;
+use Psr\Log\NullLogger;
 
 class Client extends AbstractClient
 {
@@ -46,6 +48,8 @@ class Client extends AbstractClient
      * Each single call returns null.
      * Call the executeBatch method to execute all calls and retrieve the responses
      *
+     * @see Client::executeBatch()
+     *
      * @var bool
      */
     public $useBatching = false;
@@ -58,13 +62,19 @@ class Client extends AbstractClient
     protected $requestPool = [];
 
     /**
+     * @var \Psr\Log\LoggerInterface
+     */
+    protected $logger;
+
+    /**
      * Instantiates a new Billbee API client
      *
      * @param string $username The Billbee username
      * @param string $apiPassword The API password for the user
      * @param string $apiKey The API Key
+     * @param LoggerInterface $logger Sets a optional logger
      */
-    public function __construct($username, $apiPassword, $apiKey)
+    public function __construct($username, $apiPassword, $apiKey, LoggerInterface $logger = null)
     {
         parent::__construct([
             'base_uri' => $this->endpoint,
@@ -75,6 +85,12 @@ class Client extends AbstractClient
         ]);
 
         $this->jom = new ObjectMapper();
+
+        if ($logger == null) {
+            $logger = new NullLogger();
+        }
+
+        $this->logger = $logger;
     }
 
     #region PRODUCTS
@@ -628,6 +644,10 @@ class Client extends AbstractClient
         } elseif ($message->sendMode == Type\SendMode::EXTERNAL_EMAIL && empty($message->alternativeEmailAddress)) {
             $msg = "With sendMode == 4 it's required to specify an alternativeEmailAddress";
             throw new \InvalidArgumentException($msg);
+        }
+
+        if ($message->sendMode != Type\SendMode::EXTERNAL_EMAIL && empty($message->alternativeEmailAddress)) {
+            $this->logger->warning('The alternative email address is ignored because sendMode != 4');
         }
 
         $res = $this->requestPOST(
@@ -1278,11 +1298,15 @@ class Client extends AbstractClient
      * @throws QuotaExceededException If the maximum number of calls per second exceeded
      * @throws InvalidJsonException If the response is not valid
      * @throws \Exception If the response cannot be parsed
+     *
+     * @see Client::$useBatching
      */
     public function executeBatch()
     {
         $responses = [];
         if ($this->getPoolSize() > 0) {
+            $this->logger->info(sprintf('Performing batch request for %s requests in the pool', $this->getPoolSize()));
+
             $boundaries = [];
             foreach ($this->requestPool as $_request) {
                 $boundaries[] = $this->requestToBoundary($_request['request']);
@@ -1472,10 +1496,12 @@ class Client extends AbstractClient
     private function internalRequest($responseClass, callable $request, $ignorePool = false)
     {
         if ($this->useBatching === true && $ignorePool === false) {
-            $this->requestPool[] = [
+            $req = [
                 'responseClass' => $responseClass,
                 'request' => $request()
             ];
+            $this->logger->info('Adding request for batch request to the request pool', $req);
+            $this->requestPool[] = $req;
             return null;
         }
 
@@ -1485,8 +1511,10 @@ class Client extends AbstractClient
             $res = $this->sendAsync($request(), [RequestOptions::SYNCHRONOUS => true])->wait();
         } catch (ClientException $ex) {
             if ($ex->getCode() == 429) {
+                $this->logger->warning('Request quota exceeded');
                 throw new QuotaExceededException($ex->getMessage());
             } else {
+                $this->logger->error('Error during request', $ex);
                 throw $ex;
             }
         }
