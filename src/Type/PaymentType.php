@@ -96,4 +96,6 @@ class PaymentType
     const REAL_DE = 93;
     const FRUUGO = 94;
     const CDISCOUNT = 95;
+    const PAY_DIREKT = 96;
+    const ETSY_PAYMENTS = 97;
 }
