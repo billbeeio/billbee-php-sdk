@@ -85,10 +85,10 @@ class EventType
     const BILLBEE_INVOICE_PAYMENT_FAILED = 68;
     const SHOP_CREATED = 69;
     const SHOP_MODIFIED = 70;
-    const SHOP_DELETED = 70;
-    const SHOP_CONVERTED = 71;
-    const RULE_FAILED = 72;
-    const LOW_STOCK = 73;
-    const ARTICLE_IMPORT_FINISHED = 74;
-    const FEATURE_FUNDING_AMOUNT_CHANGED = 75;
+    const SHOP_DELETED = 71;
+    const SHOP_CONVERTED = 72;
+    const RULE_FAILED = 73;
+    const LOW_STOCK = 74;
+    const ARTICLE_IMPORT_FINISHED = 75;
+    const FEATURE_FUNDING_AMOUNT_CHANGED = 76;
 }
