@@ -251,14 +251,40 @@ class Order
     /**
      * @var int
      * @JsonField(name="ShippingProfileId", type="int")
+     * @deprecated remove in 2.0.0. Use Shipping $shippingProviderId or $shippingProviderProductId instead
      */
     public $shippingProfileId;
 
     /**
      * @var string
      * @JsonField(name="ShippingProfileName", type="string")
+     * @deprecated remove in 2.0.0. Use Shipping $shippingProviderName or $shippingProviderProductName instead
      */
     public $shippingProfileName;
+
+    /**
+     * @var int
+     * @JsonField(name="ShippingProviderId", type="int")
+     */
+    public $shippingProviderId;
+
+    /**
+     * @var int
+     * @JsonField(name="ShippingProviderProductId", type="int")
+     */
+    public $shippingProviderProductId;
+
+    /**
+     * @var string
+     * @JsonField(name="ShippingProviderName", type="string")
+     */
+    public $shippingProviderName;
+
+    /**
+     * @var string
+     * @JsonField(name="ShippingProviderProductName", type="string")
+     */
+    public $shippingProviderProductName;
 
     /**
      * @var string

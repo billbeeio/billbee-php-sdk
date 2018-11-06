@@ -119,7 +119,9 @@ class Client extends AbstractClient
     /**
      * Get a single product by Id
      *
-     * @param int $productId The product Id
+     * @param int $productId The product id
+     * @param string $lookupBy Either the value id, ean or the value sku to specify the meaning of the id parameter
+     * @see \BillbeeDe\BillbeeAPI\Type\ProductLookupBy
      *
      * @return Response\GetProductResponse The product response
      *
@@ -127,11 +129,11 @@ class Client extends AbstractClient
      * @throws InvalidJsonException If the response is not valid
      * @throws \Exception If the response cannot be parsed
      */
-    public function getProduct($productId)
+    public function getProduct($productId, $lookupBy = Type\ProductLookupBy::ID)
     {
         return $this->requestGET(
             'products/' . $productId,
-            [],
+            ['lookupBy' => $lookupBy],
             Response\GetProductResponse::class
         );
     }
@@ -484,7 +486,7 @@ class Client extends AbstractClient
      * @throws InvalidJsonException If the response is not valid
      * @throws \Exception If the response cannot be parsed
      *
-     * @see Type\Partner
+     * @see \BillbeeDe\BillbeeAPI\Type\Partner
      */
     public function getOrderByPartner($externalId, $partner)
     {
@@ -688,7 +690,7 @@ class Client extends AbstractClient
      * @throws InvalidJsonException If the response is not valid
      * @throws \Exception If the response cannot be parsed
      *
-     * @see Type\OrderState
+     * @see \BillbeeDe\BillbeeAPI\Type\OrderState
      */
     public function setOrderState($orderId, $newState)
     {
@@ -1503,7 +1505,7 @@ class Client extends AbstractClient
                 $this->logger->warning('Request quota exceeded');
                 throw new QuotaExceededException($ex->getMessage());
             } else {
-                $this->logger->error('Error during request', $ex);
+                $this->logger->error('Error during request', (array)$ex);
                 throw $ex;
             }
         }

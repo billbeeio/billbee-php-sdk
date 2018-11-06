@@ -1,5 +1,11 @@
 # Changelog
 
+## v1.3.0 (6 Nov 2018)
+
+- Added the lookupBy parameter to the `getProduct()` call
+- Added the properties `ShippingProviderId`, `ShippingProviderProductId`, `ShippingProviderName`, `ShippingProviderProductName` to the `getOrder()` resposne
+
+
 ## v1.2.0 (3 Oct 2018)
 
 - sendMessage endpoint implemented ([PR #11](https://github.com/billbeeio/billbee-php-sdk/pull/11))

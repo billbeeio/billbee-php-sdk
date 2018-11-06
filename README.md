@@ -1,3 +1,7 @@
+[![Packagist](https://img.shields.io/packagist/v/billbee/billbee-api.svg)](https://packagist.org/packages/billbee/billbee-api)
+[![GitHub license](https://img.shields.io/badge/license-MIT-blue.svg)](https://raw.githubusercontent.com/billbeeio/billbee-php-sdk/master/LICENSE)
+[![Packagist](https://img.shields.io/packagist/dt/billbee/billbee-api.svg)](https://packagist.org/packages/billbee/billbee-api)
+
 [![Logo](https://app.billbee.io/static/billbee/img/logo.png)](https://www.billbee.de)
 
 # Billbee API
