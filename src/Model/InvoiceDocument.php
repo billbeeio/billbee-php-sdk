@@ -12,49 +12,49 @@
 
 namespace BillbeeDe\BillbeeAPI\Model;
 
-use MintWare\JOM\JsonField;
+use MintWare\DMM\DataField;
 
 class InvoiceDocument
 {
     /**
      * @var string
-     * @JsonField(name="OrderNumber", type="string")
+     * @DataField(name="OrderNumber", type="string")
      */
     public $orderNumber;
 
     /**
      * @var string
-     * @JsonField(name="InvoiceNumber", type="string")
+     * @DataField(name="InvoiceNumber", type="string")
      */
     public $invoiceNumber;
 
     /**
      * @var string
-     * @JsonField(name="PDFData", type="string")
+     * @DataField(name="PDFData", type="string")
      */
     public $pdfData;
 
     /**
      * @var \DateTime
-     * @JsonField(name="InvoiceDate", type="datetime")
+     * @DataField(name="InvoiceDate", type="datetime")
      */
     public $invoiceDate;
 
     /**
      * @var float
-     * @JsonField(name="TotalGross", type="float")
+     * @DataField(name="TotalGross", type="float")
      */
     public $totalGross;
 
     /**
      * @var float
-     * @JsonField(name="TotalNet", type="float")
+     * @DataField(name="TotalNet", type="float")
      */
     public $totalNet;
 
     /**
      * @var string
-     * @JsonField(name="PdfDownloadUrl", type="string")
+     * @DataField(name="PdfDownloadUrl", type="string")
      */
     public $pdfDownloadUrl;
 }

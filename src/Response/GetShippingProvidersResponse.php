@@ -12,13 +12,13 @@
 
 namespace BillbeeDe\BillbeeAPI\Response;
 
-use MintWare\JOM\JsonField;
+use MintWare\DMM\DataField;
 
 class GetShippingProvidersResponse extends BaseResponse
 {
     /**
      * @var \BillbeeDe\BillbeeAPI\Model\ShippingProvider[]
-     * @JsonField(name="Data", type="\BillbeeDe\BillbeeAPI\Model\ShippingProvider[]")
+     * @DataField(name="Data", type="\BillbeeDe\BillbeeAPI\Model\ShippingProvider[]")
      */
     public $data = [];
 }

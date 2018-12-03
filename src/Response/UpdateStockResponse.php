@@ -12,13 +12,13 @@
 
 namespace BillbeeDe\BillbeeAPI\Response;
 
-use MintWare\JOM\JsonField;
+use MintWare\DMM\DataField;
 
 class UpdateStockResponse extends BaseResponse
 {
     /**
      * @var array
-     * @JsonField(name="Data", type="array")
+     * @DataField(name="Data", type="array")
      */
     public $data = [];
 }

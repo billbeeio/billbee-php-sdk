@@ -12,43 +12,43 @@
 
 namespace BillbeeDe\BillbeeAPI\Model;
 
-use MintWare\JOM\JsonField;
+use MintWare\DMM\DataField;
 
 class Image
 {
     /**
      * @var int
-     * @JsonField(name="Id", type="int")
+     * @DataField(name="Id", type="int")
      */
     public $id;
 
     /**
      * @var string
-     * @JsonField(name="Url", type="string")
+     * @DataField(name="Url", type="string")
      */
     public $url = '';
 
     /**
      * @var string
-     * @JsonField(name="ThumbPathExt", type="string")
+     * @DataField(name="ThumbPathExt", type="string")
      */
     public $thumbPathExt = '';
 
     /**
      * @var string
-     * @JsonField(name="ThumbUrl", type="string")
+     * @DataField(name="ThumbUrl", type="string")
      */
     public $thumbUrl = '';
 
     /**
      * @var int
-     * @JsonField(name="Position", type="int")
+     * @DataField(name="Position", type="int")
      */
     public $position = 1;
 
     /**
      * @var bool
-     * @JsonField(name="IsDefault", type="bool")
+     * @DataField(name="IsDefault", type="bool")
      */
     public $isDefault = 1;
 }

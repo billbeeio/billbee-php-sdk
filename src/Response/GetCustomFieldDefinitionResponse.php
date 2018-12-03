@@ -12,13 +12,13 @@
 
 namespace BillbeeDe\BillbeeAPI\Response;
 
-use MintWare\JOM\JsonField;
+use MintWare\DMM\DataField;
 
 class GetCustomFieldDefinitionResponse extends BaseResponse
 {
     /**
      * @var \BillbeeDe\BillbeeAPI\Model\CustomFieldDefinition
-     * @JsonField(name="Data", type="\BillbeeDe\BillbeeAPI\Model\CustomFieldDefinition")
+     * @DataField(name="Data", type="\BillbeeDe\BillbeeAPI\Model\CustomFieldDefinition")
      */
     public $data = null;
 }

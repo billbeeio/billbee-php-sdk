@@ -12,37 +12,37 @@
 
 namespace BillbeeDe\BillbeeAPI\Model;
 
-use MintWare\JOM\JsonField;
+use MintWare\DMM\DataField;
 
 class Comment
 {
     /**
      * @var int
-     * @JsonField(name="Id", type="int")
+     * @DataField(name="Id", type="int")
      */
     public $id;
 
     /**
      * @var \DateTime
-     * @JsonField(name="Created", type="datetime")
+     * @DataField(name="Created", type="datetime")
      */
     public $created;
 
     /**
      * @var bool
-     * @JsonField(name="FromCustomer", type="bool")
+     * @DataField(name="FromCustomer", type="bool")
      */
     public $fromCustomer;
 
     /**
      * @var string
-     * @JsonField(name="Text", type="string")
+     * @DataField(name="Text", type="string")
      */
     public $text;
 
     /**
      * @var string
-     * @JsonField(name="Name", type="string")
+     * @DataField(name="Name", type="string")
      */
     public $name;
 }

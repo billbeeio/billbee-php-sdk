@@ -12,7 +12,7 @@
 
 namespace BillbeeDe\BillbeeAPI\Model;
 
-use MintWare\JOM\JsonField;
+use MintWare\DMM\DataField;
 
 class Address
 {
@@ -21,85 +21,85 @@ class Address
 
     /**
      * @var string
-     * @JsonField(name="City", type="string")
+     * @DataField(name="City", type="string")
      */
     public $city;
 
     /**
      * @var string
-     * @JsonField(name="Street", type="string")
+     * @DataField(name="Street", type="string")
      */
     public $street;
 
     /**
      * @var string
-     * @JsonField(name="Company", type="string")
+     * @DataField(name="Company", type="string")
      */
     public $company;
 
     /**
      * @var string
-     * @JsonField(name="Line2", type="string")
+     * @DataField(name="Line2", type="string")
      */
     public $line2;
 
     /**
      * @var string
-     * @JsonField(name="Line3", type="string")
+     * @DataField(name="Line3", type="string")
      */
     public $line3;
 
     /**
      * @var string
-     * @JsonField(name="Zip", type="string")
+     * @DataField(name="Zip", type="string")
      */
     public $zip;
 
     /**
      * @var string
-     * @JsonField(name="State", type="string")
+     * @DataField(name="State", type="string")
      */
     public $state;
 
     /**
      * @var string
-     * @JsonField(name="Country", type="string")
+     * @DataField(name="Country", type="string")
      */
     public $country;
 
     /**
      * @var string
-     * @JsonField(name="CountryISO2", type="string")
+     * @DataField(name="CountryISO2", type="string")
      */
     public $countryISO2;
 
     /**
      * @var string
-     * @JsonField(name="FirstName", type="string")
+     * @DataField(name="FirstName", type="string")
      */
     public $firstName;
 
     /**
      * @var string
-     * @JsonField(name="LastName", type="string")
+     * @DataField(name="LastName", type="string")
      */
     public $lastName;
 
     /**
      * @var string
-     * @JsonField(name="Phone", type="string")
+     * @DataField(name="Phone", type="string")
      */
     public $phone;
 
     /**
      * @var string
-     * @JsonField(name="Email", type="string")
+     * @DataField(name="Email", type="string")
      */
     public $email;
 
     /**
      * @var string
-     * @JsonField(name="HouseNumber", type="string")
+     * @DataField(name="HouseNumber", type="string")
      */
     public $houseNumber;
 
@@ -108,7 +108,7 @@ class Address
 
     /**
      * @var string
-     * @JsonField(name="NameAddition", type="string")
+     * @DataField(name="NameAddition", type="string")
      */
     public $nameAddition;
 }

@@ -12,13 +12,13 @@
 
 namespace BillbeeDe\BillbeeAPI\Response;
 
-use MintWare\JOM\JsonField;
+use MintWare\DMM\DataField;
 
 class GetProductsResponse extends BaseResponse
 {
     /**
      * @var \BillbeeDe\BillbeeAPI\Model\Product[]
-     * @JsonField(name="Data", type="\BillbeeDe\BillbeeAPI\Model\Product[]")
+     * @DataField(name="Data", type="\BillbeeDe\BillbeeAPI\Model\Product[]")
      */
     public $data = [];
 }

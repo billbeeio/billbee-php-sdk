@@ -12,19 +12,19 @@
 
 namespace BillbeeDe\BillbeeAPI\Model;
 
-use MintWare\JOM\JsonField;
+use MintWare\DMM\DataField;
 
 class Category
 {
     /**
      * @var int
-     * @JsonField(name="Id", type="int")
+     * @DataField(name="Id", type="int")
      */
     public $id;
 
     /**
      * @var string
-     * @JsonField(name="Name", type="string")
+     * @DataField(name="Name", type="string")
      */
     public $name = '';
 }

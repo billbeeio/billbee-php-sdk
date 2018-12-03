@@ -12,7 +12,7 @@
 
 namespace BillbeeDe\BillbeeAPI\Model;
 
-use MintWare\JOM\JsonField;
+use MintWare\DMM\DataField;
 
 class CustomerAddress
 {
@@ -21,115 +21,115 @@ class CustomerAddress
 
     /**
      * @var integer
-     * @JsonField("Id", type="integer")
+     * @DataField("Id", type="integer")
      */
     public $id;
 
     /**
      * @var integer
-     * @JsonField("AddressType", type="integer|string")
+     * @DataField("AddressType", type="integer|string")
      */
     public $addressType = self::TYPE_INVOICE;
 
     /**
      * @var integer
-     * @JsonField("CustomerId", type="integer")
+     * @DataField("CustomerId", type="integer")
      */
     public $customerId;
 
     /**
      * @var string
-     * @JsonField("Company", type="string")
+     * @DataField("Company", type="string")
      */
     public $company;
 
     /**
      * @var string
-     * @JsonField("FirstName", type="string")
+     * @DataField("FirstName", type="string")
      */
     public $firstName;
 
     /**
      * @var string
-     * @JsonField("LastName", type="string")
+     * @DataField("LastName", type="string")
      */
     public $lastName;
 
     /**
      * @var string
-     * @JsonField("Name2", type="string")
+     * @DataField("Name2", type="string")
      */
     public $name2;
 
     /**
      * @var string
-     * @JsonField("Street", type="string")
+     * @DataField("Street", type="string")
      */
     public $street;
 
     /**
      * @var string
-     * @JsonField("Housenumber", type="string")
+     * @DataField("Housenumber", type="string")
      */
     public $houseNumber;
 
     /**
      * @var string
-     * @JsonField("Zip", type="string")
+     * @DataField("Zip", type="string")
      */
     public $zip;
 
     /**
      * @var string
-     * @JsonField("City", type="string")
+     * @DataField("City", type="string")
      */
     public $city;
 
     /**
      * @var string
-     * @JsonField("State", type="string")
+     * @DataField("State", type="string")
      */
     public $state;
 
     /**
      * @var string
-     * @JsonField("CountryCode", type="string")
+     * @DataField("CountryCode", type="string")
      */
     public $countryCode;
 
     /**
      * @var string
-     * @JsonField("Email", type="string")
+     * @DataField("Email", type="string")
      */
     public $email;
 
     /**
      * @var string
-     * @JsonField("Tel1", type="string")
+     * @DataField("Tel1", type="string")
      */
     public $phone1;
 
     /**
      * @var string
-     * @JsonField("Tel2", type="string")
+     * @DataField("Tel2", type="string")
      */
     public $phone2;
 
     /**
      * @var string
-     * @JsonField("Fax", type="string")
+     * @DataField("Fax", type="string")
      */
     public $fax;
 
     /**
      * @var string
-     * @JsonField("FullAddr", type="string")
+     * @DataField("FullAddr", type="string")
      */
     public $fullAddress;
 
     /**
      * @var string
-     * @JsonField("AddressAddition", type="string")
+     * @DataField("AddressAddition", type="string")
      */
     public $addressAddition;
 }

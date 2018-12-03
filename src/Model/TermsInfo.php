@@ -12,28 +12,28 @@
 
 namespace BillbeeDe\BillbeeAPI\Model;
 
-use MintWare\JOM\JsonField;
+use MintWare\DMM\DataField;
 
 class TermsInfo
 {
     /**
      * @var string
-     * @JsonField(name="LinkToTermsWebPage", type="string")
+     * @DataField(name="LinkToTermsWebPage", type="string")
      */
     public $termsWebPageLink = '';
     /**
      * @var string
-     * @JsonField(name="LinkToPrivacyWebPage", type="string")
+     * @DataField(name="LinkToPrivacyWebPage", type="string")
      */
     public $privacyWebPageLink = '';
     /**
      * @var string
-     * @JsonField(name="LinkToTermsHtmlContent", type="string")
+     * @DataField(name="LinkToTermsHtmlContent", type="string")
      */
     public $termsContentLink = '';
     /**
      * @var string
-     * @JsonField(name="LinkToPrivacyHtmlContent", type="string")
+     * @DataField(name="LinkToPrivacyHtmlContent", type="string")
      */
     public $privacyContentLink = '';
 }

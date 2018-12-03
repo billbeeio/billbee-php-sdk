@@ -13,13 +13,13 @@
 namespace BillbeeDe\BillbeeAPI\Model;
 
 use BillbeeDe\BillbeeAPI\Type\SendMode;
-use MintWare\JOM\JsonField;
+use MintWare\DMM\DataField;
 
 class MessageForCustomer
 {
     /**
      * @var int
-     * @JsonField(name="SendMode", type="int")
+     * @DataField(name="SendMode", type="int")
      *
      * @see SendMode
      */
@@ -27,7 +27,7 @@ class MessageForCustomer
 
     /**
      * @var \BillbeeDe\BillbeeAPI\Model\TranslatableText[]
-     * @JsonField(name="Subject", type="BillbeeDe\BillbeeAPI\Model\TranslatableText[]")
+     * @DataField(name="Subject", type="BillbeeDe\BillbeeAPI\Model\TranslatableText[]")
      *
      * @see \BillbeeDe\BillbeeAPI\Model\TranslatableText;
      */
@@ -35,13 +35,13 @@ class MessageForCustomer
 
     /**
      * @var \BillbeeDe\BillbeeAPI\Model\TranslatableText[]
-     * @JsonField(name="Body", type="BillbeeDe\BillbeeAPI\Model\TranslatableText[]")
+     * @DataField(name="Body", type="BillbeeDe\BillbeeAPI\Model\TranslatableText[]")
      */
     public $body;
 
     /**
      * @var string
-     * @JsonField(name="AlternativeMail", type="string")
+     * @DataField(name="AlternativeMail", type="string")
      */
     public $alternativeEmailAddress;
 

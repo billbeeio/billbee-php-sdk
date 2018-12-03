@@ -12,31 +12,31 @@
 
 namespace BillbeeDe\BillbeeAPI\Model;
 
-use MintWare\JOM\JsonField;
+use MintWare\DMM\DataField;
 
 class OrderItemAttribute
 {
     /**
      * @var int
-     * @JsonField(name="Id", type="string")
+     * @DataField(name="Id", type="string")
      */
     public $id;
 
     /**
      * @var string
-     * @JsonField(name="Name", type="string")
+     * @DataField(name="Name", type="string")
      */
     public $name;
 
     /**
      * @var string
-     * @JsonField(name="Value", type="string")
+     * @DataField(name="Value", type="string")
      */
     public $value;
 
     /**
      * @var float
-     * @JsonField(name="Price", type="float")
+     * @DataField(name="Price", type="float")
      */
     public $price;
 }

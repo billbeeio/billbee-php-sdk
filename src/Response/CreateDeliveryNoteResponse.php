@@ -12,13 +12,13 @@
 
 namespace BillbeeDe\BillbeeAPI\Response;
 
-use MintWare\JOM\JsonField;
+use MintWare\DMM\DataField;
 
 class CreateDeliveryNoteResponse extends BaseResponse
 {
     /**
      * @var \BillbeeDe\BillbeeAPI\Model\DeliveryNoteDocument
-     * @JsonField(name="Data", type="\BillbeeDe\BillbeeAPI\Model\DeliveryNoteDocument")
+     * @DataField(name="Data", type="\BillbeeDe\BillbeeAPI\Model\DeliveryNoteDocument")
      */
     public $data = null;
 }

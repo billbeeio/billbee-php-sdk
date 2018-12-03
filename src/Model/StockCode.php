@@ -12,7 +12,7 @@
 
 namespace BillbeeDe\BillbeeAPI\Model;
 
-use MintWare\JOM\JsonField;
+use MintWare\DMM\DataField;
 
 class StockCode
 {
@@ -20,7 +20,7 @@ class StockCode
      * The SKU of the Product
      * @var string
      *
-     * @JsonField(name="Sku", type="string")
+     * @DataField(name="Sku", type="string")
      */
     public $sku;
 
@@ -28,7 +28,7 @@ class StockCode
      * The Id of the stock
      * @var int
      *
-     * @JsonField(name="StockId", type="int")
+     * @DataField(name="StockId", type="int")
      */
     public $stockId = null;
 
@@ -36,7 +36,7 @@ class StockCode
      * The stock code
      * @var string
      *
-     * @JsonField(name="StockCode", type="string")
+     * @DataField(name="StockCode", type="string")
      */
     public $stockCode;
 

@@ -12,73 +12,73 @@
 
 namespace BillbeeDe\BillbeeAPI\Model;
 
-use MintWare\JOM\JsonField;
+use MintWare\DMM\DataField;
 
 class InvoicePosition
 {
     /**
      * @var int
-     * @JsonField(name="BillbeeId", type="int")
+     * @DataField(name="BillbeeId", type="int")
      */
     public $id;
 
     /**
      * @var int
-     * @JsonField(name="Position", type="int")
+     * @DataField(name="Position", type="int")
      */
     public $position;
 
     /**
      * @var float
-     * @JsonField(name="Amount", type="float")
+     * @DataField(name="Amount", type="float")
      */
     public $amount = 0.00;
 
     /**
      * @var float
-     * @JsonField(name="Amount", type="float")
+     * @DataField(name="Amount", type="float")
      */
     public $netValue = 0.00;
 
     /**
      * @var float
-     * @JsonField(name="TotalNetValue", type="float")
+     * @DataField(name="TotalNetValue", type="float")
      */
     public $totalNetValue = 0.00;
 
     /**
      * @var float
-     * @JsonField(name="GrossValue", type="float")
+     * @DataField(name="GrossValue", type="float")
      */
     public $grossValue = 0.00;
 
     /**
      * @var float
-     * @JsonField(name="TotalGrossValue", type="float")
+     * @DataField(name="TotalGrossValue", type="float")
      */
     public $totalGrossValue = 0.00;
 
     /**
      * @var float
-     * @JsonField(name="VatRate", type="float")
+     * @DataField(name="VatRate", type="float")
      */
     public $vatRate = 0.00;
 
     /**
      * @var int
-     * @JsonField(name="ArticleBillbeeId", type="int")
+     * @DataField(name="ArticleBillbeeId", type="int")
      */
     public $articleId;
 
     /**
      * @var string
-     * @JsonField(name="Sku", type="string")
+     * @DataField(name="Sku", type="string")
      */
     public $sku = '';
 
     /**
      * @var string
-     * @JsonField(name="Title", type="string")
+     * @DataField(name="Title", type="string")
      */
     public $title = '';
 }

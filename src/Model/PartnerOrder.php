@@ -13,92 +13,92 @@
 namespace BillbeeDe\BillbeeAPI\Model;
 
 use BillbeeDe\BillbeeAPI\Type\OrderState;
-use MintWare\JOM\JsonField;
+use MintWare\DMM\DataField;
 
 class PartnerOrder
 {
     /**
      * @var int
-     * @JsonField(name="Id", type="int")
+     * @DataField(name="Id", type="int")
      */
     public $id;
 
     /**
      * @var string
-     * @JsonField(name="ExternalId", type="string")
+     * @DataField(name="ExternalId", type="string")
      */
     public $externalId;
 
     /**
      * @var string
-     * @JsonField(name="InvoiceNumber", type="string")
+     * @DataField(name="InvoiceNumber", type="string")
      */
     public $invoiceNumber;
 
     /**
      * @var \DateTime
-     * @JsonField(name="InvoiceCreatedAt", type="datetime")
+     * @DataField(name="InvoiceCreatedAt", type="datetime")
      */
     public $invoiceCreatedAt;
 
     /**
      * @var \DateTime
-     * @JsonField(name="InvoiceDate", type="datetime")
+     * @DataField(name="InvoiceDate", type="datetime")
      */
     public $invoiceDate;
 
     /**
      * @var \DateTime
-     * @JsonField(name="CreatedAt", type="datetime")
+     * @DataField(name="CreatedAt", type="datetime")
      */
     public $createdAt;
 
     /**
      * @var \DateTime
-     * @JsonField(name="PaidAt", type="datetime")
+     * @DataField(name="PaidAt", type="datetime")
      */
     public $paidAt;
 
     /**
      * @var \DateTime
-     * @JsonField(name="ShippedAt", type="datetime")
+     * @DataField(name="ShippedAt", type="datetime")
      */
     public $shippedAt;
 
     /**
      * @var bool
-     * @JsonField(name="HasInvoice", type="bool")
+     * @DataField(name="HasInvoice", type="bool")
      */
     public $hasInvoice = false;
 
     /**
      * @var int
-     * @JsonField(name="OrderStateId", type="int")
+     * @DataField(name="OrderStateId", type="int")
      * @see OrderState
      */
     public $orderStateId;
 
     /**
      * @var string
-     * @JsonField(name="OrderStateText", type="string")
+     * @DataField(name="OrderStateText", type="string")
      */
     public $orderStateText;
 
     /**
      * @var float
-     * @JsonField(name="TotalGross", type="float")
+     * @DataField(name="TotalGross", type="float")
      */
     public $totalGross;
 
     /**
      * @var string
-     * @JsonField(name="ShopName", type="string")
+     * @DataField(name="ShopName", type="string")
      */
     public $shopName;
 
     /**
      * @var bool
-     * @JsonField(name="CanCreateAutoInvoice", type="bool")
+     * @DataField(name="CanCreateAutoInvoice", type="bool")
      */
     public $canCreateAutoInvoice = false;
 }

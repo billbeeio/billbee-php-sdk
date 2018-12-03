@@ -12,67 +12,67 @@
 
 namespace BillbeeDe\BillbeeAPI\Model;
 
-use MintWare\JOM\JsonField;
+use MintWare\DMM\DataField;
 
 class Source
 {
     /**
      * @var int
-     * @JsonField(name="Id", type="int")
+     * @DataField(name="Id", type="int")
      */
     public $id;
 
     /**
      * @var string
-     * @JsonField(name="Source", type="string")
+     * @DataField(name="Source", type="string")
      */
     public $source = '';
 
     /**
      * @var string
-     * @JsonField(name="SourceId", type="string")
+     * @DataField(name="SourceId", type="string")
      */
     public $sourceId = '';
 
     /**
      * @var string
-     * @JsonField(name="ApiAccountName", type="string")
+     * @DataField(name="ApiAccountName", type="string")
      */
     public $apiAccountName = '';
 
     /**
      * @var int
-     * @JsonField(name="ApiAccountId", type="int")
+     * @DataField(name="ApiAccountId", type="int")
      */
     public $apiAccountId = '';
 
     /**
      * @var float
-     * @JsonField(name="ExportFactor", type="float")
+     * @DataField(name="ExportFactor", type="float")
      */
     public $exportFactor = null;
 
     /**
      * @var bool
-     * @JsonField(name="StockSyncInactive", type="bool")
+     * @DataField(name="StockSyncInactive", type="bool")
      */
     public $stockSyncInactive = false;
 
     /**
      * @var float
-     * @JsonField(name="StockSyncMin", type="float")
+     * @DataField(name="StockSyncMin", type="float")
      */
     public $stockSyncMin = null;
 
     /**
      * @var float
-     * @JsonField(name="StockSyncMax", type="float")
+     * @DataField(name="StockSyncMax", type="float")
      */
     public $stockSyncMax = null;
 
     /**
      * @var float
-     * @JsonField(name="UnitsPerItem", type="float")
+     * @DataField(name="UnitsPerItem", type="float")
      */
     public $unitsPerItem = 1.00;
 

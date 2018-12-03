@@ -12,37 +12,37 @@
 
 namespace BillbeeDe\BillbeeAPI\Model;
 
-use MintWare\JOM\JsonField;
+use MintWare\DMM\DataField;
 
 class DeliveryNoteDocument
 {
     /**
      * @var string
-     * @JsonField(name="OrderNumber", type="string")
+     * @DataField(name="OrderNumber", type="string")
      */
     public $orderNumber;
 
     /**
      * @var string
-     * @JsonField(name="DeliveryNoteNumber", type="string")
+     * @DataField(name="DeliveryNoteNumber", type="string")
      */
     public $deliveryNoteNumber;
 
     /**
      * @var string
-     * @JsonField(name="PDFData", type="string")
+     * @DataField(name="PDFData", type="string")
      */
     public $pdfData;
 
     /**
      * @var \DateTime
-     * @JsonField(name="DeliveryNoteDate", type="datetime")
+     * @DataField(name="DeliveryNoteDate", type="datetime")
      */
     public $deliveryNoteDate;
 
     /**
      * @var string
-     * @JsonField(name="PdfDownloadUrl", type="string")
+     * @DataField(name="PdfDownloadUrl", type="string")
      */
     public $pdfDownloadUrl;
 }
