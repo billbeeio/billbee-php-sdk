@@ -13,25 +13,25 @@
 namespace BillbeeDe\BillbeeAPI\Model;
 
 use BillbeeDe\BillbeeAPI\Type\EventType;
-use MintWare\JOM\JsonField;
+use MintWare\DMM\DataField;
 
 class Event
 {
     /**
      * @var int
-     * @JsonField(name="Id", type="int")
+     * @DataField(name="Id", type="int")
      */
     public $id;
 
     /**
      * @var string
-     * @JsonField(name="Created", type="datetime")
+     * @DataField(name="Created", type="datetime")
      */
     public $created = '';
 
     /**
      * @var int
-     * @JsonField(name="TypeId", type="int")
+     * @DataField(name="TypeId", type="int")
      *
      * @see EventType
      */
@@ -39,25 +39,25 @@ class Event
 
     /**
      * @var string
-     * @JsonField(name="TypeText", type="string")
+     * @DataField(name="TypeText", type="string")
      */
     public $typeText = '';
 
     /**
      * @var int
-     * @JsonField(name="EmployeeId", type="int")
+     * @DataField(name="EmployeeId", type="int")
      */
     public $employeeId = null;
 
     /**
      * @var string
-     * @JsonField(name="EmployeeName", type="string")
+     * @DataField(name="EmployeeName", type="string")
      */
     public $employeeName = '';
 
     /**
      * @var int
-     * @JsonField(name="OrderId", type="int")
+     * @DataField(name="OrderId", type="int")
      */
     public $orderId = null;
 }

@@ -12,25 +12,25 @@
 
 namespace BillbeeDe\BillbeeAPI\Model;
 
-use MintWare\JOM\JsonField;
+use MintWare\DMM\DataField;
 
 class ShippingProvider
 {
     /**
      * @var int
-     * @JsonField(name="id", type="int")
+     * @DataField(name="id", type="int")
      */
     public $id;
 
     /**
      * @var string
-     * @JsonField(name="name", type="string")
+     * @DataField(name="name", type="string")
      */
     public $name = '';
 
     /**
      * @var string
-     * @JsonField(name="products", type="BillbeeDe\BillbeeAPI\Model\ShippingProduct[]")
+     * @DataField(name="products", type="BillbeeDe\BillbeeAPI\Model\ShippingProduct[]")
      */
     public $products = '';
 }

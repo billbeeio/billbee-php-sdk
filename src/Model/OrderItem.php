@@ -12,79 +12,79 @@
 
 namespace BillbeeDe\BillbeeAPI\Model;
 
-use MintWare\JOM\JsonField;
+use MintWare\DMM\DataField;
 
 class OrderItem
 {
     /**
      * @var int
-     * @JsonField(name="BillbeeId", type="int")
+     * @DataField(name="BillbeeId", type="int")
      */
     public $billbeeId;
 
     /**
      * @var string
-     * @JsonField(name="TransactionId", type="string")
+     * @DataField(name="TransactionId", type="string")
      */
     public $transactionId;
 
     /**
      * @var object
-     * @JsonField(name="Product", type="object")
+     * @DataField(name="Product", type="object")
      */
     public $product;
 
     /**
      * @var float
-     * @JsonField(name="Quantity", type="float")
+     * @DataField(name="Quantity", type="float")
      */
     public $quantity;
 
     /**
      * @var float
-     * @JsonField(name="TotalPrice", type="float")
+     * @DataField(name="TotalPrice", type="float")
      */
     public $totalPrice;
 
     /**
      * @var float
-     * @JsonField(name="UnrebatedTotalPrice", type="float")
+     * @DataField(name="UnrebatedTotalPrice", type="float")
      */
     public $unrebatedTotalPrice;
 
     /**
      * @var float
-     * @JsonField(name="TaxAmount", type="float")
+     * @DataField(name="TaxAmount", type="float")
      */
     public $taxAmount;
 
     /**
      * @var int
-     * @JsonField(name="TaxIndex", type="int")
+     * @DataField(name="TaxIndex", type="int")
      */
     public $taxIndex;
 
     /**
      * @var float
-     * @JsonField(name="Discount", type="float")
+     * @DataField(name="Discount", type="float")
      */
     public $discount;
 
     /**
      * @var OrderItemAttribute[]
-     * @JsonField(name="Attributes", type="BillbeeDe\BillbeeAPI\Model\OrderItemAttribute[]")
+     * @DataField(name="Attributes", type="BillbeeDe\BillbeeAPI\Model\OrderItemAttribute[]")
      */
     public $attributes;
 
     /**
      * @var bool
-     * @JsonField(name="GetPriceFromArticleIfAny", type="bool")
+     * @DataField(name="GetPriceFromArticleIfAny", type="bool")
      */
     public $getPriceFromArticleIfAny = false;
 
     /**
      * @var bool
-     * @JsonField(name="IsCoupon", type="bool")
+     * @DataField(name="IsCoupon", type="bool")
      */
     public $isCoupon = false;
 
@@ -93,7 +93,7 @@ class OrderItem
 
     /**
      * @var bool
-     * @JsonField(name="DontAdjustStock", type="bool")
+     * @DataField(name="DontAdjustStock", type="bool")
      */
     public $dontAdjustStock;
 
@@ -101,7 +101,7 @@ class OrderItem
      * Contains the used serial number
      *
      * @var string
-     * @JsonField(name="SerialNumber", type="string")
+     * @DataField(name="SerialNumber", type="string")
      */
     public $serialNumber;
 }

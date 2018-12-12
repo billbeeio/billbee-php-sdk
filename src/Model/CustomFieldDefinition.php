@@ -12,38 +12,38 @@
 
 namespace BillbeeDe\BillbeeAPI\Model;
 
-use MintWare\JOM\JsonField;
+use MintWare\DMM\DataField;
 
 class CustomFieldDefinition
 {
     /**
      * @var integer
-     * @JsonField(name="Id", type="integer")
+     * @DataField(name="Id", type="integer")
      */
     public $id;
 
     /**
      * @var string
-     * @JsonField(name="Name", type="string")
+     * @DataField(name="Name", type="string")
      */
     public $name;
 
     /**
      * @var array
-     * @JsonField(name="Configuration", type="array", preTransformer="\BillbeeDe\BillbeeAPI\Transformer\DefinitionConfigTransformer")
+     * @DataField(name="Configuration", type="array", preTransformer="\BillbeeDe\BillbeeAPI\Transformer\DefinitionConfigTransformer")
      */
     public $configuration;
 
     /**
      * @var integer
      * @see \BillbeeDe\BillbeeAPI\Type\CustomFieldDefinitionType
-     * @JsonField(name="Type", type="integer")
+     * @DataField(name="Type", type="integer")
      */
     public $type;
 
     /**
      * @var bool
-     * @JsonField(name="IsNullable", type="bool")
+     * @DataField(name="IsNullable", type="bool")
      */
     public $isNullable;
 }

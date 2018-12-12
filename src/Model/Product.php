@@ -12,7 +12,7 @@
 
 namespace BillbeeDe\BillbeeAPI\Model;
 
-use MintWare\JOM\JsonField;
+use MintWare\DMM\DataField;
 
 class Product
 {
@@ -114,295 +114,295 @@ class Product
 
     /**
      * @var int
-     * @JsonField(name="Id", type="int")
+     * @DataField(name="Id", type="int")
      */
     public $id;
 
     /**
      * @var int
-     * @JsonField(name="Type", type="int")
+     * @DataField(name="Type", type="int")
      */
     public $type = Product::TYPE_PRODUCT;
 
     /**
      * @var TranslatableText[]
-     * @JsonField(name="Title", type="BillbeeDe\BillbeeAPI\Model\TranslatableText[]")
+     * @DataField(name="Title", type="BillbeeDe\BillbeeAPI\Model\TranslatableText[]")
      */
     public $title = null;
 
     /**
      * @var TranslatableText[]
-     * @JsonField(name="InvoiceText", type="BillbeeDe\BillbeeAPI\Model\TranslatableText[]")
+     * @DataField(name="InvoiceText", type="BillbeeDe\BillbeeAPI\Model\TranslatableText[]")
      */
     public $invoiceText = [];
 
     /**
      * @var TranslatableText[]
-     * @JsonField(name="ShortDescription", type="BillbeeDe\BillbeeAPI\Model\TranslatableText[]")
+     * @DataField(name="ShortDescription", type="BillbeeDe\BillbeeAPI\Model\TranslatableText[]")
      */
     public $shortDescription = [];
 
     /**
      * @var Image[]
-     * @JsonField(name="Images", type="BillbeeDe\BillbeeAPI\Model\Image[]")
+     * @DataField(name="Images", type="BillbeeDe\BillbeeAPI\Model\Image[]")
      */
     public $images = [];
 
     /**
      * @var TranslatableText[]
-     * @JsonField(name="Description", type="BillbeeDe\BillbeeAPI\Model\TranslatableText[]")
+     * @DataField(name="Description", type="BillbeeDe\BillbeeAPI\Model\TranslatableText[]")
      */
     public $description = [];
 
     /**
      * @var TranslatableText[]
-     * @JsonField(name="BasicAttributes", type="BillbeeDe\BillbeeAPI\Model\TranslatableText[]")
+     * @DataField(name="BasicAttributes", type="BillbeeDe\BillbeeAPI\Model\TranslatableText[]")
      */
     public $attributes = [];
 
     /**
      * @var string
-     * @JsonField(name="SKU", type="string")
+     * @DataField(name="SKU", type="string")
      */
     public $sku = '';
 
     /**
      * @var string
-     * @JsonField(name="EAN", type="string")
+     * @DataField(name="EAN", type="string")
      */
     public $ean = '';
 
     /**
      * @var Source[]
-     * @JsonField(name="Sources", type="BillbeeDe\BillbeeAPI\Model\Source[]")
+     * @DataField(name="Sources", type="BillbeeDe\BillbeeAPI\Model\Source[]")
      */
     public $sources = [];
 
     /**
      * @var Category
-     * @JsonField(name="Category1", type="BillbeeDe\BillbeeAPI\Model\Category")
+     * @DataField(name="Category1", type="BillbeeDe\BillbeeAPI\Model\Category")
      */
     public $category1 = null;
 
     /**
      * @var Category
-     * @JsonField(name="Category2", type="BillbeeDe\BillbeeAPI\Model\Category")
+     * @DataField(name="Category2", type="BillbeeDe\BillbeeAPI\Model\Category")
      */
     public $category2 = null;
 
     /**
      * @var Category
-     * @JsonField(name="Category3", type="BillbeeDe\BillbeeAPI\Model\Category")
+     * @DataField(name="Category3", type="BillbeeDe\BillbeeAPI\Model\Category")
      */
     public $category3 = null;
 
     /**
      * @var string
-     * @JsonField(name="Manufacturer", type="string")
+     * @DataField(name="Manufacturer", type="string")
      */
     public $manufacturer = '';
 
     /**
      * @var int
-     * @JsonField(name="VatIndex", type="int")
+     * @DataField(name="VatIndex", type="int")
      */
     public $vatIndex = Product::VAT_INDEX_NORMAL;
 
     /**
      * @var float
-     * @JsonField(name="Price", type="float")
+     * @DataField(name="Price", type="float")
      */
     public $price = 0.00;
 
     /**
      * @var float
-     * @JsonField(name="CostPrice", type="float")
+     * @DataField(name="CostPrice", type="float")
      */
     public $costPrice = 0.00;
 
     /**
      * @var float
-     * @JsonField(name="Vat1Rate", type="float")
+     * @DataField(name="Vat1Rate", type="float")
      */
     public $vatRateNormal = 0.00;
 
     /**
      * @var float
-     * @JsonField(name="Vat2Rate", type="float")
+     * @DataField(name="Vat2Rate", type="float")
      */
     public $vatRateReduced = 0.00;
 
     /**
      * @var TranslatableText[]
-     * @JsonField(name="Materials", type="BillbeeDe\BillbeeAPI\Model\TranslatableText[]")
+     * @DataField(name="Materials", type="BillbeeDe\BillbeeAPI\Model\TranslatableText[]")
      */
     public $materials = [];
 
     /**
      * @var TranslatableText[]
-     * @JsonField(name="Tags", type="BillbeeDe\BillbeeAPI\Model\TranslatableText[]")
+     * @DataField(name="Tags", type="BillbeeDe\BillbeeAPI\Model\TranslatableText[]")
      */
     public $tags = [];
 
     /**
      * @var float
-     * @JsonField(name="StockDesired", type="float")
+     * @DataField(name="StockDesired", type="float")
      */
     public $stockDesired = 0.00;
 
     /**
      * @var float
-     * @JsonField(name="StockCurrent", type="float")
+     * @DataField(name="StockCurrent", type="float")
      */
     public $stockCurrent = 0.00;
 
     /**
      * @var float
-     * @JsonField(name="StockWarning", type="float")
+     * @DataField(name="StockWarning", type="float")
      */
     public $stockWarning = 0.00;
 
     /**
      * @var bool
-     * @JsonField(name="LowStock", type="bool")
+     * @DataField(name="LowStock", type="bool")
      */
     public $lowStock = false;
 
     /**
      * @var string
-     * @JsonField(name="StockCode", type="string")
+     * @DataField(name="StockCode", type="string")
      */
     public $stockCode = '';
 
     /**
      * @var float
-     * @JsonField(name="StockReduceItemsPerSale", type="float")
+     * @DataField(name="StockReduceItemsPerSale", type="float")
      */
     public $stockReduceItemsPerSale = 1;
 
     /**
      * @var array
-     * @JsonField(name="Stocks", type="array")
+     * @DataField(name="Stocks", type="array")
      */
     public $stocks = 1;
 
     /**
      * @var int
-     * @JsonField(name="Weight", type="int")
+     * @DataField(name="Weight", type="int")
      */
     public $weight = 0.00;
 
     /**
      * @var int
-     * @JsonField(name="WeightNet", type="int")
+     * @DataField(name="WeightNet", type="int")
      */
     public $weightNet = 0.00;
 
     /**
      * @var int
-     * @JsonField(name="Unit", type="int")
+     * @DataField(name="Unit", type="int")
      */
     public $unit = Product::UNIT_PIECE;
 
     /**
      * @var float
-     * @JsonField(name="UnitsPerItem", type="float")
+     * @DataField(name="UnitsPerItem", type="float")
      */
     public $unitsPerItem = 1;
 
     /**
      * @var int
-     * @JsonField(name="SoldAmount", type="int")
+     * @DataField(name="SoldAmount", type="int")
      */
     public $soldAmount = 0;
 
     /**
      * @var float
-     * @JsonField(name="SoldSumGross", type="float")
+     * @DataField(name="SoldSumGross", type="float")
      */
     public $soldSumGross = 0;
 
     /**
      * @var float
-     * @JsonField(name="SoldSumNet", type="float")
+     * @DataField(name="SoldSumNet", type="float")
      */
     public $soldSumNet = 0;
 
     /**
      * @var float
-     * @JsonField(name="SoldSumNetLast30Days", type="float")
+     * @DataField(name="SoldSumNetLast30Days", type="float")
      */
     public $soldSumNetLast30Days = 0;
 
     /**
      * @var float
-     * @JsonField(name="SoldSumGrossLast30Days", type="float")
+     * @DataField(name="SoldSumGrossLast30Days", type="float")
      */
     public $soldSumGrossLast30Days = 0;
 
     /**
      * @var float
-     * @JsonField(name="SoldAmountLast30Days", type="float")
+     * @DataField(name="SoldAmountLast30Days", type="float")
      */
     public $soldAmountLast30Days = 0;
 
     /**
      * @var int
-     * @JsonField(name="ShippingProductId", type="int")
+     * @DataField(name="ShippingProductId", type="int")
      */
     public $shippingProductId = 0;
 
     /**
      * @var bool
-     * @JsonField(name="IsDigital", type="bool")
+     * @DataField(name="IsDigital", type="bool")
      */
     public $isDigital = false;
 
     /**
      * @var bool
-     * @JsonField(name="IsCustomizable", type="bool")
+     * @DataField(name="IsCustomizable", type="bool")
      */
     public $isCustomizable = false;
 
     /**
      * @var int
-     * @JsonField(name="DeliveryTime", type="int")
+     * @DataField(name="DeliveryTime", type="int")
      */
     public $deliveryTime = Product::DELIVERY_NA;
 
     /**
      * @var int
-     * @JsonField(name="Recipient", type="int")
+     * @DataField(name="Recipient", type="int")
      */
     public $recipient = Product::RECIPIENT_NA;
 
     /**
      * @var int
-     * @JsonField(name="Occasion", type="int")
+     * @DataField(name="Occasion", type="int")
      */
     public $occasion = Product::OCCASION_NA;
 
     /**
      * @var string
-     * @JsonField(name="CountryOfOrigin", type="string")
+     * @DataField(name="CountryOfOrigin", type="string")
      */
     public $countryOfOrigin = '';
 
     /**
      * @var string
-     * @JsonField(name="ExportDescription", type="string")
+     * @DataField(name="ExportDescription", type="string")
      */
     public $exportDescription = '';
 
     /**
      * @var string
-     * @JsonField(name="TaricNumber", type="string")
+     * @DataField(name="TaricNumber", type="string")
      */
     public $taricNumber = '';
 
     /**
      * @var CustomFieldDefinition[]
-     * @JsonField(name="CustomFields", type="\BillbeeDe\BillbeeAPI\Model\ProductCustomField[]")
+     * @DataField(name="CustomFields", type="\BillbeeDe\BillbeeAPI\Model\ProductCustomField[]")
      */
     public $customFields = '';
 }

@@ -12,61 +12,61 @@
 
 namespace BillbeeDe\BillbeeAPI\Model;
 
-use MintWare\JOM\JsonField;
+use MintWare\DMM\DataField;
 
 class Customer
 {
     /**
      * @var integer
-     * @JsonField("Id", type="integer")
+     * @DataField("Id", type="integer")
      */
     public $id;
 
     /**
      * @var string
-     * @JsonField("Name", type="string")
+     * @DataField("Name", type="string")
      */
     public $name;
 
     /**
      * @var string
-     * @JsonField("Email", type="string")
+     * @DataField("Email", type="string")
      */
     public $email;
 
     /**
      * @var string
-     * @JsonField("Tel1", type="string")
+     * @DataField("Tel1", type="string")
      */
     public $tel1;
 
     /**
      * @var string
-     * @JsonField("Tel2", type="string")
+     * @DataField("Tel2", type="string")
      */
     public $tel2;
 
     /**
      * @var integer
-     * @JsonField("Number", type="integer")
+     * @DataField("Number", type="integer")
      */
     public $number;
 
     /**
      * @var integer
-     * @JsonField("PriceGroupId", type="integer")
+     * @DataField("PriceGroupId", type="integer")
      */
     public $priceGroupId;
 
     /**
      * @var integer
-     * @JsonField("LanguageId", type="integer")
+     * @DataField("LanguageId", type="integer")
      */
     public $languageId;
 
     /**
      * @var string
-     * @JsonField("VatId", type="string")
+     * @DataField("VatId", type="string")
      */
     public $vatId;
 }

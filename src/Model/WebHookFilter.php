@@ -12,19 +12,19 @@
 
 namespace BillbeeDe\BillbeeAPI\Model;
 
-use MintWare\JOM\JsonField;
+use MintWare\DMM\DataField;
 
 class WebHookFilter
 {
     /**
      * @var string
-     * @JsonField("Name", type="string")
+     * @DataField("Name", type="string")
      */
     public $name;
 
     /**
      * @var string
-     * @JsonField("Description", type="string")
+     * @DataField("Description", type="string")
      */
     public $description;
 }

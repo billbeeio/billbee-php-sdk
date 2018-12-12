@@ -12,56 +12,56 @@
 
 namespace BillbeeDe\BillbeeAPI\Model;
 
-use MintWare\JOM\JsonField;
+use MintWare\DMM\DataField;
 
 class WebHook
 {
     /**
      * @var string
-     * @JsonField("Id", type="string")
+     * @DataField("Id", type="string")
      */
     public $id;
 
     /**
      * @var string
-     * @JsonField("WebHookUri", type="string")
+     * @DataField("WebHookUri", type="string")
      */
     public $webHookUri;
 
     /**
      * @var string
-     * @JsonField("Secret", type="string")
+     * @DataField("Secret", type="string")
      */
     public $secret;
 
     /**
      * @var string
-     * @JsonField("Description", type="string")
+     * @DataField("Description", type="string")
      */
     public $description;
 
     /**
      * @var bool
-     * @JsonField("IsPaused", type="bool")
+     * @DataField("IsPaused", type="bool")
      */
     public $isPaused = false;
 
     /**
      * @var string[]
-     * @JsonField("Filters", type="array")
+     * @DataField("Filters", type="array")
      * @see \BillbeeDe\BillbeeAPI\Model\WebHookFilter
      */
     public $filters = null;
 
     /**
      * @var array
-     * @JsonField("Headers", type="array")
+     * @DataField("Headers", type="array")
      */
     public $headers = null;
 
     /**
      * @var array
-     * @JsonField("Properties", type="array")
+     * @DataField("Properties", type="array")
      */
     public $properties = null;
 }

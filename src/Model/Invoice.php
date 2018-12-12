@@ -13,25 +13,25 @@
 namespace BillbeeDe\BillbeeAPI\Model;
 
 use BillbeeDe\BillbeeAPI\Type\InvoiceType;
-use MintWare\JOM\JsonField;
+use MintWare\DMM\DataField;
 
 class Invoice
 {
     /**
      * @var int
-     * @JsonField(name="BillbeeId", type="int")
+     * @DataField(name="BillbeeId", type="int")
      */
     public $id;
 
     /**
      * @var string
-     * @JsonField(name="InvoiceNumber", type="string")
+     * @DataField(name="InvoiceNumber", type="string")
      */
     public $invoiceNumber = null;
 
     /**
      * @var string
-     * @JsonField(name="Type", type="string")
+     * @DataField(name="Type", type="string")
      *
      * @see InvoiceType
      */
@@ -39,103 +39,103 @@ class Invoice
 
     /**
      * @var string
-     * @JsonField(name="LastName", type="string")
+     * @DataField(name="LastName", type="string")
      */
     public $lastName = null;
 
     /**
      * @var string
-     * @JsonField(name="FirstName", type="string")
+     * @DataField(name="FirstName", type="string")
      */
     public $firstName = null;
 
     /**
      * @var string
-     * @JsonField(name="Company", type="string")
+     * @DataField(name="Company", type="string")
      */
     public $company = null;
 
     /**
      * @var int
-     * @JsonField(name="CustomerNumber", type="int")
+     * @DataField(name="CustomerNumber", type="int")
      */
     public $customerNumber;
 
     /**
      * @var int
-     * @JsonField(name="DebtorNumber", type="int")
+     * @DataField(name="DebtorNumber", type="int")
      */
     public $debtorNumber;
 
     /**
      * @var \DateTime
-     * @JsonField(name="InvoiceDate", type="datetime")
+     * @DataField(name="InvoiceDate", type="datetime")
      */
     public $invoiceDate = null;
 
     /**
      * @var float
-     * @JsonField(name="TotalNet", type="float")
+     * @DataField(name="TotalNet", type="float")
      */
     public $totalNet = 0.00;
 
     /**
      * @var float
-     * @JsonField(name="TotalGross", type="float")
+     * @DataField(name="TotalGross", type="float")
      */
     public $totalGross = 0.00;
 
     /**
      * @var string
-     * @JsonField(name="Currency", type="string")
+     * @DataField(name="Currency", type="string")
      */
     public $currency = 'EUR';
 
     /**
      * @var int
-     * @JsonField(name="PaymentTypeId", type="int")
+     * @DataField(name="PaymentTypeId", type="int")
      */
     public $paymentTypeId;
 
     /**
      * @var string
-     * @JsonField(name="OrderNumber", type="string")
+     * @DataField(name="OrderNumber", type="string")
      */
     public $orderNumber = null;
 
     /**
      * @var string
-     * @JsonField(name="TransactionId", type="string")
+     * @DataField(name="TransactionId", type="string")
      */
     public $transactionId = null;
 
     /**
      * @var string
-     * @JsonField(name="Email", type="string")
+     * @DataField(name="Email", type="string")
      */
     public $email = '';
 
     /**
      * @var string
-     * @JsonField(name="ShopName", type="string")
+     * @DataField(name="ShopName", type="string")
      */
     public $shopName = null;
 
     /**
      * @var InvoicePosition[]
-     * @JsonField(name="Positions", type="BillbeeDe\BillbeeAPI\Model\InvoicePosition[]")
+     * @DataField(name="Positions", type="BillbeeDe\BillbeeAPI\Model\InvoicePosition[]")
      */
     public $positions = [];
 
     /**
      * @var \DateTime
-     * @JsonField(name="PayDate", type="datetime")
+     * @DataField(name="PayDate", type="datetime")
      */
     public $payDate = null;
 
     /**
      * @var int
-     * @JsonField(name="VatMode", type="int")
+     * @DataField(name="VatMode", type="int")
      */
     public $vatMode = Product::VAT_INDEX_NORMAL;
 }

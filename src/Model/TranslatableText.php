@@ -12,14 +12,14 @@
 
 namespace BillbeeDe\BillbeeAPI\Model;
 
-use MintWare\JOM\JsonField;
+use MintWare\DMM\DataField;
 
 class TranslatableText
 {
-    /** @JsonField(name="Text", type="string") */
+    /** @DataField(name="Text", type="string") */
     public $text;
 
-    /** @JsonField(name="LanguageCode", type="string") */
+    /** @DataField(name="LanguageCode", type="string") */
     public $languageCode;
 
     public function __construct($text = '', $languageCode = '')

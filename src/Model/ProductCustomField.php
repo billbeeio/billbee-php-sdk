@@ -12,37 +12,37 @@
 
 namespace BillbeeDe\BillbeeAPI\Model;
 
-use MintWare\JOM\JsonField;
+use MintWare\DMM\DataField;
 
 class ProductCustomField
 {
     /**
      * @var integer
-     * @JsonField("Id", type="integer")
+     * @DataField("Id", type="integer")
      */
     public $id;
 
     /**
      * @var integer
-     * @JsonField("DefinitionId", type="integer")
+     * @DataField("DefinitionId", type="integer")
      */
     public $definitionId;
 
     /**
      * @var integer
-     * @JsonField("Definition", type="\BillbeeDe\BillbeeAPI\Model\CustomFieldDefinition")
+     * @DataField("Definition", type="\BillbeeDe\BillbeeAPI\Model\CustomFieldDefinition")
      */
     public $definition;
 
     /**
      * @var integer
-     * @JsonField("ArticleId", type="integer")
+     * @DataField("ArticleId", type="integer")
      */
     public $articleId;
 
     /**
      * @var string|array
-     * @JsonField("Value", type="string|array")
+     * @DataField("Value", type="string|array")
      */
     public $value;
 }
