@@ -637,7 +637,7 @@ class Client extends AbstractClient
             throw new \InvalidArgumentException($msg);
         }
 
-        if ($message->sendMode != Type\SendMode::EXTERNAL_EMAIL && empty($message->alternativeEmailAddress)) {
+        if ($message->sendMode != Type\SendMode::EXTERNAL_EMAIL && !empty($message->alternativeEmailAddress)) {
             $this->logger->warning('The alternative email address is ignored because sendMode != 4');
         }
 
@@ -1139,7 +1139,7 @@ class Client extends AbstractClient
      * Get a single customers
      *
      * @param int $id The id of the customer
-     * @return Response\GetCustomersResponse The Response
+     * @return Response\GetCustomerResponse The Response
      *
      * @throws QuotaExceededException If the maximum number of calls per second exceeded
      * @throws InvalidJsonException If the response is not valid
@@ -1191,6 +1191,27 @@ class Client extends AbstractClient
     }
 
     /**
+     * Queries a single address from a customer
+     *
+     * @param int $id The id of the address
+     *
+     * @return Response\GetCustomerAddressResponse The Response
+     *
+     * @throws QuotaExceededException If the maximum number of calls per second exceeded
+     * @throws InvalidJsonException If the response is not valid
+     * @throws InvalidIdException If the id is not an integer or negative
+     * @throws \Exception If the response cannot be parsed
+     */
+    public function getCustomerAddress($id)
+    {
+        return $this->requestGET(
+            'customers/addresses/' . $id ,
+            [],
+            Response\GetCustomerAddressResponse::class
+        );
+    }
+
+    /**
      * Get the orders for a single customers
      *
      * @param int $id The id of the customer
@@ -1231,7 +1252,7 @@ class Client extends AbstractClient
      *
      * @param Model\Customer $customer The customer
      * @param Model\CustomerAddress $address The customers address
-     * @return Response\GetCustomersResponse The created customer
+     * @return Response\GetCustomerResponse The created customer
      *
      * @throws QuotaExceededException If the maximum number of calls per second exceeded
      * @throws InvalidJsonException If the response is not valid

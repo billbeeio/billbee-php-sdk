@@ -12,3 +12,5 @@ partner: '' # The partner name of the external system. Take a look in Partner-Cl
 custom_field_definition_id: '' # The id of a custom field definition
 web_hook_uri: '' # The uri for testing webhooks
 test_delete_web_hooks: false # If true, the delete all web hooks call will be tested
+customer_id: '' # Id of a customer
+address_id: '' # Id of an address

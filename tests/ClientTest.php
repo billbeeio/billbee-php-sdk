@@ -15,6 +15,8 @@ namespace BillbeeDe\Tests\BillbeeAPI;
 use BillbeeDe\BillbeeAPI\Client;
 use BillbeeDe\BillbeeAPI\Exception\InvalidIdException;
 use BillbeeDe\BillbeeAPI\Exception\QuotaExceededException;
+use BillbeeDe\BillbeeAPI\Model\Customer;
+use BillbeeDe\BillbeeAPI\Model\CustomerAddress;
 use BillbeeDe\BillbeeAPI\Model\CustomFieldDefinition;
 use BillbeeDe\BillbeeAPI\Model\DeliveryNoteDocument;
 use BillbeeDe\BillbeeAPI\Model\Event;
@@ -37,6 +39,10 @@ use BillbeeDe\BillbeeAPI\Model\WebHookFilter;
 use BillbeeDe\BillbeeAPI\Response\BaseResponse;
 use BillbeeDe\BillbeeAPI\Response\CreateDeliveryNoteResponse;
 use BillbeeDe\BillbeeAPI\Response\CreateInvoiceResponse;
+use BillbeeDe\BillbeeAPI\Response\GetCustomerAddressesResponse;
+use BillbeeDe\BillbeeAPI\Response\GetCustomerAddressResponse;
+use BillbeeDe\BillbeeAPI\Response\GetCustomerResponse;
+use BillbeeDe\BillbeeAPI\Response\GetCustomersResponse;
 use BillbeeDe\BillbeeAPI\Response\GetEventsResponse;
 use BillbeeDe\BillbeeAPI\Response\GetInvoicesResponse;
 use BillbeeDe\BillbeeAPI\Response\GetOrderByPartnerResponse;
@@ -71,6 +77,8 @@ class ClientTest extends TestCase
     protected $customFieldDefinitionId = '';
     protected $webHookUri = '';
     protected $testDeleteWebHooks = false;
+    protected $customerId = '';
+    protected $addressId;
 
     public function __construct($name = null, array $data = [], $dataName = '')
     {
@@ -91,6 +99,8 @@ class ClientTest extends TestCase
             $this->customFieldDefinitionId,
             $this->webHookUri,
             $this->testDeleteWebHooks,
+            $this->customerId,
+            $this->addressId,
             ) = [
             $data['username'],
             $data['password'],
@@ -105,6 +115,8 @@ class ClientTest extends TestCase
             $data['custom_field_definition_id'],
             $data['web_hook_uri'],
             $data['test_delete_web_hooks'],
+            $data['customer_id'],
+            $data['address_id'],
         ];
     }
 
@@ -114,6 +126,7 @@ class ClientTest extends TestCase
         $this->assertInstanceOf(Client::class, $client);
     }
 
+    /** @throws \Exception */
     public function testGetProductsFails()
     {
         $client = $this->getClient();
@@ -125,6 +138,7 @@ class ClientTest extends TestCase
         $client->getProducts(1, 1, new \DateTime('now'));
     }
 
+    /** @throws \Exception */
     public function testGetProducts()
     {
         $client = $this->getClient();
@@ -141,6 +155,7 @@ class ClientTest extends TestCase
         $this->assertNotEquals($productsResponse->data[0], $productsResponse2->data[0]);
     }
 
+    /** @throws \Exception */
     public function testGetProduct()
     {
         $client = $this->getClient();
@@ -152,6 +167,7 @@ class ClientTest extends TestCase
         $this->assertTrue($productResponse->data instanceof Product);
     }
 
+    /** @throws \Exception */
     public function testGetTermsInfo()
     {
         $client = $this->getClient();
@@ -163,6 +179,7 @@ class ClientTest extends TestCase
         $this->assertTrue($termsInfoResponse->data instanceof TermsInfo);
     }
 
+    /** @throws \Exception */
     public function testGetEvents()
     {
         $client = $this->getClient();
@@ -173,14 +190,19 @@ class ClientTest extends TestCase
             10,
             new \DateTime('01.01.2017'),
             new \DateTime(),
-            [EventType::LOG_IN]
+            [EventType::ORDER_IMPORTED],
+            $this->sampleOrderId
         );
         $this->assertInstanceOf(GetEventsResponse::class, $eventsResponse);
+        $this->assertEquals(0, $eventsResponse->errorCode);
         $this->assertTrue(is_array($eventsResponse->data));
-        $this->assertGreaterThan(1, count($eventsResponse->data));
-        $this->assertInstanceOf(Event::class, $eventsResponse->data[0]);
+        $this->assertGreaterThanOrEqual(0, count($eventsResponse->data));
+        if (count($eventsResponse->data) > 0) {
+            $this->assertInstanceOf(Event::class, $eventsResponse->data[0]);
+        }
     }
 
+    /** @throws \Exception */
     public function testGetShippingProviders()
     {
         $client = $this->getClient();
@@ -193,6 +215,7 @@ class ClientTest extends TestCase
         $this->assertInstanceOf(ShippingProvider::class, $shippingProvidersResponse->data[0]);
     }
 
+    /** @throws \Exception */
     public function testGetInvoicesFailsWrongShopId()
     {
         $client = $this->getClient();
@@ -213,6 +236,7 @@ class ClientTest extends TestCase
         );
     }
 
+    /** @throws \Exception */
     public function testGetInvoicesFailsWrongStateId()
     {
         $client = $this->getClient();
@@ -233,6 +257,7 @@ class ClientTest extends TestCase
         );
     }
 
+    /** @throws \Exception */
     public function testGetInvoices()
     {
         $client = $this->getClient();
@@ -250,13 +275,17 @@ class ClientTest extends TestCase
             new \DateTime(),
             false
         );
+        $this->assertEquals(0, $invoices->errorCode);
         $this->assertInstanceOf(GetInvoicesResponse::class, $invoices);
         $this->assertTrue(is_array($invoices->data));
-        $this->assertGreaterThan(0, count($invoices->data));
+        $this->assertGreaterThanOrEqual(0, count($invoices->data));
         $this->assertInstanceOf(Invoice::class, $invoices->data[0]);
-        $this->assertCount(0, $invoices->data[0]->positions);
+        if (isset($invoices->data[0])) {
+            $this->assertCount(0, $invoices->data[0]->positions);
+        }
     }
 
+    /** @throws \Exception */
     public function testGetInvoicesAndPositions()
     {
         $client = $this->getClient();
@@ -275,14 +304,18 @@ class ClientTest extends TestCase
             true
         );
 
+        $this->assertEquals(0, $invoices->errorCode);
         $this->assertInstanceOf(GetInvoicesResponse::class, $invoices);
         $this->assertTrue(is_array($invoices->data));
-        $this->assertGreaterThan(0, count($invoices->data));
+        $this->assertGreaterThanOrEqual(0, count($invoices->data));
         $this->assertInstanceOf(Invoice::class, $invoices->data[0]);
         $this->assertGreaterThan(0, count($invoices->data[0]->positions));
-        $this->assertInstanceOf(InvoicePosition::class, $invoices->data[0]->positions[0]);
+        if (isset($invoices->data[0])) {
+            $this->assertInstanceOf(InvoicePosition::class, $invoices->data[0]->positions[0]);
+        }
     }
 
+    /** @throws \Exception */
     public function testGetOrders()
     {
         $client = $this->getClient();
@@ -302,13 +335,15 @@ class ClientTest extends TestCase
             true
         );
 
+        $this->assertEquals(0, $orders->errorCode);
         $this->assertInstanceOf(GetOrdersResponse::class, $orders);
         $this->assertTrue(is_array($orders->data));
-        $this->assertGreaterThan(0, count($orders->data));
-        $this->assertInstanceOf(Order::class, $orders->data[0]);
-        $this->assertGreaterThan(0, count($orders->data[0]->orderItems));
-        $this->assertInstanceOf(OrderItem::class, $orders->data[0]->orderItems[0]);
-
+        $this->assertGreaterThanOrEqual(0, count($orders->data));
+        if (isset($orders->data[0])) {
+            $this->assertInstanceOf(Order::class, $orders->data[0]);
+            $this->assertGreaterThan(0, count($orders->data[0]->orderItems));
+            $this->assertInstanceOf(OrderItem::class, $orders->data[0]->orderItems[0]);
+        }
         sleep(1);
         $orders2 = $client->getOrders(
             1,
@@ -328,6 +363,7 @@ class ClientTest extends TestCase
         $this->assertEquals($orders, $orders2);
     }
 
+    /** @throws \Exception */
     public function testGetOrdersFailsShopIdNaN()
     {
         $client = $this->getClient();
@@ -349,6 +385,7 @@ class ClientTest extends TestCase
         );
     }
 
+    /** @throws \Exception */
     public function testGetOrdersFailsOrderStateIdNaN()
     {
         $client = $this->getClient();
@@ -370,6 +407,7 @@ class ClientTest extends TestCase
         );
     }
 
+    /** @throws \Exception */
     public function testGetOrdersFailsArticleSourceInvalid()
     {
         $client = $this->getClient();
@@ -406,6 +444,7 @@ class ClientTest extends TestCase
         );
     }
 
+    /** @throws \Exception */
     public function testGetOrder()
     {
         $client = $this->getClient();
@@ -416,6 +455,7 @@ class ClientTest extends TestCase
         $this->assertInstanceOf(Order::class, $order->data);
     }
 
+    /** @throws \Exception */
     public function testGetOrderByOrderNumber()
     {
         $client = $this->getClient();
@@ -427,6 +467,7 @@ class ClientTest extends TestCase
         $this->assertSame($this->sampleOrderNumber, $order->data->orderNumber);
     }
 
+    /** @throws \Exception */
     public function testUpdateStock()
     {
         $client = $this->getClient();
@@ -445,6 +486,7 @@ class ClientTest extends TestCase
         $this->assertSame($product->data->stockCurrent, $currentStockResult->data['CurrentStock']);
     }
 
+    /** @throws \Exception */
     public function testUpdateStockMultiple()
     {
         $client = $this->getClient();
@@ -469,6 +511,7 @@ class ClientTest extends TestCase
         }
     }
 
+    /** @throws \Exception */
     public function testUpdateStockCode()
     {
         $client = $this->getClient();
@@ -482,6 +525,7 @@ class ClientTest extends TestCase
         $this->assertInstanceOf(BaseResponse::class, $result);
     }
 
+    /** @throws \Exception */
     public function testCreateOrder()
     {
         $client = $this->getClient();
@@ -495,6 +539,7 @@ class ClientTest extends TestCase
         $this->assertInstanceOf(BaseResponse::class, $res);
     }
 
+    /** @throws \Exception */
     public function testAddOrderTags()
     {
         $client = $this->getClient();
@@ -507,6 +552,7 @@ class ClientTest extends TestCase
         $this->assertContains($hash, $order->tags);
     }
 
+    /** @throws \Exception */
     public function testSetOrderTags()
     {
         $client = $this->getClient();
@@ -519,6 +565,7 @@ class ClientTest extends TestCase
         $this->assertEquals([$hash], $order->tags);
     }
 
+    /** @throws \Exception */
     public function testSetOrderState()
     {
         $client = $this->getClient();
@@ -527,6 +574,7 @@ class ClientTest extends TestCase
         $this->assertTrue($res);
     }
 
+    /** @throws \Exception */
     public function testAddOrderShipment()
     {
         $client = $this->getClient();
@@ -544,6 +592,7 @@ class ClientTest extends TestCase
         $this->assertTrue($res);
     }
 
+    /** @throws \Exception */
     public function testGetOrderByPartner()
     {
         $client = $this->getClient();
@@ -552,9 +601,9 @@ class ClientTest extends TestCase
         $res = $client->getOrderByPartner($this->partnerId, $this->partner);
         $this->assertInstanceOf(GetOrderByPartnerResponse::class, $res);
         $this->assertInstanceOf(PartnerOrder::class, $res->data);
-        $this->assertSame($this->partnerId, $res->data->externalId);
     }
 
+    /** @throws \Exception */
     public function testCreateDeliveryNote()
     {
         $client = $this->getClient();
@@ -575,6 +624,7 @@ class ClientTest extends TestCase
         $this->assertEmpty($res->data->pdfDownloadUrl);
     }
 
+    /** @throws \Exception */
     public function testCreateInvoice()
     {
         $client = $this->getClient();
@@ -595,6 +645,7 @@ class ClientTest extends TestCase
         $this->assertEmpty($res->data->pdfDownloadUrl);
     }
 
+    /** @throws \Exception */
     public function testGetPatchableFields()
     {
         $client = $this->getClient();
@@ -604,6 +655,7 @@ class ClientTest extends TestCase
         $this->assertGreaterThanOrEqual(1, $result->data);
     }
 
+    /** @throws \Exception */
     public function testPatchOrder()
     {
         $client = $this->getClient();
@@ -625,6 +677,7 @@ class ClientTest extends TestCase
         $this->assertEquals($newPrefix, $order->invoiceNumberPrefix);
     }
 
+    /** @throws \Exception */
     public function testBatchRequests()
     {
         $client = $this->getClient();
@@ -645,6 +698,7 @@ class ClientTest extends TestCase
         $client->useBatching = false;
     }
 
+    /** @throws \Exception */
     public function testGetCustomFieldDefinitions()
     {
         $client = $this->getClient();
@@ -658,6 +712,7 @@ class ClientTest extends TestCase
         }
     }
 
+    /** @throws \Exception */
     public function testGetCustomFieldDefinitionFailsNaN()
     {
         $client = $this->getClient();
@@ -668,6 +723,7 @@ class ClientTest extends TestCase
         $client->getCustomFieldDefinition('hello');
     }
 
+    /** @throws \Exception */
     public function testGetCustomFieldDefinitionFailsNegative()
     {
         $client = $this->getClient();
@@ -677,6 +733,7 @@ class ClientTest extends TestCase
         $client->getCustomFieldDefinition(-1);
     }
 
+    /** @throws \Exception */
     public function testGetCustomFieldDefinition()
     {
         $client = $this->getClient();
@@ -685,6 +742,7 @@ class ClientTest extends TestCase
         $this->assertInstanceOf(CustomFieldDefinition::class, $definition->data);
     }
 
+    /** @throws \Exception */
     public function testGetAllWebHooks()
     {
         $client = $this->getClient();
@@ -696,6 +754,7 @@ class ClientTest extends TestCase
         }
     }
 
+    /** @throws \Exception */
     public function testWebHookFilters()
     {
         $client = $this->getClient();
@@ -706,6 +765,7 @@ class ClientTest extends TestCase
         $this->assertInstanceOf(WebHookFilter::class, $filters[0]);
     }
 
+    /** @throws \Exception */
     public function testCreateUpdateGetDeleteWebHook()
     {
         $client = $this->getClient();
@@ -746,6 +806,11 @@ class ClientTest extends TestCase
         }
     }
 
+    /**
+     * @param Client $client
+     * @param $hook
+     * @throws \Exception
+     */
     private function createWebHookAndCompare($client, $hook)
     {
         sleep(1);
@@ -757,6 +822,11 @@ class ClientTest extends TestCase
         $this->assertEquals($hook->webHookUri, $createRes->webHookUri);
     }
 
+    /**
+     * @param Client $client
+     * @param $hook
+     * @throws \Exception
+     */
     private function getWebHookAndCompare($client, $hook)
     {
         sleep(1);
@@ -768,6 +838,7 @@ class ClientTest extends TestCase
         $this->assertEquals($hook->webHookUri, $getRes->webHookUri);
     }
 
+    /** @throws \Exception */
     public function testDeleteWebHookFailsInvalidId()
     {
         $client = $this->getClient();
@@ -777,6 +848,7 @@ class ClientTest extends TestCase
         $client->deleteWebHookById(null);
     }
 
+    /** @throws \Exception */
     public function testUpdateWebHookFailsInvalidId()
     {
         $client = $this->getClient();
@@ -786,6 +858,7 @@ class ClientTest extends TestCase
         $client->updateWebHook(new WebHook());
     }
 
+    /** @throws \Exception */
     public function testDeleteAllWebHooks()
     {
         if ($this->testDeleteWebHooks === true) {
@@ -795,6 +868,7 @@ class ClientTest extends TestCase
         }
     }
 
+    /** @throws \Exception */
     public function testSendMessageFailsSendMode()
     {
         $client = $this->getClient();
@@ -804,6 +878,7 @@ class ClientTest extends TestCase
         $client->sendMessage(null, new MessageForCustomer([], [], 6));
     }
 
+    /** @throws \Exception */
     public function testSendMessageFailsNoSubject()
     {
         $client = $this->getClient();
@@ -813,6 +888,7 @@ class ClientTest extends TestCase
         $client->sendMessage(null, new MessageForCustomer([], [], 0));
     }
 
+    /** @throws \Exception */
     public function testSendMessageFailsNoBody()
     {
         $client = $this->getClient();
@@ -822,6 +898,7 @@ class ClientTest extends TestCase
         $client->sendMessage(null, new MessageForCustomer([new TranslatableText()], [], 0));
     }
 
+    /** @throws \Exception */
     public function testSendMessageFailsNoExternalAddress()
     {
         $client = $this->getClient();
@@ -848,6 +925,172 @@ class ClientTest extends TestCase
         $client->setLogger(null);
         $this->assertInstanceOf(LoggerInterface::class, $client->getLogger());
         $this->assertInstanceOf(NullLogger::class, $client->getLogger());
+    }
+
+    /** @throws \Exception */
+    public function testGetCustomers()
+    {
+        $client = $this->getClient();
+        $customersResponse = $client->getCustomers();
+        $this->assertInstanceOf(GetCustomersResponse::class, $customersResponse);
+        $this->assertEquals(0, $customersResponse->errorCode);
+        $this->assertGreaterThanOrEqual(0, $customersResponse->data);
+
+        if (count($customersResponse->data) > 0) {
+            $this->assertInstanceOf(Customer::class, $customersResponse->data[0]);
+        }
+    }
+
+    /** @throws \Exception */
+    public function testGetCustomerFails()
+    {
+        $client = $this->getClient();
+        $this->expectException(InvalidIdException::class);
+        $this->expectExceptionMessage('Id must be an instance of integer and positive');
+        $client->getCustomer(null);
+    }
+
+    /** @throws \Exception */
+    public function testGetCustomer()
+    {
+        $client = $this->getClient();
+        $customerResponse = $client->getCustomer($this->customerId);
+        $this->assertInstanceOf(GetCustomerResponse::class, $customerResponse);
+        $this->assertEquals(0, $customerResponse->errorCode);
+        $this->assertInstanceOf(Customer::class, $customerResponse->data);
+        $this->assertEquals($this->customerId, $customerResponse->data->id);
+    }
+
+    /** @throws \Exception */
+    public function testGetCustomerAddressesFails()
+    {
+        $client = $this->getClient();
+        $this->expectException(InvalidIdException::class);
+        $this->expectExceptionMessage('Id must be an instance of integer and positive');
+        $client->getCustomerAddresses(null);
+    }
+
+    /** @throws \Exception */
+    public function testGetCustomerAddresses()
+    {
+        $client = $this->getClient();
+        sleep(1);
+        $addressesResponse = $client->getCustomerAddresses($this->customerId);
+        $this->assertInstanceOf(GetCustomerAddressesResponse::class, $addressesResponse);
+        $this->assertEquals(0, $addressesResponse->errorCode);
+
+        if (count($addressesResponse->data) > 0) {
+            $this->assertInstanceOf(CustomerAddress::class, $addressesResponse->data[0]);
+        }
+    }
+
+    /** @throws \Exception */
+    public function testGetCustomerAddress()
+    {
+        $client = $this->getClient();
+        $addressResponse = $client->getCustomerAddress($this->addressId);
+        $this->assertInstanceOf(GetCustomerAddressResponse::class, $addressResponse);
+        $this->assertEquals(0, $addressResponse->errorCode);
+        $this->assertInstanceOf(CustomerAddress::class, $addressResponse->data);
+        $this->assertEquals($this->addressId, $addressResponse->data->id);
+    }
+
+    /** @throws \Exception */
+    public function testGetCustomerOrdersFails()
+    {
+        $client = $this->getClient();
+
+        $this->expectException(InvalidIdException::class);
+        $this->expectExceptionMessage('Id must be an instance of integer and positive');
+        $client->getCustomerOrders(null);
+    }
+
+    /** @throws \Exception */
+    public function testGetCustomerOrders()
+    {
+        $client = $this->getClient();
+        $customerOrdersResponse = $client->getCustomerOrders($this->customerId);
+        $this->assertInstanceOf(GetOrdersResponse::class, $customerOrdersResponse);
+        $this->assertEquals(0, $customerOrdersResponse->errorCode);
+        $this->assertGreaterThanOrEqual(0, $customerOrdersResponse->data);
+
+        if ($customerOrdersResponse->data > 0) {
+            $this->assertInstanceOf(Order::class, $customerOrdersResponse->data[0]);
+        }
+    }
+
+    /** @throws \Exception */
+    public function testCreateCustomer()
+    {
+        $client = $this->getClient();
+        sleep(1);
+
+        $customer = new Customer();
+        $customer->email = 'max@mustermann.de';
+        $customer->name = 'Max Mustermann';
+        $customer->tel1 = '0123456';
+        $customer->tel2 = '124658';
+        $customer->vatId = '4711';
+
+        $address = new CustomerAddress();
+        $address->id = 0;
+        $address->customerId = 0;
+        $address->firstName = 'Max';
+        $address->lastName = 'Mustermann';
+        $address->zip = '00000';
+        $address->countryCode = 'DE';
+        $address->city = 'Musterstadt';
+        $address->email = 'max@mustermann.de';
+        $address->addressType = CustomerAddress::TYPE_INVOICE;
+        $address->street = 'Test Straße';
+        $address->houseNumber = '1';
+
+        $resp = $client->createCustomer($customer, $address);
+        $this->assertInstanceOf(GetCustomerResponse::class, $resp);
+        $this->assertEquals(0, $resp->errorCode);;
+        $this->assertInstanceOf(Customer::class, $resp->data);
+
+        $this->assertEquals($customer->email, $resp->data->email);
+        $this->assertEquals($customer->name, $resp->data->name);
+        $this->assertEquals($customer->tel1, $resp->data->tel1);
+        $this->assertEquals($customer->tel2, $resp->data->tel2);
+        $this->assertEquals($customer->vatId, $resp->data->vatId);
+    }
+
+    /** @throws \Exception */
+    public function testUpdateCustomerFails()
+    {
+        $this->expectException(InvalidIdException::class);
+        $this->expectExceptionMessage('Id must be an instance of integer and positive');
+        $this->getClient()->updateCustomer(new Customer());
+    }
+
+    /** @throws \Exception */
+    public function testUpdateCustomer()
+    {
+        $hash = md5(microtime(1));
+
+        $client = $this->getClient();
+        sleep(1);
+        $customerResp = $client->getCustomer($this->customerId);
+        $customer = $customerResp->data;
+
+        $originalName = $customer->name;
+
+        $newName = $customer->name . ' | ' . $hash;
+        $customer->name = $newName;
+        $client->updateCustomer($customer);
+        sleep(1);
+        $customer2Resp = $client->getCustomer($this->customerId);
+        sleep(1);
+        $customer2 = $customer2Resp->data;
+
+        $this->assertEquals($newName, $customer2->name);
+
+        $customer2->name = $originalName;
+
+        sleep(1);
+        $client->updateCustomer($customer2);
     }
 
     public function getClient()

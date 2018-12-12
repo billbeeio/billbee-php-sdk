@@ -309,4 +309,10 @@ class Order
      * @JsonField(name="CustomerNumber", type="string")
      */
     public $customerNumber;
+
+    /**
+     * @var string
+     * @JsonField(name="DistributionCenter", type="string")
+     */
+    public $distributionCenter;
 }
