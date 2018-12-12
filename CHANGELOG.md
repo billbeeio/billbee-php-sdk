@@ -1,5 +1,21 @@
 # Changelog
 
+## v1.4.0 (12 Dec 2018)
+
+New features:
+- Added the `Order::$distributionCenter` property
+- Single customer addresses can now queried with the `getCustomerAddress`
+- Added the `Order::$customer` property
+- `.gitattributes` added to exclude test files in prod
+
+Bug fixes:
+- `The alternative email address is ignored because sendMode != 4` logger warning fixed
+- Several type annotations fixed
+
+General:
+- Abandoned package `json-object-mapper` replaced by `data-model-mapper`
+- Test coverage increased
+
 ## v1.3.0 (6 Nov 2018)
 
 - Added the lookupBy parameter to the `getProduct()` call
