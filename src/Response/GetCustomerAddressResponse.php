@@ -12,13 +12,13 @@
 
 namespace BillbeeDe\BillbeeAPI\Response;
 
-use MintWare\JOM\JsonField;
+use MintWare\DMM\DataField;
 
 class GetCustomerAddressResponse extends BaseResponse
 {
     /**
      * @var \BillbeeDe\BillbeeAPI\Model\CustomerAddress
-     * @JsonField(name="Data", type="\BillbeeDe\BillbeeAPI\Model\CustomerAddress")
+     * @DataField(name="Data", type="\BillbeeDe\BillbeeAPI\Model\CustomerAddress")
      */
     public $data = null;
 }

@@ -19,7 +19,6 @@ use BillbeeDe\BillbeeAPI\Response as Response;
 use BillbeeDe\BillbeeAPI\Type as Type;
 use GuzzleHttp\Exception\ClientException;
 use GuzzleHttp\RequestOptions;
-use MintWare\DMM\Exception\InvalidJsonException;
 use MintWare\DMM\ObjectMapper;
 use MintWare\DMM\Serializer\JsonSerializer;
 use Psr\Http\Message\RequestInterface;
@@ -79,7 +78,11 @@ class Client extends AbstractClient
             ]
         ]);
 
-        $this->jom = new ObjectMapper(new JsonSerializer());
+        try {
+            $this->jom = new ObjectMapper(new JsonSerializer());
+        } catch (\Exception $ex) {
+            $this->logger->critical('Object Mapper could not be created.');
+        }
         $this->setLogger($logger);
     }
 
@@ -96,7 +99,6 @@ class Client extends AbstractClient
      * @return Response\GetProductsResponse The Response
      *
      * @throws QuotaExceededException If the maximum number of calls per second exceeded
-     * @throws InvalidJsonException If the response is not valid
      * @throws \Exception If the response cannot be parsed
      */
     public function getProducts($page = 1, $pageSize = 50, \DateTime $minCreatedAt = null)
@@ -127,7 +129,6 @@ class Client extends AbstractClient
      * @return Response\GetProductResponse The product response
      *
      * @throws QuotaExceededException If the maximum number of calls per second exceeded
-     * @throws InvalidJsonException If the response is not valid
      * @throws \Exception If the response cannot be parsed
      */
     public function getProduct($productId, $lookupBy = Type\ProductLookupBy::ID)
@@ -150,7 +151,6 @@ class Client extends AbstractClient
      * @return Response\UpdateStockResponse The Response
      *
      * @throws QuotaExceededException If the maximum number of calls per second exceeded
-     * @throws InvalidJsonException If the response is not valid
      * @throws \Exception If the response cannot be parsed
      */
     public function updateStock(Model\Stock $stockModel)
@@ -169,7 +169,6 @@ class Client extends AbstractClient
      * @return Response\UpdateStockResponse[] The Response
      *
      * @throws QuotaExceededException If the maximum number of calls per second exceeded
-     * @throws InvalidJsonException If the response is not valid
      * @throws \Exception If the response cannot be parsed
      */
     public function updateStockMultiple($stockModels)
@@ -188,7 +187,6 @@ class Client extends AbstractClient
      * @return Response\BaseResponse The Response
      *
      * @throws QuotaExceededException If the maximum number of calls per second exceeded
-     * @throws InvalidJsonException If the response is not valid
      * @throws \Exception If the response cannot be parsed
      */
     public function updateStockCode(Model\StockCode $stockCodeModel)
@@ -214,7 +212,6 @@ class Client extends AbstractClient
      * @return Response\GetTermsInfoResponse The terms info response
      *
      * @throws QuotaExceededException If the maximum number of calls per second exceeded
-     * @throws InvalidJsonException If the response is not valid
      * @throws \Exception If the response cannot be parsed
      */
     public function getTermsInfo()
@@ -247,7 +244,6 @@ class Client extends AbstractClient
      * @return Response\GetEventsResponse The events
      *
      * @throws QuotaExceededException If the maximum number of calls per second exceeded
-     * @throws InvalidJsonException If the response is not valid
      * @throws \Exception If the response cannot be parsed
      */
     public function getEvents(
@@ -313,7 +309,6 @@ class Client extends AbstractClient
      * @return Response\GetOrdersResponse The orders
      *
      * @throws QuotaExceededException If the maximum number of calls per second exceeded
-     * @throws InvalidJsonException If the response is not valid
      * @throws \Exception If the response cannot be parsed
      */
     public function getOrders(
@@ -422,7 +417,6 @@ class Client extends AbstractClient
      * @return Response\GetPatchableFieldsResponse
      *
      * @throws QuotaExceededException If the maximum number of calls per second exceeded
-     * @throws InvalidJsonException If the response is not valid
      * @throws \Exception If the response cannot be parsed
      */
     public function getPatchableFields()
@@ -442,7 +436,6 @@ class Client extends AbstractClient
      * @return Response\GetOrderResponse The order response
      *
      * @throws QuotaExceededException If the maximum number of calls per second exceeded
-     * @throws InvalidJsonException If the response is not valid
      * @throws \Exception If the response cannot be parsed
      */
     public function getOrder($id)
@@ -462,7 +455,6 @@ class Client extends AbstractClient
      * @return Response\GetOrderResponse The order response
      *
      * @throws QuotaExceededException If the maximum number of calls per second exceeded
-     * @throws InvalidJsonException If the response is not valid
      * @throws \Exception If the response cannot be parsed
      */
     public function getOrderByOrderNumber($extRef)
@@ -484,7 +476,6 @@ class Client extends AbstractClient
      * @return Response\GetOrderResponse The order response
      *
      * @throws QuotaExceededException If the maximum number of calls per second exceeded
-     * @throws InvalidJsonException If the response is not valid
      * @throws \Exception If the response cannot be parsed
      *
      * @see \BillbeeDe\BillbeeAPI\Type\Partner
@@ -511,7 +502,6 @@ class Client extends AbstractClient
      * @return Response\BaseResponse The response
      *
      * @throws QuotaExceededException If the maximum number of calls per second exceeded
-     * @throws InvalidJsonException If the response is not valid
      * @throws \Exception If the response cannot be parsed
      */
     public function createOrder(Model\Order $order, $shopId)
@@ -532,7 +522,6 @@ class Client extends AbstractClient
      * @return Response\BaseResponse The response
      *
      * @throws QuotaExceededException If the maximum number of calls per second exceeded
-     * @throws InvalidJsonException If the response is not valid
      * @throws \Exception If the response cannot be parsed
      */
     public function addOrderTags($orderId, $tags = [])
@@ -556,7 +545,6 @@ class Client extends AbstractClient
      * @return bool True if the shipment was added
      *
      * @throws QuotaExceededException If the maximum number of calls per second exceeded
-     * @throws InvalidJsonException If the response is not valid
      * @throws \Exception If the response cannot be parsed
      */
     public function addOrderShipment($orderId, Model\Shipment $shipment)
@@ -578,7 +566,6 @@ class Client extends AbstractClient
      * @return Response\CreateDeliveryNoteResponse The response
      *
      * @throws QuotaExceededException If the maximum number of calls per second exceeded
-     * @throws InvalidJsonException If the response is not valid
      * @throws \Exception If the response cannot be parsed
      */
     public function createDeliveryNote($orderId, $includePdf)
@@ -599,7 +586,6 @@ class Client extends AbstractClient
      * @return Response\CreateDeliveryNoteResponse The response
      *
      * @throws QuotaExceededException If the maximum number of calls per second exceeded
-     * @throws InvalidJsonException If the response is not valid
      * @throws \Exception If the response cannot be parsed
      */
     public function createInvoice($orderId, $includePdf)
@@ -620,7 +606,6 @@ class Client extends AbstractClient
      * @return bool True if the message was send, otherwise false
      *
      * @throws QuotaExceededException If the maximum number of calls per second exceeded
-     * @throws InvalidJsonException If the response is not valid
      * @throws \Exception If the response cannot be parsed
      * @throws \InvalidArgumentException If the request is not valid
      */
@@ -664,7 +649,6 @@ class Client extends AbstractClient
      * @return Response\BaseResponse The response
      *
      * @throws QuotaExceededException If the maximum number of calls per second exceeded
-     * @throws InvalidJsonException If the response is not valid
      * @throws \Exception If the response cannot be parsed
      */
     public function setOrderTags($orderId, $tags = [])
@@ -688,7 +672,6 @@ class Client extends AbstractClient
      * @return bool True if the state was updated
      *
      * @throws QuotaExceededException If the maximum number of calls per second exceeded
-     * @throws InvalidJsonException If the response is not valid
      * @throws \Exception If the response cannot be parsed
      *
      * @see \BillbeeDe\BillbeeAPI\Type\OrderState
@@ -716,7 +699,6 @@ class Client extends AbstractClient
      * @return Response\GetOrderResponse The order
      *
      * @throws QuotaExceededException If the maximum number of calls per second exceeded
-     * @throws InvalidJsonException If the response is not valid
      * @throws \Exception If the response cannot be parsed
      */
     public function patchOrder($orderId, $model)
@@ -753,7 +735,6 @@ class Client extends AbstractClient
      * @return Response\GetInvoicesResponse The Invoices
      *
      * @throws QuotaExceededException If the maximum number of calls per second exceeded
-     * @throws InvalidJsonException If the response is not valid
      * @throws \Exception If the response cannot be parsed
      */
     public function getInvoices(
@@ -856,7 +837,6 @@ class Client extends AbstractClient
      * @return Response\GetShippingProvidersResponse The shipping providers response
      *
      * @throws QuotaExceededException If the maximum number of calls per second exceeded
-     * @throws InvalidJsonException If the response is not valid
      * @throws \Exception If the response cannot be parsed
      */
     public function getShippingProviders()
@@ -888,7 +868,6 @@ class Client extends AbstractClient
      * @return Response\GetCustomFieldDefinitionsResponse The Response
      *
      * @throws QuotaExceededException If the maximum number of calls per second exceeded
-     * @throws InvalidJsonException If the response is not valid
      * @throws \Exception If the response cannot be parsed
      */
     public function getCustomFieldDefinitions($page = 1, $pageSize = 50)
@@ -912,7 +891,6 @@ class Client extends AbstractClient
      * @return Response\GetCustomFieldDefinitionResponse The Response
      *
      * @throws QuotaExceededException If the maximum number of calls per second exceeded
-     * @throws InvalidJsonException If the response is not valid
      * @throws InvalidIdException If the id is not an integer or negative
      * @throws \Exception If the response cannot be parsed
      */
@@ -943,7 +921,6 @@ class Client extends AbstractClient
      * @return Model\WebHook[] The Response
      *
      * @throws QuotaExceededException If the maximum number of calls per second exceeded
-     * @throws InvalidJsonException If the response is not valid
      * @throws \Exception If the response cannot be parsed
      */
     public function getWebHooks()
@@ -961,7 +938,6 @@ class Client extends AbstractClient
      * @param int $id The id of the web hook
      * @return Model\WebHook The Response
      *
-     * @throws InvalidJsonException If the response is not valid
      * @throws QuotaExceededException If the maximum number of calls per second exceeded
      */
     public function getWebHook($id)
@@ -979,7 +955,6 @@ class Client extends AbstractClient
      * @return array The Response
      *
      * @throws QuotaExceededException If the maximum number of calls per second exceeded
-     * @throws InvalidJsonException If the response is not valid
      * @throws \Exception If the response cannot be parsed
      */
     public function getWebHookFilters()
@@ -1002,7 +977,6 @@ class Client extends AbstractClient
      * @return Model\WebHook The created web hook
      *
      * @throws QuotaExceededException If the maximum number of calls per second exceeded
-     * @throws InvalidJsonException If the response is not valid
      * @throws \Exception If the response cannot be parsed
      */
     public function createWebHook(Model\WebHook $webHook)
@@ -1025,7 +999,6 @@ class Client extends AbstractClient
      * @return bool True if the web hook was updated
      *
      * @throws QuotaExceededException If the maximum number of calls per second exceeded
-     * @throws InvalidJsonException If the response is not valid
      * @throws \InvalidArgumentException If the web hook has no id
      * @throws \Exception If the response cannot be parsed
      */
@@ -1054,7 +1027,6 @@ class Client extends AbstractClient
      * @return bool True if the web hooks was deleted
      *
      * @throws QuotaExceededException If the maximum number of calls per second exceeded
-     * @throws InvalidJsonException If the response is not valid
      * @throws \Exception If the response cannot be parsed
      */
     public function deleteAllWebHooks()
@@ -1074,7 +1046,6 @@ class Client extends AbstractClient
      * @return bool True if the web hook was deleted
      *
      * @throws QuotaExceededException If the maximum number of calls per second exceeded
-     * @throws InvalidJsonException If the response is not valid
      * @throws \InvalidArgumentException If the web hook has no id
      * @throws \Exception If the response cannot be parsed
      */
@@ -1092,7 +1063,6 @@ class Client extends AbstractClient
      * @return bool True if the web hook was deleted
      *
      * @throws QuotaExceededException If the maximum number of calls per second exceeded
-     * @throws InvalidJsonException If the response is not valid
      * @throws \InvalidArgumentException If the web hook has no id
      * @throws \Exception If the response cannot be parsed
      */
@@ -1124,7 +1094,6 @@ class Client extends AbstractClient
      * @return Response\GetCustomersResponse The Response
      *
      * @throws QuotaExceededException If the maximum number of calls per second exceeded
-     * @throws InvalidJsonException If the response is not valid
      * @throws \Exception If the response cannot be parsed
      */
     public function getCustomers()
@@ -1143,7 +1112,6 @@ class Client extends AbstractClient
      * @return Response\GetCustomerResponse The Response
      *
      * @throws QuotaExceededException If the maximum number of calls per second exceeded
-     * @throws InvalidJsonException If the response is not valid
      * @throws InvalidIdException If the id is not an integer or negative
      * @throws \Exception If the response cannot be parsed
      */
@@ -1169,7 +1137,6 @@ class Client extends AbstractClient
      * @return Response\GetCustomerAddressesResponse The Response
      *
      * @throws QuotaExceededException If the maximum number of calls per second exceeded
-     * @throws InvalidJsonException If the response is not valid
      * @throws InvalidIdException If the id is not an integer or negative
      * @throws \Exception If the response cannot be parsed
      */
@@ -1199,14 +1166,13 @@ class Client extends AbstractClient
      * @return Response\GetCustomerAddressResponse The Response
      *
      * @throws QuotaExceededException If the maximum number of calls per second exceeded
-     * @throws InvalidJsonException If the response is not valid
      * @throws InvalidIdException If the id is not an integer or negative
      * @throws \Exception If the response cannot be parsed
      */
     public function getCustomerAddress($id)
     {
         return $this->requestGET(
-            'customers/addresses/' . $id ,
+            'customers/addresses/' . $id,
             [],
             Response\GetCustomerAddressResponse::class
         );
@@ -1222,7 +1188,6 @@ class Client extends AbstractClient
      * @return Response\GetOrdersResponse The Response
      *
      * @throws QuotaExceededException If the maximum number of calls per second exceeded
-     * @throws InvalidJsonException If the response is not valid
      * @throws InvalidIdException If the id is not an integer or negative
      * @throws \Exception If the response cannot be parsed
      */
@@ -1256,7 +1221,6 @@ class Client extends AbstractClient
      * @return Response\GetCustomerResponse The created customer
      *
      * @throws QuotaExceededException If the maximum number of calls per second exceeded
-     * @throws InvalidJsonException If the response is not valid
      * @throws \Exception If the response cannot be parsed
      */
     public function createCustomer(Model\Customer $customer, Model\CustomerAddress $address)
@@ -1282,7 +1246,6 @@ class Client extends AbstractClient
      * @return Response\GetCustomersResponse The customer
      *
      * @throws QuotaExceededException If the maximum number of calls per second exceeded
-     * @throws InvalidJsonException If the response is not valid
      * @throws InvalidIdException If the customers id is invalid
      * @throws \Exception If the response cannot be parsed
      */
@@ -1309,7 +1272,6 @@ class Client extends AbstractClient
      * @return Response\BaseResponse[]|mixed[]
      *
      * @throws QuotaExceededException If the maximum number of calls per second exceeded
-     * @throws InvalidJsonException If the response is not valid
      * @throws \Exception If the response cannot be parsed
      *
      * @see Client::$useBatching
@@ -1366,7 +1328,6 @@ class Client extends AbstractClient
      * @return mixed The mapped response object
      *
      * @throws QuotaExceededException If the maximum number of calls per second exceeded
-     * @throws InvalidJsonException If the response is not valid
      * @throws \Exception If the response cannot be parsed
      */
     protected function requestGET(
@@ -1391,7 +1352,6 @@ class Client extends AbstractClient
      * @return mixed The mapped response object
      *
      * @throws QuotaExceededException If the maximum number of calls per second exceeded
-     * @throws InvalidJsonException If the response is not valid
      * @throws \Exception If the response cannot be parsed
      */
     protected function requestPOST(
@@ -1420,7 +1380,6 @@ class Client extends AbstractClient
      * @return mixed The mapped response object
      *
      * @throws QuotaExceededException If the maximum number of calls per second exceeded
-     * @throws InvalidJsonException If the response is not valid
      * @throws \Exception If the response cannot be parsed
      */
     protected function requestPUT(
@@ -1449,7 +1408,6 @@ class Client extends AbstractClient
      * @return mixed The mapped response object
      *
      * @throws QuotaExceededException If the maximum number of calls per second exceeded
-     * @throws InvalidJsonException If the response is not valid
      * @throws \Exception If the response cannot be parsed
      */
     protected function requestPATCH(
@@ -1478,7 +1436,6 @@ class Client extends AbstractClient
      * @return mixed The mapped response object
      *
      * @throws QuotaExceededException If the maximum number of calls per second exceeded
-     * @throws InvalidJsonException If the response is not valid
      * @throws \Exception If the response cannot be parsed
      */
     protected function requestDELETE(
@@ -1502,7 +1459,6 @@ class Client extends AbstractClient
      * @param bool $ignorePool If true and batching is enabled, the request will be executed instead of queueing to pool
      * @return mixed The mapped response object
      *
-     * @throws InvalidJsonException If the response is not valid
      * @throws QuotaExceededException If the maximum number of calls per second exceeded
      * @throws \Exception If the response cannot be parsed
      */
@@ -1541,8 +1497,6 @@ class Client extends AbstractClient
                 } elseif (trim($contents) != '') {
                     $data = $contents;
                 }
-            } catch (InvalidJsonException $exception) {
-                throw $exception;
             } catch (\Exception $exception) {
                 throw $exception;
             }
@@ -1558,8 +1512,6 @@ class Client extends AbstractClient
                     } elseif (trim($contents) != '') {
                         $data[$i] = $contents;
                     }
-                } catch (InvalidJsonException $exception) {
-                    $data[$i] = $exception;
                 } catch (\Exception $exception) {
                     $data[$i] = $exception;
                 }

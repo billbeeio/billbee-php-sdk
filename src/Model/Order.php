@@ -312,7 +312,13 @@ class Order
 
     /**
      * @var string
-     * @JsonField(name="DistributionCenter", type="string")
+     * @DataField(name="DistributionCenter", type="string")
      */
     public $distributionCenter;
+
+    /**
+     * @var Customer
+     * @DataField(name="Customer", type="BillbeeDe\BillbeeAPI\Model\Customer")
+     */
+    public $customer;
 }

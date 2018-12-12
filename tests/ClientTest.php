@@ -453,6 +453,7 @@ class ClientTest extends TestCase
         $order = $client->getOrder($this->sampleOrderId);
         $this->assertInstanceOf(GetOrderResponse::class, $order);
         $this->assertInstanceOf(Order::class, $order->data);
+        $this->assertInstanceOf(Customer::class, $order->data->customer);
     }
 
     /** @throws \Exception */
@@ -1047,7 +1048,8 @@ class ClientTest extends TestCase
 
         $resp = $client->createCustomer($customer, $address);
         $this->assertInstanceOf(GetCustomerResponse::class, $resp);
-        $this->assertEquals(0, $resp->errorCode);;
+        $this->assertEquals(0, $resp->errorCode);
+        ;
         $this->assertInstanceOf(Customer::class, $resp->data);
 
         $this->assertEquals($customer->email, $resp->data->email);
