@@ -1,5 +1,13 @@
 # Changelog
 
+## v1.4.1 (7 Jan 2019)
+
+Bug Fixes:
+- `Order::$vatMode` used the wrong type.
+
+General:
+- Copyright updated
+
 ## v1.4.0 (12 Dec 2018)
 
 New features:

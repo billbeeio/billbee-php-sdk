@@ -2,7 +2,7 @@
 /**
  * This file is part of the Billbee API package.
  *
- * Copyright 2017 - 2018 by Billbee GmbH
+ * Copyright 2017 - 2019 by Billbee GmbH
  *
  * For the full copyright and license information, please read the LICENSE
  * file that was distributed with this source code.
@@ -18,6 +18,12 @@ use MintWare\DMM\DataField;
 
 class Order
 {
+    const VAT_MODE_DEFAULT = 0;
+    const VAT_MODE_SMALL_BUSINESS = 1;
+    const VAT_MODE_INTRA_COMMUNITY_DELIVERY = 2;
+    const VAT_MODE_EXPORT_3RD_COUNTRY = 3;
+    const VAT_MODE_DIFFERENTIAL_TAXATION = 4;
+
     /**
      * @var int
      * @DataField(name="BillBeeOrderId", type="int")
@@ -64,7 +70,7 @@ class Order
      * @var int
      * @DataField(name="VatMode", type="int")
      */
-    public $vatMode = Product::VAT_INDEX_NORMAL;
+    public $vatMode = self::VAT_MODE_DEFAULT;
 
     /**
      * @var \DateTime
