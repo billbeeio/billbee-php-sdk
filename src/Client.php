@@ -854,6 +854,29 @@ class Client extends AbstractClient
 
     #endregion
 
+    #region POST
+
+    /**
+     * Creates a shipment for an order in billbee
+     *
+     * @return Response\ShipWithLabelResponse The response
+     *
+     * @throws QuotaExceededException If the maximum number of calls per second exceeded
+     * @throws \Exception If the response cannot be parsed
+     */
+    public function shipWithLabel(Model\ShipmentWithLabel $shipment)
+    {
+        $result = $this->requestPOST(
+            'shipment/shipwithlabel',
+            $this->jom->serialize($shipment),
+            Response\ShipWithLabelResponse::class
+        );
+
+        return $result;
+    }
+
+    #endregion
+
     #endregion
 
     #region PRODUCT CUSTOM FIELDS

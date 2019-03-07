@@ -19,6 +19,7 @@ use BillbeeDe\BillbeeAPI\Model\Customer;
 use BillbeeDe\BillbeeAPI\Model\CustomerAddress;
 use BillbeeDe\BillbeeAPI\Model\CustomFieldDefinition;
 use BillbeeDe\BillbeeAPI\Model\DeliveryNoteDocument;
+use BillbeeDe\BillbeeAPI\Model\Dimensions;
 use BillbeeDe\BillbeeAPI\Model\Event;
 use BillbeeDe\BillbeeAPI\Model\Invoice;
 use BillbeeDe\BillbeeAPI\Model\InvoiceDocument;
@@ -29,6 +30,7 @@ use BillbeeDe\BillbeeAPI\Model\OrderItem;
 use BillbeeDe\BillbeeAPI\Model\PartnerOrder;
 use BillbeeDe\BillbeeAPI\Model\Product;
 use BillbeeDe\BillbeeAPI\Model\Shipment;
+use BillbeeDe\BillbeeAPI\Model\ShipmentWithLabel;
 use BillbeeDe\BillbeeAPI\Model\ShippingProvider;
 use BillbeeDe\BillbeeAPI\Model\Stock;
 use BillbeeDe\BillbeeAPI\Model\StockCode;
@@ -79,6 +81,9 @@ class ClientTest extends TestCase
     protected $testDeleteWebHooks = false;
     protected $customerId = '';
     protected $addressId;
+    protected $shippableOrderId;
+    protected $shippingProviderId;
+    protected $shippingProviderProduct;
 
     public function __construct($name = null, array $data = [], $dataName = '')
     {
@@ -101,6 +106,9 @@ class ClientTest extends TestCase
             $this->testDeleteWebHooks,
             $this->customerId,
             $this->addressId,
+            $this->shippableOrderId,
+            $this->shippingProviderId,
+            $this->shippingProviderProduct,
             ) = [
             $data['username'],
             $data['password'],
@@ -117,6 +125,9 @@ class ClientTest extends TestCase
             $data['test_delete_web_hooks'],
             $data['customer_id'],
             $data['address_id'],
+            $data['shippable_order_id'],
+            $data['shipping_provider_id'],
+            $data['shipping_provider_product'],
         ];
     }
 
@@ -1093,6 +1104,31 @@ class ClientTest extends TestCase
 
         sleep(1);
         $client->updateCustomer($customer2);
+    }
+
+    /** @throws \Exception */
+    public function testShipOrderWithLabel()
+    {
+        if (empty($this->shippableOrderId)
+            || empty($this->shippingProviderId)
+            || empty($this->shippingProviderProduct)) {
+            return;
+        }
+
+        $client = $this->getClient();
+        sleep(1);
+        $shipment = new ShipmentWithLabel();
+        $shipment->changeStateToSend = true;
+        $shipment->clientReference = 'Hallo Welt';
+        $shipment->dimension = new Dimensions(15, 15, 10);
+        $shipment->orderId = $this->shippableOrderId;
+        $shipment->providerId = $this->shippingProviderId;
+        $shipment->productId = $this->shippingProviderProduct;
+        $shipment->shipDate = new \DateTime('now');
+        $shipment->weightInGram = 130;
+
+        $res = $client->shipWithLabel($shipment);
+        print_r($res);
     }
 
     public function getClient()

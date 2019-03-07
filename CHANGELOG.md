@@ -1,5 +1,10 @@
 # Changelog
 
+## v1.5.0 (7 Mar 2019)
+
+New features:
+- `POST /api/v1/shipment/shipwithlabel` added. (`Client::shipWithLabel(Model\ShipmentWithLabel)`)
+
 ## v1.4.1 (7 Jan 2019)
 
 Bug Fixes:
