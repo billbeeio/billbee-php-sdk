@@ -1,5 +1,10 @@
 # Changelog
 
+## v1.6.0 (1 Apr 2019)
+
+New features:
+- Added a `DiagnosticsLogger` for debugging
+
 ## v1.5.0 (7 Mar 2019)
 
 New features:

@@ -2,3 +2,5 @@
 /vendor
 /test_config.yml
 /composer.lock
+program.php
+output.log

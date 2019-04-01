@@ -14,6 +14,7 @@ namespace BillbeeDe\BillbeeAPI;
 
 use BillbeeDe\BillbeeAPI\Exception\InvalidIdException;
 use BillbeeDe\BillbeeAPI\Exception\QuotaExceededException;
+use BillbeeDe\BillbeeAPI\Logger\DiagnosticsLogger;
 use BillbeeDe\BillbeeAPI\Model as Model;
 use BillbeeDe\BillbeeAPI\Response as Response;
 use BillbeeDe\BillbeeAPI\Type as Type;
@@ -59,6 +60,13 @@ class Client extends AbstractClient
      * @var array
      */
     protected $requestPool = [];
+
+    /**
+     * If true, the requests will be logged
+     *
+     * @var bool
+     */
+    private $logRequests = false;
 
     /**
      * Instantiates a new Billbee API client
@@ -1307,7 +1315,7 @@ class Client extends AbstractClient
 
             $boundaries = [];
             foreach ($this->requestPool as $_request) {
-                $boundaries[] = $this->requestToBoundary($_request['request']);
+                $boundaries[] = $this->requestToBoundary($_request['requestFactory']());
             }
 
             $boundary = "--batch\r\n";
@@ -1477,7 +1485,7 @@ class Client extends AbstractClient
      * Handles a general request
      *
      * @param string $responseClass The response class
-     * @param callable $request A callable which "do" the request
+     * @param callable $requestFactory A callable which creates the request object
      *
      * @param bool $ignorePool If true and batching is enabled, the request will be executed instead of queueing to pool
      * @return mixed The mapped response object
@@ -1485,12 +1493,13 @@ class Client extends AbstractClient
      * @throws QuotaExceededException If the maximum number of calls per second exceeded
      * @throws \Exception If the response cannot be parsed
      */
-    private function internalRequest($responseClass, callable $request, $ignorePool = false)
+    private function internalRequest($responseClass, callable $requestFactory, $ignorePool = false)
     {
+        /** @var \GuzzleHttp\Psr7\Request $request */
         if ($this->useBatching === true && $ignorePool === false) {
             $req = [
                 'responseClass' => $responseClass,
-                'request' => $request()
+                'requestFactory' => $requestFactory
             ];
             $this->logger->info('Adding request for batch request to the request pool', $req);
             $this->requestPool[] = $req;
@@ -1499,8 +1508,21 @@ class Client extends AbstractClient
 
 
         try {
+            $request = $requestFactory();
+            if ($this->logRequests || $this->logger instanceof DiagnosticsLogger) {
+                $this->logger->debug(sprintf('Execute request to %s', $request->getUri()), [
+                    'method' => $request->getMethod(),
+                    'body' => $request->getBody(),
+                ]);
+            }
             /** @var ResponseInterface $res */
-            $res = $this->sendAsync($request(), [RequestOptions::SYNCHRONOUS => true])->wait();
+            $res = $this->sendAsync($request, [RequestOptions::SYNCHRONOUS => true])->wait();
+            if ($this->logRequests || $this->logger instanceof DiagnosticsLogger) {
+                $this->logger->debug(sprintf('Request to %s executed successfully', $request->getUri()), [
+                    'headers' => $res->getHeaders(),
+                    'body' => $res->getBody()->getContents(),
+                ]);
+            }
         } catch (ClientException $ex) {
             if ($ex->getCode() == 429) {
                 $this->logger->warning('Request quota exceeded');
@@ -1595,4 +1617,21 @@ class Client extends AbstractClient
         $plainRequest .= $request->getBody()->getContents();
         return $plainRequest;
     }
+
+    /** @return bool */
+    public function getLogRequests()
+    {
+        return $this->logRequests;
+    }
+
+    /**
+     * @param bool $logRequests
+     * @return Client
+     */
+    public function setLogRequests($logRequests)
+    {
+        $this->logRequests = $logRequests;
+        return $this;
+    }
 }
+

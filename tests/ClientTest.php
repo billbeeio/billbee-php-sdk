@@ -1127,8 +1127,17 @@ class ClientTest extends TestCase
         $shipment->shipDate = new \DateTime('now');
         $shipment->weightInGram = 130;
 
-        $res = $client->shipWithLabel($shipment);
-        print_r($res);
+        $client->shipWithLabel($shipment);
+    }
+
+    public function testGetSetLogRequests()
+    {
+        $client = $this->getClient();
+        $this->assertFalse($client->getLogRequests());
+        $client->setLogRequests(true);
+        $this->assertTrue($client->getLogRequests());
+        $client->setLogRequests(false);
+        $this->assertFalse($client->getLogRequests());
     }
 
     public function getClient()
