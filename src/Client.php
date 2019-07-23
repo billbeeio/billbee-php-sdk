@@ -86,12 +86,15 @@ class Client extends AbstractClient
             ]
         ]);
 
+        $this->setLogger($logger);
         try {
             $this->jom = new ObjectMapper(new JsonSerializer());
         } catch (\Exception $ex) {
-            $this->logger->critical('Object Mapper could not be created.');
+            if($logger !== null) {
+                $this->logger->critical('Object Mapper could not be created.');
+            }
+            throw $ex;
         }
-        $this->setLogger($logger);
     }
 
     #region PRODUCTS
