@@ -1,5 +1,11 @@
 # Changelog
 
+## 1.6.1 (24 Jul 2019)
+
+Bug Fixes:
+- Fixed `use-before-initialize` bug in the `Client::__construct` ([PR #15](https://github.com/billbeeio/billbee-php-sdk/pull/15))
+- Fixed empty response bug ([PR #17](https://github.com/billbeeio/billbee-php-sdk/pull/17))
+
 ## v1.6.0 (1 Apr 2019)
 
 New features:
