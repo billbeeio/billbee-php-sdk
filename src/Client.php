@@ -1510,6 +1510,7 @@ class Client extends AbstractClient
         }
 
 
+        $contents = null;
         try {
             $request = $requestFactory();
             if ($this->logRequests || $this->logger instanceof DiagnosticsLogger) {
@@ -1519,11 +1520,14 @@ class Client extends AbstractClient
                 ]);
             }
             /** @var ResponseInterface $res */
+
             $res = $this->sendAsync($request, [RequestOptions::SYNCHRONOUS => true])->wait();
+            $contents = $res->getBody()->getContents();
+
             if ($this->logRequests || $this->logger instanceof DiagnosticsLogger) {
                 $this->logger->debug(sprintf('Request to %s executed successfully', $request->getUri()), [
                     'headers' => $res->getHeaders(),
-                    'body' => $res->getBody()->getContents(),
+                    'body' => $contents,
                 ]);
             }
         } catch (ClientException $ex) {
@@ -1536,7 +1540,6 @@ class Client extends AbstractClient
             }
         }
 
-        $contents = $res->getBody()->getContents();
         $data = null;
         if ($responseClass !== null) {
             try {
