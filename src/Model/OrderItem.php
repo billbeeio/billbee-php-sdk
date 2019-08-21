@@ -30,7 +30,7 @@ class OrderItem
 
     /**
      * @var object
-     * @DataField(name="Product", type="object")
+     * @DataField(name="Product", type="BillbeeDe\BillbeeAPI\Model\SoldProduct")
      */
     public $product;
 
