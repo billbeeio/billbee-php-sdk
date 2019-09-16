@@ -301,10 +301,16 @@ class Order
     /** Not Mapped */
     public $isCancellationFor;
 
-    /** Not Mapped */
+    /**
+     * @var string
+     * @DataField(name="PaymentTransactionId", type="string")
+     */
     public $paymentTransactionId;
 
-    /** Not Mapped */
+    /**
+     * @var string
+     * @DataField(name="DeliverySourceCountryCode", type="string")
+     */
     public $deliverySourceCountryCode;
 
     /** Not Mapped */

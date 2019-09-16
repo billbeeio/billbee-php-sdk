@@ -1,5 +1,10 @@
 # Changelog
 
+## 1.6.2 (16 Sep 2019)
+
+Bug Fixes:
+- Added a mapping for `Order::$paymentTransactionId` and `Order::$deliverySourceCountryCode`
+
 ## 1.6.1 (24 Jul 2019)
 
 Bug Fixes:
