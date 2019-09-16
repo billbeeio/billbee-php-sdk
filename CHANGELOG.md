@@ -2,6 +2,9 @@
 
 ## 1.6.2 (16 Sep 2019)
 
+New features:
+- Added the `SoldProduct` model which is used in `OrderItem::$product`
+
 Bug Fixes:
 - Added a mapping for `Order::$paymentTransactionId` and `Order::$deliverySourceCountryCode`
 
