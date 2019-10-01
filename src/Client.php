@@ -18,8 +18,11 @@ use BillbeeDe\BillbeeAPI\Logger\DiagnosticsLogger;
 use BillbeeDe\BillbeeAPI\Model as Model;
 use BillbeeDe\BillbeeAPI\Response as Response;
 use BillbeeDe\BillbeeAPI\Type as Type;
+use DateTime;
+use Exception;
 use GuzzleHttp\Exception\ClientException;
 use GuzzleHttp\RequestOptions;
+use InvalidArgumentException;
 use MintWare\DMM\ObjectMapper;
 use MintWare\DMM\Serializer\JsonSerializer;
 use Psr\Http\Message\RequestInterface;
@@ -75,6 +78,7 @@ class Client extends AbstractClient
      * @param string $apiPassword The API password for the user
      * @param string $apiKey The API Key
      * @param LoggerInterface $logger Sets a optional logger
+     * @throws Exception
      */
     public function __construct($username, $apiPassword, $apiKey, LoggerInterface $logger = null)
     {
@@ -89,7 +93,7 @@ class Client extends AbstractClient
         $this->setLogger($logger);
         try {
             $this->jom = new ObjectMapper(new JsonSerializer());
-        } catch (\Exception $ex) {
+        } catch (Exception $ex) {
             if($logger !== null) {
                 $this->logger->critical('Object Mapper could not be created.');
             }
@@ -106,20 +110,20 @@ class Client extends AbstractClient
      *
      * @param int $page The start page
      * @param int $pageSize The page size
-     * @param \DateTime|null $minCreatedAt The date of creation of the products
+     * @param DateTime|null $minCreatedAt The date of creation of the products
      * @return Response\GetProductsResponse The Response
      *
      * @throws QuotaExceededException If the maximum number of calls per second exceeded
-     * @throws \Exception If the response cannot be parsed
+     * @throws Exception If the response cannot be parsed
      */
-    public function getProducts($page = 1, $pageSize = 50, \DateTime $minCreatedAt = null)
+    public function getProducts($page = 1, $pageSize = 50, DateTime $minCreatedAt = null)
     {
         $query = [
             'page' => max(1, $page),
             'pageSize' => max(1, $pageSize),
         ];
 
-        if ($minCreatedAt !== null && $minCreatedAt instanceof \DateTime) {
+        if ($minCreatedAt !== null && $minCreatedAt instanceof DateTime) {
             $query['minCreatedAt'] = $minCreatedAt->format('c');
         }
 
@@ -140,7 +144,7 @@ class Client extends AbstractClient
      * @return Response\GetProductResponse The product response
      *
      * @throws QuotaExceededException If the maximum number of calls per second exceeded
-     * @throws \Exception If the response cannot be parsed
+     * @throws Exception If the response cannot be parsed
      */
     public function getProduct($productId, $lookupBy = Type\ProductLookupBy::ID)
     {
@@ -162,7 +166,7 @@ class Client extends AbstractClient
      * @return Response\UpdateStockResponse The Response
      *
      * @throws QuotaExceededException If the maximum number of calls per second exceeded
-     * @throws \Exception If the response cannot be parsed
+     * @throws Exception If the response cannot be parsed
      */
     public function updateStock(Model\Stock $stockModel)
     {
@@ -180,7 +184,7 @@ class Client extends AbstractClient
      * @return Response\UpdateStockResponse[] The Response
      *
      * @throws QuotaExceededException If the maximum number of calls per second exceeded
-     * @throws \Exception If the response cannot be parsed
+     * @throws Exception If the response cannot be parsed
      */
     public function updateStockMultiple($stockModels)
     {
@@ -198,7 +202,7 @@ class Client extends AbstractClient
      * @return Response\BaseResponse The Response
      *
      * @throws QuotaExceededException If the maximum number of calls per second exceeded
-     * @throws \Exception If the response cannot be parsed
+     * @throws Exception If the response cannot be parsed
      */
     public function updateStockCode(Model\StockCode $stockCodeModel)
     {
@@ -223,7 +227,7 @@ class Client extends AbstractClient
      * @return Response\GetTermsInfoResponse The terms info response
      *
      * @throws QuotaExceededException If the maximum number of calls per second exceeded
-     * @throws \Exception If the response cannot be parsed
+     * @throws Exception If the response cannot be parsed
      */
     public function getTermsInfo()
     {
@@ -247,21 +251,21 @@ class Client extends AbstractClient
      *
      * @param int $page The start page
      * @param int $pageSize The page size
-     * @param \DateTime $minDate Start date
-     * @param \DateTime $maxDate End date
+     * @param DateTime $minDate Start date
+     * @param DateTime $maxDate End date
      * @param array $typeIds An array of event type id's
      * @param int $orderId Filter for specific order id
      *
      * @return Response\GetEventsResponse The events
      *
      * @throws QuotaExceededException If the maximum number of calls per second exceeded
-     * @throws \Exception If the response cannot be parsed
+     * @throws Exception If the response cannot be parsed
      */
     public function getEvents(
         $page = 1,
         $pageSize = 50,
-        \DateTime $minDate = null,
-        \DateTime $maxDate = null,
+        DateTime $minDate = null,
+        DateTime $maxDate = null,
         $typeIds = [],
         $orderId = null
     ) {
@@ -270,11 +274,11 @@ class Client extends AbstractClient
             'pageSize' => max(1, $pageSize),
         ];
 
-        if ($minDate !== null && $minDate instanceof \DateTime) {
+        if ($minDate !== null && $minDate instanceof DateTime) {
             $query['minDate'] = $minDate->format('c');
         }
 
-        if ($maxDate !== null && $maxDate instanceof \DateTime) {
+        if ($maxDate !== null && $maxDate instanceof DateTime) {
             $query['maxDate'] = $maxDate->format('c');
         }
 
@@ -306,33 +310,33 @@ class Client extends AbstractClient
      *
      * @param int $page Specifies the page to request
      * @param int $pageSize Specifies the pagesize. Defaults to 50, max value is 250
-     * @param \DateTime|null $minOrderDate Specifies the oldest order date to include in the response
-     * @param \DateTime|null $maxOrderDate Specifies the newest order date to include in the response
+     * @param DateTime|null $minOrderDate Specifies the oldest order date to include in the response
+     * @param DateTime|null $maxOrderDate Specifies the newest order date to include in the response
      * @param int[] $shopId Specifies a list of shop ids for which invoices should be included
      * @param int[] $orderStateId Specifies a list of state ids to include in the response
      * @param string[] $tag Specifies a list of tags the order must have attached to be included in the response
      * @param null $minimumOrderId If given, all delivered orders have an Id greater than or equal to the given minimumOrderId
-     * @param \DateTime|null $modifiedAtMin If given, the last modification has to be newer than the given date
-     * @param \DateTime|null $modifiedAtMax If given, the last modification has to be older or equal than the given date.
+     * @param DateTime|null $modifiedAtMin If given, the last modification has to be newer than the given date
+     * @param DateTime|null $modifiedAtMax If given, the last modification has to be older or equal than the given date.
      * @param int $articleTitleSource The source field for the article title.
      * @param boolean $excludeTags If true the list of tags passed to the call are used to filter orders to not include these tags
      *
      * @return Response\GetOrdersResponse The orders
      *
      * @throws QuotaExceededException If the maximum number of calls per second exceeded
-     * @throws \Exception If the response cannot be parsed
+     * @throws Exception If the response cannot be parsed
      */
     public function getOrders(
         $page = 1,
         $pageSize = 50,
-        \DateTime $minOrderDate = null,
-        \DateTime $maxOrderDate = null,
+        DateTime $minOrderDate = null,
+        DateTime $maxOrderDate = null,
         $shopId = [],
         $orderStateId = [],
         $tag = [],
         $minimumOrderId = null,
-        \DateTime $modifiedAtMin = null,
-        \DateTime $modifiedAtMax = null,
+        DateTime $modifiedAtMin = null,
+        DateTime $modifiedAtMax = null,
         $articleTitleSource = Type\ArticleSource::ORDER_POSITION,
         $excludeTags = false
     ) {
@@ -341,11 +345,11 @@ class Client extends AbstractClient
             'pageSize' => max(1, $pageSize),
         ];
 
-        if ($minOrderDate !== null && $minOrderDate instanceof \DateTime) {
+        if ($minOrderDate !== null && $minOrderDate instanceof DateTime) {
             $query['minOrderDate'] = $minOrderDate->format('c');
         }
 
-        if ($maxOrderDate !== null && $maxOrderDate instanceof \DateTime) {
+        if ($maxOrderDate !== null && $maxOrderDate instanceof DateTime) {
             $query['maxOrderDate'] = $maxOrderDate->format('c');
         }
 
@@ -355,7 +359,7 @@ class Client extends AbstractClient
             } elseif (is_array($shopId)) {
                 foreach ($shopId as $value) {
                     if (!is_numeric($value)) {
-                        throw new \InvalidArgumentException('shopId must be an instance of int or an array of int');
+                        throw new InvalidArgumentException('shopId must be an instance of int or an array of int');
                     }
                 }
             }
@@ -371,7 +375,7 @@ class Client extends AbstractClient
             } elseif (is_array($orderStateId)) {
                 foreach ($orderStateId as $value) {
                     if (!is_numeric($value)) {
-                        throw new \InvalidArgumentException('orderStateId must be an instance of int or an array of int');
+                        throw new InvalidArgumentException('orderStateId must be an instance of int or an array of int');
                     }
                 }
             }
@@ -395,16 +399,16 @@ class Client extends AbstractClient
             $query['minimumBillBeeOrderId'] = $minimumOrderId;
         }
 
-        if ($modifiedAtMin !== null && $modifiedAtMin instanceof \DateTime) {
+        if ($modifiedAtMin !== null && $modifiedAtMin instanceof DateTime) {
             $query['modifiedAtMin'] = $modifiedAtMin->format('c');
         }
 
-        if ($modifiedAtMax !== null && $modifiedAtMax instanceof \DateTime) {
+        if ($modifiedAtMax !== null && $modifiedAtMax instanceof DateTime) {
             $query['modifiedAtMax'] = $modifiedAtMax->format('c');
         }
 
         if (!is_numeric($articleTitleSource) || $articleTitleSource < 0 || $articleTitleSource > 2) {
-            throw new \InvalidArgumentException(sprintf(
+            throw new InvalidArgumentException(sprintf(
                 'The articleTitleSource is invalid. Check %s for valid values',
                 Type\ArticleSource::class
             ));
@@ -428,7 +432,7 @@ class Client extends AbstractClient
      * @return Response\GetPatchableFieldsResponse
      *
      * @throws QuotaExceededException If the maximum number of calls per second exceeded
-     * @throws \Exception If the response cannot be parsed
+     * @throws Exception If the response cannot be parsed
      */
     public function getPatchableFields()
     {
@@ -447,7 +451,7 @@ class Client extends AbstractClient
      * @return Response\GetOrderResponse The order response
      *
      * @throws QuotaExceededException If the maximum number of calls per second exceeded
-     * @throws \Exception If the response cannot be parsed
+     * @throws Exception If the response cannot be parsed
      */
     public function getOrder($id)
     {
@@ -466,7 +470,7 @@ class Client extends AbstractClient
      * @return Response\GetOrderResponse The order response
      *
      * @throws QuotaExceededException If the maximum number of calls per second exceeded
-     * @throws \Exception If the response cannot be parsed
+     * @throws Exception If the response cannot be parsed
      */
     public function getOrderByOrderNumber($extRef)
     {
@@ -487,7 +491,7 @@ class Client extends AbstractClient
      * @return Response\GetOrderResponse The order response
      *
      * @throws QuotaExceededException If the maximum number of calls per second exceeded
-     * @throws \Exception If the response cannot be parsed
+     * @throws Exception If the response cannot be parsed
      *
      * @see \BillbeeDe\BillbeeAPI\Type\Partner
      */
@@ -513,7 +517,7 @@ class Client extends AbstractClient
      * @return Response\BaseResponse The response
      *
      * @throws QuotaExceededException If the maximum number of calls per second exceeded
-     * @throws \Exception If the response cannot be parsed
+     * @throws Exception If the response cannot be parsed
      */
     public function createOrder(Model\Order $order, $shopId)
     {
@@ -533,7 +537,7 @@ class Client extends AbstractClient
      * @return Response\BaseResponse The response
      *
      * @throws QuotaExceededException If the maximum number of calls per second exceeded
-     * @throws \Exception If the response cannot be parsed
+     * @throws Exception If the response cannot be parsed
      */
     public function addOrderTags($orderId, $tags = [])
     {
@@ -556,7 +560,7 @@ class Client extends AbstractClient
      * @return bool True if the shipment was added
      *
      * @throws QuotaExceededException If the maximum number of calls per second exceeded
-     * @throws \Exception If the response cannot be parsed
+     * @throws Exception If the response cannot be parsed
      */
     public function addOrderShipment($orderId, Model\Shipment $shipment)
     {
@@ -577,7 +581,7 @@ class Client extends AbstractClient
      * @return Response\CreateDeliveryNoteResponse The response
      *
      * @throws QuotaExceededException If the maximum number of calls per second exceeded
-     * @throws \Exception If the response cannot be parsed
+     * @throws Exception If the response cannot be parsed
      */
     public function createDeliveryNote($orderId, $includePdf)
     {
@@ -597,7 +601,7 @@ class Client extends AbstractClient
      * @return Response\CreateDeliveryNoteResponse The response
      *
      * @throws QuotaExceededException If the maximum number of calls per second exceeded
-     * @throws \Exception If the response cannot be parsed
+     * @throws Exception If the response cannot be parsed
      */
     public function createInvoice($orderId, $includePdf)
     {
@@ -617,21 +621,21 @@ class Client extends AbstractClient
      * @return bool True if the message was send, otherwise false
      *
      * @throws QuotaExceededException If the maximum number of calls per second exceeded
-     * @throws \Exception If the response cannot be parsed
-     * @throws \InvalidArgumentException If the request is not valid
+     * @throws Exception If the response cannot be parsed
+     * @throws InvalidArgumentException If the request is not valid
      */
     public function sendMessage($orderId, Model\MessageForCustomer $message)
     {
         if ($message->sendMode < 0 || $message->sendMode > 4) {
             $msg = sprintf("The sendMode is invalid. Check the %s class for valid values", Type\SendMode::class);
-            throw new \InvalidArgumentException($msg);
+            throw new InvalidArgumentException($msg);
         } elseif (!is_array($message->subject) || count($message->subject) == 0) {
-            throw new \InvalidArgumentException("You have to specify a message subject");
+            throw new InvalidArgumentException("You have to specify a message subject");
         } elseif (!is_array($message->body) || count($message->body) == 0) {
-            throw new \InvalidArgumentException("You have to specify a message body");
+            throw new InvalidArgumentException("You have to specify a message body");
         } elseif ($message->sendMode == Type\SendMode::EXTERNAL_EMAIL && empty($message->alternativeEmailAddress)) {
             $msg = "With sendMode == 4 it's required to specify an alternativeEmailAddress";
-            throw new \InvalidArgumentException($msg);
+            throw new InvalidArgumentException($msg);
         }
 
         if ($message->sendMode != Type\SendMode::EXTERNAL_EMAIL && !empty($message->alternativeEmailAddress)) {
@@ -660,7 +664,7 @@ class Client extends AbstractClient
      * @return Response\BaseResponse The response
      *
      * @throws QuotaExceededException If the maximum number of calls per second exceeded
-     * @throws \Exception If the response cannot be parsed
+     * @throws Exception If the response cannot be parsed
      */
     public function setOrderTags($orderId, $tags = [])
     {
@@ -683,7 +687,7 @@ class Client extends AbstractClient
      * @return bool True if the state was updated
      *
      * @throws QuotaExceededException If the maximum number of calls per second exceeded
-     * @throws \Exception If the response cannot be parsed
+     * @throws Exception If the response cannot be parsed
      *
      * @see \BillbeeDe\BillbeeAPI\Type\OrderState
      */
@@ -710,7 +714,7 @@ class Client extends AbstractClient
      * @return Response\GetOrderResponse The order
      *
      * @throws QuotaExceededException If the maximum number of calls per second exceeded
-     * @throws \Exception If the response cannot be parsed
+     * @throws Exception If the response cannot be parsed
      */
     public function patchOrder($orderId, $model)
     {
@@ -732,32 +736,32 @@ class Client extends AbstractClient
     /**
      * Get a list of all invoices
      *
-     * @param \DateTime $minInvoiceDate Specifies the oldest invoice date to include
-     * @param \DateTime $maxInvoiceDate Specifies the newest invoice date to include
+     * @param DateTime $minInvoiceDate Specifies the oldest invoice date to include
+     * @param DateTime $maxInvoiceDate Specifies the newest invoice date to include
      * @param int $page Specifies the page to request
      * @param int $pageSize Specifies the number of elements per page. Defaults to 50, max value is 250
      * @param array $shopId Specifies a list of shop ids for which invoices should be included
      * @param array $orderStateId Specifies a list of state ids to include in the response
      * @param array $tag Specifies a list of tags to include in the response
-     * @param \DateTime $minPayDate Specifies the oldest pay date to include
-     * @param \DateTime $maxPayDate Specifies the newest pay date to include
+     * @param DateTime $minPayDate Specifies the oldest pay date to include
+     * @param DateTime $maxPayDate Specifies the newest pay date to include
      * @param bool $includePositions Specifies to include the positions
      *
      * @return Response\GetInvoicesResponse The Invoices
      *
      * @throws QuotaExceededException If the maximum number of calls per second exceeded
-     * @throws \Exception If the response cannot be parsed
+     * @throws Exception If the response cannot be parsed
      */
     public function getInvoices(
         $page = 1,
         $pageSize = 50,
-        \DateTime $minInvoiceDate = null,
-        \DateTime $maxInvoiceDate = null,
+        DateTime $minInvoiceDate = null,
+        DateTime $maxInvoiceDate = null,
         $shopId = [],
         $orderStateId = [],
         $tag = [],
-        \DateTime $minPayDate = null,
-        \DateTime $maxPayDate = null,
+        DateTime $minPayDate = null,
+        DateTime $maxPayDate = null,
         $includePositions = false
     ) {
         $query = [
@@ -765,11 +769,11 @@ class Client extends AbstractClient
             'pageSize' => max(1, $pageSize),
         ];
 
-        if ($minInvoiceDate !== null && $minInvoiceDate instanceof \DateTime) {
+        if ($minInvoiceDate !== null && $minInvoiceDate instanceof DateTime) {
             $query['minInvoiceDate'] = $minInvoiceDate->format('c');
         }
 
-        if ($maxInvoiceDate !== null && $maxInvoiceDate instanceof \DateTime) {
+        if ($maxInvoiceDate !== null && $maxInvoiceDate instanceof DateTime) {
             $query['maxInvoiceDate'] = $maxInvoiceDate->format('c');
         }
 
@@ -779,7 +783,7 @@ class Client extends AbstractClient
             } elseif (is_array($shopId)) {
                 foreach ($shopId as $value) {
                     if (!is_numeric($value)) {
-                        throw new \InvalidArgumentException('shopId must be an instance of int or an array of int');
+                        throw new InvalidArgumentException('shopId must be an instance of int or an array of int');
                     }
                 }
             }
@@ -795,7 +799,7 @@ class Client extends AbstractClient
             } elseif (is_array($orderStateId)) {
                 foreach ($orderStateId as $value) {
                     if (!is_numeric($value)) {
-                        throw new \InvalidArgumentException('orderStateId must be an instance of int or an array of int');
+                        throw new InvalidArgumentException('orderStateId must be an instance of int or an array of int');
                     }
                 }
             }
@@ -815,11 +819,11 @@ class Client extends AbstractClient
             }
         }
 
-        if ($minPayDate !== null && $minPayDate instanceof \DateTime) {
+        if ($minPayDate !== null && $minPayDate instanceof DateTime) {
             $query['minPayDate'] = $minPayDate->format('c');
         }
 
-        if ($maxPayDate !== null && $maxPayDate instanceof \DateTime) {
+        if ($maxPayDate !== null && $maxPayDate instanceof DateTime) {
             $query['maxPayDate'] = $maxPayDate->format('c');
         }
 
@@ -848,7 +852,7 @@ class Client extends AbstractClient
      * @return Response\GetShippingProvidersResponse The shipping providers response
      *
      * @throws QuotaExceededException If the maximum number of calls per second exceeded
-     * @throws \Exception If the response cannot be parsed
+     * @throws Exception If the response cannot be parsed
      */
     public function getShippingProviders()
     {
@@ -873,7 +877,7 @@ class Client extends AbstractClient
      * @return Response\ShipWithLabelResponse The response
      *
      * @throws QuotaExceededException If the maximum number of calls per second exceeded
-     * @throws \Exception If the response cannot be parsed
+     * @throws Exception If the response cannot be parsed
      */
     public function shipWithLabel(Model\ShipmentWithLabel $shipment)
     {
@@ -902,7 +906,7 @@ class Client extends AbstractClient
      * @return Response\GetCustomFieldDefinitionsResponse The Response
      *
      * @throws QuotaExceededException If the maximum number of calls per second exceeded
-     * @throws \Exception If the response cannot be parsed
+     * @throws Exception If the response cannot be parsed
      */
     public function getCustomFieldDefinitions($page = 1, $pageSize = 50)
     {
@@ -926,7 +930,7 @@ class Client extends AbstractClient
      *
      * @throws QuotaExceededException If the maximum number of calls per second exceeded
      * @throws InvalidIdException If the id is not an integer or negative
-     * @throws \Exception If the response cannot be parsed
+     * @throws Exception If the response cannot be parsed
      */
     public function getCustomFieldDefinition($id)
     {
@@ -955,7 +959,7 @@ class Client extends AbstractClient
      * @return Model\WebHook[] The Response
      *
      * @throws QuotaExceededException If the maximum number of calls per second exceeded
-     * @throws \Exception If the response cannot be parsed
+     * @throws Exception If the response cannot be parsed
      */
     public function getWebHooks()
     {
@@ -989,7 +993,7 @@ class Client extends AbstractClient
      * @return array The Response
      *
      * @throws QuotaExceededException If the maximum number of calls per second exceeded
-     * @throws \Exception If the response cannot be parsed
+     * @throws Exception If the response cannot be parsed
      */
     public function getWebHookFilters()
     {
@@ -1011,7 +1015,7 @@ class Client extends AbstractClient
      * @return Model\WebHook The created web hook
      *
      * @throws QuotaExceededException If the maximum number of calls per second exceeded
-     * @throws \Exception If the response cannot be parsed
+     * @throws Exception If the response cannot be parsed
      */
     public function createWebHook(Model\WebHook $webHook)
     {
@@ -1033,13 +1037,13 @@ class Client extends AbstractClient
      * @return bool True if the web hook was updated
      *
      * @throws QuotaExceededException If the maximum number of calls per second exceeded
-     * @throws \InvalidArgumentException If the web hook has no id
-     * @throws \Exception If the response cannot be parsed
+     * @throws InvalidArgumentException If the web hook has no id
+     * @throws Exception If the response cannot be parsed
      */
     public function updateWebHook(Model\WebHook $webHook)
     {
         if ($webHook->id === null) {
-            throw new \InvalidArgumentException('The id of the webHook cannot be empty');
+            throw new InvalidArgumentException('The id of the webHook cannot be empty');
         }
 
         $res = $this->requestPUT(
@@ -1061,7 +1065,7 @@ class Client extends AbstractClient
      * @return bool True if the web hooks was deleted
      *
      * @throws QuotaExceededException If the maximum number of calls per second exceeded
-     * @throws \Exception If the response cannot be parsed
+     * @throws Exception If the response cannot be parsed
      */
     public function deleteAllWebHooks()
     {
@@ -1080,8 +1084,8 @@ class Client extends AbstractClient
      * @return bool True if the web hook was deleted
      *
      * @throws QuotaExceededException If the maximum number of calls per second exceeded
-     * @throws \InvalidArgumentException If the web hook has no id
-     * @throws \Exception If the response cannot be parsed
+     * @throws InvalidArgumentException If the web hook has no id
+     * @throws Exception If the response cannot be parsed
      */
     public function deleteWebHookById($id)
     {
@@ -1097,13 +1101,13 @@ class Client extends AbstractClient
      * @return bool True if the web hook was deleted
      *
      * @throws QuotaExceededException If the maximum number of calls per second exceeded
-     * @throws \InvalidArgumentException If the web hook has no id
-     * @throws \Exception If the response cannot be parsed
+     * @throws InvalidArgumentException If the web hook has no id
+     * @throws Exception If the response cannot be parsed
      */
     public function deleteWebHook(Model\WebHook $webHook)
     {
         if ($webHook->id === null) {
-            throw new \InvalidArgumentException('The id of the webHook cannot be empty');
+            throw new InvalidArgumentException('The id of the webHook cannot be empty');
         }
 
         $res = $this->requestDELETE(
@@ -1128,7 +1132,7 @@ class Client extends AbstractClient
      * @return Response\GetCustomersResponse The Response
      *
      * @throws QuotaExceededException If the maximum number of calls per second exceeded
-     * @throws \Exception If the response cannot be parsed
+     * @throws Exception If the response cannot be parsed
      */
     public function getCustomers()
     {
@@ -1147,7 +1151,7 @@ class Client extends AbstractClient
      *
      * @throws QuotaExceededException If the maximum number of calls per second exceeded
      * @throws InvalidIdException If the id is not an integer or negative
-     * @throws \Exception If the response cannot be parsed
+     * @throws Exception If the response cannot be parsed
      */
     public function getCustomer($id)
     {
@@ -1172,7 +1176,7 @@ class Client extends AbstractClient
      *
      * @throws QuotaExceededException If the maximum number of calls per second exceeded
      * @throws InvalidIdException If the id is not an integer or negative
-     * @throws \Exception If the response cannot be parsed
+     * @throws Exception If the response cannot be parsed
      */
     public function getCustomerAddresses($id, $page = 1, $pageSize = 50)
     {
@@ -1201,7 +1205,7 @@ class Client extends AbstractClient
      *
      * @throws QuotaExceededException If the maximum number of calls per second exceeded
      * @throws InvalidIdException If the id is not an integer or negative
-     * @throws \Exception If the response cannot be parsed
+     * @throws Exception If the response cannot be parsed
      */
     public function getCustomerAddress($id)
     {
@@ -1223,7 +1227,7 @@ class Client extends AbstractClient
      *
      * @throws QuotaExceededException If the maximum number of calls per second exceeded
      * @throws InvalidIdException If the id is not an integer or negative
-     * @throws \Exception If the response cannot be parsed
+     * @throws Exception If the response cannot be parsed
      */
     public function getCustomerOrders($id, $page = 1, $pageSize = 50)
     {
@@ -1255,7 +1259,7 @@ class Client extends AbstractClient
      * @return Response\GetCustomerResponse The created customer
      *
      * @throws QuotaExceededException If the maximum number of calls per second exceeded
-     * @throws \Exception If the response cannot be parsed
+     * @throws Exception If the response cannot be parsed
      */
     public function createCustomer(Model\Customer $customer, Model\CustomerAddress $address)
     {
@@ -1281,7 +1285,7 @@ class Client extends AbstractClient
      *
      * @throws QuotaExceededException If the maximum number of calls per second exceeded
      * @throws InvalidIdException If the customers id is invalid
-     * @throws \Exception If the response cannot be parsed
+     * @throws Exception If the response cannot be parsed
      */
     public function updateCustomer(Model\Customer $customer)
     {
@@ -1300,13 +1304,38 @@ class Client extends AbstractClient
 
     #endregion
 
+    #region CLOUD STORAGE
+
+    #region GET
+
+    /**
+     * Get a list of all cloud storages
+     *
+     * @return Response\GetCloudStoragesResponse The Response
+     *
+     * @throws QuotaExceededException If the maximum number of calls per second exceeded
+     * @throws Exception If the response cannot be parsed
+     */
+    public function getCloudStorages()
+    {
+        return $this->requestGET(
+            'cloudstorages',
+            [],
+            Response\GetCloudStoragesResponse::class
+        );
+    }
+
+    #endregion
+
+    #endregion
+
     /**
      * Execute all requests in the pool
      *
      * @return Response\BaseResponse[]|mixed[]
      *
      * @throws QuotaExceededException If the maximum number of calls per second exceeded
-     * @throws \Exception If the response cannot be parsed
+     * @throws Exception If the response cannot be parsed
      *
      * @see Client::$useBatching
      */
@@ -1362,7 +1391,7 @@ class Client extends AbstractClient
      * @return mixed The mapped response object
      *
      * @throws QuotaExceededException If the maximum number of calls per second exceeded
-     * @throws \Exception If the response cannot be parsed
+     * @throws Exception If the response cannot be parsed
      */
     protected function requestGET(
         $node,
@@ -1386,7 +1415,7 @@ class Client extends AbstractClient
      * @return mixed The mapped response object
      *
      * @throws QuotaExceededException If the maximum number of calls per second exceeded
-     * @throws \Exception If the response cannot be parsed
+     * @throws Exception If the response cannot be parsed
      */
     protected function requestPOST(
         $node,
@@ -1414,7 +1443,7 @@ class Client extends AbstractClient
      * @return mixed The mapped response object
      *
      * @throws QuotaExceededException If the maximum number of calls per second exceeded
-     * @throws \Exception If the response cannot be parsed
+     * @throws Exception If the response cannot be parsed
      */
     protected function requestPUT(
         $node,
@@ -1442,7 +1471,7 @@ class Client extends AbstractClient
      * @return mixed The mapped response object
      *
      * @throws QuotaExceededException If the maximum number of calls per second exceeded
-     * @throws \Exception If the response cannot be parsed
+     * @throws Exception If the response cannot be parsed
      */
     protected function requestPATCH(
         $node,
@@ -1470,7 +1499,7 @@ class Client extends AbstractClient
      * @return mixed The mapped response object
      *
      * @throws QuotaExceededException If the maximum number of calls per second exceeded
-     * @throws \Exception If the response cannot be parsed
+     * @throws Exception If the response cannot be parsed
      */
     protected function requestDELETE(
         $node,
@@ -1494,7 +1523,7 @@ class Client extends AbstractClient
      * @return mixed The mapped response object
      *
      * @throws QuotaExceededException If the maximum number of calls per second exceeded
-     * @throws \Exception If the response cannot be parsed
+     * @throws Exception If the response cannot be parsed
      */
     private function internalRequest($responseClass, callable $requestFactory, $ignorePool = false)
     {
@@ -1548,7 +1577,7 @@ class Client extends AbstractClient
                 } elseif (trim($contents) != '') {
                     $data = $contents;
                 }
-            } catch (\Exception $exception) {
+            } catch (Exception $exception) {
                 throw $exception;
             }
         } else {
@@ -1563,7 +1592,7 @@ class Client extends AbstractClient
                     } elseif (trim($contents) != '') {
                         $data[$i] = $contents;
                     }
-                } catch (\Exception $exception) {
+                } catch (Exception $exception) {
                     $data[$i] = $exception;
                 }
             }

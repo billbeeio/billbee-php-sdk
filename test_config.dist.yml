@@ -14,6 +14,7 @@ web_hook_uri: '' # The uri for testing webhooks
 test_delete_web_hooks: false # If true, the delete all web hooks call will be tested
 customer_id: '' # Id of a customer
 address_id: '' # Id of an address
+cloud_storage_id: 0 # Id of an cloud storage
 # Test Shipping:
 shippable_order_id: '' # Id of an order which can be shipped
 shipping_provider_id: '' # The Id of a shipping provider
