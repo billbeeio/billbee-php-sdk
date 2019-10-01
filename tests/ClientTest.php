@@ -59,6 +59,9 @@ use BillbeeDe\BillbeeAPI\Response\UpdateStockResponse;
 use BillbeeDe\BillbeeAPI\Type\ArticleSource;
 use BillbeeDe\BillbeeAPI\Type\EventType;
 use BillbeeDe\BillbeeAPI\Type\OrderState;
+use DateTime;
+use Exception;
+use InvalidArgumentException;
 use PHPUnit\Framework\TestCase;
 use Psr\Log\LoggerInterface;
 use Psr\Log\NullLogger;
@@ -84,6 +87,7 @@ class ClientTest extends TestCase
     protected $shippableOrderId;
     protected $shippingProviderId;
     protected $shippingProviderProduct;
+    protected $cloudStorageId = 0;
 
     public function __construct($name = null, array $data = [], $dataName = '')
     {
@@ -109,6 +113,7 @@ class ClientTest extends TestCase
             $this->shippableOrderId,
             $this->shippingProviderId,
             $this->shippingProviderProduct,
+            $this->cloudStorageId,
             ) = [
             $data['username'],
             $data['password'],
@@ -128,28 +133,30 @@ class ClientTest extends TestCase
             $data['shippable_order_id'],
             $data['shipping_provider_id'],
             $data['shipping_provider_product'],
+            $data['cloud_storage_id'],
         ];
     }
 
+    /** @throws Exception */
     public function testConstruct()
     {
         $client = $this->getClient();
         $this->assertInstanceOf(Client::class, $client);
     }
 
-    /** @throws \Exception */
+    /** @throws Exception */
     public function testGetProductsFails()
     {
         $client = $this->getClient();
-        $client->getProducts(1, 1, new \DateTime('now'));
-        $client->getProducts(1, 1, new \DateTime('now'));
+        $client->getProducts(1, 1, new DateTime('now'));
+        $client->getProducts(1, 1, new DateTime('now'));
 
         $this->expectException(QuotaExceededException::class);
         $this->expectExceptionMessage('quota exceeded');
-        $client->getProducts(1, 1, new \DateTime('now'));
+        $client->getProducts(1, 1, new DateTime('now'));
     }
 
-    /** @throws \Exception */
+    /** @throws Exception */
     public function testGetProducts()
     {
         $client = $this->getClient();
@@ -166,7 +173,7 @@ class ClientTest extends TestCase
         $this->assertNotEquals($productsResponse->data[0], $productsResponse2->data[0]);
     }
 
-    /** @throws \Exception */
+    /** @throws Exception */
     public function testGetProduct()
     {
         $client = $this->getClient();
@@ -178,7 +185,7 @@ class ClientTest extends TestCase
         $this->assertTrue($productResponse->data instanceof Product);
     }
 
-    /** @throws \Exception */
+    /** @throws Exception */
     public function testGetTermsInfo()
     {
         $client = $this->getClient();
@@ -190,7 +197,7 @@ class ClientTest extends TestCase
         $this->assertTrue($termsInfoResponse->data instanceof TermsInfo);
     }
 
-    /** @throws \Exception */
+    /** @throws Exception */
     public function testGetEvents()
     {
         $client = $this->getClient();
@@ -199,8 +206,8 @@ class ClientTest extends TestCase
         $eventsResponse = $client->getEvents(
             2,
             10,
-            new \DateTime('01.01.2017'),
-            new \DateTime(),
+            new DateTime('01.01.2017'),
+            new DateTime(),
             [EventType::ORDER_IMPORTED],
             $this->sampleOrderId
         );
@@ -213,7 +220,7 @@ class ClientTest extends TestCase
         }
     }
 
-    /** @throws \Exception */
+    /** @throws Exception */
     public function testGetShippingProviders()
     {
         $client = $this->getClient();
@@ -226,49 +233,49 @@ class ClientTest extends TestCase
         $this->assertInstanceOf(ShippingProvider::class, $shippingProvidersResponse->data[0]);
     }
 
-    /** @throws \Exception */
+    /** @throws Exception */
     public function testGetInvoicesFailsWrongShopId()
     {
         $client = $this->getClient();
 
-        $this->expectException(\InvalidArgumentException::class);
+        $this->expectException(InvalidArgumentException::class);
         $this->expectExceptionMessage('shopId must be an instance of int or an array of int');
         $client->getInvoices(
             2,
             10,
-            new \DateTime('01.01.2017'),
-            new \DateTime(),
+            new DateTime('01.01.2017'),
+            new DateTime(),
             ['asdf'],
             2,
             [],
-            new \DateTime('01.01.2017'),
-            new \DateTime(),
+            new DateTime('01.01.2017'),
+            new DateTime(),
             false
         );
     }
 
-    /** @throws \Exception */
+    /** @throws Exception */
     public function testGetInvoicesFailsWrongStateId()
     {
         $client = $this->getClient();
 
-        $this->expectException(\InvalidArgumentException::class);
+        $this->expectException(InvalidArgumentException::class);
         $this->expectExceptionMessage('orderStateId must be an instance of int or an array of int');
         $client->getInvoices(
             2,
             10,
-            new \DateTime('01.01.2017'),
-            new \DateTime(),
+            new DateTime('01.01.2017'),
+            new DateTime(),
             $this->shopId,
             ['asdf'],
             [],
-            new \DateTime('01.01.2017'),
-            new \DateTime(),
+            new DateTime('01.01.2017'),
+            new DateTime(),
             false
         );
     }
 
-    /** @throws \Exception */
+    /** @throws Exception */
     public function testGetInvoices()
     {
         $client = $this->getClient();
@@ -277,13 +284,13 @@ class ClientTest extends TestCase
         $invoices = $client->getInvoices(
             1,
             10,
-            new \DateTime('01.01.2017'),
-            new \DateTime(),
+            new DateTime('01.01.2017'),
+            new DateTime(),
             $this->shopId,
             2,
             $this->tag,
-            new \DateTime('01.01.2017'),
-            new \DateTime(),
+            new DateTime('01.01.2017'),
+            new DateTime(),
             false
         );
         $this->assertEquals(0, $invoices->errorCode);
@@ -296,7 +303,7 @@ class ClientTest extends TestCase
         }
     }
 
-    /** @throws \Exception */
+    /** @throws Exception */
     public function testGetInvoicesAndPositions()
     {
         $client = $this->getClient();
@@ -305,13 +312,13 @@ class ClientTest extends TestCase
         $invoices = $client->getInvoices(
             1,
             10,
-            new \DateTime('01.01.2017'),
-            new \DateTime(),
+            new DateTime('01.01.2017'),
+            new DateTime(),
             [$this->shopId],
             [2],
             $this->tag,
-            new \DateTime('01.01.2017'),
-            new \DateTime(),
+            new DateTime('01.01.2017'),
+            new DateTime(),
             true
         );
 
@@ -326,7 +333,7 @@ class ClientTest extends TestCase
         }
     }
 
-    /** @throws \Exception */
+    /** @throws Exception */
     public function testGetOrders()
     {
         $client = $this->getClient();
@@ -334,14 +341,14 @@ class ClientTest extends TestCase
         $orders = $client->getOrders(
             1,
             19,
-            new \DateTime('01.01.2017'),
-            new \DateTime(),
+            new DateTime('01.01.2017'),
+            new DateTime(),
             [$this->shopId],
             [2],
             $this->tag,
             1,
-            new \DateTime('01.01.2017'),
-            new \DateTime(),
+            new DateTime('01.01.2017'),
+            new DateTime(),
             ArticleSource::ORDER_POSITION,
             true
         );
@@ -359,14 +366,14 @@ class ClientTest extends TestCase
         $orders2 = $client->getOrders(
             1,
             19,
-            new \DateTime('01.01.2017'),
-            new \DateTime(),
+            new DateTime('01.01.2017'),
+            new DateTime(),
             $this->shopId, // No array
             2, // No array
             $this->tag,
             1,
-            new \DateTime('01.01.2017'),
-            new \DateTime(),
+            new DateTime('01.01.2017'),
+            new DateTime(),
             ArticleSource::ORDER_POSITION,
             true
         );
@@ -374,88 +381,88 @@ class ClientTest extends TestCase
         $this->assertEquals($orders, $orders2);
     }
 
-    /** @throws \Exception */
+    /** @throws Exception */
     public function testGetOrdersFailsShopIdNaN()
     {
         $client = $this->getClient();
 
-        $this->expectException(\InvalidArgumentException::class);
+        $this->expectException(InvalidArgumentException::class);
         $this->expectExceptionMessage('shopId must be an instance of int or an array of int');
 
         $client->getOrders(
             2,
             19,
-            new \DateTime('01.01.2017'),
-            new \DateTime(),
+            new DateTime('01.01.2017'),
+            new DateTime(),
             ['hello'],
             [2],
             $this->tag,
             1,
-            new \DateTime('01.01.2017'),
-            new \DateTime()
+            new DateTime('01.01.2017'),
+            new DateTime()
         );
     }
 
-    /** @throws \Exception */
+    /** @throws Exception */
     public function testGetOrdersFailsOrderStateIdNaN()
     {
         $client = $this->getClient();
 
-        $this->expectException(\InvalidArgumentException::class);
+        $this->expectException(InvalidArgumentException::class);
         $this->expectExceptionMessage('orderStateId must be an instance of int or an array of int');
 
         $client->getOrders(
             2,
             19,
-            new \DateTime('01.01.2017'),
-            new \DateTime(),
+            new DateTime('01.01.2017'),
+            new DateTime(),
             [1],
             ['hello'],
             $this->tag,
             1,
-            new \DateTime('01.01.2017'),
-            new \DateTime()
+            new DateTime('01.01.2017'),
+            new DateTime()
         );
     }
 
-    /** @throws \Exception */
+    /** @throws Exception */
     public function testGetOrdersFailsArticleSourceInvalid()
     {
         $client = $this->getClient();
 
-        $this->expectException(\InvalidArgumentException::class);
+        $this->expectException(InvalidArgumentException::class);
         $this->expectExceptionMessage('The articleTitleSource is invalid. Check ' . ArticleSource::class . ' for valid values');
 
         $client->getOrders(
             2,
             19,
-            new \DateTime('01.01.2017'),
-            new \DateTime(),
+            new DateTime('01.01.2017'),
+            new DateTime(),
             [1],
             [],
             $this->tag,
             1,
-            new \DateTime('01.01.2017'),
-            new \DateTime(),
+            new DateTime('01.01.2017'),
+            new DateTime(),
             3
         );
 
         $client->getOrders(
             2,
             19,
-            new \DateTime('01.01.2017'),
-            new \DateTime(),
+            new DateTime('01.01.2017'),
+            new DateTime(),
             [1],
             [],
             $this->tag,
             1,
-            new \DateTime('01.01.2017'),
-            new \DateTime(),
+            new DateTime('01.01.2017'),
+            new DateTime(),
             false
         );
     }
 
-    /** @throws \Exception */
+    /** @throws Exception */
     public function testGetOrder()
     {
         $client = $this->getClient();
@@ -467,7 +474,7 @@ class ClientTest extends TestCase
         $this->assertInstanceOf(Customer::class, $order->data->customer);
     }
 
-    /** @throws \Exception */
+    /** @throws Exception */
     public function testGetOrderByOrderNumber()
     {
         $client = $this->getClient();
@@ -479,7 +486,7 @@ class ClientTest extends TestCase
         $this->assertSame($this->sampleOrderNumber, $order->data->orderNumber);
     }
 
-    /** @throws \Exception */
+    /** @throws Exception */
     public function testUpdateStock()
     {
         $client = $this->getClient();
@@ -498,7 +505,7 @@ class ClientTest extends TestCase
         $this->assertSame($product->data->stockCurrent, $currentStockResult->data['CurrentStock']);
     }
 
-    /** @throws \Exception */
+    /** @throws Exception */
     public function testUpdateStockMultiple()
     {
         $client = $this->getClient();
@@ -523,7 +530,7 @@ class ClientTest extends TestCase
         }
     }
 
-    /** @throws \Exception */
+    /** @throws Exception */
     public function testUpdateStockCode()
     {
         $client = $this->getClient();
@@ -537,7 +544,7 @@ class ClientTest extends TestCase
         $this->assertInstanceOf(BaseResponse::class, $result);
     }
 
-    /** @throws \Exception */
+    /** @throws Exception */
     public function testCreateOrder()
     {
         $client = $this->getClient();
@@ -551,7 +558,7 @@ class ClientTest extends TestCase
         $this->assertInstanceOf(BaseResponse::class, $res);
     }
 
-    /** @throws \Exception */
+    /** @throws Exception */
     public function testAddOrderTags()
     {
         $client = $this->getClient();
@@ -564,7 +571,7 @@ class ClientTest extends TestCase
         $this->assertContains($hash, $order->tags);
     }
 
-    /** @throws \Exception */
+    /** @throws Exception */
     public function testSetOrderTags()
     {
         $client = $this->getClient();
@@ -577,7 +584,7 @@ class ClientTest extends TestCase
         $this->assertEquals([$hash], $order->tags);
     }
 
-    /** @throws \Exception */
+    /** @throws Exception */
     public function testSetOrderState()
     {
         $client = $this->getClient();
@@ -586,7 +593,7 @@ class ClientTest extends TestCase
         $this->assertTrue($res);
     }
 
-    /** @throws \Exception */
+    /** @throws Exception */
     public function testAddOrderShipment()
     {
         $client = $this->getClient();
@@ -604,7 +611,7 @@ class ClientTest extends TestCase
         $this->assertTrue($res);
     }
 
-    /** @throws \Exception */
+    /** @throws Exception */
     public function testGetOrderByPartner()
     {
         $client = $this->getClient();
@@ -615,7 +622,7 @@ class ClientTest extends TestCase
         $this->assertInstanceOf(PartnerOrder::class, $res->data);
     }
 
-    /** @throws \Exception */
+    /** @throws Exception */
     public function testCreateDeliveryNote()
     {
         $client = $this->getClient();
@@ -636,7 +643,7 @@ class ClientTest extends TestCase
         $this->assertEmpty($res->data->pdfDownloadUrl);
     }
 
-    /** @throws \Exception */
+    /** @throws Exception */
     public function testCreateInvoice()
     {
         $client = $this->getClient();
@@ -657,7 +664,7 @@ class ClientTest extends TestCase
         $this->assertEmpty($res->data->pdfDownloadUrl);
     }
 
-    /** @throws \Exception */
+    /** @throws Exception */
     public function testGetPatchableFields()
     {
         $client = $this->getClient();
@@ -667,7 +674,7 @@ class ClientTest extends TestCase
         $this->assertGreaterThanOrEqual(1, $result->data);
     }
 
-    /** @throws \Exception */
+    /** @throws Exception */
     public function testPatchOrder()
     {
         $client = $this->getClient();
@@ -689,7 +696,7 @@ class ClientTest extends TestCase
         $this->assertEquals($newPrefix, $order->invoiceNumberPrefix);
     }
 
-    /** @throws \Exception */
+    /** @throws Exception */
     public function testBatchRequests()
     {
         $client = $this->getClient();
@@ -710,7 +717,7 @@ class ClientTest extends TestCase
         $client->useBatching = false;
     }
 
-    /** @throws \Exception */
+    /** @throws Exception */
     public function testGetCustomFieldDefinitions()
     {
         $client = $this->getClient();
@@ -724,7 +731,7 @@ class ClientTest extends TestCase
         }
     }
 
-    /** @throws \Exception */
+    /** @throws Exception */
     public function testGetCustomFieldDefinitionFailsNaN()
     {
         $client = $this->getClient();
@@ -735,7 +742,7 @@ class ClientTest extends TestCase
         $client->getCustomFieldDefinition('hello');
     }
 
-    /** @throws \Exception */
+    /** @throws Exception */
     public function testGetCustomFieldDefinitionFailsNegative()
     {
         $client = $this->getClient();
@@ -745,7 +752,7 @@ class ClientTest extends TestCase
         $client->getCustomFieldDefinition(-1);
     }
 
-    /** @throws \Exception */
+    /** @throws Exception */
     public function testGetCustomFieldDefinition()
     {
         $client = $this->getClient();
@@ -754,7 +761,7 @@ class ClientTest extends TestCase
         $this->assertInstanceOf(CustomFieldDefinition::class, $definition->data);
     }
 
-    /** @throws \Exception */
+    /** @throws Exception */
     public function testGetAllWebHooks()
     {
         $client = $this->getClient();
@@ -766,7 +773,7 @@ class ClientTest extends TestCase
         }
     }
 
-    /** @throws \Exception */
+    /** @throws Exception */
     public function testWebHookFilters()
     {
         $client = $this->getClient();
@@ -777,7 +784,7 @@ class ClientTest extends TestCase
         $this->assertInstanceOf(WebHookFilter::class, $filters[0]);
     }
 
-    /** @throws \Exception */
+    /** @throws Exception */
     public function testCreateUpdateGetDeleteWebHook()
     {
         $client = $this->getClient();
@@ -803,7 +810,7 @@ class ClientTest extends TestCase
         try {
             $client->getWebHook($hook->id);
             $this->fail('The webhook was not deleted');
-        } catch (\Exception $ex) {
+        } catch (Exception $ex) {
         }
 
         $this->createWebHookAndCompare($client, $hook);
@@ -814,14 +821,14 @@ class ClientTest extends TestCase
         try {
             $client->getWebHook($hook->id);
             $this->fail('The webhook was not deleted');
-        } catch (\Exception $ex) {
+        } catch (Exception $ex) {
         }
     }
 
     /**
      * @param Client $client
      * @param $hook
-     * @throws \Exception
+     * @throws Exception
      */
     private function createWebHookAndCompare($client, $hook)
     {
@@ -837,7 +844,7 @@ class ClientTest extends TestCase
     /**
      * @param Client $client
      * @param $hook
-     * @throws \Exception
+     * @throws Exception
      */
     private function getWebHookAndCompare($client, $hook)
     {
@@ -850,27 +857,27 @@ class ClientTest extends TestCase
         $this->assertEquals($hook->webHookUri, $getRes->webHookUri);
     }
 
-    /** @throws \Exception */
+    /** @throws Exception */
     public function testDeleteWebHookFailsInvalidId()
     {
         $client = $this->getClient();
 
-        $this->expectException(\InvalidArgumentException::class);
+        $this->expectException(InvalidArgumentException::class);
         $this->expectExceptionMessage('The id of the webHook cannot be empty');
         $client->deleteWebHookById(null);
     }
 
-    /** @throws \Exception */
+    /** @throws Exception */
     public function testUpdateWebHookFailsInvalidId()
     {
         $client = $this->getClient();
 
-        $this->expectException(\InvalidArgumentException::class);
+        $this->expectException(InvalidArgumentException::class);
         $this->expectExceptionMessage('The id of the webHook cannot be empty');
         $client->updateWebHook(new WebHook());
     }
 
-    /** @throws \Exception */
+    /** @throws Exception */
     public function testDeleteAllWebHooks()
     {
         if ($this->testDeleteWebHooks === true) {
@@ -880,46 +887,47 @@ class ClientTest extends TestCase
         }
     }
 
-    /** @throws \Exception */
+    /** @throws Exception */
     public function testSendMessageFailsSendMode()
     {
         $client = $this->getClient();
 
-        $this->expectException(\InvalidArgumentException::class);
+        $this->expectException(InvalidArgumentException::class);
         $this->expectExceptionMessage('The sendMode is invalid. Check the BillbeeDe\\BillbeeAPI\\Type\\SendMode class for valid values');
         $client->sendMessage(null, new MessageForCustomer([], [], 6));
     }
 
-    /** @throws \Exception */
+    /** @throws Exception */
     public function testSendMessageFailsNoSubject()
     {
         $client = $this->getClient();
 
-        $this->expectException(\InvalidArgumentException::class);
+        $this->expectException(InvalidArgumentException::class);
         $this->expectExceptionMessage('You have to specify a message subject');
         $client->sendMessage(null, new MessageForCustomer([], [], 0));
     }
 
-    /** @throws \Exception */
+    /** @throws Exception */
     public function testSendMessageFailsNoBody()
     {
         $client = $this->getClient();
 
-        $this->expectException(\InvalidArgumentException::class);
+        $this->expectException(InvalidArgumentException::class);
         $this->expectExceptionMessage('You have to specify a message body');
         $client->sendMessage(null, new MessageForCustomer([new TranslatableText()], [], 0));
     }
 
-    /** @throws \Exception */
+    /** @throws Exception */
     public function testSendMessageFailsNoExternalAddress()
     {
         $client = $this->getClient();
 
-        $this->expectException(\InvalidArgumentException::class);
+        $this->expectException(InvalidArgumentException::class);
         $this->expectExceptionMessage('With sendMode == 4 it\'s required to specify an alternativeEmailAddress');
         $client->sendMessage(null, new MessageForCustomer([new TranslatableText()], [new TranslatableText()], 4));
     }
 
+    /** @throws Exception */
     public function testGetSetLogger()
     {
         $client = $this->getClient();
@@ -939,7 +947,7 @@ class ClientTest extends TestCase
         $this->assertInstanceOf(NullLogger::class, $client->getLogger());
     }
 
-    /** @throws \Exception */
+    /** @throws Exception */
     public function testGetCustomers()
     {
         $client = $this->getClient();
@@ -953,7 +961,7 @@ class ClientTest extends TestCase
         }
     }
 
-    /** @throws \Exception */
+    /** @throws Exception */
     public function testGetCustomerFails()
     {
         $client = $this->getClient();
@@ -962,7 +970,7 @@ class ClientTest extends TestCase
         $client->getCustomer(null);
     }
 
-    /** @throws \Exception */
+    /** @throws Exception */
     public function testGetCustomer()
     {
         $client = $this->getClient();
@@ -973,7 +981,7 @@ class ClientTest extends TestCase
         $this->assertEquals($this->customerId, $customerResponse->data->id);
     }
 
-    /** @throws \Exception */
+    /** @throws Exception */
     public function testGetCustomerAddressesFails()
     {
         $client = $this->getClient();
@@ -982,7 +990,7 @@ class ClientTest extends TestCase
         $client->getCustomerAddresses(null);
     }
 
-    /** @throws \Exception */
+    /** @throws Exception */
     public function testGetCustomerAddresses()
     {
         $client = $this->getClient();
@@ -996,7 +1004,7 @@ class ClientTest extends TestCase
         }
     }
 
-    /** @throws \Exception */
+    /** @throws Exception */
     public function testGetCustomerAddress()
     {
         $client = $this->getClient();
@@ -1007,7 +1015,7 @@ class ClientTest extends TestCase
         $this->assertEquals($this->addressId, $addressResponse->data->id);
     }
 
-    /** @throws \Exception */
+    /** @throws Exception */
     public function testGetCustomerOrdersFails()
     {
         $client = $this->getClient();
@@ -1017,7 +1025,7 @@ class ClientTest extends TestCase
         $client->getCustomerOrders(null);
     }
 
-    /** @throws \Exception */
+    /** @throws Exception */
     public function testGetCustomerOrders()
     {
         $client = $this->getClient();
@@ -1031,7 +1039,7 @@ class ClientTest extends TestCase
         }
     }
 
-    /** @throws \Exception */
+    /** @throws Exception */
     public function testCreateCustomer()
     {
         $client = $this->getClient();
@@ -1059,8 +1067,7 @@ class ClientTest extends TestCase
 
         $resp = $client->createCustomer($customer, $address);
         $this->assertInstanceOf(GetCustomerResponse::class, $resp);
-        $this->assertEquals(0, $resp->errorCode);
-        ;
+        $this->assertEquals(0, $resp->errorCode);;
         $this->assertInstanceOf(Customer::class, $resp->data);
 
         $this->assertEquals($customer->email, $resp->data->email);
@@ -1070,7 +1077,7 @@ class ClientTest extends TestCase
         $this->assertEquals($customer->vatId, $resp->data->vatId);
     }
 
-    /** @throws \Exception */
+    /** @throws Exception */
     public function testUpdateCustomerFails()
     {
         $this->expectException(InvalidIdException::class);
@@ -1078,7 +1085,7 @@ class ClientTest extends TestCase
         $this->getClient()->updateCustomer(new Customer());
     }
 
-    /** @throws \Exception */
+    /** @throws Exception */
     public function testUpdateCustomer()
     {
         $hash = md5(microtime(1));
@@ -1106,7 +1113,7 @@ class ClientTest extends TestCase
         $client->updateCustomer($customer2);
     }
 
-    /** @throws \Exception */
+    /** @throws Exception */
     public function testShipOrderWithLabel()
     {
         if (empty($this->shippableOrderId)
@@ -1124,12 +1131,13 @@ class ClientTest extends TestCase
         $shipment->orderId = $this->shippableOrderId;
         $shipment->providerId = $this->shippingProviderId;
         $shipment->productId = $this->shippingProviderProduct;
-        $shipment->shipDate = new \DateTime('now');
+        $shipment->shipDate = new DateTime('now');
         $shipment->weightInGram = 130;
 
         $client->shipWithLabel($shipment);
     }
 
+    /** @throws Exception */
     public function testGetSetLogRequests()
     {
         $client = $this->getClient();
@@ -1140,6 +1148,30 @@ class ClientTest extends TestCase
         $this->assertFalse($client->getLogRequests());
     }
 
+    /** @throws Exception */
+    public function testGetCloudStorages()
+    {
+        if ($this->cloudStorageId == 0) {
+            return;
+        }
+
+        $client = $this->getClient();
+        sleep(1);
+        $cloudStorages = $client->getCloudStorages();
+        $this->assertGreaterThanOrEqual(1, count($cloudStorages->data));
+
+        $containsCloudStorage = false;
+        foreach ($cloudStorages->data as $cloudStorage) {
+            if ($cloudStorage->id == $this->cloudStorageId) {
+                $containsCloudStorage = true;
+                break;
+            }
+        }
+
+        $this->assertTrue($containsCloudStorage);
+    }
+
+    /** @throws Exception */
     public function getClient()
     {
         static $client = null;

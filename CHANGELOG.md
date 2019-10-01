@@ -1,5 +1,9 @@
 # Changelog
 
+## 1.7.0
+New features:
+- `GET /api/v1/cloudstorages` added. (`Client::getCloudStorages()`)
+
 ## 1.6.2 (16 Sep 2019)
 
 New features:
