@@ -94,7 +94,7 @@ class Client extends AbstractClient
         try {
             $this->jom = new ObjectMapper(new JsonSerializer());
         } catch (Exception $ex) {
-            if($logger !== null) {
+            if ($logger !== null) {
                 $this->logger->critical('Object Mapper could not be created.');
             }
             throw $ex;
@@ -139,12 +139,11 @@ class Client extends AbstractClient
      *
      * @param int $productId The product id
      * @param string $lookupBy Either the value id, ean or the value sku to specify the meaning of the id parameter
-     * @see \BillbeeDe\BillbeeAPI\Type\ProductLookupBy
-     *
      * @return Response\GetProductResponse The product response
      *
      * @throws QuotaExceededException If the maximum number of calls per second exceeded
      * @throws Exception If the response cannot be parsed
+     * @see \BillbeeDe\BillbeeAPI\Type\ProductLookupBy
      */
     public function getProduct($productId, $lookupBy = Type\ProductLookupBy::ID)
     {
@@ -152,6 +151,24 @@ class Client extends AbstractClient
             'products/' . $productId,
             ['lookupBy' => $lookupBy],
             Response\GetProductResponse::class
+        );
+    }
+
+    /**
+     * Get a list of all defined categories
+     *
+     * @return Response\GetCategoriesResponse The category response
+     *
+     * @throws QuotaExceededException If the maximum number of calls per second exceeded
+     * @throws Exception If the response cannot be parsed
+     *
+     */
+    public function getCategories()
+    {
+        return $this->requestGET(
+            'products/category',
+            [],
+            Response\GetCategoriesResponse::class
         );
     }
 

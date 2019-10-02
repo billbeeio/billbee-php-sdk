@@ -88,6 +88,7 @@ class ClientTest extends TestCase
     protected $shippingProviderId;
     protected $shippingProviderProduct;
     protected $cloudStorageId = 0;
+    protected $categoryId = 0;
 
     public function __construct($name = null, array $data = [], $dataName = '')
     {
@@ -114,6 +115,7 @@ class ClientTest extends TestCase
             $this->shippingProviderId,
             $this->shippingProviderProduct,
             $this->cloudStorageId,
+            $this->categoryId,
             ) = [
             $data['username'],
             $data['password'],
@@ -134,6 +136,7 @@ class ClientTest extends TestCase
             $data['shipping_provider_id'],
             $data['shipping_provider_product'],
             $data['cloud_storage_id'],
+            $data['category_id'],
         ];
     }
 
@@ -1169,6 +1172,29 @@ class ClientTest extends TestCase
         }
 
         $this->assertTrue($containsCloudStorage);
+    }
+
+    /** @throws Exception */
+    public function testGetCategories()
+    {
+        if ($this->categoryId == 0) {
+            return;
+        }
+
+        $client = $this->getClient();
+        sleep(1);
+        $categories = $client->getCategories();
+        $this->assertGreaterThanOrEqual(1, count($categories->data));
+
+        $containsCategory = false;
+        foreach ($categories->data as $category) {
+            if ($category->id == $this->categoryId) {
+                $containsCategory = true;
+                break;
+            }
+        }
+
+        $this->assertTrue($containsCategory);
     }
 
     /** @throws Exception */
