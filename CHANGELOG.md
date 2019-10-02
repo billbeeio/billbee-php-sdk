@@ -3,6 +3,7 @@
 ## Next release
 New features:
 - `GET /api/v1/cloudstorages` added. (`Client::getCloudStorages()`)
+- `GET /api/v1/products/category` added. (`Client::getCategories()`)
 
 ## 1.6.2 (16 Sep 2019)
 
