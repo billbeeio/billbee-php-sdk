@@ -89,6 +89,7 @@ class ClientTest extends TestCase
     protected $shippingProviderProduct;
     protected $cloudStorageId = 0;
     protected $categoryId = 0;
+    protected $layoutId = 0;
 
     public function __construct($name = null, array $data = [], $dataName = '')
     {
@@ -116,6 +117,7 @@ class ClientTest extends TestCase
             $this->shippingProviderProduct,
             $this->cloudStorageId,
             $this->categoryId,
+            $this->layoutId,
             ) = [
             $data['username'],
             $data['password'],
@@ -137,6 +139,7 @@ class ClientTest extends TestCase
             $data['shipping_provider_product'],
             $data['cloud_storage_id'],
             $data['category_id'],
+            $data['layout_id'],
         ];
     }
 
@@ -1195,6 +1198,29 @@ class ClientTest extends TestCase
         }
 
         $this->assertTrue($containsCategory);
+    }
+
+    /** @throws Exception */
+    public function testGetLayouts()
+    {
+        if ($this->layoutId == 0) {
+            return;
+        }
+
+        $client = $this->getClient();
+        sleep(1);
+        $layouts = $client->getLayouts();
+        $this->assertGreaterThanOrEqual(1, count($layouts->data));
+
+        $containsLayout = false;
+        foreach ($layouts->data as $layout) {
+            if ($layout->id == $this->layoutId) {
+                $containsLayout = true;
+                break;
+            }
+        }
+
+        $this->assertTrue($containsLayout);
     }
 
     /** @throws Exception */

@@ -4,6 +4,8 @@
 New features:
 - `GET /api/v1/cloudstorages` added. (`Client::getCloudStorages()`)
 - `GET /api/v1/products/category` added. (`Client::getCategories()`)
+- `GET /api/v1/layouts` added. (`Client::getLayouts()`)
+- Added `$templateId` and `$sendToCloudId` to `Client::createInvoice()`
 
 ## 1.6.2 (16 Sep 2019)
 

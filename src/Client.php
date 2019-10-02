@@ -614,15 +614,23 @@ class Client extends AbstractClient
      *
      * @param int $orderId The internal id of the order
      * @param bool $includePdf If true, the PDF is included in the response as base64 encoded string
+     * @param int|null $templateId The internal id of a template
+     * @param int|null $sendToCloudId The internal id of an cloud storage where the invoice is uploaded to
      *
      * @return Response\CreateDeliveryNoteResponse The response
      *
      * @throws QuotaExceededException If the maximum number of calls per second exceeded
      * @throws Exception If the response cannot be parsed
      */
-    public function createInvoice($orderId, $includePdf)
+    public function createInvoice($orderId, $includePdf, $templateId = null, $sendToCloudId = null)
     {
         $node = 'orders/CreateInvoice/' . $orderId . '?includeInvoicePdf=' . ($includePdf ? 'True' : 'False');
+        if ($templateId != null && is_numeric($templateId)) {
+            $node .= '&templateId=' . $templateId;
+        }
+        if ($sendToCloudId != null && is_numeric($sendToCloudId)) {
+            $node .= '&sendToCloudId=' . $sendToCloudId;
+        }
         return $this->requestPOST(
             $node,
             [],
@@ -1339,6 +1347,31 @@ class Client extends AbstractClient
             'cloudstorages',
             [],
             Response\GetCloudStoragesResponse::class
+        );
+    }
+
+    #endregion
+
+    #endregion
+
+    #region LAYOUTS
+
+    #region GET
+
+    /**
+     * Get a list of all layouts
+     *
+     * @return Response\GetLayoutsResponse The Response
+     *
+     * @throws QuotaExceededException If the maximum number of calls per second exceeded
+     * @throws Exception If the response cannot be parsed
+     */
+    public function getLayouts()
+    {
+        return $this->requestGET(
+            'layouts',
+            [],
+            Response\GetLayoutsResponse::class
         );
     }
 
