@@ -7,6 +7,10 @@ New features:
 - `GET /api/v1/layouts` added. (`Client::getLayouts()`)
 - Added `$templateId` and `$sendToCloudId` to `Client::createInvoice()`
 
+Bug fixes:
+- Unit tests fixed
+- Default values in the `Product` class fixed
+
 ## 1.6.2 (16 Sep 2019)
 
 New features:

@@ -1599,7 +1599,6 @@ class Client extends AbstractClient
                 ]);
             }
             /** @var ResponseInterface $res */
-
             $res = $this->sendAsync($request, [RequestOptions::SYNCHRONOUS => true])->wait();
             $contents = $res->getBody()->getContents();
 

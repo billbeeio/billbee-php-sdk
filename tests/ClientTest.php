@@ -160,6 +160,7 @@ class ClientTest extends TestCase
         $this->expectException(QuotaExceededException::class);
         $this->expectExceptionMessage('quota exceeded');
         $client->getProducts(1, 1, new DateTime('now'));
+        $client->getProducts(1, 1, new DateTime('now'));
     }
 
     /** @throws Exception */
@@ -607,8 +608,8 @@ class ClientTest extends TestCase
 
         /** @var Shipment $shipment */
         $shipment = $this->createMock(Shipment::class);
-        $shipment->shippingProviderId = 5871;
-        $shipment->shippingProductId = 45540;
+        $shipment->shippingProviderId = $this->shippingProviderId;
+        $shipment->shippingProductId = $this->shippingProviderProduct;
         $shipment->orderId = 'A-123';
         $shipment->comment = 'PRIO VERSENDEN';
         $shipment->shippingId = 'B-456';
@@ -798,6 +799,7 @@ class ClientTest extends TestCase
         $hook = new WebHook();
         $hook->id = md5('Hello World' . time());
         $hook->secret = md5('4711');
+        $hook->isPaused = true;
         $hook->description = 'A nice webhook';
         $hook->filters = ['*'];
         $hook->webHookUri = $this->webHookUri;
@@ -1040,7 +1042,7 @@ class ClientTest extends TestCase
         $this->assertEquals(0, $customerOrdersResponse->errorCode);
         $this->assertGreaterThanOrEqual(0, $customerOrdersResponse->data);
 
-        if ($customerOrdersResponse->data > 0) {
+        if (count($customerOrdersResponse->data) > 0) {
             $this->assertInstanceOf(Order::class, $customerOrdersResponse->data[0]);
         }
     }
