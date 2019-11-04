@@ -12,6 +12,8 @@
 
 namespace BillbeeDe\BillbeeAPI\Model;
 
+use MintWare\DMM\DataField;
+
 class SoldProduct
 {
     /**

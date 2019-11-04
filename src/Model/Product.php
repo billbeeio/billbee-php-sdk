@@ -278,25 +278,25 @@ class Product
      * @var float
      * @DataField(name="StockReduceItemsPerSale", type="float")
      */
-    public $stockReduceItemsPerSale = 1;
+    public $stockReduceItemsPerSale = 1.0;
 
     /**
      * @var array
      * @DataField(name="Stocks", type="array")
      */
-    public $stocks = 1;
+    public $stocks = [];
 
     /**
      * @var int
      * @DataField(name="Weight", type="int")
      */
-    public $weight = 0.00;
+    public $weight = 0;
 
     /**
      * @var int
      * @DataField(name="WeightNet", type="int")
      */
-    public $weightNet = 0.00;
+    public $weightNet = 0;
 
     /**
      * @var int
@@ -308,7 +308,7 @@ class Product
      * @var float
      * @DataField(name="UnitsPerItem", type="float")
      */
-    public $unitsPerItem = 1;
+    public $unitsPerItem = 1.0;
 
     /**
      * @var int
@@ -320,31 +320,31 @@ class Product
      * @var float
      * @DataField(name="SoldSumGross", type="float")
      */
-    public $soldSumGross = 0;
+    public $soldSumGross = 0.0;
 
     /**
      * @var float
      * @DataField(name="SoldSumNet", type="float")
      */
-    public $soldSumNet = 0;
+    public $soldSumNet = 0.0;
 
     /**
      * @var float
      * @DataField(name="SoldSumNetLast30Days", type="float")
      */
-    public $soldSumNetLast30Days = 0;
+    public $soldSumNetLast30Days = 0.0;
 
     /**
      * @var float
      * @DataField(name="SoldSumGrossLast30Days", type="float")
      */
-    public $soldSumGrossLast30Days = 0;
+    public $soldSumGrossLast30Days = 0.0;
 
     /**
      * @var float
      * @DataField(name="SoldAmountLast30Days", type="float")
      */
-    public $soldAmountLast30Days = 0;
+    public $soldAmountLast30Days = 0.0;
 
     /**
      * @var int
