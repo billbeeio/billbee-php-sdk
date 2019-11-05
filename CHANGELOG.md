@@ -11,6 +11,11 @@ Bug fixes:
 - Unit tests fixed
 - Default values in the `Product` class fixed
 
+Misc:
+- Added composer scripts for development
+- Added a code documentation generator
+- Fixed code style
+
 ## 1.6.2 (16 Sep 2019)
 
 New features:

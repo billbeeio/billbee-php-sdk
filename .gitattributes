@@ -13,3 +13,4 @@
 /test_config.yml        export-ignore
 /test_config.dist.yml   export-ignore
 /phpunit.xml            export-ignore
+/doc                    export-ignore
