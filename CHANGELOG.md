@@ -2,19 +2,20 @@
 
 ## Next release
 New features:
-- `GET /api/v1/cloudstorages` added. (`Client::getCloudStorages()`)
-- `GET /api/v1/products/category` added. (`Client::getCategories()`)
-- `GET /api/v1/layouts` added. (`Client::getLayouts()`)
-- Added `$templateId` and `$sendToCloudId` to `Client::createInvoice()`
+- `GET /api/v1/cloudstorages` added. (`Client::getCloudStorages()`) ([PR #18](https://github.com/billbeeio/billbee-php-sdk/pull/18))
+- `GET /api/v1/products/category` added. (`Client::getCategories()`) ([PR #19](https://github.com/billbeeio/billbee-php-sdk/pull/19))
+- `GET /api/v1/layouts` added. (`Client::getLayouts()`) ([PR #20](https://github.com/billbeeio/billbee-php-sdk/pull/20))
+- Added `$templateId` and `$sendToCloudId` to `Client::createInvoice()` ([PR #20](https://github.com/billbeeio/billbee-php-sdk/pull/20))
+- `POST /api/v1/products` added. (`Client::createProduct($product)`) ([PR #25](https://github.com/billbeeio/billbee-php-sdk/pull/25))
 
 Bug fixes:
-- Unit tests fixed
-- Default values in the `Product` class fixed
+- Unit tests fixed ([PR #23](https://github.com/billbeeio/billbee-php-sdk/pull/23))
+- Default values in the `Product` class fixed ([PR #23](https://github.com/billbeeio/billbee-php-sdk/pull/23))
 
 Misc:
-- Added composer scripts for development
-- Added a code documentation generator
-- Fixed code style
+- Added composer scripts for development ([PR #24](https://github.com/billbeeio/billbee-php-sdk/pull/24))
+- Added a code documentation generator ([PR #24](https://github.com/billbeeio/billbee-php-sdk/pull/24))
+- Fixed code style ([PR #24](https://github.com/billbeeio/billbee-php-sdk/pull/24))
 
 ## 1.6.2 (16 Sep 2019)
 
