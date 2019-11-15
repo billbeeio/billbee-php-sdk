@@ -34,5 +34,4 @@ class SearchDataResponse
      * @DataField(name="Customers", type="BillbeeDe\BillbeeAPI\Model\Search\CustomerResult[]")
      */
     public $customers;
-
 }
