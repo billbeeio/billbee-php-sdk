@@ -7,6 +7,7 @@ New features:
 - `GET /api/v1/layouts` added. (`Client::getLayouts()`) ([PR #20](https://github.com/billbeeio/billbee-php-sdk/pull/20))
 - Added `$templateId` and `$sendToCloudId` to `Client::createInvoice()` ([PR #20](https://github.com/billbeeio/billbee-php-sdk/pull/20))
 - `POST /api/v1/products` added. (`Client::createProduct($product)`) ([PR #25](https://github.com/billbeeio/billbee-php-sdk/pull/25))
+- `POST /api/v1/search` added. (`Client::search()`) ([PR #26](https://github.com/billbeeio/billbee-php-sdk/pull/26))
 
 Bug fixes:
 - Unit tests fixed ([PR #23](https://github.com/billbeeio/billbee-php-sdk/pull/23))

@@ -29,6 +29,9 @@ use BillbeeDe\BillbeeAPI\Model\Order;
 use BillbeeDe\BillbeeAPI\Model\OrderItem;
 use BillbeeDe\BillbeeAPI\Model\PartnerOrder;
 use BillbeeDe\BillbeeAPI\Model\Product;
+use BillbeeDe\BillbeeAPI\Model\Search\CustomerResult;
+use BillbeeDe\BillbeeAPI\Model\Search\OrderResult;
+use BillbeeDe\BillbeeAPI\Model\Search\ProductResult;
 use BillbeeDe\BillbeeAPI\Model\Shipment;
 use BillbeeDe\BillbeeAPI\Model\ShipmentWithLabel;
 use BillbeeDe\BillbeeAPI\Model\ShippingProvider;
@@ -59,6 +62,7 @@ use BillbeeDe\BillbeeAPI\Response\UpdateStockResponse;
 use BillbeeDe\BillbeeAPI\Type\ArticleSource;
 use BillbeeDe\BillbeeAPI\Type\EventType;
 use BillbeeDe\BillbeeAPI\Type\OrderState;
+use BillbeeDe\BillbeeAPI\Type\SearchType;
 use DateTime;
 use Exception;
 use InvalidArgumentException;
@@ -1246,6 +1250,45 @@ class ClientTest extends TestCase
         $this->assertNotNull($createResponse->data);
         $this->assertInstanceOf(Product::class, $createResponse->data);
         $this->assertEquals($product->sku, $createResponse->data->sku);
+    }
+
+    /** @throws Exception */
+    public function testSearch()
+    {
+        $client = $this->getClient();
+
+        if ($this->sampleProductId != 0) {
+            sleep(1);
+            $response = $client->search($this->sampleProductId, [SearchType::PRODUCT]);
+            $this->assertNotNull($response->products);
+            $this->assertGreaterThanOrEqual(1, count($response->products));
+            $filtered = array_filter($response->products, function (ProductResult $x) {
+                return $x->id === $this->sampleProductId;
+            });
+            $this->assertGreaterThanOrEqual(1, count($filtered));
+        }
+
+        if ($this->sampleOrderId != 0) {
+            sleep(1);
+            $response = $client->search($this->sampleOrderId, [SearchType::ORDER]);
+            $this->assertNotNull($response->products);
+            $this->assertGreaterThanOrEqual(1, count($response->orders));
+            $filtered = array_filter($response->orders, function (OrderResult $x) {
+                return $x->id === $this->sampleOrderId;
+            });
+            $this->assertGreaterThanOrEqual(1, count($filtered));
+        }
+
+        if ($this->customerId != 0) {
+            sleep(1);
+            $response = $client->search($this->customerId, [SearchType::CUSTOMER]);
+            $this->assertNotNull($response->products);
+            $this->assertGreaterThanOrEqual(1, count($response->customers));
+            $filtered = array_filter($response->customers, function (CustomerResult $x) {
+                return $x->id === $this->customerId;
+            });
+            $this->assertGreaterThanOrEqual(1, count($filtered));
+        }
     }
 
     /** @throws Exception */
