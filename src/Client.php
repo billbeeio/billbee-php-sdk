@@ -1397,6 +1397,45 @@ class Client extends AbstractClient
 
     #endregion
 
+    #region SEARCH
+
+    #region GET
+
+    /**
+     * Search for products, customers and orders. Type can be "order", "product" and / or "customer"
+     * Term can contains lucene query syntax
+     *
+     * @param string $term The search string
+     * @param string[] $type The data types which should be searched for the search string
+     * @param int $searchMode The Search mode
+     *
+     * @return Response\SearchDataResponse
+     * @throws QuotaExceededException If the maximum number of calls per second exceeded
+     */
+    public function search(
+        $term,
+        $type = [
+            Type\SearchType::PRODUCT,
+            Type\SearchType::ORDER,
+            Type\SearchType::CUSTOMER
+        ],
+        $searchMode = Type\SearchMode::_EXPERT
+    ) {
+        return $this->requestPOST(
+            'search', // Search endpoint
+            [
+                'Type' => $type,
+                'Term' => $term,
+                'SearchMode' => $searchMode,
+            ],
+            Response\SearchDataResponse::class
+        );
+    }
+
+    #endregion
+
+    #endregion
+
     /**
      * Execute all requests in the pool
      *
