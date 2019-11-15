@@ -230,6 +230,24 @@ class Client extends AbstractClient
         );
     }
 
+    /**
+     * Creates a new product
+     *
+     * @param Model\Product $product
+     * @return Response\GetProductResponse The Response
+     *
+     * @throws QuotaExceededException If the maximum number of calls per second exceeded
+     * @throws Exception If the response cannot be parsed
+     */
+    public function createProduct(Model\Product $product)
+    {
+        return $this->requestPOST(
+            'products',
+            $this->jom->serialize($product),
+            Response\GetProductResponse::class
+        );
+    }
+
     #endregion
 
     #endregion

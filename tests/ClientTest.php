@@ -1226,6 +1226,29 @@ class ClientTest extends TestCase
     }
 
     /** @throws Exception */
+    public function testCreateProduct()
+    {
+        if ($this->sampleProductId == 0) {
+            return;
+        }
+
+        $client = $this->getClient();
+        sleep(1);
+        $response = $client->getProduct($this->sampleProductId);
+        $this->assertNotNull($response->data);
+
+        $product = $response->data;
+        $product->id = null;
+        $product->sku = md5(time());
+        sleep(1);
+
+        $createResponse = $client->createProduct($product);
+        $this->assertNotNull($createResponse->data);
+        $this->assertInstanceOf(Product::class, $createResponse->data);
+        $this->assertEquals($product->sku, $createResponse->data->sku);
+    }
+
+    /** @throws Exception */
     public function getClient()
     {
         static $client = null;
