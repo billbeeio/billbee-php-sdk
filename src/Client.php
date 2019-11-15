@@ -1718,4 +1718,3 @@ class Client extends AbstractClient
         return $this;
     }
 }
-

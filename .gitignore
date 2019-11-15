@@ -4,3 +4,5 @@
 /composer.lock
 program.php
 output.log
+/doc/*
+!/doc/sami.php

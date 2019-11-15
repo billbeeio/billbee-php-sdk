@@ -12,6 +12,7 @@
 
 namespace BillbeeDe\BillbeeAPI\Logger;
 
+use DateTime;
 use Psr\Log\LoggerInterface;
 
 class DiagnosticsLogger implements LoggerInterface
@@ -87,9 +88,14 @@ class DiagnosticsLogger implements LoggerInterface
     {
         $level = str_pad($level . ':', 9, ' ', STR_PAD_RIGHT);
         /** @noinspection PhpUnhandledExceptionInspection */
-        $date = (new \DateTime('now'))->format('Y-m-d H:i:s.v');
-        $line = sprintf("[%s] %s Message: %s; Context: %s\n", $date, $level, $message,
-            json_encode($context, 320));
+        $date = (new DateTime('now'))->format('Y-m-d H:i:s.v');
+        $line = sprintf(
+            "[%s] %s Message: %s; Context: %s\n",
+            $date,
+            $level,
+            $message,
+            json_encode($context, 320)
+        );
         $line = str_replace("\\u0000", "", $line);
         file_put_contents($this->logFile, $line, FILE_APPEND);
     }

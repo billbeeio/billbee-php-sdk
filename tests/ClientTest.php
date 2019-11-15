@@ -1075,7 +1075,7 @@ class ClientTest extends TestCase
 
         $resp = $client->createCustomer($customer, $address);
         $this->assertInstanceOf(GetCustomerResponse::class, $resp);
-        $this->assertEquals(0, $resp->errorCode);;
+        $this->assertEquals(0, $resp->errorCode);
         $this->assertInstanceOf(Customer::class, $resp->data);
 
         $this->assertEquals($customer->email, $resp->data->email);
