@@ -1,6 +1,6 @@
 # Changelog
 
-## Next release
+## 1.7.0 (15 Nov 2019)
 New features:
 - `GET /api/v1/cloudstorages` added. (`Client::getCloudStorages()`) ([PR #18](https://github.com/billbeeio/billbee-php-sdk/pull/18))
 - `GET /api/v1/products/category` added. (`Client::getCategories()`) ([PR #19](https://github.com/billbeeio/billbee-php-sdk/pull/19))
