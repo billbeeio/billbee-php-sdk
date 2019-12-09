@@ -2,8 +2,16 @@
 
 ## Next Version
 
-New features
+New features:
 - `DELETE /api/v1/products/{id}` added. (`Client::deleteProduct($id)`) ([PR #31](https://github.com/billbeeio/billbee-php-sdk/pull/31))
+- Added missing fields to the product model ([PR #32](https://github.com/billbeeio/billbee-php-sdk/pull/32))
+  - `Product::$condition`
+  - `Product::$widthCm`
+  - `Product::$lengthCm`
+  - `Product::$heightCm`
+  - `Product::$billOfMaterial` 
+- `GET /api/v1/products/PatchableFields` added. (`Client::getPatchableProductFields()`) ([PR #33](https://github.com/billbeeio/billbee-php-sdk/pull/33))
+- `PATCH /api/v1/products/{id}` added. (`Client::patchProduct($productId, $model)`) ([PR #33](https://github.com/billbeeio/billbee-php-sdk/pull/33))
 
 ## 1.7.0 (15 Nov 2019)
 New features:
