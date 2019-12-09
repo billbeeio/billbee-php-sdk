@@ -1,5 +1,15 @@
 # Changelog
 
+## Next Version
+
+New features:
+- Added missing fields to the product model
+  - `Product::$condition`
+  - `Product::$widthCm`
+  - `Product::$lengthCm`
+  - `Product::$heightCm`
+  - `Product::$billOfMaterial` 
+
 ## 1.7.0 (15 Nov 2019)
 New features:
 - `GET /api/v1/cloudstorages` added. (`Client::getCloudStorages()`) ([PR #18](https://github.com/billbeeio/billbee-php-sdk/pull/18))

@@ -12,6 +12,7 @@
 
 namespace BillbeeDe\BillbeeAPI\Model;
 
+use BillbeeDe\BillbeeAPI\Type\ProductCondition;
 use MintWare\DMM\DataField;
 
 class Product
@@ -405,4 +406,38 @@ class Product
      * @DataField(name="CustomFields", type="\BillbeeDe\BillbeeAPI\Model\ProductCustomField[]")
      */
     public $customFields = '';
+
+    /**
+     * @var int
+     * @DataField(name="Condition", type="int")
+     *
+     * @see ProductCondition
+     */
+    public $condition = ProductCondition::BRAND_NEW;
+
+    /**
+     * @var float
+     * @DataField(name="WidthCm", type="float")
+     */
+    public $widthCm;
+
+    /**
+     * @var float
+     * @DataField(name="LengthCm", type="float")
+     */
+    public $lengthCm;
+
+    /**
+     * @var float
+     * @DataField(name="HeightCm", type="float")
+     */
+    public $heightCm;
+
+    /**
+     * @var BillOfMaterialProduct[]
+     * @DataField(name="BillOfMaterial", type="BillbeeDe\BillbeeAPI\Model\BillOfMaterialProduct[]")
+     *
+     * @see ProductCondition
+     */
+    public $billOfMaterial = [];
 }
