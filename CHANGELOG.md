@@ -1,6 +1,6 @@
 # Changelog
 
-## Next Version
+## 1.8.0 (9 Dec 2019)
 
 New features:
 - `DELETE /api/v1/products/{id}` added. (`Client::deleteProduct($id)`) ([PR #31](https://github.com/billbeeio/billbee-php-sdk/pull/31))
