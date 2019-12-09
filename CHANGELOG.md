@@ -9,6 +9,8 @@ New features:
   - `Product::$lengthCm`
   - `Product::$heightCm`
   - `Product::$billOfMaterial` 
+- `GET /api/v1/products/PatchableFields` added. (`Client::getPatchableProductFields()`);
+- `PATCH /api/v1/products/{id}` added. (`Client::patchProduct($productId, $model)`);
 
 ## 1.7.0 (15 Nov 2019)
 New features:
