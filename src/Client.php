@@ -250,6 +250,27 @@ class Client extends AbstractClient
 
     #endregion
 
+    #region DELETE
+
+    /**
+     * Deletes a product by id
+     *
+     * @param int $productId The Id of the product
+     *
+     * @throws QuotaExceededException If the maximum number of calls per second exceeded
+     * @throws Exception If the response cannot be parsed
+     */
+    public function deleteProduct($productId)
+    {
+        $this->requestDELETE(
+            'products/' . $productId,
+            [],
+            Response\BaseResponse::class
+        );
+    }
+
+    #endregion
+
     #endregion
 
     #region PROVISIONING

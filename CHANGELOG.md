@@ -1,5 +1,10 @@
 # Changelog
 
+## Next Version
+
+New features
+- `DELETE /api/v1/products/{id}` added. (`Client::deleteProduct($id)`) ([PR #18](https://github.com/billbeeio/billbee-php-sdk/pull/18))
+
 ## 1.7.0 (15 Nov 2019)
 New features:
 - `GET /api/v1/cloudstorages` added. (`Client::getCloudStorages()`) ([PR #18](https://github.com/billbeeio/billbee-php-sdk/pull/18))
