@@ -3,7 +3,7 @@
 ## Next Version
 
 New features:
-- Added missing fields to the product model
+- Added missing fields to the product model ([PR #32](https://github.com/billbeeio/billbee-php-sdk/pull/32))
   - `Product::$condition`
   - `Product::$widthCm`
   - `Product::$lengthCm`
