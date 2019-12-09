@@ -1253,6 +1253,35 @@ class ClientTest extends TestCase
     }
 
     /** @throws Exception */
+    public function testUpdateProduct()
+    {
+        if ($this->sampleProductId == 0) {
+            return;
+        }
+
+        $client = $this->getClient();
+        sleep(1);
+        $response = $client->getProduct($this->sampleProductId);
+        $this->assertNotNull($response->data);
+
+        $product = $response->data;
+
+        $originalTitle = $product->title[0]->text;
+        sleep(1);
+
+        $patchResponse = $client->patchProduct($product->id, [
+            'ShortText' => base64_encode($originalTitle)
+        ]);
+        $this->assertNotNull($patchResponse->data);
+        $this->assertInstanceOf(Product::class, $patchResponse->data);
+        $this->assertEquals($originalTitle, $product->title[0]->text);
+
+        $client->patchProduct($product->id, [
+            'ShortText' => $originalTitle
+        ]);
+    }
+
+    /** @throws Exception */
     public function testSearch()
     {
         $client = $this->getClient();
@@ -1289,6 +1318,17 @@ class ClientTest extends TestCase
             });
             $this->assertGreaterThanOrEqual(1, count($filtered));
         }
+    }
+
+    /** @throws Exception */
+    public function testGetPatchableProductFields()
+    {
+        $client = $this->getClient();
+        sleep(1);
+        /** @var GetPatchableFieldsResponse $result */
+        $result = $client->getPatchableProductFields();
+        $this->assertInstanceOf(GetPatchableFieldsResponse::class, $result);
+        $this->assertGreaterThanOrEqual(1, $result->data);
     }
 
     /** @throws Exception */

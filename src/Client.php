@@ -172,6 +172,26 @@ class Client extends AbstractClient
         );
     }
 
+    /**
+     *
+     * Returns a list of fields which can be updated with the patchProduct call
+     *
+     * @return Response\GetPatchableFieldsResponse
+     *
+     * @throws QuotaExceededException If the maximum number of calls per second exceeded
+     * @throws Exception If the response cannot be parsed
+     *
+     * @see Client::patchProduct($productId, $model)
+     */
+    public function getPatchableProductFields()
+    {
+        return $this->requestGET(
+            'products/PatchableFields',
+            [],
+            Response\GetPatchableFieldsResponse::class
+        );
+    }
+
     #endregion
 
     #region POST
@@ -244,6 +264,32 @@ class Client extends AbstractClient
         return $this->requestPOST(
             'products',
             $this->jom->serialize($product),
+            Response\GetProductResponse::class
+        );
+    }
+
+    #endregion
+
+    #region PATCH
+
+    /**
+     * Updates one or more fields of a product
+     *
+     * @param int $productId The internal id of the product
+     * @param array $model The fields to patch
+     *
+     * @return Response\GetProductResponse The order
+     *
+     * @throws QuotaExceededException If the maximum number of calls per second exceeded
+     * @throws Exception If the response cannot be parsed
+     *
+     * @see Client::getPatchableProductFields()
+     */
+    public function patchProduct($productId, $model)
+    {
+        return $this->requestPATCH(
+            'products/' . $productId,
+            $model,
             Response\GetProductResponse::class
         );
     }
