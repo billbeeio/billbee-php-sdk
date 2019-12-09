@@ -9,8 +9,8 @@ New features:
   - `Product::$lengthCm`
   - `Product::$heightCm`
   - `Product::$billOfMaterial` 
-- `GET /api/v1/products/PatchableFields` added. (`Client::getPatchableProductFields()`);
-- `PATCH /api/v1/products/{id}` added. (`Client::patchProduct($productId, $model)`);
+- `GET /api/v1/products/PatchableFields` added. (`Client::getPatchableProductFields()`) ([PR #33](https://github.com/billbeeio/billbee-php-sdk/pull/33))
+- `PATCH /api/v1/products/{id}` added. (`Client::patchProduct($productId, $model)`) ([PR #33](https://github.com/billbeeio/billbee-php-sdk/pull/33))
 
 ## 1.7.0 (15 Nov 2019)
 New features:
