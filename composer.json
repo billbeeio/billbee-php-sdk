@@ -32,8 +32,8 @@
   },
   "scripts": {
     "fix-cs": [
-      "./vendor/bin/php-cs-fixer fix ./src/ --using-cache=no --rules=@PSR2",
-      "./vendor/bin/php-cs-fixer fix ./tests/ --using-cache=no --rules=@PSR2"
+      "php-cs-fixer fix ./src/ --using-cache=no --rules=@PSR2",
+      "php-cs-fixer fix ./tests/ --using-cache=no --rules=@PSR2"
     ],
     "generate-doc": "sami update doc/sami.php"
   },

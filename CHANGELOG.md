@@ -3,6 +3,7 @@
 ## Next Version
 
 New features:
+- `DELETE /api/v1/products/{id}` added. (`Client::deleteProduct($id)`) ([PR #31](https://github.com/billbeeio/billbee-php-sdk/pull/31))
 - Added missing fields to the product model ([PR #32](https://github.com/billbeeio/billbee-php-sdk/pull/32))
   - `Product::$condition`
   - `Product::$widthCm`

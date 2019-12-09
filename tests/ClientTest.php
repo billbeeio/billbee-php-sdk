@@ -65,6 +65,7 @@ use BillbeeDe\BillbeeAPI\Type\OrderState;
 use BillbeeDe\BillbeeAPI\Type\SearchType;
 use DateTime;
 use Exception;
+use GuzzleHttp\Exception\ClientException;
 use InvalidArgumentException;
 use PHPUnit\Framework\TestCase;
 use Psr\Log\LoggerInterface;
@@ -1230,7 +1231,7 @@ class ClientTest extends TestCase
     }
 
     /** @throws Exception */
-    public function testCreateProduct()
+    public function testCreateAndDeleteProduct()
     {
         if ($this->sampleProductId == 0) {
             return;
@@ -1250,6 +1251,24 @@ class ClientTest extends TestCase
         $this->assertNotNull($createResponse->data);
         $this->assertInstanceOf(Product::class, $createResponse->data);
         $this->assertEquals($product->sku, $createResponse->data->sku);
+
+        sleep(1);
+        $newProductId = $createResponse->data->id;
+        $client->deleteProduct($newProductId);
+
+        $this->expectException(ClientException::class);
+        $client->getProduct($newProductId);
+    }
+
+    /** @throws Exception */
+    public function testDeleteProductFails()
+    {
+        $client = $this->getClient();
+        sleep(1);
+
+        $this->expectException(ClientException::class);
+        $this->expectExceptionMessage('{"ErrorMessage":"Der Artikel 0 ist nicht vorhanden","ErrorCode":2,"Data":null}');
+        $client->deleteProduct(0);
     }
 
     /** @throws Exception */
