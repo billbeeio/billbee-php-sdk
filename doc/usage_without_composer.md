@@ -59,9 +59,9 @@ $results = $client->executeBatch(); # Results contain all responses in the added
 /** @var \BillbeeDe\BillbeeAPI\Response\GetProductsResponse $productsResult */
 $productsResult = $results[0];
  
-/** @var \BillbeeDe\BillbeeAPI\Response\GetOrdersResponse $productsResult */
+/** @var \BillbeeDe\BillbeeAPI\Response\GetOrdersResponse $ordersResult */
 $ordersResult = $results[1];
  
-/** @var \BillbeeDe\BillbeeAPI\Response\GetEventsResponse $productsResult */
+/** @var \BillbeeDe\BillbeeAPI\Response\GetEventsResponse $eventsResult */
 $eventsResult = $results[2];
 ```
