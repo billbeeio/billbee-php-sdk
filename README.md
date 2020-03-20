@@ -18,6 +18,8 @@ You can add this package as composer dependency
 $ composer require billbee/billbee-api
 ```
 
+[Instructions without composer](./doc/usage_without_composer.md)
+
 ## Official API Documentation
 [https://app.billbee.io/swagger/ui/index](https://app.billbee.io/swagger/ui/index)
 
