@@ -35,7 +35,7 @@ move vendor sdk-dist/vendor
 # require_once __DIR__ . '/vendor/composer/autoload_real.php';
 ```
 
-Now copy the `sdk-dist` to your target directory and `require_once` the `autoloader.php`
+Now copy the `sdk-dist` to your target directory and `require_once` the `autoload.php`
 
 For example:
 ```php
