@@ -1,5 +1,10 @@
 # Changelog
 
+## Next version (2.0.0)
+
+Breaking changes:
+- The code has been reorganized. The client does not implement the endpoints directly anymore. See [UPGRADE.md](UPGRADE.md) for migration details.
+
 ## 1.8.0 (9 Dec 2019)
 
 New features:

@@ -10,14 +10,15 @@
  * Created by Julian Finkler <julian@mintware.de>
  */
 
-namespace BillbeeDe\BillbeeAPI\Exception;
+namespace BillbeeDe\BillbeeAPI\Model;
 
-use Exception;
+use MintWare\DMM\DataField;
 
-class QuotaExceededException extends Exception
+class CreateCustomerRequest extends Customer
 {
-    public function __construct($message = "", $code = 0, $previous = null)
-    {
-        parent::__construct($message, $code, $previous);
-    }
+    /**
+     * @var CustomerAddress
+     * @DataField(name="Address", type="BillbeeDe\BillbeeAPI\Model\CustomerAddress")
+     */
+    public $address;
 }

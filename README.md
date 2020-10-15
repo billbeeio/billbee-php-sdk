@@ -26,28 +26,34 @@ $ composer require billbee/billbee-api
 ## Usage
 
 Simply instantiate a client object for accessing the api:
+
 ```php
 <?php
+
+use BillbeeDe\BillbeeAPI\Client;
 
 $user = 'Your Billbee username';
 $apiPassword = 'Your Billbee API Password'; // https://app.billbee.io/de/settings/api
 $apiKey = 'Your Billbee API Key';
 
-$client = new \BillbeeDe\BillbeeAPI\Client($user, $apiPassword, $apiKey);
+$client = new Client($user, $apiPassword, $apiKey);
 ```
 
 ## Example: Retrieve a list of products
+
 ```php
 <?php
  
+use BillbeeDe\BillbeeAPI\Client;
+
 $user = 'Your Billbee username';
 $apiPassword = 'Your Billbee API Password'; // https://app.billbee.io/de/settings/api
 $apiKey = 'Your Billbee API Key';
  
-$client = new \BillbeeDe\BillbeeAPI\Client($user, $apiPassword, $apiKey);
+$client = new Client($user, $apiPassword, $apiKey);
 
 /** @var \BillbeeDe\BillbeeAPI\Response\GetProductsResponse $productsResponse */
-$productsResponse = $client->getProducts($page = 1, $pageSize = 10);
+$productsResponse = $client->products()->getProducts($page = 1, $pageSize = 10);
  
 /** @var \BillbeeDe\BillbeeAPI\Model\Product $product */
 foreach ($productsResponse->data as $product) {
@@ -56,35 +62,37 @@ foreach ($productsResponse->data as $product) {
 ```
 
 ## Example: Batch requests
-```php
 
+```php
 <?php
+
+use BillbeeDe\BillbeeAPI\Client;
+use BillbeeDe\BillbeeAPI\Response;
 
 $user = 'Your Billbee username';
 $apiPassword = 'Your Billbee API Password'; // https://app.billbee.io/de/settings/api
 $apiKey = 'Your Billbee API Key';
  
-$client = new \BillbeeDe\BillbeeAPI\Client($user, $apiPassword, $apiKey);
-$client->useBatching = true; # Enable batching
+$client = new Client($user, $apiPassword, $apiKey);
+$client->enableBatchMode();
  
-$client->getProducts(1, 1); # Adds the request to the batch pool / returns null
-$client->getOrders(1, 1); # Adds the request to the batch pool / returns null
-$client->getEvents(1, 1); # Adds the request to the batch pool / returns null
+$client->products()->getProducts(1, 1); # Adds the request to the batch pool / returns null
+$client->orders()->getOrders(1, 1); # Adds the request to the batch pool / returns null
+$client->events()->getEvents(1, 1); # Adds the request to the batch pool / returns null
  
 $results = $client->executeBatch(); # Results contain all responses in the added order
  
-/** @var \BillbeeDe\BillbeeAPI\Response\GetProductsResponse $productsResult */
+/** @var Response\GetProductsResponse $productsResult */
 $productsResult = $results[0];
  
-/** @var \BillbeeDe\BillbeeAPI\Response\GetOrdersResponse $ordersResult */
+/** @var Response\GetOrdersResponse $ordersResult */
 $ordersResult = $results[1];
  
-/** @var \BillbeeDe\BillbeeAPI\Response\GetEventsResponse $eventsResult */
+/** @var Response\GetEventsResponse $eventsResult */
 $eventsResult = $results[2];
 ```
 
 ## Testing
-Clone the repository, copy the `test_config.dist.yml` to `test_config.yml` and fill it.
 Run `phpunit`
 
 ## Contributing
