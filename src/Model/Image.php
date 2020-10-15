@@ -50,5 +50,5 @@ class Image
      * @var bool
      * @DataField(name="IsDefault", type="bool")
      */
-    public $isDefault = 1;
+    public $isDefault = true;
 }

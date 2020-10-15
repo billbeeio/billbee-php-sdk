@@ -38,7 +38,7 @@ class ShipmentsEndpoint
     /**
      * Query all defined shipping providers
      *
-     * @return Response\GetShippingProvidersResponse The shipping providers response
+     * @return Response\GetShippingProvidersResponse|null The shipping providers response
      *
      * @throws QuotaExceededException If the maximum number of calls per second exceeded
      * @throws Exception If the response cannot be parsed

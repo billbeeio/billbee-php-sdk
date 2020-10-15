@@ -17,7 +17,7 @@ use MintWare\DMM\DataField;
 class UpdateStockResponse extends BaseResponse
 {
     /**
-     * @var array
+     * @var array<array>
      * @DataField(name="Data", type="array")
      */
     public $data = [];
