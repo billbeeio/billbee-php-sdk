@@ -1,5 +1,9 @@
 # Migration Guide
 
+## Minimum PHP Version
+Since PHP 5.6 - PHP 7.1 isn't supported anymore and the PHP 7.2 Security support ends in Nov 2020 the minimal PHP Version
+was increased to 7.3.
+
 ## `Client::$useBatching`
 
 This field was made private. The Client itself implements the `\BillbeeDe\BillbeeAPI\BatchClientInterface`. Use the

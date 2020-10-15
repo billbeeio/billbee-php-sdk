@@ -43,7 +43,7 @@ class OrdersEndpointTest extends TestCase
     /** @var LoggerInterface */
     private $loggerMock;
 
-    protected function setUp()
+    protected function setUp(): void
     {
         $this->client = new TestClient();
         $this->loggerMock = $this->createMock(LoggerInterface::class);

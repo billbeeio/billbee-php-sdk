@@ -23,7 +23,7 @@ class ClientTest extends TestCase
 {
     private $client;
 
-    protected function setUp()
+    protected function setUp(): void
     {
         if ($this->client === null) {
             $this->client = new Client('Hello', 'World', '12344');

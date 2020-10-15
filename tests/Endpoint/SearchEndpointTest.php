@@ -27,7 +27,7 @@ class SearchEndpointTest extends TestCase
     /** @var TestClient */
     private $client;
 
-    protected function setUp()
+    protected function setUp(): void
     {
         $this->client = new TestClient();
         $this->endpoint = new SearchEndpoint($this->client);

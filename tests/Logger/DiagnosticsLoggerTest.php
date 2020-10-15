@@ -21,12 +21,12 @@ class DiagnosticsLoggerTest extends TestCase
     /** @var DiagnosticsLogger */
     private $logger;
 
-    protected function setUp()
+    protected function setUp(): void
     {
         $this->logger = new DiagnosticsLogger();
     }
 
-    protected function tearDown()
+    protected function tearDown(): void
     {
         $logFile = $this->logger->getLogFile();
         if (is_file($logFile)) {
@@ -40,8 +40,8 @@ class DiagnosticsLoggerTest extends TestCase
 
         $logFile = $this->logger->getLogFile();
         $this->assertNotNull($logFile);
-        $this->assertContains('billbee_api_', $logFile);
-        $this->assertContains(sys_get_temp_dir(), $logFile);
+        $this->assertGreaterThan(1, strpos($logFile, 'billbee_api_'));
+        $this->assertGreaterThan(1, strpos($logFile, sys_get_temp_dir()));
     }
 
     public function testLogging()
