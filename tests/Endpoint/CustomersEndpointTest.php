@@ -34,7 +34,7 @@ class CustomersEndpointTest extends TestCase
     /** @var TestClient */
     private $client;
 
-    protected function setUp()
+    protected function setUp(): void
     {
         $this->client = new TestClient();
         $this->endpoint = new CustomersEndpoint($this->client, new FakeSerializer());
