@@ -12,9 +12,11 @@
 
 namespace BillbeeDe\BillbeeAPI\Exception;
 
-class InvalidIdException extends \InvalidArgumentException
+use InvalidArgumentException;
+
+class InvalidIdException extends InvalidArgumentException
 {
-    public function __construct($code = 0, \Throwable $previous = null)
+    public function __construct($code = 0, $previous = null)
     {
         parent::__construct('Id must be an instance of integer and positive', $code, $previous);
     }

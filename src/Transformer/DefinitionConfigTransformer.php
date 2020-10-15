@@ -12,7 +12,9 @@
 
 namespace BillbeeDe\BillbeeAPI\Transformer;
 
-class DefinitionConfigTransformer implements \MintWare\DMM\TransformerInterface
+use MintWare\DMM\TransformerInterface;
+
+class DefinitionConfigTransformer implements TransformerInterface
 {
     /** @inheritdoc */
     public static function transform($data)

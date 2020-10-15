@@ -10,14 +10,19 @@
  * Created by Julian Finkler <julian@mintware.de>
  */
 
-namespace BillbeeDe\BillbeeAPI\Exception;
+namespace BillbeeDe\Tests\BillbeeAPI;
 
-use Exception;
+use MintWare\DMM\Serializer\SerializerInterface;
 
-class QuotaExceededException extends Exception
+class FakeSerializer implements SerializerInterface
 {
-    public function __construct($message = "", $code = 0, $previous = null)
+    public function deserialize($data)
     {
-        parent::__construct($message, $code, $previous);
+        return $data;
+    }
+
+    public function serialize($data)
+    {
+        return $data;
     }
 }

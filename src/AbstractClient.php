@@ -13,6 +13,7 @@
 namespace BillbeeDe\BillbeeAPI;
 
 use GuzzleHttp\Psr7 as Psr7;
+use InvalidArgumentException;
 use Psr\Http\Message\RequestInterface;
 use Psr\Log\LoggerInterface;
 use Psr\Log\NullLogger;
@@ -23,7 +24,7 @@ use Psr\Log\NullLogger;
  */
 abstract class AbstractClient extends \GuzzleHttp\Client
 {
-    /** @var \Psr\Log\LoggerInterface */
+    /** @var LoggerInterface */
     protected $logger;
 
     protected function createRequest($method, $uri, $options)
@@ -75,7 +76,7 @@ abstract class AbstractClient extends \GuzzleHttp\Client
                 $defaults['_conditional'] = null;
                 unset($options['headers']);
             } elseif (!is_array($options['headers'])) {
-                throw new \InvalidArgumentException('headers must be an array');
+                throw new InvalidArgumentException('headers must be an array');
             }
         }
 
@@ -98,7 +99,7 @@ abstract class AbstractClient extends \GuzzleHttp\Client
 
         if (isset($options['form_params'])) {
             if (isset($options['multipart'])) {
-                throw new \InvalidArgumentException('You cannot use '
+                throw new InvalidArgumentException('You cannot use '
                     . 'form_params and multipart at the same time. Use the '
                     . 'form_params option if you want to send application/'
                     . 'x-www-form-urlencoded requests, and the multipart '
@@ -168,7 +169,7 @@ abstract class AbstractClient extends \GuzzleHttp\Client
                 $value = http_build_query($value, null, '&', PHP_QUERY_RFC3986);
             }
             if (!is_string($value)) {
-                throw new \InvalidArgumentException('query must be a string or array');
+                throw new InvalidArgumentException('query must be a string or array');
             }
             $modify['query'] = $value;
             unset($options['query']);
@@ -177,7 +178,7 @@ abstract class AbstractClient extends \GuzzleHttp\Client
         // Ensure that sink is not an invalid value.
         if (isset($options['sink'])) {
             if (is_bool($options['sink'])) {
-                throw new \InvalidArgumentException('sink must not be a boolean');
+                throw new InvalidArgumentException('sink must not be a boolean');
             }
         }
 
@@ -207,7 +208,7 @@ abstract class AbstractClient extends \GuzzleHttp\Client
 
     protected function invalidBody()
     {
-        throw new \InvalidArgumentException('Passing in the "body" request '
+        throw new InvalidArgumentException('Passing in the "body" request '
             . 'option as an array to send a POST request has been deprecated. '
             . 'Please use the "form_params" request option to send a '
             . 'application/x-www-form-urlencoded request, or the "multipart" '
