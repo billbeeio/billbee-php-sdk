@@ -17,10 +17,10 @@ use MintWare\DMM\DataField;
 class Source
 {
     /**
-     * @var int
+     * @var int|null
      * @DataField(name="Id", type="int")
      */
-    public $id;
+    public $id = null;
 
     /**
      * @var string
@@ -41,13 +41,13 @@ class Source
     public $apiAccountName = '';
 
     /**
-     * @var int
+     * @var int|null
      * @DataField(name="ApiAccountId", type="int")
      */
-    public $apiAccountId = '';
+    public $apiAccountId = null;
 
     /**
-     * @var float
+     * @var float|null
      * @DataField(name="ExportFactor", type="float")
      */
     public $exportFactor = null;
@@ -59,7 +59,7 @@ class Source
     public $stockSyncInactive = false;
 
     /**
-     * @var float
+     * @var float|null
      * @DataField(name="StockSyncMin", type="float")
      */
     public $stockSyncMin = null;

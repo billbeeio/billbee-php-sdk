@@ -56,7 +56,7 @@ class CustomersEndpoint
     /**
      * Get a single customers
      *
-     * @param int $id The id of the customer
+     * @param int|null $id The id of the customer
      * @return Response\GetCustomerResponse The Response
      *
      * @throws QuotaExceededException If the maximum number of calls per second exceeded
@@ -78,7 +78,7 @@ class CustomersEndpoint
     /**
      * Get the addresses for a single customers
      *
-     * @param int $id The id of the customer
+     * @param int|null $id The id of the customer
      * @param int $page The start page
      * @param int $pageSize The page size
      *
@@ -109,7 +109,7 @@ class CustomersEndpoint
     /**
      * Queries a single address from a customer
      *
-     * @param int $id The id of the address
+     * @param int|null $id The id of the address
      *
      * @return Response\GetCustomerAddressResponse The Response
      *
@@ -133,7 +133,7 @@ class CustomersEndpoint
     /**
      * Get the orders for a single customers
      *
-     * @param int $id The id of the customer
+     * @param int|null $id The id of the customer
      * @param int $page The start page
      * @param int $pageSize The page size
      *

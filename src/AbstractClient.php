@@ -27,6 +27,12 @@ abstract class AbstractClient extends \GuzzleHttp\Client
     /** @var LoggerInterface */
     protected $logger;
 
+    /**
+     * @param string $method
+     * @param string $uri
+     * @param array $options
+     * @return RequestInterface
+     */
     protected function createRequest($method, $uri, $options)
     {
         $options = $this->prepareDefaults($options);
@@ -93,6 +99,11 @@ abstract class AbstractClient extends \GuzzleHttp\Client
         return $result;
     }
 
+    /**
+     * @param RequestInterface $request
+     * @param array $options
+     * @return RequestInterface
+     */
     protected function applyOptions(RequestInterface $request, array &$options)
     {
         $modify = [];
@@ -166,7 +177,7 @@ abstract class AbstractClient extends \GuzzleHttp\Client
         if (isset($options['query'])) {
             $value = $options['query'];
             if (is_array($value)) {
-                $value = http_build_query($value, null, '&', PHP_QUERY_RFC3986);
+                $value = http_build_query($value, '', '&', PHP_QUERY_RFC3986);
             }
             if (!is_string($value)) {
                 throw new InvalidArgumentException('query must be a string or array');

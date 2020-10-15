@@ -12,7 +12,9 @@
 
 namespace BillbeeDe\BillbeeAPI\Model;
 
-class Stock implements \JsonSerializable
+use JsonSerializable;
+
+class Stock implements JsonSerializable
 {
     /**
      * The SKU of the Product
@@ -22,7 +24,7 @@ class Stock implements \JsonSerializable
 
     /**
      * The Id of the stock
-     * @var int
+     * @var int|null
      */
     protected $stockId = null;
 

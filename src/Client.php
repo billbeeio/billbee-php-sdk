@@ -29,7 +29,6 @@ use BillbeeDe\BillbeeAPI\Logger\DiagnosticsLogger;
 use BillbeeDe\BillbeeAPI\Response as Response;
 use Exception;
 use GuzzleHttp\Exception\ClientException;
-use GuzzleHttp\Psr7\Request;
 use GuzzleHttp\RequestOptions;
 use MintWare\DMM\ObjectMapper;
 use MintWare\DMM\Serializer\JsonSerializer;
@@ -401,7 +400,7 @@ class Client extends AbstractClient implements ClientInterface, BatchClientInter
     /**
      * Handles a general request
      *
-     * @param string $responseClass The response class
+     * @param string|null $responseClass The response class
      * @param callable $requestFactory A callable which creates the request object
      *
      * @param bool $ignorePool If true and batching is enabled, the request will be executed instead of queueing to pool
@@ -412,7 +411,6 @@ class Client extends AbstractClient implements ClientInterface, BatchClientInter
      */
     private function internalRequest($responseClass, callable $requestFactory, $ignorePool = false)
     {
-        /** @var Request $request */
         if ($this->useBatching === true && $ignorePool === false) {
             $req = [
                 'responseClass' => $responseClass,
