@@ -3,7 +3,7 @@
   "description": "The official Billbee API SDK for PHP",
   "type": "library",
   "require": {
-    "php": "^7.3",
+    "php": "^7.3 | ^8.0",
     "ext-curl": "*",
     "ext-json": "*",
     "mintware-de/data-model-mapper": "^1.0",
@@ -35,7 +35,6 @@
       "php-cs-fixer fix ./src/ --using-cache=no --rules=@PSR2",
       "php-cs-fixer fix ./tests/ --using-cache=no --rules=@PSR2"
     ],
-    "generate-doc": "sami update doc/sami.php",
     "analyse": "phpstan analyse"
   },
   "archive": {

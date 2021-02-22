@@ -2,7 +2,7 @@
 /**
  * This file is part of the Billbee API package.
  *
- * Copyright 2017 - 2020 by Billbee GmbH
+ * Copyright 2017 - 2021 by Billbee GmbH
  *
  * For the full copyright and license information, please read the LICENSE
  * file that was distributed with this source code.
@@ -41,7 +41,7 @@ class DiagnosticsLoggerTest extends TestCase
         $logFile = $this->logger->getLogFile();
         $this->assertNotNull($logFile);
         $this->assertGreaterThan(1, strpos($logFile, 'billbee_api_'));
-        $this->assertGreaterThan(1, strpos($logFile, sys_get_temp_dir()));
+        $this->assertEquals(0, strpos($logFile, sys_get_temp_dir()));
     }
 
     public function testLogging()

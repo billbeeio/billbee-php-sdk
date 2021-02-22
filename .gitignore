@@ -5,6 +5,5 @@
 program.php
 output.log
 /doc/*
-!/doc/sami.php
 /.php_cs.cache
 /.phpunit.result.cache
