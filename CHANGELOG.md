@@ -1,5 +1,10 @@
 # Changelog
 
+## v1.8.1 (22 Feb 2021)
+
+New Features
+- PHP 8 added to composer.json
+
 ## 1.8.0 (9 Dec 2019)
 
 New features:
