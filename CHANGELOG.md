@@ -1,11 +1,22 @@
 # Changelog
 
-## Next version (2.0.0)
+## v2.0.0-RC1 (22 Feb 2021)
+
+_See [UPGRADE.md](UPGRADE.md) for migration details._
+
+New Features
+- PHP 8 added to composer.json
+
+Misc:
+- Copyright updated ([PR #34](https://github.com/billbeeio/billbee-php-sdk/pull/34))
+- Added phpstan for static code analysis ([PR #36](https://github.com/billbeeio/billbee-php-sdk/pull/36))
 
 Breaking changes:
-- The code has been reorganized. The client does not implement the endpoints directly anymore. See [UPGRADE.md](UPGRADE.md) for migration details.
+- The code has been reorganized. The client does not implement the endpoints directly anymore. ([PR #35](https://github.com/billbeeio/billbee-php-sdk/pull/35))
+-Updated the min. PHP Version to 7.3 ([PR #37](https://github.com/billbeeio/billbee-php-sdk/pull/37))
 
-## 1.8.0 (9 Dec 2019)
+
+## v1.8.0 (9 Dec 2019)
 
 New features:
 - `DELETE /api/v1/products/{id}` added. (`Client::deleteProduct($id)`) ([PR #31](https://github.com/billbeeio/billbee-php-sdk/pull/31))
@@ -18,7 +29,7 @@ New features:
 - `GET /api/v1/products/PatchableFields` added. (`Client::getPatchableProductFields()`) ([PR #33](https://github.com/billbeeio/billbee-php-sdk/pull/33))
 - `PATCH /api/v1/products/{id}` added. (`Client::patchProduct($productId, $model)`) ([PR #33](https://github.com/billbeeio/billbee-php-sdk/pull/33))
 
-## 1.7.0 (15 Nov 2019)
+## v1.7.0 (15 Nov 2019)
 New features:
 - `GET /api/v1/cloudstorages` added. (`Client::getCloudStorages()`) ([PR #18](https://github.com/billbeeio/billbee-php-sdk/pull/18))
 - `GET /api/v1/products/category` added. (`Client::getCategories()`) ([PR #19](https://github.com/billbeeio/billbee-php-sdk/pull/19))
@@ -36,7 +47,7 @@ Misc:
 - Added a code documentation generator ([PR #24](https://github.com/billbeeio/billbee-php-sdk/pull/24))
 - Fixed code style ([PR #24](https://github.com/billbeeio/billbee-php-sdk/pull/24))
 
-## 1.6.2 (16 Sep 2019)
+## v1.6.2 (16 Sep 2019)
 
 New features:
 - Added the `SoldProduct` model which is used in `OrderItem::$product`
@@ -44,7 +55,7 @@ New features:
 Bug Fixes:
 - Added a mapping for `Order::$paymentTransactionId` and `Order::$deliverySourceCountryCode`
 
-## 1.6.1 (24 Jul 2019)
+## v1.6.1 (24 Jul 2019)
 
 Bug Fixes:
 - Fixed `use-before-initialize` bug in the `Client::__construct` ([PR #15](https://github.com/billbeeio/billbee-php-sdk/pull/15))
@@ -108,7 +119,7 @@ General:
 - Links updated from `app01.billbee.de` to `app.billbee.io`
 - Changelog added
 
-### Internal Changes
+### vInternal Changes
 - Code folding optimized
 - Imports optimized
 
