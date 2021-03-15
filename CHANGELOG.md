@@ -1,5 +1,10 @@
 # Changelog
 
+## next
+
+Bugfixes
+- SoldAmount fixed  ([PR #39](https://github.com/billbeeio/billbee-php-sdk/pull/39))
+
 ## v1.8.1 (22 Feb 2021)
 
 New Features
