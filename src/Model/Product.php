@@ -312,8 +312,8 @@ class Product
     public $unitsPerItem = 1.0;
 
     /**
-     * @var int
-     * @DataField(name="SoldAmount", type="int")
+     * @var float
+     * @DataField(name="SoldAmount", type="float")
      */
     public $soldAmount = 0;
 

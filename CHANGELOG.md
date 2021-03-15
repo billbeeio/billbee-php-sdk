@@ -1,5 +1,14 @@
 # Changelog
 
+## v2.0.0-RC2 (15 Mar 2021)
+
+Updated from master
+
+## v1.8.2 (15 Mar 2021)
+
+Bugfixes
+- SoldAmount fixed  ([PR #39](https://github.com/billbeeio/billbee-php-sdk/pull/39))
+
 ## v2.0.0-RC1 (22 Feb 2021)
 
 _See [UPGRADE.md](UPGRADE.md) for migration details._
@@ -13,8 +22,12 @@ Misc:
 
 Breaking changes:
 - The code has been reorganized. The client does not implement the endpoints directly anymore. ([PR #35](https://github.com/billbeeio/billbee-php-sdk/pull/35))
--Updated the min. PHP Version to 7.3 ([PR #37](https://github.com/billbeeio/billbee-php-sdk/pull/37))
+  -Updated the min. PHP Version to 7.3 ([PR #37](https://github.com/billbeeio/billbee-php-sdk/pull/37))
 
+## v1.8.1 (22 Feb 2021)
+
+New Features
+- PHP 8 added to composer.json
 
 ## v1.8.0 (9 Dec 2019)
 
@@ -119,11 +132,9 @@ General:
 - Links updated from `app01.billbee.de` to `app.billbee.io`
 - Changelog added
 
-### vInternal Changes
+### Internal Changes
 - Code folding optimized
 - Imports optimized
-
-
 
 ## v1.1.3 (20 Aug 2018)
 - `/api/v1/products/custom-fields` endpoints added
