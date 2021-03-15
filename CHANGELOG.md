@@ -1,5 +1,10 @@
 # Changelog
 
+## next
+
+Bugfixes
+- SoldAmount fixed
+
 ## v1.8.1 (22 Feb 2021)
 
 New Features
