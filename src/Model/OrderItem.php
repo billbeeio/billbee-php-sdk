@@ -29,7 +29,7 @@ class OrderItem
     public $transactionId;
 
     /**
-     * @var object
+     * @var SoldProduct
      * @DataField(name="Product", type="BillbeeDe\BillbeeAPI\Model\SoldProduct")
      */
     public $product;
