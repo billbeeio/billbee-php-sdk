@@ -1,5 +1,9 @@
 # Changelog
 
+## v2.0.0-RC3 (21 Apr 2021)
+
+Changed the required PHP CPU architecture to 64bit
+
 ## v2.0.0-RC2 (15 Mar 2021)
 
 Updated from master
