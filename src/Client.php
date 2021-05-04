@@ -576,6 +576,9 @@ class Client extends AbstractClient
      */
     public function getOrderByOrderNumber($extRef)
     {
+        if (!strstr($extRef, '%')) {
+            $extRef = urlencode($extRef);
+        }
         return $this->requestGET(
             'orders/findbyextref/' . $extRef,
             [],
@@ -599,6 +602,9 @@ class Client extends AbstractClient
      */
     public function getOrderByPartner($externalId, $partner)
     {
+        if (!strstr($externalId, '%')) {
+            $externalId = urlencode($externalId);
+        }
         return $this->requestGET(
             'orders/find/' . $externalId . '/' . $partner,
             [],

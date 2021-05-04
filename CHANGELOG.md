@@ -1,5 +1,10 @@
 # Changelog
 
+## v1.8.3 (4 May 2021)
+
+Bugfixes
+- URL encode the `$extRef` in `getOrderByOrderNumber` and the `$externalId` in `getOrderByPartner` before sending the request to the API. 
+
 ## v1.8.2 (15 Mar 2021)
 
 Bugfixes
