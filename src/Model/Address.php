@@ -16,7 +16,10 @@ use MintWare\DMM\DataField;
 
 class Address
 {
-    /** Not Mapped */
+    /**
+     * @var int
+     * @DataField(name="BillbeeId", type="int")
+     */
     public $id;
 
     /**
