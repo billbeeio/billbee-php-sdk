@@ -333,4 +333,10 @@ class Order
      * @DataField(name="Customer", type="BillbeeDe\BillbeeAPI\Model\Customer")
      */
     public $customer;
+
+    /**
+     * @var Payment[]
+     * @DataField(name="Payments", type="array")
+     */
+    public $payments;
 }
