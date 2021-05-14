@@ -23,8 +23,8 @@ class Payment
     public $transactionId;
 
     /**
-     * @var string
-     * @DataField(name="PayDate", type="string")
+     * @var \DateTime
+     * @DataField(name="PayDate", type="datetime")
      */
     public $payDate;
 
