@@ -1,5 +1,14 @@
 # Changelog
 
+## v1.9.0 (1 Jun 2021)
+
+New Features:
+- `DELETE /api/v1/customers/addresses/{id}` added. (`Client::patchAddress($id, $model)`) ([PR #40](https://github.com/billbeeio/billbee-php-sdk/pull/40))
+- Added missing mappings ([PR #40](https://github.com/billbeeio/billbee-php-sdk/pull/40))
+  - `Address::$id`
+  - `Order::$payments`
+- Added the `Payment` model ([PR #40](https://github.com/billbeeio/billbee-php-sdk/pull/40))
+
 ## v1.8.3 (4 May 2021)
 
 Bugfixes
