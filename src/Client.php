@@ -46,7 +46,7 @@ class Client implements ClientInterface, BatchClientInterface
      *
      * @var string
      */
-    protected $endpoint = 'https://app.billbee.io/api/v1/';
+    protected $endpoint = 'https://api.billbee.io/api/v1/';
 
     /**
      * The JSON Object Mapper

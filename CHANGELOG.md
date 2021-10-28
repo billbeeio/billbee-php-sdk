@@ -1,5 +1,11 @@
 # Changelog
 
+## v2.0.0
+
+- Updated guzzlehttp/guzzle to V7.4.0
+- Updated psr/log to 1.1.0
+- Updated the Billbee API Endpoint
+
 ## v2.0.0-RC3 (21 Apr 2021)
 
 Changed the required PHP CPU architecture to 64bit
