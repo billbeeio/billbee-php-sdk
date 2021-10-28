@@ -49,18 +49,18 @@ class OrdersEndpoint
     /**
      * Get a list of all orders optionally filtered by date
      *
-     * @param int $page Specifies the page to request
-     * @param int $pageSize Specifies the pagesize. Defaults to 50, max value is 250
-     * @param DateTimeInterface|null $minOrderDate Specifies the oldest order date to include in the response
-     * @param DateTimeInterface|null $maxOrderDate Specifies the newest order date to include in the response
-     * @param int[] $shopId Specifies a list of shop ids for which invoices should be included
-     * @param int[] $orderStateId Specifies a list of state ids to include in the response
-     * @param string[] $tag Specifies a list of tags the order must have attached to be included in the response
-     * @param null $minimumOrderId If given, all delivered orders have an Id greater than or equal to the given minimumOrderId
-     * @param DateTimeInterface|null $modifiedAtMin If given, the last modification has to be newer than the given date
-     * @param DateTimeInterface|null $modifiedAtMax If given, the last modification has to be older or equal than the given date.
-     * @param int $articleTitleSource The source field for the article title.
-     * @param boolean $excludeTags If true the list of tags passed to the call are used to filter orders to not include these tags
+     * @param int                    $page               Specifies the page to request
+     * @param int                    $pageSize           Specifies the pagesize. Defaults to 50, max value is 250
+     * @param DateTimeInterface|null $minOrderDate       Specifies the oldest order date to include in the response
+     * @param DateTimeInterface|null $maxOrderDate       Specifies the newest order date to include in the response
+     * @param int[]                  $shopId             Specifies a list of shop ids for which invoices should be included
+     * @param int[]                  $orderStateId       Specifies a list of state ids to include in the response
+     * @param string[]               $tag                Specifies a list of tags the order must have attached to be included in the response
+     * @param null                   $minimumOrderId     If given, all delivered orders have an Id greater than or equal to the given minimumOrderId
+     * @param DateTimeInterface|null $modifiedAtMin      If given, the last modification has to be newer than the given date
+     * @param DateTimeInterface|null $modifiedAtMax      If given, the last modification has to be older or equal than the given date.
+     * @param int                    $articleTitleSource The source field for the article title.
+     * @param boolean                $excludeTags        If true the list of tags passed to the call are used to filter orders to not include these tags
      *
      * @return Response\GetOrdersResponse The orders
      *
@@ -186,7 +186,7 @@ class OrdersEndpoint
     public function getOrder($id)
     {
         return $this->client->get(
-            'orders/' . $id,
+            'orders/'.$id,
             [],
             Response\GetOrderResponse::class
         );
@@ -204,8 +204,12 @@ class OrdersEndpoint
      */
     public function getOrderByOrderNumber($extRef)
     {
+        if (!strstr($extRef, '%')) {
+            $extRef = urlencode($extRef);
+        }
+
         return $this->client->get(
-            'orders/findbyextref/' . $extRef,
+            'orders/findbyextref/'.$extRef,
             [],
             Response\GetOrderResponse::class
         );
@@ -216,7 +220,7 @@ class OrdersEndpoint
      * Find a single order by its external id (order number)
      *
      * @param string $externalId The order id in the partner system
-     * @param string $partner The partner name. Possible partners in Partner-Class
+     * @param string $partner    The partner name. Possible partners in Partner-Class
      *
      * @return Response\GetOrderResponse The order response
      *
@@ -227,8 +231,12 @@ class OrdersEndpoint
      */
     public function getOrderByPartner($externalId, $partner)
     {
+        if (!strstr($externalId, '%')) {
+            $externalId = urlencode($externalId);
+        }
+
         return $this->client->get(
-            'orders/find/' . $externalId . '/' . $partner,
+            'orders/find/'.$externalId.'/'.$partner,
             [],
             Response\GetOrderByPartnerResponse::class
         );
@@ -241,8 +249,8 @@ class OrdersEndpoint
     /**
      * Get a single order by its internal billbee id
      *
-     * @param Model\Order $order The order Data
-     * @param int $shopId The id of the shop
+     * @param Model\Order $order  The order Data
+     * @param int         $shopId The id of the shop
      *
      * @return Response\BaseResponse The response
      *
@@ -252,7 +260,7 @@ class OrdersEndpoint
     public function createOrder(Model\Order $order, $shopId)
     {
         return $this->client->post(
-            'orders?shopId=' . $shopId,
+            'orders?shopId='.$shopId,
             $this->serializer->serialize($order),
             Response\BaseResponse::class
         );
@@ -261,8 +269,8 @@ class OrdersEndpoint
     /**
      * Attach one or more tags to an order
      *
-     * @param int $orderId The internal id of the order
-     * @param string[] $tags Tags to attach
+     * @param int      $orderId The internal id of the order
+     * @param string[] $tags    Tags to attach
      *
      * @return Response\BaseResponse The response
      *
@@ -272,7 +280,7 @@ class OrdersEndpoint
     public function addOrderTags($orderId, array $tags = [])
     {
         return $this->client->post(
-            'orders/' . $orderId . '/tags',
+            'orders/'.$orderId.'/tags',
             json_encode(['Tags' => $tags]),
             Response\BaseResponse::class
         );
@@ -281,7 +289,7 @@ class OrdersEndpoint
     /**
      * Attach one or more tags to an order
      *
-     * @param int $orderId The internal id of the order
+     * @param int            $orderId  The internal id of the order
      * @param Model\Shipment $shipment The Shipment
      *
      * @return bool True if the shipment was added
@@ -292,17 +300,18 @@ class OrdersEndpoint
     public function addOrderShipment($orderId, Model\Shipment $shipment)
     {
         $res = $this->client->post(
-            'orders/' . $orderId . '/shipment',
+            'orders/'.$orderId.'/shipment',
             $this->serializer->serialize($shipment),
             Response\BaseResponse::class
         );
+
         return $res === '' || $res === null;
     }
 
     /**
      * Create an delivery note for an existing order
      *
-     * @param int $orderId The internal id of the order
+     * @param int  $orderId    The internal id of the order
      * @param bool $includePdf If true, the PDF is included in the response as base64 encoded string
      *
      * @return Response\CreateDeliveryNoteResponse The response
@@ -313,7 +322,7 @@ class OrdersEndpoint
     public function createDeliveryNote($orderId, $includePdf = false)
     {
         return $this->client->post(
-            'orders/CreateDeliveryNote/' . $orderId . '?includePdf=' . ($includePdf ? 'True' : 'False'),
+            'orders/CreateDeliveryNote/'.$orderId.'?includePdf='.($includePdf ? 'True' : 'False'),
             [],
             Response\CreateDeliveryNoteResponse::class
         );
@@ -322,9 +331,9 @@ class OrdersEndpoint
     /**
      * Create an invoice for an existing order
      *
-     * @param int $orderId The internal id of the order
-     * @param bool $includePdf If true, the PDF is included in the response as base64 encoded string
-     * @param int|null $templateId The internal id of a template
+     * @param int      $orderId       The internal id of the order
+     * @param bool     $includePdf    If true, the PDF is included in the response as base64 encoded string
+     * @param int|null $templateId    The internal id of a template
      * @param int|null $sendToCloudId The internal id of an cloud storage where the invoice is uploaded to
      *
      * @return Response\CreateDeliveryNoteResponse The response
@@ -334,13 +343,14 @@ class OrdersEndpoint
      */
     public function createInvoice($orderId, $includePdf = false, $templateId = null, $sendToCloudId = null)
     {
-        $node = 'orders/CreateInvoice/' . $orderId . '?includeInvoicePdf=' . ($includePdf ? 'True' : 'False');
+        $node = 'orders/CreateInvoice/'.$orderId.'?includeInvoicePdf='.($includePdf ? 'True' : 'False');
         if ($templateId != null && is_numeric($templateId)) {
-            $node .= '&templateId=' . $templateId;
+            $node .= '&templateId='.$templateId;
         }
         if ($sendToCloudId != null && is_numeric($sendToCloudId)) {
-            $node .= '&sendToCloudId=' . $sendToCloudId;
+            $node .= '&sendToCloudId='.$sendToCloudId;
         }
+
         return $this->client->post(
             $node,
             [],
@@ -351,7 +361,7 @@ class OrdersEndpoint
     /**
      * Sends a message to the customer
      *
-     * @param int $orderId The internal id of the order
+     * @param int                      $orderId The internal id of the order
      * @param Model\MessageForCustomer $message The message model
      * @return bool True if the message was send, otherwise false
      *
@@ -384,7 +394,7 @@ class OrdersEndpoint
         }
 
         $res = $this->client->post(
-            'orders/' . $orderId . '/send-message',
+            'orders/'.$orderId.'/send-message',
             $this->serializer->serialize($message),
             Response\BaseResponse::class
         );
@@ -399,8 +409,8 @@ class OrdersEndpoint
     /**
      * Updates/Sets the tags attached to an order
      *
-     * @param int $orderId The internal id of the order
-     * @param string[] $tags Tags to attach
+     * @param int      $orderId The internal id of the order
+     * @param string[] $tags    Tags to attach
      *
      * @return Response\BaseResponse The response
      *
@@ -410,7 +420,7 @@ class OrdersEndpoint
     public function setOrderTags($orderId, array $tags = [])
     {
         return $this->client->put(
-            'orders/' . $orderId . '/tags',
+            'orders/'.$orderId.'/tags',
             json_encode(['Tags' => $tags]),
             Response\BaseResponse::class
         );
@@ -419,7 +429,7 @@ class OrdersEndpoint
     /**
      * Changes the main state of a single order
      *
-     * @param int $orderId The internal id of the order
+     * @param int $orderId  The internal id of the order
      * @param int $newState The new OrderState
      *
      * @return bool True if the state was updated
@@ -432,10 +442,11 @@ class OrdersEndpoint
     public function setOrderState($orderId, $newState)
     {
         $res = $this->client->put(
-            'orders/' . $orderId . '/orderstate',
+            'orders/'.$orderId.'/orderstate',
             json_encode(['NewStateId' => $newState]),
             Response\BaseResponse::class
         );
+
         return $res === null;
     }
 
@@ -446,8 +457,8 @@ class OrdersEndpoint
     /**
      * Updates one or more fields of an order
      *
-     * @param int $orderId The internal id of the order
-     * @param array $model The fields to patch
+     * @param int   $orderId The internal id of the order
+     * @param array $model   The fields to patch
      *
      * @return Response\GetOrderResponse The order
      *
@@ -457,7 +468,7 @@ class OrdersEndpoint
     public function patchOrder($orderId, $model)
     {
         return $this->client->patch(
-            'orders/' . $orderId,
+            'orders/'.$orderId,
             $model,
             Response\GetOrderResponse::class
         );
