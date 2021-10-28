@@ -2,7 +2,7 @@
 /**
  * This file is part of the Billbee API package.
  *
- * Copyright 2017 - 2020 by Billbee GmbH
+ * Copyright 2017 - 2021 by Billbee GmbH
  *
  * For the full copyright and license information, please read the LICENSE
  * file that was distributed with this source code.
@@ -366,19 +366,19 @@ class Product
     public $isCustomizable = false;
 
     /**
-     * @var int
+     * @var int|null
      * @DataField(name="DeliveryTime", type="int")
      */
     public $deliveryTime = Product::DELIVERY_NA;
 
     /**
-     * @var int
+     * @var int|null
      * @DataField(name="Recipient", type="int")
      */
     public $recipient = Product::RECIPIENT_NA;
 
     /**
-     * @var int
+     * @var int|null
      * @DataField(name="Occasion", type="int")
      */
     public $occasion = Product::OCCASION_NA;
@@ -402,10 +402,10 @@ class Product
     public $taricNumber = '';
 
     /**
-     * @var CustomFieldDefinition[]
+     * @var ProductCustomField[]
      * @DataField(name="CustomFields", type="\BillbeeDe\BillbeeAPI\Model\ProductCustomField[]")
      */
-    public $customFields = '';
+    public $customFields = [];
 
     /**
      * @var int

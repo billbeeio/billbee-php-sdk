@@ -2,7 +2,7 @@
 /**
  * This file is part of the Billbee API package.
  *
- * Copyright 2017 - 2020 by Billbee GmbH
+ * Copyright 2017 - 2021 by Billbee GmbH
  *
  * For the full copyright and license information, please read the LICENSE
  * file that was distributed with this source code.
@@ -13,26 +13,32 @@
 namespace BillbeeDe\BillbeeAPI;
 
 use GuzzleHttp\Psr7 as Psr7;
+use GuzzleHttp\Psr7\Utils;
+use InvalidArgumentException;
 use Psr\Http\Message\RequestInterface;
-use Psr\Log\LoggerInterface;
-use Psr\Log\NullLogger;
+use Psr\Http\Message\UriInterface;
 
 /**
  * Helper class to make guzzle methods protected instead of private
  * @package BillbeeDe\BillbeeAPI
  */
-abstract class AbstractClient extends \GuzzleHttp\Client
+class CustomClient extends \GuzzleHttp\Client
 {
-    /** @var \Psr\Log\LoggerInterface */
-    protected $logger;
+    use LoggerAwareTrait;
 
-    protected function createRequest($method, $uri, $options)
+    /**
+     * @param string $method
+     * @param string $uri
+     * @param array  $options
+     * @return RequestInterface
+     */
+    public function createRequest(string $method, ?string $uri, array $options)
     {
         $options = $this->prepareDefaults($options);
         // Remove request modifying parameter because it can be done up-front.
-        $headers = isset($options['headers']) ? $options['headers'] : [];
-        $body = isset($options['body']) ? $options['body'] : null;
-        $version = isset($options['version']) ? $options['version'] : '1.1';
+        $headers = $options['headers'] ?? [];
+        $body = $options['body'] ?? null;
+        $version = $options['version'] ?? '1.1';
         // Merge the URI into the base URI.
         $uri = $this->buildUri($uri, $options);
 
@@ -40,18 +46,19 @@ abstract class AbstractClient extends \GuzzleHttp\Client
         if (count($headers) > 0 || strlen($body) > 0) {
             $this->logger->debug('Request headers + body', ['headers' => $headers, 'body' => $body]);
         }
+
         return $this->applyOptions(new Psr7\Request($method, $uri, $headers, $body, $version), $options);
     }
 
 
     /** Guzzle overrides */
-    protected function buildUri($uri, array $config)
+    protected function buildUri(?string $uri, array $config): UriInterface
     {
         // for BC we accept null which would otherwise fail in uri_for
-        $uri = Psr7\uri_for($uri === null ? '' : $uri);
+        $uri = Utils::uriFor($uri === null ? '' : $uri);
 
         if (isset($config['base_uri'])) {
-            $uri = Psr7\UriResolver::resolve(Psr7\uri_for($config['base_uri']), $uri);
+            $uri = Psr7\UriResolver::resolve(Utils::uriFor($config['base_uri']), $uri);
         }
 
         return $uri->getScheme() === '' && $uri->getHost() !== '' ? $uri->withScheme('http') : $uri;
@@ -75,7 +82,7 @@ abstract class AbstractClient extends \GuzzleHttp\Client
                 $defaults['_conditional'] = null;
                 unset($options['headers']);
             } elseif (!is_array($options['headers'])) {
-                throw new \InvalidArgumentException('headers must be an array');
+                throw new InvalidArgumentException('headers must be an array');
             }
         }
 
@@ -92,17 +99,22 @@ abstract class AbstractClient extends \GuzzleHttp\Client
         return $result;
     }
 
+    /**
+     * @param RequestInterface $request
+     * @param array            $options
+     * @return RequestInterface
+     */
     protected function applyOptions(RequestInterface $request, array &$options)
     {
         $modify = [];
 
         if (isset($options['form_params'])) {
             if (isset($options['multipart'])) {
-                throw new \InvalidArgumentException('You cannot use '
-                    . 'form_params and multipart at the same time. Use the '
-                    . 'form_params option if you want to send application/'
-                    . 'x-www-form-urlencoded requests, and the multipart '
-                    . 'option to send multipart/form-data requests.');
+                throw new InvalidArgumentException('You cannot use '
+                    .'form_params and multipart at the same time. Use the '
+                    .'form_params option if you want to send application/'
+                    .'x-www-form-urlencoded requests, and the multipart '
+                    .'option to send multipart/form-data requests.');
             }
             $options['body'] = http_build_query($options['form_params'], '', '&');
             unset($options['form_params']);
@@ -139,7 +151,7 @@ abstract class AbstractClient extends \GuzzleHttp\Client
             if (is_array($options['body'])) {
                 $this->invalidBody();
             }
-            $modify['body'] = Psr7\stream_for($options['body']);
+            $modify['body'] = Utils::streamFor($options['body']);
             unset($options['body']);
         }
 
@@ -149,7 +161,7 @@ abstract class AbstractClient extends \GuzzleHttp\Client
             switch ($type) {
                 case 'basic':
                     $modify['set_headers']['Authorization'] = 'Basic '
-                        . base64_encode("$value[0]:$value[1]");
+                        .base64_encode("$value[0]:$value[1]");
                     break;
                 case 'digest':
                     $options['curl'][CURLOPT_HTTPAUTH] = CURLAUTH_DIGEST;
@@ -165,10 +177,10 @@ abstract class AbstractClient extends \GuzzleHttp\Client
         if (isset($options['query'])) {
             $value = $options['query'];
             if (is_array($value)) {
-                $value = http_build_query($value, null, '&', PHP_QUERY_RFC3986);
+                $value = http_build_query($value, '', '&', PHP_QUERY_RFC3986);
             }
             if (!is_string($value)) {
-                throw new \InvalidArgumentException('query must be a string or array');
+                throw new InvalidArgumentException('query must be a string or array');
             }
             $modify['query'] = $value;
             unset($options['query']);
@@ -177,15 +189,15 @@ abstract class AbstractClient extends \GuzzleHttp\Client
         // Ensure that sink is not an invalid value.
         if (isset($options['sink'])) {
             if (is_bool($options['sink'])) {
-                throw new \InvalidArgumentException('sink must not be a boolean');
+                throw new InvalidArgumentException('sink must not be a boolean');
             }
         }
 
-        $request = Psr7\modify_request($request, $modify);
+        $request = Utils::modifyRequest($request, $modify);
         if ($request->getBody() instanceof Psr7\MultipartStream) {
             // Use a multipart/form-data POST if a Content-Type is not set.
             $options['_conditional']['Content-Type'] = 'multipart/form-data; boundary='
-                . $request->getBody()->getBoundary();
+                .$request->getBody()->getBoundary();
         }
 
         // Merge in conditional headers if they are not present.
@@ -197,7 +209,7 @@ abstract class AbstractClient extends \GuzzleHttp\Client
                     $modify['set_headers'][$k] = $v;
                 }
             }
-            $request = Psr7\modify_request($request, $modify);
+            $request = Utils::modifyRequest($request, $modify);
             // Don't pass this internal value along to middleware/handlers.
             unset($options['_conditional']);
         }
@@ -207,31 +219,10 @@ abstract class AbstractClient extends \GuzzleHttp\Client
 
     protected function invalidBody()
     {
-        throw new \InvalidArgumentException('Passing in the "body" request '
-            . 'option as an array to send a POST request has been deprecated. '
-            . 'Please use the "form_params" request option to send a '
-            . 'application/x-www-form-urlencoded request, or the "multipart" '
-            . 'request option to send a multipart/form-data request.');
-    }
-
-    /**
-     * Returns the current registered logger
-     * @return LoggerInterface
-     */
-    public function getLogger()
-    {
-        return $this->logger;
-    }
-
-    /**
-     * Sets the logger
-     * @param LoggerInterface $logger
-     */
-    public function setLogger(LoggerInterface $logger = null)
-    {
-        if ($logger == null) {
-            $logger = new NullLogger();
-        }
-        $this->logger = $logger;
+        throw new InvalidArgumentException('Passing in the "body" request '
+            .'option as an array to send a POST request has been deprecated. '
+            .'Please use the "form_params" request option to send a '
+            .'application/x-www-form-urlencoded request, or the "multipart" '
+            .'request option to send a multipart/form-data request.');
     }
 }

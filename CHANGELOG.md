@@ -1,5 +1,11 @@
 # Changelog
 
+## v2.0.0 (28 Oct 2021)
+
+- Updated guzzlehttp/guzzle to V7.4.0
+- Updated psr/log to 1.1.0
+- Updated the Billbee API Endpoint
+
 ## v1.9.0 (1 Jun 2021)
 
 New Features:
@@ -12,19 +18,42 @@ New Features:
 ## v1.8.3 (4 May 2021)
 
 Bugfixes
-- URL encode the `$extRef` in `getOrderByOrderNumber` and the `$externalId` in `getOrderByPartner` before sending the request to the API. 
+- URL encode the `$extRef` in `getOrderByOrderNumber` and the `$externalId` in `getOrderByPartner` before sending the request to the API.
+
+## v2.0.0-RC3 (21 Apr 2021)
+
+Changed the required PHP CPU architecture to 64bit
+
+## v2.0.0-RC2 (15 Mar 2021)
+
+Updated from master
 
 ## v1.8.2 (15 Mar 2021)
 
 Bugfixes
 - SoldAmount fixed  ([PR #39](https://github.com/billbeeio/billbee-php-sdk/pull/39))
 
+## v2.0.0-RC1 (22 Feb 2021)
+
+_See [UPGRADE.md](UPGRADE.md) for migration details._
+
+New Features
+- PHP 8 added to composer.json
+
+Misc:
+- Copyright updated ([PR #34](https://github.com/billbeeio/billbee-php-sdk/pull/34))
+- Added phpstan for static code analysis ([PR #36](https://github.com/billbeeio/billbee-php-sdk/pull/36))
+
+Breaking changes:
+- The code has been reorganized. The client does not implement the endpoints directly anymore. ([PR #35](https://github.com/billbeeio/billbee-php-sdk/pull/35))
+  -Updated the min. PHP Version to 7.3 ([PR #37](https://github.com/billbeeio/billbee-php-sdk/pull/37))
+
 ## v1.8.1 (22 Feb 2021)
 
 New Features
 - PHP 8 added to composer.json
 
-## 1.8.0 (9 Dec 2019)
+## v1.8.0 (9 Dec 2019)
 
 New features:
 - `DELETE /api/v1/products/{id}` added. (`Client::deleteProduct($id)`) ([PR #31](https://github.com/billbeeio/billbee-php-sdk/pull/31))
@@ -33,11 +62,11 @@ New features:
   - `Product::$widthCm`
   - `Product::$lengthCm`
   - `Product::$heightCm`
-  - `Product::$billOfMaterial` 
+  - `Product::$billOfMaterial`
 - `GET /api/v1/products/PatchableFields` added. (`Client::getPatchableProductFields()`) ([PR #33](https://github.com/billbeeio/billbee-php-sdk/pull/33))
 - `PATCH /api/v1/products/{id}` added. (`Client::patchProduct($productId, $model)`) ([PR #33](https://github.com/billbeeio/billbee-php-sdk/pull/33))
 
-## 1.7.0 (15 Nov 2019)
+## v1.7.0 (15 Nov 2019)
 New features:
 - `GET /api/v1/cloudstorages` added. (`Client::getCloudStorages()`) ([PR #18](https://github.com/billbeeio/billbee-php-sdk/pull/18))
 - `GET /api/v1/products/category` added. (`Client::getCategories()`) ([PR #19](https://github.com/billbeeio/billbee-php-sdk/pull/19))
@@ -55,7 +84,7 @@ Misc:
 - Added a code documentation generator ([PR #24](https://github.com/billbeeio/billbee-php-sdk/pull/24))
 - Fixed code style ([PR #24](https://github.com/billbeeio/billbee-php-sdk/pull/24))
 
-## 1.6.2 (16 Sep 2019)
+## v1.6.2 (16 Sep 2019)
 
 New features:
 - Added the `SoldProduct` model which is used in `OrderItem::$product`
@@ -63,7 +92,7 @@ New features:
 Bug Fixes:
 - Added a mapping for `Order::$paymentTransactionId` and `Order::$deliverySourceCountryCode`
 
-## 1.6.1 (24 Jul 2019)
+## v1.6.1 (24 Jul 2019)
 
 Bug Fixes:
 - Fixed `use-before-initialize` bug in the `Client::__construct` ([PR #15](https://github.com/billbeeio/billbee-php-sdk/pull/15))
@@ -121,7 +150,7 @@ General:
 
 ## v1.1.4 (23 Aug 2018)
 
-- `articleTitleSource` and `excludeTags` arguments added to `getOrders()` ([PR #5](https://github.com/billbeeio/billbee-php-sdk/pull/5)) 
+- `articleTitleSource` and `excludeTags` arguments added to `getOrders()` ([PR #5](https://github.com/billbeeio/billbee-php-sdk/pull/5))
 - `AutosubtractReservedAmount` parameter added to stock model
 - Customer Endpoints implemented
 - Links updated from `app01.billbee.de` to `app.billbee.io`
@@ -130,8 +159,6 @@ General:
 ### Internal Changes
 - Code folding optimized
 - Imports optimized
-
-
 
 ## v1.1.3 (20 Aug 2018)
 - `/api/v1/products/custom-fields` endpoints added

@@ -2,7 +2,7 @@
 /**
  * This file is part of the Billbee API package.
  *
- * Copyright 2017 - 2020 by Billbee GmbH
+ * Copyright 2017 - 2021 by Billbee GmbH
  *
  * For the full copyright and license information, please read the LICENSE
  * file that was distributed with this source code.
@@ -12,9 +12,11 @@
 
 namespace BillbeeDe\BillbeeAPI\Exception;
 
-class InvalidIdException extends \InvalidArgumentException
+use InvalidArgumentException;
+
+class InvalidIdException extends InvalidArgumentException
 {
-    public function __construct($code = 0, \Throwable $previous = null)
+    public function __construct($code = 0, $previous = null)
     {
         parent::__construct('Id must be an instance of integer and positive', $code, $previous);
     }

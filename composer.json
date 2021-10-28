@@ -3,18 +3,18 @@
   "description": "The official Billbee API SDK for PHP",
   "type": "library",
   "require": {
-    "php": "5.6.* || ^7.0 || ^8.0",
+    "php-64bit": "^7.3 || ^8.0",
     "ext-curl": "*",
     "ext-json": "*",
     "mintware-de/data-model-mapper": "^1.0",
     "mintware-de/dmm-json": "^1.0",
-    "guzzlehttp/guzzle": "^6.3",
-    "psr/log": "^1.0"
+    "guzzlehttp/guzzle": "^7.4.0",
+    "psr/log": "^1.1.0"
   },
   "require-dev": {
-    "phpunit/phpunit": "~5.7",
-    "symfony/yaml": "~3.3",
-    "friendsofphp/php-cs-fixer": "^2.15"
+    "phpunit/phpunit": "^9.4.1",
+    "friendsofphp/php-cs-fixer": "^2.15",
+    "phpstan/phpstan": "^0.12.49"
   },
   "license": "MIT",
   "authors": [
@@ -35,7 +35,7 @@
       "php-cs-fixer fix ./src/ --using-cache=no --rules=@PSR2",
       "php-cs-fixer fix ./tests/ --using-cache=no --rules=@PSR2"
     ],
-    "generate-doc": "sami update doc/sami.php"
+    "analyse": "phpstan analyse"
   },
   "archive": {
     "exclude": [
