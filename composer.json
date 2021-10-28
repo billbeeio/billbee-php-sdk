@@ -8,8 +8,8 @@
     "ext-json": "*",
     "mintware-de/data-model-mapper": "^1.0",
     "mintware-de/dmm-json": "^1.0",
-    "guzzlehttp/guzzle": "^6.3",
-    "psr/log": "^1.0"
+    "guzzlehttp/guzzle": "^7.4.0",
+    "psr/log": "^1.1.0"
   },
   "require-dev": {
     "phpunit/phpunit": "^9.4.1",

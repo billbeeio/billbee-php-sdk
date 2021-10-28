@@ -29,16 +29,19 @@ use BillbeeDe\BillbeeAPI\Logger\DiagnosticsLogger;
 use BillbeeDe\BillbeeAPI\Response as Response;
 use Exception;
 use GuzzleHttp\Exception\ClientException;
+use GuzzleHttp\Psr7\Message;
 use GuzzleHttp\RequestOptions;
 use MintWare\DMM\ObjectMapper;
 use MintWare\DMM\Serializer\JsonSerializer;
 use Psr\Http\Message\RequestInterface;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Log\LoggerInterface;
-use function GuzzleHttp\Psr7\parse_response;
+use Psr\Log\NullLogger;
 
-class Client extends AbstractClient implements ClientInterface, BatchClientInterface
+class Client implements ClientInterface, BatchClientInterface
 {
+    use LoggerAwareTrait;
+
     /**
      * The API Endpoint
      *
@@ -114,6 +117,9 @@ class Client extends AbstractClient implements ClientInterface, BatchClientInter
     /** @var SearchEndpoint */
     private $searchEndpoint;
 
+    /** @var BillbeeClient */
+    private $client;
+
     /**
      * Instantiates a new Billbee API client
      *
@@ -125,7 +131,7 @@ class Client extends AbstractClient implements ClientInterface, BatchClientInter
      */
     public function __construct($username, $apiPassword, $apiKey, LoggerInterface $logger = null)
     {
-        parent::__construct([
+        $this->client = new BillbeeClient([
             'base_uri' => $this->endpoint,
             'auth' => [$username, $apiPassword],
             'headers' => [
@@ -134,6 +140,7 @@ class Client extends AbstractClient implements ClientInterface, BatchClientInter
         ]);
 
         $this->setLogger($logger);
+        $this->client->setLogger($logger);
         try {
             $this->jom = new ObjectMapper(new JsonSerializer());
         } catch (Exception $ex) {
@@ -256,7 +263,7 @@ class Client extends AbstractClient implements ClientInterface, BatchClientInter
             $boundary .= implode("\r\n--batch\r\n", $boundaries);
             $boundary .= "\r\n--batch--\r\n";
 
-            $request = $this->createRequest('POST', 'batch', [
+            $request = $this->client->createRequest('POST', 'batch', [
                 'headers' => [
                     'Content-Type' => 'multipart/mixed; boundary="batch"',
                     'Mime-Version' => '1.0',
@@ -316,7 +323,7 @@ class Client extends AbstractClient implements ClientInterface, BatchClientInter
         $responseClass
     ) {
         return $this->internalRequest($responseClass, function () use ($node, $query) {
-            return $this->createRequest('GET', $node, [
+            return $this->client->createRequest('GET', $node, [
                 'query' => $query,
             ]);
         });
@@ -330,7 +337,7 @@ class Client extends AbstractClient implements ClientInterface, BatchClientInter
         return $this->internalRequest($responseClass, function () use ($data, $node) {
             $field = is_string($data) ? 'body' : 'json';
 
-            return $this->createRequest('POST', $node, [
+            return $this->client->createRequest('POST', $node, [
                 $field => $data,
                 'headers' => [
                     'Content-Type' => 'application/json',
@@ -347,7 +354,7 @@ class Client extends AbstractClient implements ClientInterface, BatchClientInter
         return $this->internalRequest($responseClass, function () use ($data, $node) {
             $field = is_string($data) ? 'body' : 'json';
 
-            return $this->createRequest('PUT', $node, [
+            return $this->client->createRequest('PUT', $node, [
                 $field => $data,
                 'headers' => [
                     'Content-Type' => 'application/json',
@@ -376,7 +383,7 @@ class Client extends AbstractClient implements ClientInterface, BatchClientInter
         return $this->internalRequest($responseClass, function () use ($data, $node) {
             $field = is_string($data) ? 'body' : 'json';
 
-            return $this->createRequest('PATCH', $node, [
+            return $this->client->createRequest('PATCH', $node, [
                 $field => $data,
                 'headers' => [
                     'Content-Type' => 'application/json',
@@ -391,7 +398,7 @@ class Client extends AbstractClient implements ClientInterface, BatchClientInter
         $responseClass
     ) {
         return $this->internalRequest($responseClass, function () use ($node, $query) {
-            return $this->createRequest('DELETE', $node, [
+            return $this->client->createRequest('DELETE', $node, [
                 'query' => $query,
             ]);
         });
@@ -431,7 +438,7 @@ class Client extends AbstractClient implements ClientInterface, BatchClientInter
                 ]);
             }
             /** @var ResponseInterface $res */
-            $res = $this->sendAsync($request, [RequestOptions::SYNCHRONOUS => true])->wait();
+            $res = $this->client->sendAsync($request, [RequestOptions::SYNCHRONOUS => true])->wait();
             $contents = $res->getBody()->getContents();
 
             if ($this->logRequests || $this->logger instanceof DiagnosticsLogger) {
@@ -466,7 +473,7 @@ class Client extends AbstractClient implements ClientInterface, BatchClientInter
             $responses = $this->getResponsesFromBody($contents);
             foreach ($responses as $i => $response) {
                 $responseClass = $this->requestPool[$i]['responseClass'];
-                $contents = parse_response($response)->getBody()->getContents();
+                $contents = Message::parseResponse($response)->getBody()->getContents();
                 try {
                     if (trim($contents) != '' && trim($responseClass) != '') {
                         $data[$i] = $this->jom->map($contents, $responseClass);
