@@ -9,6 +9,10 @@ After you installed composer follow this steps in a command line:
 git clone https://github.com/billbeeio/billbee-php-sdk.git
 # Navigate in the repository folder
 cd billbee-php-sdk
+
+# Optional: checkout the version that you need
+# git checkout tags/v2.0.0-RC3
+
 # Install the prod dependencies using composer
 composer install --no-dev --optimize-autoloader
 # Create a output directory
