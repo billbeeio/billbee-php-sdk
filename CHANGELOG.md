@@ -6,14 +6,6 @@
 - Updated psr/log to 1.1.0
 - Updated the Billbee API Endpoint
 
-## v2.0.0-RC3 (21 Apr 2021)
-
-Changed the required PHP CPU architecture to 64bit
-
-## v2.0.0-RC2 (15 Mar 2021)
-
-Updated from master
-
 ## v1.9.0 (1 Jun 2021)
 
 New Features:
@@ -26,7 +18,15 @@ New Features:
 ## v1.8.3 (4 May 2021)
 
 Bugfixes
-- URL encode the `$extRef` in `getOrderByOrderNumber` and the `$externalId` in `getOrderByPartner` before sending the request to the API. 
+- URL encode the `$extRef` in `getOrderByOrderNumber` and the `$externalId` in `getOrderByPartner` before sending the request to the API.
+
+## v2.0.0-RC3 (21 Apr 2021)
+
+Changed the required PHP CPU architecture to 64bit
+
+## v2.0.0-RC2 (15 Mar 2021)
+
+Updated from master
 
 ## v1.8.2 (15 Mar 2021)
 
@@ -62,7 +62,7 @@ New features:
   - `Product::$widthCm`
   - `Product::$lengthCm`
   - `Product::$heightCm`
-  - `Product::$billOfMaterial` 
+  - `Product::$billOfMaterial`
 - `GET /api/v1/products/PatchableFields` added. (`Client::getPatchableProductFields()`) ([PR #33](https://github.com/billbeeio/billbee-php-sdk/pull/33))
 - `PATCH /api/v1/products/{id}` added. (`Client::patchProduct($productId, $model)`) ([PR #33](https://github.com/billbeeio/billbee-php-sdk/pull/33))
 
@@ -150,7 +150,7 @@ General:
 
 ## v1.1.4 (23 Aug 2018)
 
-- `articleTitleSource` and `excludeTags` arguments added to `getOrders()` ([PR #5](https://github.com/billbeeio/billbee-php-sdk/pull/5)) 
+- `articleTitleSource` and `excludeTags` arguments added to `getOrders()` ([PR #5](https://github.com/billbeeio/billbee-php-sdk/pull/5))
 - `AutosubtractReservedAmount` parameter added to stock model
 - Customer Endpoints implemented
 - Links updated from `app01.billbee.de` to `app.billbee.io`
