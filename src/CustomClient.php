@@ -22,7 +22,7 @@ use Psr\Http\Message\UriInterface;
  * Helper class to make guzzle methods protected instead of private
  * @package BillbeeDe\BillbeeAPI
  */
-class BillbeeClient extends \GuzzleHttp\Client
+class CustomClient extends \GuzzleHttp\Client
 {
     use LoggerAwareTrait;
 

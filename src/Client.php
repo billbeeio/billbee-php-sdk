@@ -36,7 +36,6 @@ use MintWare\DMM\Serializer\JsonSerializer;
 use Psr\Http\Message\RequestInterface;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Log\LoggerInterface;
-use Psr\Log\NullLogger;
 
 class Client implements ClientInterface, BatchClientInterface
 {
@@ -117,7 +116,7 @@ class Client implements ClientInterface, BatchClientInterface
     /** @var SearchEndpoint */
     private $searchEndpoint;
 
-    /** @var BillbeeClient */
+    /** @var CustomClient */
     private $client;
 
     /**
@@ -131,7 +130,7 @@ class Client implements ClientInterface, BatchClientInterface
      */
     public function __construct($username, $apiPassword, $apiKey, LoggerInterface $logger = null)
     {
-        $this->client = new BillbeeClient([
+        $this->client = new CustomClient([
             'base_uri' => $this->endpoint,
             'auth' => [$username, $apiPassword],
             'headers' => [
