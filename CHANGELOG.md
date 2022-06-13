@@ -1,5 +1,9 @@
 # Changelog
 
+## v2.1.0 (13 Jun 2022)
+
+- Updated psr/log to ^1.1.0 || ^2.0.0 || ^3.0.0
+
 ## v2.0.0 (28 Oct 2021)
 
 - Updated guzzlehttp/guzzle to V7.4.0
