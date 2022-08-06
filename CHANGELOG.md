@@ -1,6 +1,6 @@
 # Changelog
 
-## v2.1.0 (13 Jun 2022)
+## v2.1.0 (6 Aug 2022)
 
 - Updated psr/log to ^1.1.0 || ^2.0.0 || ^3.0.0
 
