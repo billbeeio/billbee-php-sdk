@@ -28,6 +28,10 @@ abstract class SerializerTestCase extends TestCase
     private static function getSerializer()
     {
         return SerializerBuilder::create()
+            ->addDefaultDeserializationVisitors()
+            ->addDefaultSerializationVisitors()
+            ->addDefaultHandlers()
+            ->addDefaultListeners()
             ->setSerializationVisitor(
                 'json',
                 (new JsonSerializationVisitorFactory())->setOptions(JSON_PRESERVE_ZERO_FRACTION + JSON_PRETTY_PRINT)

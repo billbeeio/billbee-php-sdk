@@ -143,11 +143,16 @@ class Client implements ClientInterface, BatchClientInterface
 
         $this->setLogger($logger);
         $this->client->setLogger($logger);
-        $this->serializer = SerializerBuilder::create()->configureHandlers(
-            function (HandlerRegistry $registry) {
-                $registry->registerSubscribingHandler(new DefinitionConfigTransformer());
-            }
-        )->build();
+        $this->serializer = SerializerBuilder::create()
+            ->addDefaultDeserializationVisitors()
+            ->addDefaultSerializationVisitors()
+            ->addDefaultHandlers()
+            ->addDefaultListeners()
+            ->configureHandlers(
+                function (HandlerRegistry $registry) {
+                    $registry->registerSubscribingHandler(new DefinitionConfigTransformer());
+                }
+            )->build();
 
         $this->productsEndpoint = new ProductsEndpoint($this, $this->serializer);
         $this->provisioningEndpoint = new ProvisioningEndpoint($this);

@@ -1,0 +1,70 @@
+{
+    "Id": 100000150176895,
+    "Name": "Max",
+    "Email": "max@mustermann.tld",
+    "Tel1": "12345",
+    "Tel2": "12345",
+    "Number": 1,
+    "PriceGroupId": 1818,
+    "LanguageId": 3,
+    "VatId": "1234",
+    "Type": 0,
+    "DefaultMailAddress": {
+        "Id": 208297764,
+        "TypeId": 1,
+        "TypeName": "EMail",
+        "SubType": "",
+        "Value": "max@mustermann.tld"
+    },
+    "DefaultCommercialMailAddress": {
+        "Id": 208297764,
+        "TypeId": 1,
+        "TypeName": "EMail",
+        "SubType": "",
+        "Value": "max@mustermann.tld"
+    },
+    "DefaultStatusUpdatesMailAddress": {
+        "Id": 208297764,
+        "TypeId": 1,
+        "TypeName": "EMail",
+        "SubType": "",
+        "Value": "max@mustermann.tld"
+    },
+    "DefaultPhone1": {
+        "Id": 208297765,
+        "TypeId": 2,
+        "TypeName": "Phone",
+        "SubType": "",
+        "Value": "12345"
+    },
+    "DefaultPhone2": {
+        "Id": 208297765,
+        "TypeId": 2,
+        "TypeName": "Phone",
+        "SubType": "",
+        "Value": "12345"
+    },
+    "DefaultFax": {
+        "Id": 208297765,
+        "TypeId": 2,
+        "TypeName": "Phone",
+        "SubType": "",
+        "Value": "12345"
+    },
+    "MetaData": [
+        {
+            "Id": 208297764,
+            "TypeId": 1,
+            "TypeName": "EMail",
+            "SubType": "",
+            "Value": "max@mustermann.tld"
+        },
+        {
+            "Id": 208297765,
+            "TypeId": 2,
+            "TypeName": "Phone",
+            "SubType": "",
+            "Value": "12345"
+        }
+    ]
+}

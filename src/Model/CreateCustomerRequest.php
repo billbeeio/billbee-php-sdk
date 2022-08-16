@@ -20,6 +20,19 @@ class CreateCustomerRequest extends Customer
      * @var CustomerAddress
      * @Serializer\Type("BillbeeDe\BillbeeAPI\Model\CustomerAddress")
      * @Serializer\SerializedName("Address")
+     *
+     * @deprecated Use getter/setter instead. Will be private in the next major version.
      */
     public $address;
+
+    public function getAddress(): CustomerAddress
+    {
+        return $this->address;
+    }
+
+    public function setAddress(CustomerAddress $address): self
+    {
+        $this->address = $address;
+        return $this;
+    }
 }
