@@ -12,13 +12,15 @@
 
 namespace BillbeeDe\BillbeeAPI\Response;
 
-use MintWare\DMM\DataField;
+use BillbeeDe\BillbeeAPI\Model\PartnerOrder;
+use JMS\Serializer\Annotation as Serializer;
 
 class GetOrderByPartnerResponse extends BaseResponse
 {
     /**
-     * @var \BillbeeDe\BillbeeAPI\Model\PartnerOrder
-     * @DataField(name="Data", type="\BillbeeDe\BillbeeAPI\Model\PartnerOrder")
+     * @var PartnerOrder
+     * @Serializer\Type("BillbeeDe\BillbeeAPI\Model\PartnerOrder")
+     * @Serializer\SerializedName("Data")
      */
     public $data = null;
 }

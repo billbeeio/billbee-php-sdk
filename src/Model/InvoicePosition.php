@@ -12,73 +12,84 @@
 
 namespace BillbeeDe\BillbeeAPI\Model;
 
-use MintWare\DMM\DataField;
+use JMS\Serializer\Annotation as Serializer;
 
 class InvoicePosition
 {
     /**
      * @var int
-     * @DataField(name="BillbeeId", type="int")
+     * @Serializer\Type("int")
+     * @Serializer\SerializedName("BillbeeId")
      */
     public $id;
 
     /**
      * @var int
-     * @DataField(name="Position", type="int")
+     * @Serializer\Type("int")
+     * @Serializer\SerializedName("Position")
      */
     public $position;
 
     /**
      * @var float
-     * @DataField(name="Amount", type="float")
+     * @Serializer\Type("float")
+     * @Serializer\SerializedName("Amount")
      */
     public $amount = 0.00;
 
     /**
      * @var float
-     * @DataField(name="Amount", type="float")
+     * @Serializer\Type("float")
+     * @Serializer\SerializedName("Amount")
      */
     public $netValue = 0.00;
 
     /**
      * @var float
-     * @DataField(name="TotalNetValue", type="float")
+     * @Serializer\Type("float")
+     * @Serializer\SerializedName("TotalNetValue")
      */
     public $totalNetValue = 0.00;
 
     /**
      * @var float
-     * @DataField(name="GrossValue", type="float")
+     * @Serializer\Type("float")
+     * @Serializer\SerializedName("GrossValue")
      */
     public $grossValue = 0.00;
 
     /**
      * @var float
-     * @DataField(name="TotalGrossValue", type="float")
+     * @Serializer\Type("float")
+     * @Serializer\SerializedName("TotalGrossValue")
      */
     public $totalGrossValue = 0.00;
 
     /**
      * @var float
-     * @DataField(name="VatRate", type="float")
+     * @Serializer\Type("float")
+     * @Serializer\SerializedName("VatRate")
      */
     public $vatRate = 0.00;
 
     /**
      * @var int
-     * @DataField(name="ArticleBillbeeId", type="int")
+     * @Serializer\Type("int")
+     * @Serializer\SerializedName("ArticleBillbeeId")
      */
     public $articleId;
 
     /**
      * @var string
-     * @DataField(name="Sku", type="string")
+     * @Serializer\Type("string")
+     * @Serializer\SerializedName("Sku")
      */
     public $sku = '';
 
     /**
      * @var string
-     * @DataField(name="Title", type="string")
+     * @Serializer\Type("string")
+     * @Serializer\SerializedName("Title")
      */
     public $title = '';
 }

@@ -12,79 +12,91 @@
 
 namespace BillbeeDe\BillbeeAPI\Model;
 
-use MintWare\DMM\DataField;
+use JMS\Serializer\Annotation as Serializer;
 
 class OrderItem
 {
     /**
      * @var int
-     * @DataField(name="BillbeeId", type="int")
+     * @Serializer\Type("int")
+     * @Serializer\SerializedName("BillbeeId")
      */
     public $billbeeId;
 
     /**
      * @var string
-     * @DataField(name="TransactionId", type="string")
+     * @Serializer\Type("string")
+     * @Serializer\SerializedName("TransactionId")
      */
     public $transactionId;
 
     /**
      * @var SoldProduct
-     * @DataField(name="Product", type="BillbeeDe\BillbeeAPI\Model\SoldProduct")
+     * @Serializer\Type("BillbeeDe\BillbeeAPI\Model\SoldProduct")
+     * @Serializer\SerializedName("Product")
      */
     public $product;
 
     /**
      * @var float
-     * @DataField(name="Quantity", type="float")
+     * @Serializer\Type("float")
+     * @Serializer\SerializedName("Quantity")
      */
     public $quantity;
 
     /**
      * @var float
-     * @DataField(name="TotalPrice", type="float")
+     * @Serializer\Type("float")
+     * @Serializer\SerializedName("TotalPrice")
      */
     public $totalPrice;
 
     /**
      * @var float
-     * @DataField(name="UnrebatedTotalPrice", type="float")
+     * @Serializer\Type("float")
+     * @Serializer\SerializedName("UnrebatedTotalPrice")
      */
     public $unrebatedTotalPrice;
 
     /**
      * @var float
-     * @DataField(name="TaxAmount", type="float")
+     * @Serializer\Type("float")
+     * @Serializer\SerializedName("TaxAmount")
      */
     public $taxAmount;
 
     /**
      * @var int
-     * @DataField(name="TaxIndex", type="int")
+     * @Serializer\Type("int")
+     * @Serializer\SerializedName("TaxIndex")
      */
     public $taxIndex;
 
     /**
      * @var float
-     * @DataField(name="Discount", type="float")
+     * @Serializer\Type("float")
+     * @Serializer\SerializedName("Discount")
      */
     public $discount;
 
     /**
      * @var OrderItemAttribute[]
-     * @DataField(name="Attributes", type="BillbeeDe\BillbeeAPI\Model\OrderItemAttribute[]")
+     * @Serializer\Type("array<BillbeeDe\BillbeeAPI\Model\OrderItemAttribute>")
+     * @Serializer\SerializedName("Attributes")
      */
     public $attributes;
 
     /**
      * @var bool
-     * @DataField(name="GetPriceFromArticleIfAny", type="bool")
+     * @Serializer\Type("bool")
+     * @Serializer\SerializedName("GetPriceFromArticleIfAny")
      */
     public $getPriceFromArticleIfAny = false;
 
     /**
      * @var bool
-     * @DataField(name="IsCoupon", type="bool")
+     * @Serializer\Type("bool")
+     * @Serializer\SerializedName("IsCoupon")
      */
     public $isCoupon = false;
 
@@ -93,7 +105,8 @@ class OrderItem
 
     /**
      * @var bool
-     * @DataField(name="DontAdjustStock", type="bool")
+     * @Serializer\Type("bool")
+     * @Serializer\SerializedName("DontAdjustStock")
      */
     public $dontAdjustStock;
 
@@ -101,7 +114,8 @@ class OrderItem
      * Contains the used serial number
      *
      * @var string
-     * @DataField(name="SerialNumber", type="string")
+     * @Serializer\Type("string")
+     * @Serializer\SerializedName("SerialNumber")
      */
     public $serialNumber;
 }

@@ -12,13 +12,15 @@
 
 namespace BillbeeDe\BillbeeAPI\Response;
 
-use MintWare\DMM\DataField;
+use BillbeeDe\BillbeeAPI\Model\DeliveryNoteDocument;
+use JMS\Serializer\Annotation as Serializer;
 
 class CreateDeliveryNoteResponse extends BaseResponse
 {
     /**
-     * @var \BillbeeDe\BillbeeAPI\Model\DeliveryNoteDocument
-     * @DataField(name="Data", type="\BillbeeDe\BillbeeAPI\Model\DeliveryNoteDocument")
+     * @var DeliveryNoteDocument
+     * @Serializer\Type("BillbeeDe\BillbeeAPI\Model\DeliveryNoteDocument")
+     * @Serializer\SerializedName("Data")
      */
     public $data = null;
 }

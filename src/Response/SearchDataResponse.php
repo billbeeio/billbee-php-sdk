@@ -13,25 +13,28 @@
 namespace BillbeeDe\BillbeeAPI\Response;
 
 use BillbeeDe\BillbeeAPI\Model\Search;
-use MintWare\DMM\DataField;
+use JMS\Serializer\Annotation as Serializer;
 
 class SearchDataResponse
 {
     /**
      * @var Search\ProductResult[]
-     * @DataField(name="Products", type="BillbeeDe\BillbeeAPI\Model\Search\ProductResult[]")
+     * @Serializer\Type("array<BillbeeDe\BillbeeAPI\Model\Search\ProductResult>")
+     * @Serializer\SerializedName("Products")
      */
     public $products;
 
     /**
      * @var Search\OrderResult[]
-     * @DataField(name="Orders", type="BillbeeDe\BillbeeAPI\Model\Search\OrderResult[]")
+     * @Serializer\Type("array<BillbeeDe\BillbeeAPI\Model\Search\OrderResult>")
+     * @Serializer\SerializedName("Orders")
      */
     public $orders;
 
     /**
      * @var Search\CustomerResult[]
-     * @DataField(name="Customers", type="BillbeeDe\BillbeeAPI\Model\Search\CustomerResult[]")
+     * @Serializer\Type("array<BillbeeDe\BillbeeAPI\Model\Search\CustomerResult>")
+     * @Serializer\SerializedName("Customers")
      */
     public $customers;
 }

@@ -12,13 +12,15 @@
 
 namespace BillbeeDe\BillbeeAPI\Response;
 
-use MintWare\DMM\DataField;
+use BillbeeDe\BillbeeAPI\Response\Model\ShipmentWithLabelResult;
+use JMS\Serializer\Annotation as Serializer;
 
 class ShipWithLabelResponse extends BaseResponse
 {
     /**
-     * @var \BillbeeDe\BillbeeAPI\Response\Model\ShipmentWithLabelResult
-     * @DataField(name="Data", type="\BillbeeDe\BillbeeAPI\Response\Model\ShipmentWithLabelResult")
+     * @var ?ShipmentWithLabelResult
+     * @Serializer\Type("BillbeeDe\BillbeeAPI\Response\Model\ShipmentWithLabelResult")
+     * @Serializer\SerializedName("Data")
      */
     public $data = null;
 }

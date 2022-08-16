@@ -12,67 +12,77 @@
 
 namespace BillbeeDe\BillbeeAPI\Model;
 
-use MintWare\DMM\DataField;
+use JMS\Serializer\Annotation as Serializer;
 
 class Source
 {
     /**
      * @var int|null
-     * @DataField(name="Id", type="int")
+     * @Serializer\Type("int")
+     * @Serializer\SerializedName("Id")
      */
     public $id = null;
 
     /**
      * @var string
-     * @DataField(name="Source", type="string")
+     * @Serializer\Type("string")
+     * @Serializer\SerializedName("Source")
      */
     public $source = '';
 
     /**
      * @var string
-     * @DataField(name="SourceId", type="string")
+     * @Serializer\Type("string")
+     * @Serializer\SerializedName("SourceId")
      */
     public $sourceId = '';
 
     /**
      * @var string
-     * @DataField(name="ApiAccountName", type="string")
+     * @Serializer\Type("string")
+     * @Serializer\SerializedName("ApiAccountName")
      */
     public $apiAccountName = '';
 
     /**
      * @var int|null
-     * @DataField(name="ApiAccountId", type="int")
+     * @Serializer\Type("int")
+     * @Serializer\SerializedName("ApiAccountId")
      */
     public $apiAccountId = null;
 
     /**
      * @var float|null
-     * @DataField(name="ExportFactor", type="float")
+     * @Serializer\Type("float")
+     * @Serializer\SerializedName("ExportFactor")
      */
     public $exportFactor = null;
 
     /**
      * @var bool
-     * @DataField(name="StockSyncInactive", type="bool")
+     * @Serializer\Type("bool")
+     * @Serializer\SerializedName("StockSyncInactive")
      */
     public $stockSyncInactive = false;
 
     /**
      * @var float|null
-     * @DataField(name="StockSyncMin", type="float")
+     * @Serializer\Type("float")
+     * @Serializer\SerializedName("StockSyncMin")
      */
     public $stockSyncMin = null;
 
     /**
      * @var float
-     * @DataField(name="StockSyncMax", type="float")
+     * @Serializer\Type("float")
+     * @Serializer\SerializedName("StockSyncMax")
      */
     public $stockSyncMax = null;
 
     /**
      * @var float
-     * @DataField(name="UnitsPerItem", type="float")
+     * @Serializer\Type("float")
+     * @Serializer\SerializedName("UnitsPerItem")
      */
     public $unitsPerItem = 1.00;
 

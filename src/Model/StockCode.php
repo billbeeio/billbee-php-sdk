@@ -12,7 +12,7 @@
 
 namespace BillbeeDe\BillbeeAPI\Model;
 
-use MintWare\DMM\DataField;
+use JMS\Serializer\Annotation as Serializer;
 
 class StockCode
 {
@@ -20,7 +20,8 @@ class StockCode
      * The SKU of the Product
      * @var string
      *
-     * @DataField(name="Sku", type="string")
+     * @Serializer\Type("string")
+     * @Serializer\SerializedName("Sku")
      */
     public $sku;
 
@@ -28,7 +29,8 @@ class StockCode
      * The Id of the stock
      * @var int
      *
-     * @DataField(name="StockId", type="int")
+     * @Serializer\Type("int")
+     * @Serializer\SerializedName("StockId")
      */
     public $stockId = null;
 
@@ -36,7 +38,8 @@ class StockCode
      * The stock code
      * @var string
      *
-     * @DataField(name="StockCode", type="string")
+     * @Serializer\Type("string")
+     * @Serializer\SerializedName("StockCode")
      */
     public $stockCode;
 

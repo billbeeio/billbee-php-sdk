@@ -12,13 +12,14 @@
 
 namespace BillbeeDe\BillbeeAPI\Response;
 
-use MintWare\DMM\DataField;
+use JMS\Serializer\Annotation as Serializer;
 
 class UpdateStockResponse extends BaseResponse
 {
     /**
      * @var array<array>
-     * @DataField(name="Data", type="array")
+     * @Serializer\Type("array")
+     * @Serializer\SerializedName("Data")
      */
     public $data = [];
 }

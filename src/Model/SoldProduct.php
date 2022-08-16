@@ -12,25 +12,28 @@
 
 namespace BillbeeDe\BillbeeAPI\Model;
 
-use MintWare\DMM\DataField;
+use JMS\Serializer\Annotation as Serializer;
 
 class SoldProduct
 {
     /**
      * @var string
-     * @DataField(name="Id", type="string")
+     * @Serializer\Type("string")
+     * @Serializer\SerializedName("Id")
      */
     public $id;
 
     /**
      * @var int|null
-     * @DataField(name="BillbeeId", type="int")
+     * @Serializer\Type("int")
+     * @Serializer\SerializedName("BillbeeId")
      */
     public $billbeeId;
 
     /**
      * @var string
-     * @DataField(name="Title", type="string")
+     * @Serializer\Type("string")
+     * @Serializer\SerializedName("Title")
      */
     public $title;
 
@@ -38,37 +41,43 @@ class SoldProduct
      * Weight of one item in gram
      *
      * @var int|null
-     * @DataField(name="Weight", type="int")
+     * @Serializer\Type("int")
+     * @Serializer\SerializedName("Weight")
      */
     public $weight;
 
     /**
      * @var string
-     * @DataField(name="SKU", type="string")
+     * @Serializer\Type("string")
+     * @Serializer\SerializedName("SKU")
      */
     public $sku;
 
     /**
      * @var bool
-     * @DataField(name="IsDigital", type="bool")
+     * @Serializer\Type("bool")
+     * @Serializer\SerializedName("IsDigital")
      */
     public $isDigital;
 
     /**
      * @var string
-     * @DataField(name="EAN", type="string")
+     * @Serializer\Type("string")
+     * @Serializer\SerializedName("EAN")
      */
     public $ean;
 
     /**
      * @var string
-     * @DataField(name="TARICCode", type="string")
+     * @Serializer\Type("string")
+     * @Serializer\SerializedName("TARICCode")
      */
     public $taric;
 
     /**
      * @var string
-     * @DataField(name="CountryOfOrigin", type="string")
+     * @Serializer\Type("string")
+     * @Serializer\SerializedName("CountryOfOrigin")
      */
     public $countryOfOrigin;
 }

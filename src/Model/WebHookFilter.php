@@ -12,19 +12,21 @@
 
 namespace BillbeeDe\BillbeeAPI\Model;
 
-use MintWare\DMM\DataField;
+use JMS\Serializer\Annotation as Serializer;
 
 class WebHookFilter
 {
     /**
      * @var string
-     * @DataField("Name", type="string")
+     * @Serializer\Type("string")
+     * @Serializer\SerializedName("Name")
      */
     public $name;
 
     /**
      * @var string
-     * @DataField("Description", type="string")
+     * @Serializer\Type("string")
+     * @Serializer\SerializedName("Description")
      */
     public $description;
 }

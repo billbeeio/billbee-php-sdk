@@ -12,19 +12,47 @@
 
 namespace BillbeeDe\BillbeeAPI\Model;
 
-use MintWare\DMM\DataField;
+use JMS\Serializer\Annotation as Serializer;
 
 class Category
 {
     /**
      * @var int
-     * @DataField(name="Id", type="int")
+     * @Serializer\Type("int")
+     * @Serializer\SerializedName("Id")
+     *
+     * @deprecated Use getter/setter instead. Will be private in the next major version.
      */
     public $id;
 
     /**
      * @var string
-     * @DataField(name="Name", type="string")
+     * @Serializer\Type("string")
+     * @Serializer\SerializedName("Name")
+     *
+     * @deprecated Use getter/setter instead. Will be private in the next major version.
      */
     public $name = '';
+
+    public function getId(): int
+    {
+        return $this->id;
+    }
+
+    public function setId(int $id): self
+    {
+        $this->id = $id;
+        return $this;
+    }
+
+    public function getName(): string
+    {
+        return $this->name;
+    }
+
+    public function setName(string $name): self
+    {
+        $this->name = $name;
+        return $this;
+    }
 }

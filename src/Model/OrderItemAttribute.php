@@ -12,31 +12,35 @@
 
 namespace BillbeeDe\BillbeeAPI\Model;
 
-use MintWare\DMM\DataField;
+use JMS\Serializer\Annotation as Serializer;
 
 class OrderItemAttribute
 {
     /**
      * @var int
-     * @DataField(name="Id", type="string")
+     * @Serializer\Type("string")
+     * @Serializer\SerializedName("Id")
      */
     public $id;
 
     /**
      * @var string
-     * @DataField(name="Name", type="string")
+     * @Serializer\Type("string")
+     * @Serializer\SerializedName("Name")
      */
     public $name;
 
     /**
      * @var string
-     * @DataField(name="Value", type="string")
+     * @Serializer\Type("string")
+     * @Serializer\SerializedName("Value")
      */
     public $value;
 
     /**
      * @var float
-     * @DataField(name="Price", type="float")
+     * @Serializer\Type("float")
+     * @Serializer\SerializedName("Price")
      */
     public $price;
 }

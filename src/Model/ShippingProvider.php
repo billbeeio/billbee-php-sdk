@@ -12,25 +12,28 @@
 
 namespace BillbeeDe\BillbeeAPI\Model;
 
-use MintWare\DMM\DataField;
+use JMS\Serializer\Annotation as Serializer;
 
 class ShippingProvider
 {
     /**
      * @var int
-     * @DataField(name="id", type="int")
+     * @Serializer\Type("int")
+     * @Serializer\SerializedName("id")
      */
     public $id;
 
     /**
      * @var string
-     * @DataField(name="name", type="string")
+     * @Serializer\Type("string")
+     * @Serializer\SerializedName("name")
      */
     public $name = '';
 
     /**
      * @var string
-     * @DataField(name="products", type="BillbeeDe\BillbeeAPI\Model\ShippingProduct[]")
+     * @Serializer\Type("array<BillbeeDe\BillbeeAPI\Model\ShippingProduct>")
+     * @Serializer\SerializedName("products")
      */
     public $products = '';
 }

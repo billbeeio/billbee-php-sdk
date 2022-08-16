@@ -13,92 +13,106 @@
 namespace BillbeeDe\BillbeeAPI\Model;
 
 use BillbeeDe\BillbeeAPI\Type\OrderState;
-use MintWare\DMM\DataField;
+use JMS\Serializer\Annotation as Serializer;
 
 class PartnerOrder
 {
     /**
      * @var int
-     * @DataField(name="Id", type="int")
+     * @Serializer\Type("int")
+     * @Serializer\SerializedName("Id")
      */
     public $id;
 
     /**
      * @var string
-     * @DataField(name="ExternalId", type="string")
+     * @Serializer\Type("string")
+     * @Serializer\SerializedName("ExternalId")
      */
     public $externalId;
 
     /**
      * @var string
-     * @DataField(name="InvoiceNumber", type="string")
+     * @Serializer\Type("string")
+     * @Serializer\SerializedName("InvoiceNumber")
      */
     public $invoiceNumber;
 
     /**
      * @var \DateTime
-     * @DataField(name="InvoiceCreatedAt", type="datetime")
+     * @Serializer\Type("DateTime")
+     * @Serializer\SerializedName("InvoiceCreatedAt")
      */
     public $invoiceCreatedAt;
 
     /**
      * @var \DateTime
-     * @DataField(name="InvoiceDate", type="datetime")
+     * @Serializer\Type("DateTime")
+     * @Serializer\SerializedName("InvoiceDate")
      */
     public $invoiceDate;
 
     /**
      * @var \DateTime
-     * @DataField(name="CreatedAt", type="datetime")
+     * @Serializer\Type("DateTime")
+     * @Serializer\SerializedName("CreatedAt")
      */
     public $createdAt;
 
     /**
      * @var \DateTime
-     * @DataField(name="PaidAt", type="datetime")
+     * @Serializer\Type("DateTime")
+     * @Serializer\SerializedName("PaidAt")
      */
     public $paidAt;
 
     /**
      * @var \DateTime
-     * @DataField(name="ShippedAt", type="datetime")
+     * @Serializer\Type("DateTime")
+     * @Serializer\SerializedName("ShippedAt")
      */
     public $shippedAt;
 
     /**
      * @var bool
-     * @DataField(name="HasInvoice", type="bool")
+     * @Serializer\Type("bool")
+     * @Serializer\SerializedName("HasInvoice")
      */
     public $hasInvoice = false;
 
     /**
      * @var int
-     * @DataField(name="OrderStateId", type="int")
+     * @Serializer\Type("int")
+     * @Serializer\SerializedName("OrderStateId")
      * @see OrderState
      */
     public $orderStateId;
 
     /**
      * @var string
-     * @DataField(name="OrderStateText", type="string")
+     * @Serializer\Type("string")
+     * @Serializer\SerializedName("OrderStateText")
      */
     public $orderStateText;
 
     /**
      * @var float
-     * @DataField(name="TotalGross", type="float")
+     * @Serializer\Type("float")
+     * @Serializer\SerializedName("TotalGross")
      */
     public $totalGross;
 
     /**
      * @var string
-     * @DataField(name="ShopName", type="string")
+     * @Serializer\Type("string")
+     * @Serializer\SerializedName("ShopName")
      */
     public $shopName;
 
     /**
      * @var bool
-     * @DataField(name="CanCreateAutoInvoice", type="bool")
+     * @Serializer\Type("bool")
+     * @Serializer\SerializedName("CanCreateAutoInvoice")
      */
     public $canCreateAutoInvoice = false;
 }

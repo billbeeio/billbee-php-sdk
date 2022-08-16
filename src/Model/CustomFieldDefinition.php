@@ -12,38 +12,43 @@
 
 namespace BillbeeDe\BillbeeAPI\Model;
 
-use MintWare\DMM\DataField;
+use JMS\Serializer\Annotation as Serializer;
 
 class CustomFieldDefinition
 {
     /**
      * @var integer
-     * @DataField(name="Id", type="integer")
+     * @Serializer\Type("integer")
+     * @Serializer\SerializedName("Id")
      */
     public $id;
 
     /**
      * @var string
-     * @DataField(name="Name", type="string")
+     * @Serializer\Type("string")
+     * @Serializer\SerializedName("Name")
      */
     public $name;
 
     /**
      * @var array
-     * @DataField(name="Configuration", type="array", preTransformer="\BillbeeDe\BillbeeAPI\Transformer\DefinitionConfigTransformer")
+     * @Serializer\Type("CustomField")
+     * @Serializer\SerializedName("Configuration")
      */
     public $configuration;
 
     /**
      * @var integer
      * @see \BillbeeDe\BillbeeAPI\Type\CustomFieldDefinitionType
-     * @DataField(name="Type", type="integer")
+     * @Serializer\Type("integer")
+     * @Serializer\SerializedName("Type")
      */
     public $type;
 
     /**
      * @var bool
-     * @DataField(name="IsNullable", type="bool")
+     * @Serializer\Type("bool")
+     * @Serializer\SerializedName("IsNullable")
      */
     public $isNullable;
 }

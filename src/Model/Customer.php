@@ -12,61 +12,70 @@
 
 namespace BillbeeDe\BillbeeAPI\Model;
 
-use MintWare\DMM\DataField;
+use JMS\Serializer\Annotation as Serializer;
 
 class Customer
 {
     /**
      * @var integer
-     * @DataField("Id", type="integer")
+     * @Serializer\Type("integer")
+     * @Serializer\SerializedName("Id")
      */
     public $id;
 
     /**
      * @var string
-     * @DataField("Name", type="string")
+     * @Serializer\Type("string")
+     * @Serializer\SerializedName("Name")
      */
     public $name;
 
     /**
      * @var string
-     * @DataField("Email", type="string")
+     * @Serializer\Type("string")
+     * @Serializer\SerializedName("Email")
      */
     public $email;
 
     /**
      * @var string
-     * @DataField("Tel1", type="string")
+     * @Serializer\Type("string")
+     * @Serializer\SerializedName("Tel1")
      */
     public $tel1;
 
     /**
      * @var string
-     * @DataField("Tel2", type="string")
+     * @Serializer\Type("string")
+     * @Serializer\SerializedName("Tel2")
      */
     public $tel2;
 
     /**
      * @var integer
-     * @DataField("Number", type="integer")
+     * @Serializer\Type("integer")
+     * @Serializer\SerializedName("Number")
      */
     public $number;
 
     /**
      * @var integer
-     * @DataField("PriceGroupId", type="integer")
+     * @Serializer\Type("integer")
+     * @Serializer\SerializedName("PriceGroupId")
      */
     public $priceGroupId;
 
     /**
      * @var integer
-     * @DataField("LanguageId", type="integer")
+     * @Serializer\Type("integer")
+     * @Serializer\SerializedName("LanguageId")
      */
     public $languageId;
 
     /**
      * @var string
-     * @DataField("VatId", type="string")
+     * @Serializer\Type("string")
+     * @Serializer\SerializedName("VatId")
      */
     public $vatId;
 }

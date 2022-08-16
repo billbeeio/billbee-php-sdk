@@ -13,13 +13,14 @@
 namespace BillbeeDe\BillbeeAPI\Model;
 
 use BillbeeDe\BillbeeAPI\Type\SendMode;
-use MintWare\DMM\DataField;
+use JMS\Serializer\Annotation as Serializer;
 
 class MessageForCustomer
 {
     /**
      * @var int
-     * @DataField(name="SendMode", type="int")
+     * @Serializer\Type("int")
+     * @Serializer\SerializedName("SendMode")
      *
      * @see SendMode
      */
@@ -27,7 +28,8 @@ class MessageForCustomer
 
     /**
      * @var \BillbeeDe\BillbeeAPI\Model\TranslatableText[]
-     * @DataField(name="Subject", type="BillbeeDe\BillbeeAPI\Model\TranslatableText[]")
+     * @Serializer\Type("array<BillbeeDe\BillbeeAPI\Model\TranslatableText>")
+     * @Serializer\SerializedName("Subject")
      *
      * @see \BillbeeDe\BillbeeAPI\Model\TranslatableText;
      */
@@ -35,13 +37,15 @@ class MessageForCustomer
 
     /**
      * @var \BillbeeDe\BillbeeAPI\Model\TranslatableText[]
-     * @DataField(name="Body", type="BillbeeDe\BillbeeAPI\Model\TranslatableText[]")
+     * @Serializer\Type("array<BillbeeDe\BillbeeAPI\Model\TranslatableText>")
+     * @Serializer\SerializedName("Body")
      */
     public $body;
 
     /**
      * @var string
-     * @DataField(name="AlternativeMail", type="string")
+     * @Serializer\Type("string")
+     * @Serializer\SerializedName("AlternativeMail")
      */
     public $alternativeEmailAddress;
 

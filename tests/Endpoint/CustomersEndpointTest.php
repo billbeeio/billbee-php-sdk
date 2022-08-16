@@ -23,6 +23,8 @@ use BillbeeDe\BillbeeAPI\Response\GetCustomersResponse;
 use BillbeeDe\BillbeeAPI\Response\GetOrdersResponse;
 use BillbeeDe\Tests\BillbeeAPI\FakeSerializer;
 use BillbeeDe\Tests\BillbeeAPI\TestClient;
+use JMS\Serializer\SerializerInterface;
+use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 
 class CustomersEndpointTest extends TestCase
@@ -34,10 +36,14 @@ class CustomersEndpointTest extends TestCase
     /** @var TestClient */
     private $client;
 
+    /** @var SerializerInterface&MockObject */
+    private $mockSerializer;
+
     protected function setUp(): void
     {
         $this->client = new TestClient();
-        $this->endpoint = new CustomersEndpoint($this->client, new FakeSerializer());
+        $this->mockSerializer = self::createMock(SerializerInterface::class);
+        $this->endpoint = new CustomersEndpoint($this->client, $this->mockSerializer);
     }
 
     public function testGetCustomers()
@@ -272,6 +278,11 @@ class CustomersEndpointTest extends TestCase
     {
         $customer = new Customer();
         $customer->id = 123;
+
+        $this->mockSerializer->expects(self::once())
+            ->method('serialize')
+            ->with($customer, 'json');
+
         $this->endpoint->updateCustomer($customer);
         $requests = $this->client->getRequests();
         $this->assertCount(1, $requests);
@@ -279,7 +290,7 @@ class CustomersEndpointTest extends TestCase
         list($method, $node, $data, $class) = $requests[0];
         $this->assertSame('PUT', $method);
         $this->assertSame('customers/123', $node);
-        $this->assertSame($customer, $data);
+        ;
         $this->assertSame(GetCustomerResponse::class, $class);
     }
 

@@ -19,7 +19,7 @@ use BillbeeDe\BillbeeAPI\Response as Response;
 use BillbeeDe\BillbeeAPI\Type as Type;
 use DateTime;
 use Exception;
-use MintWare\DMM\Serializer\SerializerInterface;
+use JMS\Serializer\SerializerInterface;
 
 class ProductsEndpoint
 {
@@ -174,7 +174,7 @@ class ProductsEndpoint
     {
         return $this->client->post(
             'products/updatestockcode',
-            $this->serializer->serialize($stockCodeModel),
+            $this->serialize($stockCodeModel),
             Response\BaseResponse::class
         );
     }
@@ -192,7 +192,7 @@ class ProductsEndpoint
     {
         return $this->client->post(
             'products',
-            $this->serializer->serialize($product),
+            $this->serialize($product),
             Response\GetProductResponse::class
         );
     }
@@ -242,5 +242,10 @@ class ProductsEndpoint
             [],
             Response\BaseResponse::class
         );
+    }
+
+    private function serialize($data): string
+    {
+        return $this->serializer->serialize($data, 'json');
     }
 }

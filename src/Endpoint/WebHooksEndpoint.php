@@ -18,7 +18,7 @@ use BillbeeDe\BillbeeAPI\Model as Model;
 use BillbeeDe\BillbeeAPI\Response as Response;
 use Exception;
 use InvalidArgumentException;
-use MintWare\DMM\Serializer\SerializerInterface;
+use JMS\Serializer\SerializerInterface;
 
 class WebHooksEndpoint
 {
@@ -104,7 +104,7 @@ class WebHooksEndpoint
     {
         return $this->client->post(
             'webhooks',
-            $this->serializer->serialize($webHook),
+            $this->serialize($webHook),
             Model\WebHook::class
         );
     }
@@ -131,7 +131,7 @@ class WebHooksEndpoint
 
         $res = $this->client->put(
             'webhooks/' . $webHook->id,
-            $this->serializer->serialize($webHook),
+            $this->serialize($webHook),
             Model\WebHook::class
         );
 
@@ -202,4 +202,9 @@ class WebHooksEndpoint
     }
 
     #endregion
+
+    private function serialize($data): string
+    {
+        return $this->serializer->serialize($data, 'json');
+    }
 }

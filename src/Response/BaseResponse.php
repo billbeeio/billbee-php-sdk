@@ -12,31 +12,35 @@
 
 namespace BillbeeDe\BillbeeAPI\Response;
 
-use MintWare\DMM\DataField;
+use JMS\Serializer\Annotation as Serializer;
 
 class BaseResponse
 {
     /**
      * @var array
-     * @DataField(name="Paging", type="array")
+     * @Serializer\Type("array")
+     * @Serializer\SerializedName("Paging")
      */
     public $paging = [];
 
     /**
      * @var string
-     * @DataField(name="ErrorMessage", type="string")
+     * @Serializer\Type("string")
+     * @Serializer\SerializedName("ErrorMessage")
      */
     public $errorMessage = '';
 
     /**
      * @var int
-     * @DataField(name="ErrorCode", type="int")
+     * @Serializer\Type("int")
+     * @Serializer\SerializedName("ErrorCode")
      */
     public $errorCode = 0;
 
     /**
-     * @var array
-     * @DataField(name="Data", type="array")
+     * @var mixed
+     * @Serializer\Type("array")
+     * @Serializer\SerializedName("Data")
      */
-    public $data = [];
+    public $data = null;
 }

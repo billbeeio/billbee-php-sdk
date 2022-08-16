@@ -20,7 +20,7 @@ use BillbeeDe\BillbeeAPI\Type as Type;
 use DateTimeInterface;
 use Exception;
 use InvalidArgumentException;
-use MintWare\DMM\Serializer\SerializerInterface;
+use JMS\Serializer\SerializerInterface;
 use Psr\Log\LoggerInterface;
 
 class OrdersEndpoint
@@ -56,7 +56,7 @@ class OrdersEndpoint
      * @param int[]                  $shopId             Specifies a list of shop ids for which invoices should be included
      * @param int[]                  $orderStateId       Specifies a list of state ids to include in the response
      * @param string[]               $tag                Specifies a list of tags the order must have attached to be included in the response
-     * @param null                   $minimumOrderId     If given, all delivered orders have an Id greater than or equal to the given minimumOrderId
+     * @param ?int                   $minimumOrderId     If given, all delivered orders have an Id greater than or equal to the given minimumOrderId
      * @param DateTimeInterface|null $modifiedAtMin      If given, the last modification has to be newer than the given date
      * @param DateTimeInterface|null $modifiedAtMax      If given, the last modification has to be older or equal than the given date.
      * @param int                    $articleTitleSource The source field for the article title.
@@ -261,7 +261,7 @@ class OrdersEndpoint
     {
         return $this->client->post(
             'orders?shopId='.$shopId,
-            $this->serializer->serialize($order),
+            $this->serialize($order),
             Response\BaseResponse::class
         );
     }
@@ -301,7 +301,7 @@ class OrdersEndpoint
     {
         $res = $this->client->post(
             'orders/'.$orderId.'/shipment',
-            $this->serializer->serialize($shipment),
+            $this->serialize($shipment),
             Response\BaseResponse::class
         );
 
@@ -395,7 +395,7 @@ class OrdersEndpoint
 
         $res = $this->client->post(
             'orders/'.$orderId.'/send-message',
-            $this->serializer->serialize($message),
+            $this->serialize($message),
             Response\BaseResponse::class
         );
 
@@ -475,4 +475,8 @@ class OrdersEndpoint
     }
 
     #endregion
+    private function serialize($data): string
+    {
+        return $this->serializer->serialize($data, 'json');
+    }
 }

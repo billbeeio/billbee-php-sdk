@@ -12,13 +12,15 @@
 
 namespace BillbeeDe\BillbeeAPI\Response;
 
-use MintWare\DMM\DataField;
+use BillbeeDe\BillbeeAPI\Model\TermsInfo;
+use JMS\Serializer\Annotation as Serializer;
 
 class GetTermsInfoResponse extends BaseResponse
 {
     /**
-     * @var \BillbeeDe\BillbeeAPI\Model\TermsInfo
-     * @DataField(name="Data", type="\BillbeeDe\BillbeeAPI\Model\TermsInfo")
+     * @var TermsInfo
+     * @Serializer\Type("BillbeeDe\BillbeeAPI\Model\TermsInfo")
+     * @Serializer\SerializedName("Data")
      */
     public $data = null;
 }

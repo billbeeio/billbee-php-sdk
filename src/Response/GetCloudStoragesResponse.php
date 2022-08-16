@@ -12,13 +12,15 @@
 
 namespace BillbeeDe\BillbeeAPI\Response;
 
-use MintWare\DMM\DataField;
+use BillbeeDe\BillbeeAPI\Model\CloudStorage;
+use JMS\Serializer\Annotation as Serializer;
 
 class GetCloudStoragesResponse extends BaseResponse
 {
     /**
-     * @var \BillbeeDe\BillbeeAPI\Model\CloudStorage[]
-     * @DataField(name="Data", type="\BillbeeDe\BillbeeAPI\Model\CloudStorage[]")
+     * @var CloudStorage[]
+     * @Serializer\Type("array<BillbeeDe\BillbeeAPI\Model\CloudStorage>")
+     * @Serializer\SerializedName("Data")
      */
     public $data = null;
 }

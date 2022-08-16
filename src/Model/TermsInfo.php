@@ -12,28 +12,32 @@
 
 namespace BillbeeDe\BillbeeAPI\Model;
 
-use MintWare\DMM\DataField;
+use JMS\Serializer\Annotation as Serializer;
 
 class TermsInfo
 {
     /**
      * @var string
-     * @DataField(name="LinkToTermsWebPage", type="string")
+     * @Serializer\Type("string")
+     * @Serializer\SerializedName("LinkToTermsWebPage")
      */
     public $termsWebPageLink = '';
     /**
      * @var string
-     * @DataField(name="LinkToPrivacyWebPage", type="string")
+     * @Serializer\Type("string")
+     * @Serializer\SerializedName("LinkToPrivacyWebPage")
      */
     public $privacyWebPageLink = '';
     /**
      * @var string
-     * @DataField(name="LinkToTermsHtmlContent", type="string")
+     * @Serializer\Type("string")
+     * @Serializer\SerializedName("LinkToTermsHtmlContent")
      */
     public $termsContentLink = '';
     /**
      * @var string
-     * @DataField(name="LinkToPrivacyHtmlContent", type="string")
+     * @Serializer\Type("string")
+     * @Serializer\SerializedName("LinkToPrivacyHtmlContent")
      */
     public $privacyContentLink = '';
 }

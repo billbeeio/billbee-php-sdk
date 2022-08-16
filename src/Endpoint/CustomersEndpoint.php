@@ -18,7 +18,7 @@ use BillbeeDe\BillbeeAPI\Exception\QuotaExceededException;
 use BillbeeDe\BillbeeAPI\Model as Model;
 use BillbeeDe\BillbeeAPI\Response as Response;
 use Exception;
-use MintWare\DMM\Serializer\SerializerInterface;
+use JMS\Serializer\SerializerInterface;
 
 class CustomersEndpoint
 {
@@ -205,7 +205,7 @@ class CustomersEndpoint
 
         return $this->client->put(
             'customers/' . $customer->id,
-            $this->serializer->serialize($customer),
+            $this->serializer->serialize($customer, 'json'),
             Response\GetCustomerResponse::class
         );
     }

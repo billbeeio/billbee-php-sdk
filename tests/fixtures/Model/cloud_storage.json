@@ -1,0 +1,6 @@
+{
+    "Id": 1,
+    "Name": "GDrive",
+    "Type": "GoogleDriveStorage",
+    "UsedAsPrinter": true
+}

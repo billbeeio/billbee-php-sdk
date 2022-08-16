@@ -12,61 +12,70 @@
 
 namespace BillbeeDe\BillbeeAPI\Model;
 
-use MintWare\DMM\DataField;
+use JMS\Serializer\Annotation as Serializer;
 
 class Seller
 {
     /**
      * @var string
-     * @DataField(name="Platform", type="string")
+     * @Serializer\Type("string")
+     * @Serializer\SerializedName("Platform")
      */
     public $platform;
 
     /**
      * @var string
-     * @DataField(name="BillbeeShopName", type="string")
+     * @Serializer\Type("string")
+     * @Serializer\SerializedName("BillbeeShopName")
      */
     public $shopName;
 
     /**
      * @var int
-     * @DataField(name="BillbeeShopId", type="int")
+     * @Serializer\Type("int")
+     * @Serializer\SerializedName("BillbeeShopId")
      */
     public $shopId;
 
     /**
      * @var string
-     * @DataField(name="Id", type="string")
+     * @Serializer\Type("string")
+     * @Serializer\SerializedName("Id")
      */
     public $id;
 
     /**
      * @var string
-     * @DataField(name="Nick", type="string")
+     * @Serializer\Type("string")
+     * @Serializer\SerializedName("Nick")
      */
     public $nick;
 
     /**
      * @var string
-     * @DataField(name="FirstName", type="string")
+     * @Serializer\Type("string")
+     * @Serializer\SerializedName("FirstName")
      */
     public $firstName;
 
     /**
      * @var string
-     * @DataField(name="LastName", type="string")
+     * @Serializer\Type("string")
+     * @Serializer\SerializedName("LastName")
      */
     public $lastName;
 
     /**
      * @var string
-     * @DataField(name="FullName", type="string")
+     * @Serializer\Type("string")
+     * @Serializer\SerializedName("FullName")
      */
     public $fullName;
 
     /**
      * @var string
-     * @DataField(name="Email", type="string")
+     * @Serializer\Type("string")
+     * @Serializer\SerializedName("Email")
      */
     public $email;
 }

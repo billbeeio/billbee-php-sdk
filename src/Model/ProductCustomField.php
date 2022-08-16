@@ -12,37 +12,42 @@
 
 namespace BillbeeDe\BillbeeAPI\Model;
 
-use MintWare\DMM\DataField;
+use JMS\Serializer\Annotation as Serializer;
 
 class ProductCustomField
 {
     /**
      * @var integer
-     * @DataField("Id", type="integer")
+     * @Serializer\Type("integer")
+     * @Serializer\SerializedName("Id")
      */
     public $id;
 
     /**
      * @var integer
-     * @DataField("DefinitionId", type="integer")
+     * @Serializer\Type("integer")
+     * @Serializer\SerializedName("DefinitionId")
      */
     public $definitionId;
 
     /**
      * @var integer
-     * @DataField("Definition", type="\BillbeeDe\BillbeeAPI\Model\CustomFieldDefinition")
+     * @Serializer\Type("BillbeeDe\BillbeeAPI\Model\CustomFieldDefinition")
+     * @Serializer\SerializedName("Definition")
      */
     public $definition;
 
     /**
      * @var integer
-     * @DataField("ArticleId", type="integer")
+     * @Serializer\Type("integer")
+     * @Serializer\SerializedName("ArticleId")
      */
     public $articleId;
 
     /**
      * @var string|array
-     * @DataField("Value", type="string|array")
+     * @Serializer\Type("string|array")
+     * @Serializer\SerializedName("Value")
      */
     public $value;
 }

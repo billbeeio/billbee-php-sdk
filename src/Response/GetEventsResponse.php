@@ -12,13 +12,15 @@
 
 namespace BillbeeDe\BillbeeAPI\Response;
 
-use MintWare\DMM\DataField;
+use BillbeeDe\BillbeeAPI\Model\Event;
+use JMS\Serializer\Annotation as Serializer;
 
 class GetEventsResponse extends BaseResponse
 {
     /**
-     * @var \BillbeeDe\BillbeeAPI\Model\Event[]
-     * @DataField(name="Data", type="\BillbeeDe\BillbeeAPI\Model\Event[]")
+     * @var Event[]
+     * @Serializer\Type("array<BillbeeDe\BillbeeAPI\Model\Event>")
+     * @Serializer\SerializedName("Data")
      */
     public $data = [];
 }

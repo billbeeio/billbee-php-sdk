@@ -14,7 +14,7 @@ namespace BillbeeDe\BillbeeAPI\Model;
 
 use BillbeeDe\BillbeeAPI\Type\OrderState;
 use BillbeeDe\BillbeeAPI\Type\PaymentType;
-use MintWare\DMM\DataField;
+use JMS\Serializer\Annotation as Serializer;
 
 class Order
 {
@@ -26,127 +26,148 @@ class Order
 
     /**
      * @var int
-     * @DataField(name="BillBeeOrderId", type="int")
+     * @Serializer\Type("int")
+     * @Serializer\SerializedName("BillBeeOrderId")
      */
     public $id;
 
     /**
      * @var int
-     * @DataField(name="BillBeeParentOrderId", type="int")
+     * @Serializer\Type("int")
+     * @Serializer\SerializedName("BillBeeParentOrderId")
      */
     public $parentOrderId;
 
     /**
      * @var string
-     * @DataField(name="Id", type="string")
+     * @Serializer\Type("string")
+     * @Serializer\SerializedName("Id")
      */
     public $externalId;
 
     /**
      * @var array
-     * @DataField(name="ShippingIds", type="array")
+     * @Serializer\Type("array")
+     * @Serializer\SerializedName("ShippingIds")
      */
     public $shipping;
 
     /**
      * @var bool
-     * @DataField(name="AcceptLossOfReturnRight", type="bool")
+     * @Serializer\Type("bool")
+     * @Serializer\SerializedName("AcceptLossOfReturnRight")
      */
     public $acceptLossOfReturnRight;
 
     /**
      * @var string
-     * @DataField(name="OrderNumber", type="string")
+     * @Serializer\Type("string")
+     * @Serializer\SerializedName("OrderNumber")
      */
     public $orderNumber;
 
     /**
      * @var int
-     * @DataField(name="State", type="int")
+     * @Serializer\Type("int")
+     * @Serializer\SerializedName("State")
      */
     public $state = OrderState::ORDERED;
 
     /**
      * @var int
-     * @DataField(name="VatMode", type="int")
+     * @Serializer\Type("int")
+     * @Serializer\SerializedName("VatMode")
      */
     public $vatMode = self::VAT_MODE_DEFAULT;
 
     /**
      * @var \DateTime
-     * @DataField(name="CreatedAt", type="datetime")
+     * @Serializer\Type("DateTime")
+     * @Serializer\SerializedName("CreatedAt")
      */
-    public $createdAt;
+    public $createdAt = null;
 
     /**
      * @var \DateTime
-     * @DataField(name="ShippedAt", type="datetime")
+     * @Serializer\Type("DateTime")
+     * @Serializer\SerializedName("ShippedAt")
      */
     public $shippedAt;
 
     /**
      * @var \DateTime
-     * @DataField(name="ConfirmedAt", type="datetime")
+     * @Serializer\Type("DateTime")
+     * @Serializer\SerializedName("ConfirmedAt")
      */
     public $confirmedAt;
 
     /**
      * @var \DateTime
-     * @DataField(name="PayedAt", type="datetime")
+     * @Serializer\Type("DateTime")
+     * @Serializer\SerializedName("PayedAt")
      */
     public $payedAt;
 
     /**
      * @var string
-     * @DataField(name="SellerComment", type="string")
+     * @Serializer\Type("string")
+     * @Serializer\SerializedName("SellerComment")
      */
     public $sellerComment;
 
     /**
      * @var Comment[]
-     * @DataField(name="Comments", type="BillbeeDe\BillbeeAPI\Model\Comment[]")
+     * @Serializer\Type("array<BillbeeDe\BillbeeAPI\Model\Comment>")
+     * @Serializer\SerializedName("Comments")
      */
     public $comments;
 
     /**
      * @var string
-     * @DataField(name="InvoiceNumberPrefix", type="string")
+     * @Serializer\Type("string")
+     * @Serializer\SerializedName("InvoiceNumberPrefix")
      */
     public $invoiceNumberPrefix;
 
     /**
      * @var string
-     * @DataField(name="InvoiceNumberPostfix", type="string")
+     * @Serializer\Type("string")
+     * @Serializer\SerializedName("InvoiceNumberPostfix")
      */
     public $invoiceNumberPostfix;
 
     /**
      * @var int
-     * @DataField(name="InvoiceNumber", type="int")
+     * @Serializer\Type("int")
+     * @Serializer\SerializedName("InvoiceNumber")
      */
     public $invoiceNumber;
 
     /**
      * @var \DateTime
-     * @DataField(name="InvoiceDate", type="datetime")
+     * @Serializer\Type("DateTime")
+     * @Serializer\SerializedName("InvoiceDate")
      */
     public $invoiceDate;
 
     /**
      * @var Address
-     * @DataField(name="InvoiceAddress", type="BillbeeDe\BillbeeAPI\Model\Address")
+     * @Serializer\Type("BillbeeDe\BillbeeAPI\Model\Address")
+     * @Serializer\SerializedName("InvoiceAddress")
      */
     public $invoiceAddress;
 
     /**
      * @var Address
-     * @DataField(name="ShippingAddress", type="BillbeeDe\BillbeeAPI\Model\Address")
+     * @Serializer\Type("BillbeeDe\BillbeeAPI\Model\Address")
+     * @Serializer\SerializedName("ShippingAddress")
      */
     public $shippingAddress;
 
     /**
      * @var int
-     * @DataField(name="PaymentMethod", type="int")
+     * @Serializer\Type("int")
+     * @Serializer\SerializedName("PaymentMethod")
      *
      * @see PaymentType
      */
@@ -154,43 +175,50 @@ class Order
 
     /**
      * @var float
-     * @DataField(name="ShippingCost", type="float")
+     * @Serializer\Type("float")
+     * @Serializer\SerializedName("ShippingCost")
      */
     public $shippingCost;
 
     /**
      * @var float
-     * @DataField(name="TotalCost", type="float")
+     * @Serializer\Type("float")
+     * @Serializer\SerializedName("TotalCost")
      */
     public $totalCost;
 
     /**
      * @var float
-     * @DataField(name="AdjustmentCost", type="float")
+     * @Serializer\Type("float")
+     * @Serializer\SerializedName("AdjustmentCost")
      */
     public $adjustmentCost;
 
     /**
      * @var string
-     * @DataField(name="AdjustmentReason", type="string")
+     * @Serializer\Type("string")
+     * @Serializer\SerializedName("AdjustmentReason")
      */
     public $adjustmentReason;
 
     /**
      * @var OrderItem[]
-     * @DataField(name="OrderItems", type="BillbeeDe\BillbeeAPI\Model\OrderItem[]")
+     * @Serializer\Type("array<BillbeeDe\BillbeeAPI\Model\OrderItem>")
+     * @Serializer\SerializedName("OrderItems")
      */
     public $orderItems;
 
     /**
      * @var string
-     * @DataField(name="Currency", type="string")
+     * @Serializer\Type("string")
+     * @Serializer\SerializedName("Currency")
      */
     public $currency;
 
     /**
      * @var bool
-     * @DataField(name="IsCanceled", type="bool")
+     * @Serializer\Type("bool")
+     * @Serializer\SerializedName("IsCanceled")
      */
     public $isCanceled = false;
 
@@ -199,7 +227,8 @@ class Order
 
     /**
      * @var Seller
-     * @DataField(name="Seller", type="BillbeeDe\BillbeeAPI\Model\Seller")
+     * @Serializer\Type("BillbeeDe\BillbeeAPI\Model\Seller")
+     * @Serializer\SerializedName("Seller")
      */
     public $seller;
 
@@ -208,93 +237,108 @@ class Order
 
     /**
      * @var \DateTime
-     * @DataField(name="UpdatedAt", type="datetime")
+     * @Serializer\Type("DateTime")
+     * @Serializer\SerializedName("UpdatedAt")
      */
     public $updatedAt;
 
     /**
      * @var float
-     * @DataField(name="TaxRate1", type="float")
+     * @Serializer\Type("float")
+     * @Serializer\SerializedName("TaxRate1")
      */
     public $taxRate1;
 
     /**
      * @var float
-     * @DataField(name="TaxRate2", type="float")
+     * @Serializer\Type("float")
+     * @Serializer\SerializedName("TaxRate2")
      */
     public $taxRate2;
 
     /**
      * @var string
-     * @DataField(name="VatId", type="string")
+     * @Serializer\Type("string")
+     * @Serializer\SerializedName("VatId")
      */
     public $vatId;
 
     /**
      * @var string[]
-     * @DataField(name="Tags", type="array")
+     * @Serializer\Type("array")
+     * @Serializer\SerializedName("Tags")
      */
     public $tags;
 
     /**
      * @var float
-     * @DataField(name="ShipWeightKg", type="float")
+     * @Serializer\Type("float")
+     * @Serializer\SerializedName("ShipWeightKg")
      */
     public $shipWeightKg;
 
     /**
      * @var string
-     * @DataField(name="LanguageCode", type="string")
+     * @Serializer\Type("string")
+     * @Serializer\SerializedName("LanguageCode")
      */
     public $languageCode;
 
     /**
      * @var float
-     * @DataField(name="PaidAmount", type="float")
+     * @Serializer\Type("float")
+     * @Serializer\SerializedName("PaidAmount")
      */
     public $paidAmount;
 
     /**
      * @var int
-     * @DataField(name="ShippingProfileId", type="int")
+     * @Serializer\Type("int")
+     * @Serializer\SerializedName("ShippingProfileId")
      * @deprecated remove in 2.0.0. Use Shipping $shippingProviderId or $shippingProviderProductId instead
      */
     public $shippingProfileId;
 
     /**
      * @var string
-     * @DataField(name="ShippingProfileName", type="string")
+     * @Serializer\Type("string")
+     * @Serializer\SerializedName("ShippingProfileName")
      * @deprecated remove in 2.0.0. Use Shipping $shippingProviderName or $shippingProviderProductName instead
      */
     public $shippingProfileName;
 
     /**
      * @var int
-     * @DataField(name="ShippingProviderId", type="int")
+     * @Serializer\Type("int")
+     * @Serializer\SerializedName("ShippingProviderId")
      */
     public $shippingProviderId;
 
     /**
      * @var int
-     * @DataField(name="ShippingProviderProductId", type="int")
+     * @Serializer\Type("int")
+     * @Serializer\SerializedName("ShippingProviderProductId")
      */
     public $shippingProviderProductId;
 
     /**
      * @var string
-     * @DataField(name="ShippingProviderName", type="string")
+     * @Serializer\Type("string")
+     * @Serializer\SerializedName("ShippingProviderName")
      */
     public $shippingProviderName;
 
     /**
      * @var string
-     * @DataField(name="ShippingProviderProductName", type="string")
+     * @Serializer\Type("string")
+     * @Serializer\SerializedName("ShippingProviderProductName")
      */
     public $shippingProviderProductName;
 
     /**
      * @var string
-     * @DataField(name="PaymentInstruction", type="string")
+     * @Serializer\Type("string")
+     * @Serializer\SerializedName("PaymentInstruction")
      */
     public $paymentInstruction;
 
@@ -303,13 +347,15 @@ class Order
 
     /**
      * @var string
-     * @DataField(name="PaymentTransactionId", type="string")
+     * @Serializer\Type("string")
+     * @Serializer\SerializedName("PaymentTransactionId")
      */
     public $paymentTransactionId;
 
     /**
      * @var string
-     * @DataField(name="DeliverySourceCountryCode", type="string")
+     * @Serializer\Type("string")
+     * @Serializer\SerializedName("DeliverySourceCountryCode")
      */
     public $deliverySourceCountryCode;
 
@@ -318,25 +364,29 @@ class Order
 
     /**
      * @var string
-     * @DataField(name="CustomerNumber", type="string")
+     * @Serializer\Type("string")
+     * @Serializer\SerializedName("CustomerNumber")
      */
     public $customerNumber;
 
     /**
      * @var string
-     * @DataField(name="DistributionCenter", type="string")
+     * @Serializer\Type("string")
+     * @Serializer\SerializedName("DistributionCenter")
      */
     public $distributionCenter;
 
     /**
      * @var Customer
-     * @DataField(name="Customer", type="BillbeeDe\BillbeeAPI\Model\Customer")
+     * @Serializer\Type("BillbeeDe\BillbeeAPI\Model\Customer")
+     * @Serializer\SerializedName("Customer")
      */
     public $customer;
 
     /**
      * @var Payment[]
-     * @DataField(name="Payments", type="array")
+     * @Serializer\Type("array")
+     * @Serializer\SerializedName("Payments")
      */
     public $payments;
 }

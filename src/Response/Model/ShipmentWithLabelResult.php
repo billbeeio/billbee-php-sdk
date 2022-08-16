@@ -12,55 +12,63 @@
 
 namespace BillbeeDe\BillbeeAPI\Response\Model;
 
-use MintWare\DMM\DataField;
+use JMS\Serializer\Annotation as Serializer;
 
 class ShipmentWithLabelResult
 {
     /**
      * @var int
-     * @DataField(name="OrderId", type="int")
+     * @Serializer\Type("int")
+     * @Serializer\SerializedName("OrderId")
      */
     public $orderId;
 
     /**
      * @var string
-     * @DataField(name="OrderReference", type="string")
+     * @Serializer\Type("string")
+     * @Serializer\SerializedName("OrderReference")
      */
     public $orderReference;
 
     /**
      * @var string
-     * @DataField(name="ShippingId", type="string")
+     * @Serializer\Type("string")
+     * @Serializer\SerializedName("ShippingId")
      */
     public $shippingId;
 
     /**
      * @var string
-     * @DataField(name="TrackingUrl", type="string")
+     * @Serializer\Type("string")
+     * @Serializer\SerializedName("TrackingUrl")
      */
     public $trackingUrl;
 
     /**
      * @var string
-     * @DataField(name="LabelDataPdf", type="string")
+     * @Serializer\Type("string")
+     * @Serializer\SerializedName("LabelDataPdf")
      */
     public $labelDataPdf;
 
     /**
      * @var string
-     * @DataField(name="ExportDocsPdf", type="string")
+     * @Serializer\Type("string")
+     * @Serializer\SerializedName("ExportDocsPdf")
      */
     public $exportDocsPdf;
 
     /**
      * @var string
-     * @DataField(name="Carrier", type="string")
+     * @Serializer\Type("string")
+     * @Serializer\SerializedName("Carrier")
      */
     public $carrier;
 
     /**
      * @var string
-     * @DataField(name="ShippingDate", type="string")
+     * @Serializer\Type("string")
+     * @Serializer\SerializedName("ShippingDate")
      */
     public $shippingDate;
 }

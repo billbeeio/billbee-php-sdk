@@ -12,49 +12,56 @@
 
 namespace BillbeeDe\BillbeeAPI\Model;
 
-use MintWare\DMM\DataField;
+use JMS\Serializer\Annotation as Serializer;
 
 class InvoiceDocument
 {
     /**
      * @var string
-     * @DataField(name="OrderNumber", type="string")
+     * @Serializer\Type("string")
+     * @Serializer\SerializedName("OrderNumber")
      */
     public $orderNumber;
 
     /**
      * @var string
-     * @DataField(name="InvoiceNumber", type="string")
+     * @Serializer\Type("string")
+     * @Serializer\SerializedName("InvoiceNumber")
      */
     public $invoiceNumber;
 
     /**
      * @var string
-     * @DataField(name="PDFData", type="string")
+     * @Serializer\Type("string")
+     * @Serializer\SerializedName("PDFData")
      */
     public $pdfData;
 
     /**
      * @var \DateTime
-     * @DataField(name="InvoiceDate", type="datetime")
+     * @Serializer\Type("DateTime")
+     * @Serializer\SerializedName("InvoiceDate")
      */
     public $invoiceDate;
 
     /**
      * @var float
-     * @DataField(name="TotalGross", type="float")
+     * @Serializer\Type("float")
+     * @Serializer\SerializedName("TotalGross")
      */
     public $totalGross;
 
     /**
      * @var float
-     * @DataField(name="TotalNet", type="float")
+     * @Serializer\Type("float")
+     * @Serializer\SerializedName("TotalNet")
      */
     public $totalNet;
 
     /**
      * @var string
-     * @DataField(name="PdfDownloadUrl", type="string")
+     * @Serializer\Type("string")
+     * @Serializer\SerializedName("PdfDownloadUrl")
      */
     public $pdfDownloadUrl;
 }

@@ -12,56 +12,64 @@
 
 namespace BillbeeDe\BillbeeAPI\Model;
 
-use MintWare\DMM\DataField;
+use JMS\Serializer\Annotation as Serializer;
 
 class WebHook
 {
     /**
      * @var string
-     * @DataField("Id", type="string")
+     * @Serializer\Type("string")
+     * @Serializer\SerializedName("Id")
      */
     public $id;
 
     /**
      * @var string
-     * @DataField("WebHookUri", type="string")
+     * @Serializer\Type("string")
+     * @Serializer\SerializedName("WebHookUri")
      */
     public $webHookUri;
 
     /**
      * @var string
-     * @DataField("Secret", type="string")
+     * @Serializer\Type("string")
+     * @Serializer\SerializedName("Secret")
      */
     public $secret;
 
     /**
      * @var string
-     * @DataField("Description", type="string")
+     * @Serializer\Type("string")
+     * @Serializer\SerializedName("Description")
      */
     public $description;
 
     /**
      * @var bool
-     * @DataField("IsPaused", type="bool")
+     * @Serializer\Type("bool")
+     * @Serializer\SerializedName("IsPaused")
      */
     public $isPaused = false;
 
     /**
      * @var string[]
-     * @DataField("Filters", type="array")
+     * @Serializer\Type("array")
+     * @Serializer\SerializedName("Filters")
      * @see \BillbeeDe\BillbeeAPI\Model\WebHookFilter
      */
     public $filters = null;
 
     /**
      * @var array
-     * @DataField("Headers", type="array")
+     * @Serializer\Type("array")
+     * @Serializer\SerializedName("Headers")
      */
     public $headers = null;
 
     /**
      * @var array
-     * @DataField("Properties", type="array")
+     * @Serializer\Type("array")
+     * @Serializer\SerializedName("Properties")
      */
     public $properties = null;
 }

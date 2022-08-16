@@ -12,13 +12,15 @@
 
 namespace BillbeeDe\BillbeeAPI\Response;
 
-use MintWare\DMM\DataField;
+use BillbeeDe\BillbeeAPI\Model\CustomFieldDefinition;
+use JMS\Serializer\Annotation as Serializer;
 
 class GetCustomFieldDefinitionResponse extends BaseResponse
 {
     /**
-     * @var \BillbeeDe\BillbeeAPI\Model\CustomFieldDefinition
-     * @DataField(name="Data", type="\BillbeeDe\BillbeeAPI\Model\CustomFieldDefinition")
+     * @var CustomFieldDefinition
+     * @Serializer\Type("BillbeeDe\BillbeeAPI\Model\CustomFieldDefinition")
+     * @Serializer\SerializedName("Data")
      */
     public $data = null;
 }

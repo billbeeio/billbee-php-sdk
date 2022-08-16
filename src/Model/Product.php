@@ -13,7 +13,7 @@
 namespace BillbeeDe\BillbeeAPI\Model;
 
 use BillbeeDe\BillbeeAPI\Type\ProductCondition;
-use MintWare\DMM\DataField;
+use JMS\Serializer\Annotation as Serializer;
 
 class Product
 {
@@ -115,301 +115,351 @@ class Product
 
     /**
      * @var int
-     * @DataField(name="Id", type="int")
+     * @Serializer\Type("int")
+     * @Serializer\SerializedName("Id")
      */
     public $id;
 
     /**
      * @var int
-     * @DataField(name="Type", type="int")
+     * @Serializer\Type("int")
+     * @Serializer\SerializedName("Type")
      */
     public $type = Product::TYPE_PRODUCT;
 
     /**
      * @var TranslatableText[]
-     * @DataField(name="Title", type="BillbeeDe\BillbeeAPI\Model\TranslatableText[]")
+     * @Serializer\Type("array<BillbeeDe\BillbeeAPI\Model\TranslatableText>")
+     * @Serializer\SerializedName("Title")
      */
     public $title = null;
 
     /**
      * @var TranslatableText[]
-     * @DataField(name="InvoiceText", type="BillbeeDe\BillbeeAPI\Model\TranslatableText[]")
+     * @Serializer\Type("array<BillbeeDe\BillbeeAPI\Model\TranslatableText>")
+     * @Serializer\SerializedName("InvoiceText")
      */
     public $invoiceText = [];
 
     /**
      * @var TranslatableText[]
-     * @DataField(name="ShortDescription", type="BillbeeDe\BillbeeAPI\Model\TranslatableText[]")
+     * @Serializer\Type("array<BillbeeDe\BillbeeAPI\Model\TranslatableText>")
+     * @Serializer\SerializedName("ShortDescription")
      */
     public $shortDescription = [];
 
     /**
      * @var Image[]
-     * @DataField(name="Images", type="BillbeeDe\BillbeeAPI\Model\Image[]")
+     * @Serializer\Type("BillbeeDe\BillbeeAPI\Model\Image[]")
+     * @Serializer\SerializedName("Images")
      */
     public $images = [];
 
     /**
      * @var TranslatableText[]
-     * @DataField(name="Description", type="BillbeeDe\BillbeeAPI\Model\TranslatableText[]")
+     * @Serializer\Type("array<BillbeeDe\BillbeeAPI\Model\TranslatableText>")
+     * @Serializer\SerializedName("Description")
      */
     public $description = [];
 
     /**
      * @var TranslatableText[]
-     * @DataField(name="BasicAttributes", type="BillbeeDe\BillbeeAPI\Model\TranslatableText[]")
+     * @Serializer\Type("array<BillbeeDe\BillbeeAPI\Model\TranslatableText>")
+     * @Serializer\SerializedName("BasicAttributes")
      */
     public $attributes = [];
 
     /**
      * @var string
-     * @DataField(name="SKU", type="string")
+     * @Serializer\Type("string")
+     * @Serializer\SerializedName("SKU")
      */
     public $sku = '';
 
     /**
      * @var string
-     * @DataField(name="EAN", type="string")
+     * @Serializer\Type("string")
+     * @Serializer\SerializedName("EAN")
      */
     public $ean = '';
 
     /**
      * @var Source[]
-     * @DataField(name="Sources", type="BillbeeDe\BillbeeAPI\Model\Source[]")
+     * @Serializer\Type("BillbeeDe\BillbeeAPI\Model\Source[]")
+     * @Serializer\SerializedName("Sources")
      */
     public $sources = [];
 
     /**
      * @var Category
-     * @DataField(name="Category1", type="BillbeeDe\BillbeeAPI\Model\Category")
+     * @Serializer\Type("BillbeeDe\BillbeeAPI\Model\Category")
+     * @Serializer\SerializedName("Category1")
      */
     public $category1 = null;
 
     /**
      * @var Category
-     * @DataField(name="Category2", type="BillbeeDe\BillbeeAPI\Model\Category")
+     * @Serializer\Type("BillbeeDe\BillbeeAPI\Model\Category")
+     * @Serializer\SerializedName("Category2")
      */
     public $category2 = null;
 
     /**
      * @var Category
-     * @DataField(name="Category3", type="BillbeeDe\BillbeeAPI\Model\Category")
+     * @Serializer\Type("BillbeeDe\BillbeeAPI\Model\Category")
+     * @Serializer\SerializedName("Category3")
      */
     public $category3 = null;
 
     /**
      * @var string
-     * @DataField(name="Manufacturer", type="string")
+     * @Serializer\Type("string")
+     * @Serializer\SerializedName("Manufacturer")
      */
     public $manufacturer = '';
 
     /**
      * @var int
-     * @DataField(name="VatIndex", type="int")
+     * @Serializer\Type("int")
+     * @Serializer\SerializedName("VatIndex")
      */
     public $vatIndex = Product::VAT_INDEX_NORMAL;
 
     /**
      * @var float
-     * @DataField(name="Price", type="float")
+     * @Serializer\Type("float")
+     * @Serializer\SerializedName("Price")
      */
     public $price = 0.00;
 
     /**
      * @var float
-     * @DataField(name="CostPrice", type="float")
+     * @Serializer\Type("float")
+     * @Serializer\SerializedName("CostPrice")
      */
     public $costPrice = 0.00;
 
     /**
      * @var float
-     * @DataField(name="Vat1Rate", type="float")
+     * @Serializer\Type("float")
+     * @Serializer\SerializedName("Vat1Rate")
      */
     public $vatRateNormal = 0.00;
 
     /**
      * @var float
-     * @DataField(name="Vat2Rate", type="float")
+     * @Serializer\Type("float")
+     * @Serializer\SerializedName("Vat2Rate")
      */
     public $vatRateReduced = 0.00;
 
     /**
      * @var TranslatableText[]
-     * @DataField(name="Materials", type="BillbeeDe\BillbeeAPI\Model\TranslatableText[]")
+     * @Serializer\Type("array<BillbeeDe\BillbeeAPI\Model\TranslatableText>")
+     * @Serializer\SerializedName("Materials")
      */
     public $materials = [];
 
     /**
      * @var TranslatableText[]
-     * @DataField(name="Tags", type="BillbeeDe\BillbeeAPI\Model\TranslatableText[]")
+     * @Serializer\Type("array<BillbeeDe\BillbeeAPI\Model\TranslatableText>")
+     * @Serializer\SerializedName("Tags")
      */
     public $tags = [];
 
     /**
      * @var float
-     * @DataField(name="StockDesired", type="float")
+     * @Serializer\Type("float")
+     * @Serializer\SerializedName("StockDesired")
      */
     public $stockDesired = 0.00;
 
     /**
      * @var float
-     * @DataField(name="StockCurrent", type="float")
+     * @Serializer\Type("float")
+     * @Serializer\SerializedName("StockCurrent")
      */
     public $stockCurrent = 0.00;
 
     /**
      * @var float
-     * @DataField(name="StockWarning", type="float")
+     * @Serializer\Type("float")
+     * @Serializer\SerializedName("StockWarning")
      */
     public $stockWarning = 0.00;
 
     /**
      * @var bool
-     * @DataField(name="LowStock", type="bool")
+     * @Serializer\Type("bool")
+     * @Serializer\SerializedName("LowStock")
      */
     public $lowStock = false;
 
     /**
      * @var string
-     * @DataField(name="StockCode", type="string")
+     * @Serializer\Type("string")
+     * @Serializer\SerializedName("StockCode")
      */
     public $stockCode = '';
 
     /**
      * @var float
-     * @DataField(name="StockReduceItemsPerSale", type="float")
+     * @Serializer\Type("float")
+     * @Serializer\SerializedName("StockReduceItemsPerSale")
      */
     public $stockReduceItemsPerSale = 1.0;
 
     /**
      * @var array
-     * @DataField(name="Stocks", type="array")
+     * @Serializer\Type("array")
+     * @Serializer\SerializedName("Stocks")
      */
     public $stocks = [];
 
     /**
      * @var int
-     * @DataField(name="Weight", type="int")
+     * @Serializer\Type("int")
+     * @Serializer\SerializedName("Weight")
      */
     public $weight = 0;
 
     /**
      * @var int
-     * @DataField(name="WeightNet", type="int")
+     * @Serializer\Type("int")
+     * @Serializer\SerializedName("WeightNet")
      */
     public $weightNet = 0;
 
     /**
      * @var int
-     * @DataField(name="Unit", type="int")
+     * @Serializer\Type("int")
+     * @Serializer\SerializedName("Unit")
      */
     public $unit = Product::UNIT_PIECE;
 
     /**
      * @var float
-     * @DataField(name="UnitsPerItem", type="float")
+     * @Serializer\Type("float")
+     * @Serializer\SerializedName("UnitsPerItem")
      */
     public $unitsPerItem = 1.0;
 
     /**
      * @var float
-     * @DataField(name="SoldAmount", type="float")
+     * @Serializer\Type("float")
+     * @Serializer\SerializedName("SoldAmount")
      */
     public $soldAmount = 0;
 
     /**
      * @var float
-     * @DataField(name="SoldSumGross", type="float")
+     * @Serializer\Type("float")
+     * @Serializer\SerializedName("SoldSumGross")
      */
     public $soldSumGross = 0.0;
 
     /**
      * @var float
-     * @DataField(name="SoldSumNet", type="float")
+     * @Serializer\Type("float")
+     * @Serializer\SerializedName("SoldSumNet")
      */
     public $soldSumNet = 0.0;
 
     /**
      * @var float
-     * @DataField(name="SoldSumNetLast30Days", type="float")
+     * @Serializer\Type("float")
+     * @Serializer\SerializedName("SoldSumNetLast30Days")
      */
     public $soldSumNetLast30Days = 0.0;
 
     /**
      * @var float
-     * @DataField(name="SoldSumGrossLast30Days", type="float")
+     * @Serializer\Type("float")
+     * @Serializer\SerializedName("SoldSumGrossLast30Days")
      */
     public $soldSumGrossLast30Days = 0.0;
 
     /**
      * @var float
-     * @DataField(name="SoldAmountLast30Days", type="float")
+     * @Serializer\Type("float")
+     * @Serializer\SerializedName("SoldAmountLast30Days")
      */
     public $soldAmountLast30Days = 0.0;
 
     /**
      * @var int
-     * @DataField(name="ShippingProductId", type="int")
+     * @Serializer\Type("int")
+     * @Serializer\SerializedName("ShippingProductId")
      */
     public $shippingProductId = 0;
 
     /**
      * @var bool
-     * @DataField(name="IsDigital", type="bool")
+     * @Serializer\Type("bool")
+     * @Serializer\SerializedName("IsDigital")
      */
     public $isDigital = false;
 
     /**
      * @var bool
-     * @DataField(name="IsCustomizable", type="bool")
+     * @Serializer\Type("bool")
+     * @Serializer\SerializedName("IsCustomizable")
      */
     public $isCustomizable = false;
 
     /**
      * @var int|null
-     * @DataField(name="DeliveryTime", type="int")
+     * @Serializer\Type("int")
+     * @Serializer\SerializedName("DeliveryTime")
      */
     public $deliveryTime = Product::DELIVERY_NA;
 
     /**
      * @var int|null
-     * @DataField(name="Recipient", type="int")
+     * @Serializer\Type("int")
+     * @Serializer\SerializedName("Recipient")
      */
     public $recipient = Product::RECIPIENT_NA;
 
     /**
      * @var int|null
-     * @DataField(name="Occasion", type="int")
+     * @Serializer\Type("int")
+     * @Serializer\SerializedName("Occasion")
      */
     public $occasion = Product::OCCASION_NA;
 
     /**
      * @var string
-     * @DataField(name="CountryOfOrigin", type="string")
+     * @Serializer\Type("string")
+     * @Serializer\SerializedName("CountryOfOrigin")
      */
     public $countryOfOrigin = '';
 
     /**
      * @var string
-     * @DataField(name="ExportDescription", type="string")
+     * @Serializer\Type("string")
+     * @Serializer\SerializedName("ExportDescription")
      */
     public $exportDescription = '';
 
     /**
      * @var string
-     * @DataField(name="TaricNumber", type="string")
+     * @Serializer\Type("string")
+     * @Serializer\SerializedName("TaricNumber")
      */
     public $taricNumber = '';
 
     /**
      * @var ProductCustomField[]
-     * @DataField(name="CustomFields", type="\BillbeeDe\BillbeeAPI\Model\ProductCustomField[]")
+     * @Serializer\Type("BillbeeDe\BillbeeAPI\Model\ProductCustomField[]")
+     * @Serializer\SerializedName("CustomFields")
      */
     public $customFields = [];
 
     /**
      * @var int
-     * @DataField(name="Condition", type="int")
+     * @Serializer\Type("int")
+     * @Serializer\SerializedName("Condition")
      *
      * @see ProductCondition
      */
@@ -417,25 +467,29 @@ class Product
 
     /**
      * @var float
-     * @DataField(name="WidthCm", type="float")
+     * @Serializer\Type("float")
+     * @Serializer\SerializedName("WidthCm")
      */
     public $widthCm;
 
     /**
      * @var float
-     * @DataField(name="LengthCm", type="float")
+     * @Serializer\Type("float")
+     * @Serializer\SerializedName("LengthCm")
      */
     public $lengthCm;
 
     /**
      * @var float
-     * @DataField(name="HeightCm", type="float")
+     * @Serializer\Type("float")
+     * @Serializer\SerializedName("HeightCm")
      */
     public $heightCm;
 
     /**
      * @var BillOfMaterialProduct[]
-     * @DataField(name="BillOfMaterial", type="BillbeeDe\BillbeeAPI\Model\BillOfMaterialProduct[]")
+     * @Serializer\Type("BillbeeDe\BillbeeAPI\Model\BillOfMaterialProduct[]")
+     * @Serializer\SerializedName("BillOfMaterial")
      *
      * @see ProductCondition
      */

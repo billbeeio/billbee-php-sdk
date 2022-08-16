@@ -12,13 +12,15 @@
 
 namespace BillbeeDe\BillbeeAPI\Response;
 
-use MintWare\DMM\DataField;
+use BillbeeDe\BillbeeAPI\Model\Layout;
+use JMS\Serializer\Annotation as Serializer;
 
 class GetLayoutsResponse extends BaseResponse
 {
     /**
-     * @var \BillbeeDe\BillbeeAPI\Model\Layout[]
-     * @DataField(name="Data", type="\BillbeeDe\BillbeeAPI\Model\Layout[]")
+     * @var Layout[]
+     * @Serializer\Type("array<BillbeeDe\BillbeeAPI\Model\Layout>")
+     * @Serializer\SerializedName("Data")
      */
     public $data = null;
 }

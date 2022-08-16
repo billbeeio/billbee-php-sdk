@@ -12,13 +12,15 @@
 
 namespace BillbeeDe\BillbeeAPI\Response;
 
-use MintWare\DMM\DataField;
+use BillbeeDe\BillbeeAPI\Model\ShippingProvider;
+use JMS\Serializer\Annotation as Serializer;
 
 class GetShippingProvidersResponse extends BaseResponse
 {
     /**
-     * @var \BillbeeDe\BillbeeAPI\Model\ShippingProvider[]
-     * @DataField(name="Data", type="\BillbeeDe\BillbeeAPI\Model\ShippingProvider[]")
+     * @var ShippingProvider[]
+     * @Serializer\Type("array<BillbeeDe\BillbeeAPI\Model\ShippingProvider>")
+     * @Serializer\SerializedName("Data")
      */
     public $data = [];
 }

@@ -12,12 +12,25 @@
 
 namespace BillbeeDe\BillbeeAPI\Transformer;
 
-use MintWare\DMM\TransformerInterface;
+use JMS\Serializer\Context;
+use JMS\Serializer\GraphNavigatorInterface;
+use JMS\Serializer\Handler\SubscribingHandlerInterface;
+use JMS\Serializer\JsonDeserializationVisitor;
+use JMS\Serializer\JsonSerializationVisitor;
 
-class DefinitionConfigTransformer implements TransformerInterface
+class DefinitionConfigTransformer implements SubscribingHandlerInterface
 {
     /** @inheritdoc */
-    public static function transform($data)
+    public static function serialize(JsonSerializationVisitor $visitor, array $data, array $type, Context $context)
+    {
+        if (isset($data['Choices']) && is_array($data['Choices'])) {
+            $data['Choices'] = implode("\n", $data['Choices']);
+        }
+        return $data;
+    }
+
+    /** @inheritdoc */
+    public static function deserialize(JsonDeserializationVisitor $visitor, $data, array $type, Context $context)
     {
         if (isset($data['Choices']) && !is_array($data['Choices'])) {
             $data['Choices'] = explode("\n", $data['Choices']);
@@ -25,12 +38,21 @@ class DefinitionConfigTransformer implements TransformerInterface
         return $data;
     }
 
-    /** @inheritdoc */
-    public static function reverseTransform($data)
+    public static function getSubscribingMethods(): array
     {
-        if (isset($data['Choices']) && is_array($data['Choices'])) {
-            $data['Choices'] = implode("\n", $data['Choices']);
-        }
-        return $data;
+        return [
+            [
+                'direction' => GraphNavigatorInterface::DIRECTION_SERIALIZATION,
+                'format' => 'json',
+                'type' => 'CustomField',
+                'method' => 'serialize',
+            ],
+            [
+                'direction' => GraphNavigatorInterface::DIRECTION_DESERIALIZATION,
+                'format' => 'json',
+                'type' => 'CustomField',
+                'method' => 'deserialize',
+            ],
+        ];
     }
 }

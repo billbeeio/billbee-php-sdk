@@ -12,13 +12,14 @@
 
 namespace BillbeeDe\BillbeeAPI\Response;
 
-use MintWare\DMM\DataField;
+use JMS\Serializer\Annotation as Serializer;
 
 class GetPatchableFieldsResponse extends BaseResponse
 {
     /**
      * @var string[]
-     * @DataField(name="Data", type="array")
+     * @Serializer\Type("array<string>")
+     * @Serializer\SerializedName("Data")
      */
     public $data = [];
 }

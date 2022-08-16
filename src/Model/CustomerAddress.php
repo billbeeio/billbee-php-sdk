@@ -12,7 +12,7 @@
 
 namespace BillbeeDe\BillbeeAPI\Model;
 
-use MintWare\DMM\DataField;
+use JMS\Serializer\Annotation as Serializer;
 
 class CustomerAddress
 {
@@ -21,115 +21,134 @@ class CustomerAddress
 
     /**
      * @var integer
-     * @DataField("Id", type="integer")
+     * @Serializer\Type("integer")
+     * @Serializer\SerializedName("Id")
      */
     public $id;
 
     /**
      * @var integer
-     * @DataField("AddressType", type="integer|string")
+     * @Serializer\Type("integer|string")
+     * @Serializer\SerializedName("AddressType")
      */
     public $addressType = self::TYPE_INVOICE;
 
     /**
      * @var integer
-     * @DataField("CustomerId", type="integer")
+     * @Serializer\Type("integer")
+     * @Serializer\SerializedName("CustomerId")
      */
     public $customerId;
 
     /**
      * @var string
-     * @DataField("Company", type="string")
+     * @Serializer\Type("string")
+     * @Serializer\SerializedName("Company")
      */
     public $company;
 
     /**
      * @var string
-     * @DataField("FirstName", type="string")
+     * @Serializer\Type("string")
+     * @Serializer\SerializedName("FirstName")
      */
     public $firstName;
 
     /**
      * @var string
-     * @DataField("LastName", type="string")
+     * @Serializer\Type("string")
+     * @Serializer\SerializedName("LastName")
      */
     public $lastName;
 
     /**
      * @var string
-     * @DataField("Name2", type="string")
+     * @Serializer\Type("string")
+     * @Serializer\SerializedName("Name2")
      */
     public $name2;
 
     /**
      * @var string
-     * @DataField("Street", type="string")
+     * @Serializer\Type("string")
+     * @Serializer\SerializedName("Street")
      */
     public $street;
 
     /**
      * @var string
-     * @DataField("Housenumber", type="string")
+     * @Serializer\Type("string")
+     * @Serializer\SerializedName("Housenumber")
      */
     public $houseNumber;
 
     /**
      * @var string
-     * @DataField("Zip", type="string")
+     * @Serializer\Type("string")
+     * @Serializer\SerializedName("Zip")
      */
     public $zip;
 
     /**
      * @var string
-     * @DataField("City", type="string")
+     * @Serializer\Type("string")
+     * @Serializer\SerializedName("City")
      */
     public $city;
 
     /**
      * @var string
-     * @DataField("State", type="string")
+     * @Serializer\Type("string")
+     * @Serializer\SerializedName("State")
      */
     public $state;
 
     /**
      * @var string
-     * @DataField("CountryCode", type="string")
+     * @Serializer\Type("string")
+     * @Serializer\SerializedName("CountryCode")
      */
     public $countryCode;
 
     /**
      * @var string
-     * @DataField("Email", type="string")
+     * @Serializer\Type("string")
+     * @Serializer\SerializedName("Email")
      */
     public $email;
 
     /**
      * @var string
-     * @DataField("Tel1", type="string")
+     * @Serializer\Type("string")
+     * @Serializer\SerializedName("Tel1")
      */
     public $phone1;
 
     /**
      * @var string
-     * @DataField("Tel2", type="string")
+     * @Serializer\Type("string")
+     * @Serializer\SerializedName("Tel2")
      */
     public $phone2;
 
     /**
      * @var string
-     * @DataField("Fax", type="string")
+     * @Serializer\Type("string")
+     * @Serializer\SerializedName("Fax")
      */
     public $fax;
 
     /**
      * @var string
-     * @DataField("FullAddr", type="string")
+     * @Serializer\Type("string")
+     * @Serializer\SerializedName("FullAddr")
      */
     public $fullAddress;
 
     /**
      * @var string
-     * @DataField("AddressAddition", type="string")
+     * @Serializer\Type("string")
+     * @Serializer\SerializedName("AddressAddition")
      */
     public $addressAddition;
 }

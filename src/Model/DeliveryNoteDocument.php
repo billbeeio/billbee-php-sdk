@@ -12,37 +12,42 @@
 
 namespace BillbeeDe\BillbeeAPI\Model;
 
-use MintWare\DMM\DataField;
+use JMS\Serializer\Annotation as Serializer;
 
 class DeliveryNoteDocument
 {
     /**
      * @var string
-     * @DataField(name="OrderNumber", type="string")
+     * @Serializer\Type("string")
+     * @Serializer\SerializedName("OrderNumber")
      */
     public $orderNumber;
 
     /**
      * @var string
-     * @DataField(name="DeliveryNoteNumber", type="string")
+     * @Serializer\Type("string")
+     * @Serializer\SerializedName("DeliveryNoteNumber")
      */
     public $deliveryNoteNumber;
 
     /**
      * @var string
-     * @DataField(name="PDFData", type="string")
+     * @Serializer\Type("string")
+     * @Serializer\SerializedName("PDFData")
      */
     public $pdfData;
 
     /**
      * @var \DateTime
-     * @DataField(name="DeliveryNoteDate", type="datetime")
+     * @Serializer\Type("DateTime")
+     * @Serializer\SerializedName("DeliveryNoteDate")
      */
     public $deliveryNoteDate;
 
     /**
      * @var string
-     * @DataField(name="PdfDownloadUrl", type="string")
+     * @Serializer\Type("string")
+     * @Serializer\SerializedName("PdfDownloadUrl")
      */
     public $pdfDownloadUrl;
 }

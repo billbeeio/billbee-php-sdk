@@ -12,13 +12,15 @@
 
 namespace BillbeeDe\BillbeeAPI\Response;
 
-use MintWare\DMM\DataField;
+use BillbeeDe\BillbeeAPI\Model\Invoice;
+use JMS\Serializer\Annotation as Serializer;
 
 class GetInvoicesResponse extends BaseResponse
 {
     /**
-     * @var \BillbeeDe\BillbeeAPI\Model\Invoice[]
-     * @DataField(name="Data", type="\BillbeeDe\BillbeeAPI\Model\Invoice[]")
+     * @var Invoice[]
+     * @Serializer\Type("array<BillbeeDe\BillbeeAPI\Model\Invoice>")
+     * @Serializer\SerializedName("Data")
      */
     public $data = [];
 }

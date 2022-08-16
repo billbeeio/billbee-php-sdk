@@ -18,7 +18,7 @@ use BillbeeDe\BillbeeAPI\Exception\QuotaExceededException;
 use BillbeeDe\BillbeeAPI\Model as Model;
 use BillbeeDe\BillbeeAPI\Response as Response;
 use Exception;
-use MintWare\DMM\Serializer\SerializerInterface;
+use JMS\Serializer\SerializerInterface;
 
 class ShipmentsEndpoint
 {
@@ -77,7 +77,7 @@ class ShipmentsEndpoint
     {
         return $this->client->post(
             'shipment/shipwithlabel',
-            $this->serializer->serialize($shipment),
+            $this->serializer->serialize($shipment, 'json'),
             Response\ShipWithLabelResponse::class
         );
     }

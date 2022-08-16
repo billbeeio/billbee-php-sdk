@@ -12,43 +12,49 @@
 
 namespace BillbeeDe\BillbeeAPI\Model;
 
-use MintWare\DMM\DataField;
+use JMS\Serializer\Annotation as Serializer;
 
 class Image
 {
     /**
      * @var int
-     * @DataField(name="Id", type="int")
+     * @Serializer\Type("int")
+     * @Serializer\SerializedName("Id")
      */
     public $id;
 
     /**
      * @var string
-     * @DataField(name="Url", type="string")
+     * @Serializer\Type("string")
+     * @Serializer\SerializedName("Url")
      */
     public $url = '';
 
     /**
      * @var string
-     * @DataField(name="ThumbPathExt", type="string")
+     * @Serializer\Type("string")
+     * @Serializer\SerializedName("ThumbPathExt")
      */
     public $thumbPathExt = '';
 
     /**
      * @var string
-     * @DataField(name="ThumbUrl", type="string")
+     * @Serializer\Type("string")
+     * @Serializer\SerializedName("ThumbUrl")
      */
     public $thumbUrl = '';
 
     /**
      * @var int
-     * @DataField(name="Position", type="int")
+     * @Serializer\Type("int")
+     * @Serializer\SerializedName("Position")
      */
     public $position = 1;
 
     /**
      * @var bool
-     * @DataField(name="IsDefault", type="bool")
+     * @Serializer\Type("bool")
+     * @Serializer\SerializedName("IsDefault")
      */
     public $isDefault = true;
 }

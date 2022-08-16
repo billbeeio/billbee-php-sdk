@@ -13,25 +13,28 @@
 namespace BillbeeDe\BillbeeAPI\Model;
 
 use BillbeeDe\BillbeeAPI\Type\EventType;
-use MintWare\DMM\DataField;
+use JMS\Serializer\Annotation as Serializer;
 
 class Event
 {
     /**
      * @var int
-     * @DataField(name="Id", type="int")
+     * @Serializer\Type("int")
+     * @Serializer\SerializedName("Id")
      */
     public $id;
 
     /**
      * @var string
-     * @DataField(name="Created", type="datetime")
+     * @Serializer\Type("DateTime")
+     * @Serializer\SerializedName("Created")
      */
     public $created = '';
 
     /**
      * @var int
-     * @DataField(name="TypeId", type="int")
+     * @Serializer\Type("int")
+     * @Serializer\SerializedName("TypeId")
      *
      * @see EventType
      */
@@ -39,25 +42,29 @@ class Event
 
     /**
      * @var string
-     * @DataField(name="TypeText", type="string")
+     * @Serializer\Type("string")
+     * @Serializer\SerializedName("TypeText")
      */
     public $typeText = '';
 
     /**
      * @var int
-     * @DataField(name="EmployeeId", type="int")
+     * @Serializer\Type("int")
+     * @Serializer\SerializedName("EmployeeId")
      */
     public $employeeId = null;
 
     /**
      * @var string
-     * @DataField(name="EmployeeName", type="string")
+     * @Serializer\Type("string")
+     * @Serializer\SerializedName("EmployeeName")
      */
     public $employeeName = '';
 
     /**
      * @var int
-     * @DataField(name="OrderId", type="int")
+     * @Serializer\Type("int")
+     * @Serializer\SerializedName("OrderId")
      */
     public $orderId = null;
 }

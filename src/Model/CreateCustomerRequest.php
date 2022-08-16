@@ -12,13 +12,14 @@
 
 namespace BillbeeDe\BillbeeAPI\Model;
 
-use MintWare\DMM\DataField;
+use JMS\Serializer\Annotation as Serializer;
 
 class CreateCustomerRequest extends Customer
 {
     /**
      * @var CustomerAddress
-     * @DataField(name="Address", type="BillbeeDe\BillbeeAPI\Model\CustomerAddress")
+     * @Serializer\Type("BillbeeDe\BillbeeAPI\Model\CustomerAddress")
+     * @Serializer\SerializedName("Address")
      */
     public $address;
 }

@@ -12,25 +12,28 @@
 
 namespace BillbeeDe\BillbeeAPI\Model;
 
-use MintWare\DMM\DataField;
+use JMS\Serializer\Annotation as Serializer;
 
 class Dimensions
 {
     /**
      * @var float
-     * @DataField(name="width", type="float")
+     * @Serializer\Type("float")
+     * @Serializer\SerializedName("width")
      */
     public $width;
 
     /**
      * @var float
-     * @DataField(name="height", type="float")
+     * @Serializer\Type("float")
+     * @Serializer\SerializedName("height")
      */
     public $height;
 
     /**
      * @var float
-     * @DataField(name="length", type="float")
+     * @Serializer\Type("float")
+     * @Serializer\SerializedName("length")
      */
     public $length;
 

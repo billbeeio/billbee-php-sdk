@@ -6,31 +6,35 @@
 namespace BillbeeDe\BillbeeAPI\Model;
 
 use BillbeeDe\BillbeeAPI\Type\PaymentType;
-use MintWare\DMM\DataField;
+use JMS\Serializer\Annotation as Serializer;
 
 class Payment
 {
     /**
      * @var int
-     * @DataField(name="BillbeeId", type="int")
+     * @Serializer\Type("int")
+     * @Serializer\SerializedName("BillbeeId")
      */
     public $id;
 
     /**
      * @var string
-     * @DataField(name="TransactionId", type="string")
+     * @Serializer\Type("string")
+     * @Serializer\SerializedName("TransactionId")
      */
     public $transactionId;
 
     /**
      * @var \DateTime
-     * @DataField(name="PayDate", type="datetime")
+     * @Serializer\Type("DateTime")
+     * @Serializer\SerializedName("PayDate")
      */
     public $payDate;
 
     /**
      * @var int
-     * @DataField(name="PaymentType", type="int")
+     * @Serializer\Type("int")
+     * @Serializer\SerializedName("PaymentType")
      *
      * @see PaymentType
      */
@@ -38,31 +42,36 @@ class Payment
 
     /**
      * @var string
-     * @DataField(name="SourceTechnology", type="string")
+     * @Serializer\Type("string")
+     * @Serializer\SerializedName("SourceTechnology")
      */
     public $sourceTechnology;
 
     /**
      * @var string
-     * @DataField(name="SourceText", type="string")
+     * @Serializer\Type("string")
+     * @Serializer\SerializedName("SourceText")
      */
     public $sourceText;
 
     /**
      * @var float
-     * @DataField(name="PayValue", type="float")
+     * @Serializer\Type("float")
+     * @Serializer\SerializedName("PayValue")
      */
     public $payValue;
 
     /**
      * @var string
-     * @DataField(name="Purpose", type="string")
+     * @Serializer\Type("string")
+     * @Serializer\SerializedName("Purpose")
      */
     public $purpose;
 
     /**
      * @var string
-     * @DataField(name="Name", type="string")
+     * @Serializer\Type("string")
+     * @Serializer\SerializedName("Name")
      */
     public $name;
 }

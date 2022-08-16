@@ -13,25 +13,28 @@
 namespace BillbeeDe\BillbeeAPI\Model;
 
 use BillbeeDe\BillbeeAPI\Type\LayoutType;
-use MintWare\DMM\DataField;
+use JMS\Serializer\Annotation as Serializer;
 
 class Layout
 {
     /**
      * @var int
-     * @DataField(name="Id", type="int")
+     * @Serializer\Type("int")
+     * @Serializer\SerializedName("Id")
      */
     public $id;
 
     /**
      * @var string
-     * @DataField(name="Name", type="string")
+     * @Serializer\Type("string")
+     * @Serializer\SerializedName("Name")
      */
     public $name = '';
 
     /**
      * @var int
-     * @DataField(name="Type", type="int")
+     * @Serializer\Type("int")
+     * @Serializer\SerializedName("Type")
      *
      * @see LayoutType
      */

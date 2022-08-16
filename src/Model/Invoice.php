@@ -13,25 +13,28 @@
 namespace BillbeeDe\BillbeeAPI\Model;
 
 use BillbeeDe\BillbeeAPI\Type\InvoiceType;
-use MintWare\DMM\DataField;
+use JMS\Serializer\Annotation as Serializer;
 
 class Invoice
 {
     /**
      * @var int
-     * @DataField(name="BillbeeId", type="int")
+     * @Serializer\Type("int")
+     * @Serializer\SerializedName("BillbeeId")
      */
     public $id;
 
     /**
      * @var string
-     * @DataField(name="InvoiceNumber", type="string")
+     * @Serializer\Type("string")
+     * @Serializer\SerializedName("InvoiceNumber")
      */
     public $invoiceNumber = null;
 
     /**
      * @var string
-     * @DataField(name="Type", type="string")
+     * @Serializer\Type("string")
+     * @Serializer\SerializedName("Type")
      *
      * @see InvoiceType
      */
@@ -39,103 +42,120 @@ class Invoice
 
     /**
      * @var string
-     * @DataField(name="LastName", type="string")
+     * @Serializer\Type("string")
+     * @Serializer\SerializedName("LastName")
      */
     public $lastName = null;
 
     /**
      * @var string
-     * @DataField(name="FirstName", type="string")
+     * @Serializer\Type("string")
+     * @Serializer\SerializedName("FirstName")
      */
     public $firstName = null;
 
     /**
      * @var string
-     * @DataField(name="Company", type="string")
+     * @Serializer\Type("string")
+     * @Serializer\SerializedName("Company")
      */
     public $company = null;
 
     /**
      * @var int
-     * @DataField(name="CustomerNumber", type="int")
+     * @Serializer\Type("int")
+     * @Serializer\SerializedName("CustomerNumber")
      */
     public $customerNumber;
 
     /**
      * @var int
-     * @DataField(name="DebtorNumber", type="int")
+     * @Serializer\Type("int")
+     * @Serializer\SerializedName("DebtorNumber")
      */
     public $debtorNumber;
 
     /**
      * @var \DateTime
-     * @DataField(name="InvoiceDate", type="datetime")
+     * @Serializer\Type("DateTime")
+     * @Serializer\SerializedName("InvoiceDate")
      */
     public $invoiceDate = null;
 
     /**
      * @var float
-     * @DataField(name="TotalNet", type="float")
+     * @Serializer\Type("float")
+     * @Serializer\SerializedName("TotalNet")
      */
     public $totalNet = 0.00;
 
     /**
      * @var float
-     * @DataField(name="TotalGross", type="float")
+     * @Serializer\Type("float")
+     * @Serializer\SerializedName("TotalGross")
      */
     public $totalGross = 0.00;
 
     /**
      * @var string
-     * @DataField(name="Currency", type="string")
+     * @Serializer\Type("string")
+     * @Serializer\SerializedName("Currency")
      */
     public $currency = 'EUR';
 
     /**
      * @var int
-     * @DataField(name="PaymentTypeId", type="int")
+     * @Serializer\Type("int")
+     * @Serializer\SerializedName("PaymentTypeId")
      */
     public $paymentTypeId;
 
     /**
      * @var string
-     * @DataField(name="OrderNumber", type="string")
+     * @Serializer\Type("string")
+     * @Serializer\SerializedName("OrderNumber")
      */
     public $orderNumber = null;
 
     /**
      * @var string
-     * @DataField(name="TransactionId", type="string")
+     * @Serializer\Type("string")
+     * @Serializer\SerializedName("TransactionId")
      */
     public $transactionId = null;
 
     /**
      * @var string
-     * @DataField(name="Email", type="string")
+     * @Serializer\Type("string")
+     * @Serializer\SerializedName("Email")
      */
     public $email = '';
 
     /**
      * @var string
-     * @DataField(name="ShopName", type="string")
+     * @Serializer\Type("string")
+     * @Serializer\SerializedName("ShopName")
      */
     public $shopName = null;
 
     /**
      * @var InvoicePosition[]
-     * @DataField(name="Positions", type="BillbeeDe\BillbeeAPI\Model\InvoicePosition[]")
+     * @Serializer\Type("array<BillbeeDe\BillbeeAPI\Model\InvoicePosition>")
+     * @Serializer\SerializedName("Positions")
      */
     public $positions = [];
 
     /**
      * @var \DateTime
-     * @DataField(name="PayDate", type="datetime")
+     * @Serializer\Type("DateTime")
+     * @Serializer\SerializedName("PayDate")
      */
     public $payDate = null;
 
     /**
      * @var int
-     * @DataField(name="VatMode", type="int")
+     * @Serializer\Type("int")
+     * @Serializer\SerializedName("VatMode")
      */
     public $vatMode = Product::VAT_INDEX_NORMAL;
 }

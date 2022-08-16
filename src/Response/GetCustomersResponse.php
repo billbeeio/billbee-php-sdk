@@ -12,13 +12,15 @@
 
 namespace BillbeeDe\BillbeeAPI\Response;
 
-use MintWare\DMM\DataField;
+use BillbeeDe\BillbeeAPI\Model\Customer;
+use JMS\Serializer\Annotation as Serializer;
 
 class GetCustomersResponse extends BaseResponse
 {
     /**
-     * @var \BillbeeDe\BillbeeAPI\Model\Customer[]
-     * @DataField(name="Data", type="\BillbeeDe\BillbeeAPI\Model\Customer[]")
+     * @var Customer[]
+     * @Serializer\Type("array<BillbeeDe\BillbeeAPI\Model\Customer>")
+     * @Serializer\SerializedName("Data")
      */
     public $data = null;
 }

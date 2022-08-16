@@ -12,37 +12,42 @@
 
 namespace BillbeeDe\BillbeeAPI\Model;
 
-use MintWare\DMM\DataField;
+use JMS\Serializer\Annotation as Serializer;
 
 class Comment
 {
     /**
      * @var int
-     * @DataField(name="Id", type="int")
+     * @Serializer\Type("int")
+     * @Serializer\SerializedName("Id")
      */
     public $id;
 
     /**
      * @var \DateTime
-     * @DataField(name="Created", type="datetime")
+     * @Serializer\Type("DateTime")
+     * @Serializer\SerializedName("Created")
      */
     public $created;
 
     /**
      * @var bool
-     * @DataField(name="FromCustomer", type="bool")
+     * @Serializer\Type("bool")
+     * @Serializer\SerializedName("FromCustomer")
      */
     public $fromCustomer;
 
     /**
      * @var string
-     * @DataField(name="Text", type="string")
+     * @Serializer\Type("string")
+     * @Serializer\SerializedName("Text")
      */
     public $text;
 
     /**
      * @var string
-     * @DataField(name="Name", type="string")
+     * @Serializer\Type("string")
+     * @Serializer\SerializedName("Name")
      */
     public $name;
 }

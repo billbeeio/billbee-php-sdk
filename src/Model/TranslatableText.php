@@ -12,14 +12,20 @@
 
 namespace BillbeeDe\BillbeeAPI\Model;
 
-use MintWare\DMM\DataField;
+use JMS\Serializer\Annotation as Serializer;
 
 class TranslatableText
 {
-    /** @DataField(name="Text", type="string") */
+    /**
+     * @Serializer\Type("string")
+     * @Serializer\SerializedName("Text")
+     */
     public $text;
 
-    /** @DataField(name="LanguageCode", type="string") */
+    /**
+     * @Serializer\Type("string")
+     * @Serializer\SerializedName("LanguageCode")
+     */
     public $languageCode;
 
     public function __construct($text = '', $languageCode = '')

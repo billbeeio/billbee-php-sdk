@@ -13,20 +13,10 @@
 namespace BillbeeDe\Tests\BillbeeAPI;
 
 use BillbeeDe\BillbeeAPI\ClientInterface;
-use MintWare\DMM\ObjectMapper;
-use MintWare\DMM\Serializer\JsonSerializer;
 
 class TestClient implements ClientInterface
 {
     private $requests = [];
-
-    /** @var ObjectMapper */
-    private $mapper;
-
-    public function __construct()
-    {
-        $this->mapper = new ObjectMapper(new JsonSerializer());
-    }
 
     public function get($node, $query, $responseClass)
     {
