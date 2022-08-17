@@ -1,0 +1,14 @@
+{
+    "ThirdPartyCountry": false,
+    "SrcCountryIsEqualToDstCountry": true,
+    "CustomerHasVatId": false,
+    "EuDeliveryThresholdExceeded": true,
+    "OssEnabled": true,
+    "SellerIsRegisteredInDstCountry": false,
+    "OrderDistributionCountryIsEmpty": true,
+    "UserProfileCountryIsEmpty": false,
+    "SetIglWhenVatIdIsAvailableEnabled": true,
+    "RatesFrom": "destination_country",
+    "VatIdFrom": "destination_country",
+    "IsDistanceSale": false
+}

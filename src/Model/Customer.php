@@ -2,7 +2,7 @@
 /**
  * This file is part of the Billbee API package.
  *
- * Copyright 2017 - 2021 by Billbee GmbH
+ * Copyright 2017 - now by Billbee GmbH
  *
  * For the full copyright and license information, please read the LICENSE
  * file that was distributed with this source code.
@@ -98,59 +98,60 @@ class Customer
     public $vatId;
 
     /**
+     * @var int
      * @Serializer\Type("int")
      * @Serializer\SerializedName("Type")
      */
-    private int $type = 0;
+    private $type = 0;
 
     /**
      * @var CustomerMetaData|null
      * @Serializer\Type("BillbeeDe\BillbeeAPI\Model\CustomerMetaData")
      * @Serializer\SerializedName("DefaultMailAddress")
      */
-    private ?CustomerMetaData $defaultMailAddress = null;
+    private $defaultMailAddress = null;
 
     /**
      * @var CustomerMetaData|null
      * @Serializer\Type("BillbeeDe\BillbeeAPI\Model\CustomerMetaData")
      * @Serializer\SerializedName("DefaultCommercialMailAddress")
      */
-    private ?CustomerMetaData $defaultCommercialMailAddress = null;
+    private $defaultCommercialMailAddress = null;
 
     /**
      * @var CustomerMetaData|null
      * @Serializer\Type("BillbeeDe\BillbeeAPI\Model\CustomerMetaData")
      * @Serializer\SerializedName("DefaultStatusUpdatesMailAddress")
      */
-    private ?CustomerMetaData $defaultStatusUpdatesMailAddress = null;
+    private $defaultStatusUpdatesMailAddress = null;
 
     /**
      * @var CustomerMetaData|null
      * @Serializer\Type("BillbeeDe\BillbeeAPI\Model\CustomerMetaData")
      * @Serializer\SerializedName("DefaultPhone1")
      */
-    private ?CustomerMetaData $defaultPhone1 = null;
+    private $defaultPhone1 = null;
 
     /**
      * @var CustomerMetaData|null
      * @Serializer\Type("BillbeeDe\BillbeeAPI\Model\CustomerMetaData")
      * @Serializer\SerializedName("DefaultPhone2")
      */
-    private ?CustomerMetaData $defaultPhone2 = null;
+    private $defaultPhone2 = null;
 
     /**
      * @var CustomerMetaData|null
      * @Serializer\Type("BillbeeDe\BillbeeAPI\Model\CustomerMetaData")
      * @Serializer\SerializedName("DefaultFax")
      */
-    private ?CustomerMetaData $defaultFax = null;
+    private $defaultFax = null;
 
     /**
      * @var CustomerMetaData[]
      * @Serializer\Type("array<BillbeeDe\BillbeeAPI\Model\CustomerMetaData>")
      * @Serializer\SerializedName("MetaData")
      */
-    private array $metaData = [];
+    private $metaData = [];
 
     public function getId(): int
     {

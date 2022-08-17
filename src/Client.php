@@ -2,7 +2,7 @@
 /**
  * This file is part of the Billbee API package.
  *
- * Copyright 2017 - 2021 by Billbee GmbH
+ * Copyright 2017 - now by Billbee GmbH
  *
  * For the full copyright and license information, please read the LICENSE
  * file that was distributed with this source code.
@@ -55,7 +55,7 @@ class Client implements ClientInterface, BatchClientInterface
      *
      * @var SerializerInterface
      */
-    protected SerializerInterface $serializer;
+    protected $serializer;
 
     /**
      * If true, the requests will be performed using a batch call.

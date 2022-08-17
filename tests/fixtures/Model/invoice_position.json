@@ -1,0 +1,15 @@
+{
+    "BillbeeId": 100000317105650,
+    "Position": 1,
+    "Amount": 12.0,
+    "NetValue": 11.1176,
+    "TotalNetValue": 133.4118,
+    "GrossValue": 13.23,
+    "TotalGrossValue": 158.76,
+    "VatRate": 19.0,
+    "ArticleBillbeeId": 58592683,
+    "Sku": "TESTBESTAND",
+    "Title": "Test Bestandsabgleich",
+    "TotalVatAmount": 25.3482,
+    "RebatePercent": 2.0
+}

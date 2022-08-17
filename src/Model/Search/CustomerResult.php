@@ -2,7 +2,7 @@
 /**
  * This file is part of the Billbee API package.
  *
- * Copyright 2017 - 2021 by Billbee GmbH
+ * Copyright 2017 - now by Billbee GmbH
  *
  * For the full copyright and license information, please read the LICENSE
  * file that was distributed with this source code.
@@ -23,7 +23,7 @@ class CustomerResult
      *
      * @deprecated Use getter/setter instead. Will be private in the next major version.
      */
-    public int $id = 0;
+    public $id = 0;
 
     /**
      * @var string
@@ -32,7 +32,7 @@ class CustomerResult
      *
      * @deprecated Use getter/setter instead. Will be private in the next major version.
      */
-    public string $name = '';
+    public $name = '';
 
     /**
      * @var string
@@ -41,7 +41,7 @@ class CustomerResult
      *
      * @deprecated Use getter/setter instead. Will be private in the next major version.
      */
-    public string $addresses = '';
+    public $addresses = '';
 
     /**
      * @var string
@@ -50,7 +50,7 @@ class CustomerResult
      *
      * @deprecated Use getter/setter instead. Will be private in the next major version.
      */
-    public string $number = '';
+    public $number = '';
 
     public function getId(): int
     {

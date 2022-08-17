@@ -2,7 +2,7 @@
 /**
  * This file is part of the Billbee API package.
  *
- * Copyright 2017 - 2021 by Billbee GmbH
+ * Copyright 2017 - now by Billbee GmbH
  *
  * For the full copyright and license information, please read the LICENSE
  * file that was distributed with this source code.
@@ -26,13 +26,13 @@ class Comment
     public $id;
 
     /**
-     * @var \DateTime
+     * @var ?\DateTime
      * @Serializer\Type("DateTime<'Y-m-d\TH:i:s.v\Z', 'UTC'>")
      * @Serializer\SerializedName("Created")
      *
      * @deprecated Use getter/setter instead. Will be private in the next major version.
      */
-    public ?\DateTime $created = null;
+    public $created = null;
 
     /**
      * @var bool

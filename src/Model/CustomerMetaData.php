@@ -24,35 +24,35 @@ class CustomerMetaData
      * @Serializer\Type("int")
      * @Serializer\SerializedName("Id")
      */
-    private int $id = 0;
+    private $id = 0;
 
     /**
      * @var int
      * @Serializer\Type("int")
      * @Serializer\SerializedName("TypeId")
      */
-    private int $typeId = 0;
+    private $typeId = 0;
 
     /**
      * @var string
      * @Serializer\Type("string")
      * @Serializer\SerializedName("TypeName")
      */
-    private string $typeName = '';
+    private $typeName = '';
 
     /**
      * @var string
      * @Serializer\Type("string")
      * @Serializer\SerializedName("SubType")
      */
-    private string $subType = '';
+    private $subType = '';
 
     /**
      * @var string
      * @Serializer\Type("string")
      * @Serializer\SerializedName("Value")
      */
-    private string $value = '';
+    private $value = '';
 
     public function getId(): int
     {
