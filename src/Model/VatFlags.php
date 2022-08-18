@@ -91,7 +91,7 @@ class VatFlags
      * @Serializer\Type("string")
      * @Serializer\SerializedName("VatIdFrom")
      */
-    private $vatIdFrom = "string";
+    private $vatIdFrom = "";
 
     /**
      * @var bool
