@@ -1,0 +1,9 @@
+{
+    "ShippingId": "ShippingId",
+    "OrderId": "OrderId",
+    "Comment": "OrderCommentId",
+    "ShippingProviderId": 1,
+    "ShippingProviderProductId": 2,
+    "CarrierId": 3,
+    "ShipmentType": 1
+}

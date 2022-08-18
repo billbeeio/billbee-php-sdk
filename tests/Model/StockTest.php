@@ -14,9 +14,9 @@ namespace BillbeeDe\Tests\BillbeeAPI\Model;
 
 use BillbeeDe\BillbeeAPI\Model\Product;
 use BillbeeDe\BillbeeAPI\Model\Stock;
-use PHPUnit\Framework\TestCase;
+use BillbeeDe\Tests\BillbeeAPI\SerializerTestCase;
 
-class StockTest extends TestCase
+class StockTest extends SerializerTestCase
 {
     public function testConstruct()
     {
@@ -31,17 +31,16 @@ class StockTest extends TestCase
 
     public function testCreateFromProduct()
     {
-        /** @var Product $productMock */
-        $productMock = $this->createMock(Product::class);
-        $productMock->sku = '12AA';
-        $productMock->stockCurrent = 133;
+        $product = (new Product())
+            ->setSku('12AA')
+            ->setStockCurrent(133.0);
 
-        $stock = Stock::fromProduct($productMock);
+        $stock = Stock::fromProduct($product);
         $this->assertInstanceOf(Stock::class, $stock);
         $this->assertSame('12AA', $stock->getSku());
-        $this->assertSame(133, $stock->getOldQuantity());
-        $this->assertSame(133, $stock->getNewQuantity());
-        $this->assertSame(0, $stock->getDeltaQuantity());
+        $this->assertSame(133.0, $stock->getOldQuantity());
+        $this->assertSame(133.0, $stock->getNewQuantity());
+        $this->assertSame(0.0, $stock->getDeltaQuantity());
     }
 
     public function testGetSetSku()
@@ -84,7 +83,7 @@ class StockTest extends TestCase
         $this->assertSame(0.00, $stock->getDeltaQuantity());
 
         $stock->setOldQuantity(4);
-        $this->assertSame(4, $stock->getOldQuantity());
+        $this->assertSame(4.0, $stock->getOldQuantity());
         $this->assertSame(12.33, $stock->getNewQuantity());
         $this->assertSame(-8.33, $stock->getDeltaQuantity());
     }
@@ -98,7 +97,7 @@ class StockTest extends TestCase
 
         $stock->setNewQuantity(4);
         $this->assertSame(12.33, $stock->getOldQuantity());
-        $this->assertSame(4, $stock->getNewQuantity());
+        $this->assertSame(4.0, $stock->getNewQuantity());
         $this->assertSame(8.33, $stock->getDeltaQuantity());
     }
 
@@ -112,22 +111,39 @@ class StockTest extends TestCase
         $stock->setDeltaQuantity(-4);
         $this->assertSame(12.33, $stock->getOldQuantity());
         $this->assertSame(8.33, $stock->getNewQuantity());
-        $this->assertSame(-4, $stock->getDeltaQuantity());
+        $this->assertSame(-4.0, $stock->getDeltaQuantity());
     }
 
-    public function testJsonSerialize()
+    public function testSerialize(): void
     {
-        $stock = new Stock('foobar', 12.33);
-        $stock
-            ->setReason('Import')
-            ->setNewQuantity(5)
+        $result = self::getStock();
+        self::assertSerialize('Model/stock.json', $result);
+    }
+
+    public function testDeserialize(): void
+    {
+        self::assertDeserialize(
+            'Model/stock.json',
+            Stock::class,
+            function (Stock $result) {
+                self::assertEquals("foobar", $result->getSku());
+                self::assertEquals("Import", $result->getReason());
+                self::assertEquals(12.33, $result->getOldQuantity());
+                self::assertEquals(19.66, $result->getNewQuantity());
+                self::assertEquals(7.33, $result->getDeltaQuantity());
+                self::assertEquals(true, $result->getAutosubtractReservedAmount());
+            }
+        );
+    }
+
+    public static function getStock(): Stock
+    {
+        return (new Stock())
+            ->setSku("foobar")
+            ->setReason("Import")
+            ->setOldQuantity(12.33)
+            ->setNewQuantity(19.66)
+            ->setDeltaQuantity(7.33)
             ->setAutosubtractReservedAmount(true);
-
-        $expected = '{"Sku":"foobar","Reason":"Import","OldQuantity":12.33,"NewQuantity":5,"DeltaQuantity":7.33,"AutosubtractReservedAmount":true}';
-        $this->assertSame($expected, json_encode($stock));
-
-        $stock->setStockId(1);
-        $expected = '{"Sku":"foobar","Reason":"Import","OldQuantity":12.33,"NewQuantity":5,"DeltaQuantity":7.33,"AutosubtractReservedAmount":true,"StockId":1}';
-        $this->assertSame($expected, json_encode($stock));
     }
 }

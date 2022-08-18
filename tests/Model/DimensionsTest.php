@@ -7,16 +7,17 @@ use BillbeeDe\Tests\BillbeeAPI\SerializerTestCase;
 
 class DimensionsTest extends SerializerTestCase
 {
-    public function testSerialize(): void
+    public static function getDimensions(): Dimensions
     {
-        $result = new Dimensions(10, 20, 30);
-        self::assertEquals(10, $result->getWidth());
-        self::assertEquals(20, $result->getHeight());
-        self::assertEquals(30, $result->getLength());
-        $result
+        return (new Dimensions())
             ->setWidth(200.2)
             ->setHeight(50.5)
             ->setLength(240.3);
+    }
+
+    public function testSerialize(): void
+    {
+        $result = self::getDimensions();
         self::assertSerialize('Model/dimensions.json', $result);
     }
 

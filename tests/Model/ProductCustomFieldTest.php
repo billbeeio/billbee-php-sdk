@@ -20,7 +20,6 @@ class ProductCustomFieldTest extends SerializerTestCase
             'Model/product_custom_field_multiple.json',
             ProductCustomField::class,
             function (ProductCustomField $result) {
-                self::assertEquals(true, true);
                 self::assertEquals(100000000658609, $result->getId());
                 self::assertEquals(100000000002236, $result->getDefinitionId());
                 self::assertEquals(100000060427005, $result->getArticleId());

@@ -3,6 +3,7 @@
 namespace BillbeeDe\Tests\BillbeeAPI;
 
 use BillbeeDe\BillbeeAPI\Transformer\AsIsTransformer;
+use BillbeeDe\BillbeeAPI\Transformer\DefaultDateTimeHandler;
 use BillbeeDe\BillbeeAPI\Transformer\DefinitionConfigTransformer;
 use JMS\Serializer\Handler\HandlerRegistry;
 use JMS\Serializer\SerializerBuilder;
@@ -41,6 +42,7 @@ abstract class SerializerTestCase extends TestCase
                 function (HandlerRegistry $registry) {
                     $registry->registerSubscribingHandler(new DefinitionConfigTransformer());
                     $registry->registerSubscribingHandler(new AsIsTransformer());
+                    $registry->registerSubscribingHandler(new DefaultDateTimeHandler());
                 }
             )->build();
     }

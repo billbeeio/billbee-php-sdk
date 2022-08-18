@@ -17,39 +17,67 @@ use JMS\Serializer\Annotation as Serializer;
 class Shipment
 {
     /**
-     * @var string
+     * @var ?string
      * @Serializer\Type("string")
      * @Serializer\SerializedName("ShippingId")
+     *
+     * @deprecated Use getter/setter instead. Will be private in the next major version.
      */
-    public $shippingId = "";
+    public $shippingId;
 
     /**
-     * @var string
+     * @var ?string
      * @Serializer\Type("string")
      * @Serializer\SerializedName("OrderId")
+     *
+     * @deprecated Use getter/setter instead. Will be private in the next major version.
      */
-    public $orderId = "";
+    public $orderId;
 
     /**
-     * @var string
+     * @var ?string
      * @Serializer\Type("string")
      * @Serializer\SerializedName("Comment")
+     *
+     * @deprecated Use getter/setter instead. Will be private in the next major version.
      */
-    public $comment = "";
+    public $comment;
 
     /**
-     * @var int
+     * @var ?int
      * @Serializer\Type("int")
      * @Serializer\SerializedName("ShippingProviderId")
+     *
+     * @deprecated Use getter/setter instead. Will be private in the next major version.
      */
-    public $shippingProviderId = 0;
+    public $shippingProviderId;
 
     /**
-     * @var int
+     * @var ?int
      * @Serializer\Type("int")
      * @Serializer\SerializedName("ShippingProviderProductId")
+     *
+     * @deprecated Use getter/setter instead. Will be private in the next major version.
      */
-    public $shippingProductId = 0;
+    public $shippingProductId;
+
+    /**
+     * @var ?int
+     * @Serializer\Type("int")
+     * @Serializer\SerializedName("CarrierId")
+     *
+     * @see \BillbeeDe\BillbeeAPI\Type\ShippingCarrier
+     */
+    private $carrierId;
+
+    /**
+     * @var ?int
+     * @Serializer\Type("int")
+     * @Serializer\SerializedName("ShipmentType")
+     *
+     * @see \BillbeeDe\BillbeeAPI\Type\ShipmentType
+     */
+    private $type;
 
     /**
      * Creates a shipment based on models
@@ -58,11 +86,87 @@ class Shipment
      * @param ShippingProduct $product The product
      * @return Shipment The Shipment
      */
-    public static function fromProviderAndProduct(ShippingProvider $provider, ShippingProduct $product)
+    public static function fromProviderAndProduct(ShippingProvider $provider, ShippingProduct $product): Shipment
     {
-        $shipment = new Shipment();
-        $shipment->shippingProviderId = $provider->id;
-        $shipment->shippingProductId = $product->id;
-        return $shipment;
+        return (new Shipment())
+            ->setShippingProviderId($provider->getId())
+            ->setShippingProductId($product->getId());
+    }
+
+    public function getShippingId(): ?string
+    {
+        return $this->shippingId;
+    }
+
+    public function setShippingId(?string $shippingId): self
+    {
+        $this->shippingId = $shippingId;
+        return $this;
+    }
+
+    public function getOrderId(): ?string
+    {
+        return $this->orderId;
+    }
+
+    public function setOrderId(?string $orderId): self
+    {
+        $this->orderId = $orderId;
+        return $this;
+    }
+
+    public function getComment(): ?string
+    {
+        return $this->comment;
+    }
+
+    public function setComment(?string $comment): self
+    {
+        $this->comment = $comment;
+        return $this;
+    }
+
+    public function getShippingProviderId(): ?int
+    {
+        return $this->shippingProviderId;
+    }
+
+    public function setShippingProviderId(?int $shippingProviderId): self
+    {
+        $this->shippingProviderId = $shippingProviderId;
+        return $this;
+    }
+
+    public function getShippingProductId(): ?int
+    {
+        return $this->shippingProductId;
+    }
+
+    public function setShippingProductId(?int $shippingProductId): self
+    {
+        $this->shippingProductId = $shippingProductId;
+        return $this;
+    }
+
+    public function getCarrierId(): ?int
+    {
+        return $this->carrierId;
+    }
+
+    public function setCarrierId(?int $carrierId): self
+    {
+        $this->carrierId = $carrierId;
+        return $this;
+    }
+
+    public function getType(): ?int
+    {
+        return $this->type;
+    }
+
+    public function setType(?int $type): self
+    {
+        $this->type = $type;
+        return $this;
     }
 }

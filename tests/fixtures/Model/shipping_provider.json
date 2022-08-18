@@ -1,0 +1,11 @@
+{
+    "id": 100000000022240,
+    "name": "My provider",
+    "products": [
+        {
+            "id": 100000000288647,
+            "displayName": "Test",
+            "productName": "V01PAK;01"
+        }
+    ]
+}

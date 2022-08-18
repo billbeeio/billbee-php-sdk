@@ -28,6 +28,7 @@ use BillbeeDe\BillbeeAPI\Exception\QuotaExceededException;
 use BillbeeDe\BillbeeAPI\Logger\DiagnosticsLogger;
 use BillbeeDe\BillbeeAPI\Response as Response;
 use BillbeeDe\BillbeeAPI\Transformer\AsIsTransformer;
+use BillbeeDe\BillbeeAPI\Transformer\DefaultDateTimeHandler;
 use BillbeeDe\BillbeeAPI\Transformer\DefinitionConfigTransformer;
 use Exception;
 use GuzzleHttp\Exception\ClientException;
@@ -153,6 +154,7 @@ class Client implements ClientInterface, BatchClientInterface
                 function (HandlerRegistry $registry) {
                     $registry->registerSubscribingHandler(new DefinitionConfigTransformer());
                     $registry->registerSubscribingHandler(new AsIsTransformer());
+                    $registry->registerSubscribingHandler(new DefaultDateTimeHandler());
                 }
             )->build();
 

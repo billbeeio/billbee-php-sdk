@@ -20,20 +20,59 @@ class ShippingProvider
      * @var int
      * @Serializer\Type("int")
      * @Serializer\SerializedName("id")
+     *
+     * @deprecated Use getter/setter instead. Will be private in the next major version.
      */
     public $id;
 
     /**
-     * @var string
+     * @var ?string
      * @Serializer\Type("string")
      * @Serializer\SerializedName("name")
+     *
+     * @deprecated Use getter/setter instead. Will be private in the next major version.
      */
-    public $name = '';
+    public $name;
 
     /**
-     * @var string
+     * @var ShippingProduct[]
      * @Serializer\Type("array<BillbeeDe\BillbeeAPI\Model\ShippingProduct>")
      * @Serializer\SerializedName("products")
+     *
+     * @deprecated Use getter/setter instead. Will be private in the next major version.
      */
-    public $products = '';
+    public $products = [];
+
+    public function getId(): int
+    {
+        return $this->id;
+    }
+
+    public function setId(int $id): self
+    {
+        $this->id = $id;
+        return $this;
+    }
+
+    public function getName(): ?string
+    {
+        return $this->name;
+    }
+
+    public function setName(?string $name): self
+    {
+        $this->name = $name;
+        return $this;
+    }
+
+    public function getProducts(): array
+    {
+        return $this->products;
+    }
+
+    public function setProducts(array $products): self
+    {
+        $this->products = $products;
+        return $this;
+    }
 }

@@ -1,0 +1,16 @@
+{
+    "Id": "Id",
+    "WebHookUri": "https:\/\/foo.bar",
+    "Secret": "Secret",
+    "Description": "a description",
+    "IsPaused": true,
+    "Filters": [
+        "filter"
+    ],
+    "Headers": {
+        "a": "b"
+    },
+    "Properties": {
+        "c": "d"
+    }
+}
