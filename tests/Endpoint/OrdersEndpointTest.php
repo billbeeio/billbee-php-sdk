@@ -2,7 +2,7 @@
 /**
  * This file is part of the Billbee API package.
  *
- * Copyright 2017 - 2021 by Billbee GmbH
+ * Copyright 2017 - now by Billbee GmbH
  *
  * For the full copyright and license information, please read the LICENSE
  * file that was distributed with this source code.
@@ -29,6 +29,8 @@ use BillbeeDe\Tests\BillbeeAPI\FakeSerializer;
 use BillbeeDe\Tests\BillbeeAPI\TestClient;
 use DateTime;
 use InvalidArgumentException;
+use JMS\Serializer\SerializerInterface;
+use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 use Psr\Log\LoggerInterface;
 
@@ -43,11 +45,16 @@ class OrdersEndpointTest extends TestCase
     /** @var LoggerInterface */
     private $loggerMock;
 
+    /** @var SerializerInterface&MockObject */
+    private $mockSerializer;
+
     protected function setUp(): void
     {
         $this->client = new TestClient();
         $this->loggerMock = $this->createMock(LoggerInterface::class);
-        $this->endpoint = new OrdersEndpoint($this->client, new FakeSerializer(), $this->loggerMock);
+        $this->mockSerializer = self::createMock(SerializerInterface::class);
+
+        $this->endpoint = new OrdersEndpoint($this->client, $this->mockSerializer, $this->loggerMock);
     }
 
     public function testGetOrders()
@@ -138,7 +145,9 @@ class OrdersEndpointTest extends TestCase
     public function testGetOrdersFailsNonNumericArticleTitleSource()
     {
         $this->expectException(InvalidArgumentException::class);
-        $this->expectExceptionMessage('The articleTitleSource is invalid. Check BillbeeDe\BillbeeAPI\Type\ArticleSource for valid values');
+        $this->expectExceptionMessage(
+            'The articleTitleSource is invalid. Check BillbeeDe\BillbeeAPI\Type\ArticleSource for valid values'
+        );
 
         $this->endpoint->getOrders(
             1,
@@ -158,7 +167,9 @@ class OrdersEndpointTest extends TestCase
     public function testGetOrdersFailsNegativeArticleTitleSource()
     {
         $this->expectException(InvalidArgumentException::class);
-        $this->expectExceptionMessage('The articleTitleSource is invalid. Check BillbeeDe\BillbeeAPI\Type\ArticleSource for valid values');
+        $this->expectExceptionMessage(
+            'The articleTitleSource is invalid. Check BillbeeDe\BillbeeAPI\Type\ArticleSource for valid values'
+        );
 
         $this->endpoint->getOrders(
             1,
@@ -178,7 +189,9 @@ class OrdersEndpointTest extends TestCase
     public function testGetOrdersFailsInvalidArticleTitleSource()
     {
         $this->expectException(InvalidArgumentException::class);
-        $this->expectExceptionMessage('The articleTitleSource is invalid. Check BillbeeDe\BillbeeAPI\Type\ArticleSource for valid values');
+        $this->expectExceptionMessage(
+            'The articleTitleSource is invalid. Check BillbeeDe\BillbeeAPI\Type\ArticleSource for valid values'
+        );
 
         $this->endpoint->getOrders(
             1,
@@ -250,6 +263,11 @@ class OrdersEndpointTest extends TestCase
     public function testCreateOrder()
     {
         $order = new Order();
+
+        $this->mockSerializer->expects(self::once())
+            ->method('serialize')
+            ->with($order, 'json');
+
         $this->endpoint->createOrder($order, 521);
         $requests = $this->client->getRequests();
         $this->assertCount(1, $requests);
@@ -257,8 +275,7 @@ class OrdersEndpointTest extends TestCase
         list($method, $node, $data, $class) = $requests[0];
         $this->assertSame('POST', $method);
         $this->assertSame('orders?shopId=521', $node);
-        $this->assertSame($order, $data);
-        $this->assertSame(BaseResponse::class, $class);
+        $this->assertSame(GetOrderResponse::class, $class);
     }
 
     public function testAddOrderTags()
@@ -277,6 +294,10 @@ class OrdersEndpointTest extends TestCase
     public function testAddOrderShipment()
     {
         $shipment = new Shipment();
+
+        $this->mockSerializer->expects(self::once())
+            ->method('serialize')
+            ->with($shipment, 'json');
         $result = $this->endpoint->addOrderShipment(521, $shipment);
         $requests = $this->client->getRequests();
         $this->assertCount(1, $requests);
@@ -284,7 +305,6 @@ class OrdersEndpointTest extends TestCase
         list($method, $node, $data, $class) = $requests[0];
         $this->assertSame('POST', $method);
         $this->assertSame('orders/521/shipment', $node);
-        $this->assertSame($shipment, $data);
         $this->assertSame(BaseResponse::class, $class);
         $this->assertTrue($result);
     }
@@ -346,7 +366,9 @@ class OrdersEndpointTest extends TestCase
         $message = new MessageForCustomer([], [], -1);
 
         $this->expectException(InvalidArgumentException::class);
-        $this->expectExceptionMessage('The sendMode is invalid. Check the BillbeeDe\BillbeeAPI\Type\SendMode class for valid values');
+        $this->expectExceptionMessage(
+            'The sendMode is invalid. Check the BillbeeDe\BillbeeAPI\Type\SendMode class for valid values'
+        );
 
         $this->endpoint->sendMessage(521, $message);
     }
@@ -384,6 +406,10 @@ class OrdersEndpointTest extends TestCase
     public function testSendMessage()
     {
         $message = new MessageForCustomer(['de' => 'test'], ['de' => 'test2'], SendMode::EMAIL, 'foo@bar.tld');
+
+        $this->mockSerializer->expects(self::once())
+            ->method('serialize')
+            ->with($message, 'json');
         $this->endpoint->sendMessage(521, $message);
         $requests = $this->client->getRequests();
         $this->assertCount(1, $requests);
@@ -391,7 +417,6 @@ class OrdersEndpointTest extends TestCase
         list($method, $node, $data, $class) = $requests[0];
         $this->assertSame('POST', $method);
         $this->assertSame('orders/521/send-message', $node);
-        $this->assertSame($message, $data);
         $this->assertSame(BaseResponse::class, $class);
     }
 

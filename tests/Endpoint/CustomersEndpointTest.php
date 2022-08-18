@@ -2,7 +2,7 @@
 /**
  * This file is part of the Billbee API package.
  *
- * Copyright 2017 - 2021 by Billbee GmbH
+ * Copyright 2017 - now by Billbee GmbH
  *
  * For the full copyright and license information, please read the LICENSE
  * file that was distributed with this source code.
@@ -23,6 +23,8 @@ use BillbeeDe\BillbeeAPI\Response\GetCustomersResponse;
 use BillbeeDe\BillbeeAPI\Response\GetOrdersResponse;
 use BillbeeDe\Tests\BillbeeAPI\FakeSerializer;
 use BillbeeDe\Tests\BillbeeAPI\TestClient;
+use JMS\Serializer\SerializerInterface;
+use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 
 class CustomersEndpointTest extends TestCase
@@ -34,10 +36,14 @@ class CustomersEndpointTest extends TestCase
     /** @var TestClient */
     private $client;
 
+    /** @var SerializerInterface&MockObject */
+    private $mockSerializer;
+
     protected function setUp(): void
     {
         $this->client = new TestClient();
-        $this->endpoint = new CustomersEndpoint($this->client, new FakeSerializer());
+        $this->mockSerializer = self::createMock(SerializerInterface::class);
+        $this->endpoint = new CustomersEndpoint($this->client, $this->mockSerializer);
     }
 
     public function testGetCustomers()
@@ -272,6 +278,11 @@ class CustomersEndpointTest extends TestCase
     {
         $customer = new Customer();
         $customer->id = 123;
+
+        $this->mockSerializer->expects(self::once())
+            ->method('serialize')
+            ->with($customer, 'json');
+
         $this->endpoint->updateCustomer($customer);
         $requests = $this->client->getRequests();
         $this->assertCount(1, $requests);
@@ -279,7 +290,7 @@ class CustomersEndpointTest extends TestCase
         list($method, $node, $data, $class) = $requests[0];
         $this->assertSame('PUT', $method);
         $this->assertSame('customers/123', $node);
-        $this->assertSame($customer, $data);
+        ;
         $this->assertSame(GetCustomerResponse::class, $class);
     }
 
@@ -294,7 +305,10 @@ class CustomersEndpointTest extends TestCase
         list($method, $node, $data, $class) = $requests[0];
         $this->assertSame('POST', $method);
         $this->assertSame('customers', $node);
-        $this->assertSame('{"address":null,"id":null,"name":null,"email":null,"tel1":null,"tel2":null,"number":null,"priceGroupId":null,"languageId":null,"vatId":null}', $data);
+        $this->assertSame(
+            '{"address":{"id":null,"addressType":1,"customerId":null,"company":null,"firstName":null,"lastName":null,"name2":null,"street":null,"houseNumber":null,"zip":null,"city":null,"state":null,"countryCode":null,"email":null,"phone1":null,"phone2":null,"fax":null,"fullAddress":null,"addressAddition":null},"id":null,"name":null,"email":null,"tel1":null,"tel2":null,"number":null,"priceGroupId":null,"languageId":null,"vatId":null}',
+            $data
+        );
         $this->assertSame(GetCustomerResponse::class, $class);
     }
 }

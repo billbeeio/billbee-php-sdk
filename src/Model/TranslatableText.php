@@ -2,7 +2,7 @@
 /**
  * This file is part of the Billbee API package.
  *
- * Copyright 2017 - 2021 by Billbee GmbH
+ * Copyright 2017 - now by Billbee GmbH
  *
  * For the full copyright and license information, please read the LICENSE
  * file that was distributed with this source code.
@@ -12,19 +12,53 @@
 
 namespace BillbeeDe\BillbeeAPI\Model;
 
-use MintWare\DMM\DataField;
+use JMS\Serializer\Annotation as Serializer;
 
 class TranslatableText
 {
-    /** @DataField(name="Text", type="string") */
+    /**
+     * @var ?string
+     * @Serializer\Type("string")
+     * @Serializer\SerializedName("Text")
+     *
+     * @deprecated Use getter/setter instead. Will be private in the next major version.
+     */
     public $text;
 
-    /** @DataField(name="LanguageCode", type="string") */
+    /**
+     * @var ?string
+     * @Serializer\Type("string")
+     * @Serializer\SerializedName("LanguageCode")
+     *
+     * @deprecated Use getter/setter instead. Will be private in the next major version.
+     */
     public $languageCode;
 
-    public function __construct($text = '', $languageCode = '')
+    public function __construct(string $text = '', string $languageCode = '')
+    {
+        $this->setText($text);
+        $this->setLanguageCode($languageCode);
+    }
+
+    public function getText(): ?string
+    {
+        return $this->text;
+    }
+
+    public function setText(?string $text): self
     {
         $this->text = $text;
+        return $this;
+    }
+
+    public function getLanguageCode(): ?string
+    {
+        return $this->languageCode;
+    }
+
+    public function setLanguageCode(?string $languageCode): self
+    {
         $this->languageCode = $languageCode;
+        return $this;
     }
 }

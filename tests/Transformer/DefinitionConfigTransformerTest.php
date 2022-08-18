@@ -2,7 +2,7 @@
 /**
  * This file is part of the Billbee API package.
  *
- * Copyright 2017 - 2021 by Billbee GmbH
+ * Copyright 2017 - now by Billbee GmbH
  *
  * For the full copyright and license information, please read the LICENSE
  * file that was distributed with this source code.
@@ -13,6 +13,9 @@
 namespace BillbeeDe\Tests\BillbeeAPI\Transformer;
 
 use BillbeeDe\BillbeeAPI\Transformer\DefinitionConfigTransformer;
+use JMS\Serializer\Context;
+use JMS\Serializer\JsonDeserializationVisitor;
+use JMS\Serializer\JsonSerializationVisitor;
 use PHPUnit\Framework\TestCase;
 
 class DefinitionConfigTransformerTest extends TestCase
@@ -24,7 +27,12 @@ class DefinitionConfigTransformerTest extends TestCase
             'a' => 'b',
             'c' => 'd',
         ];
-        $transformed = DefinitionConfigTransformer::transform($config);
+        $transformed = DefinitionConfigTransformer::serialize(
+            new JsonSerializationVisitor(),
+            $config,
+            [],
+            self::createMock(Context::class)
+        );
         $this->assertEquals($config, $transformed);
     }
 
@@ -35,7 +43,12 @@ class DefinitionConfigTransformerTest extends TestCase
             'a' => 'b',
             'c' => 'd',
         ];
-        $transformed = DefinitionConfigTransformer::reverseTransform($config);
+        $transformed = DefinitionConfigTransformer::deserialize(
+            new JsonDeserializationVisitor(),
+            $config,
+            [],
+            self::createMock(Context::class)
+        );
         $this->assertEquals($config, $transformed);
     }
 
@@ -47,7 +60,12 @@ class DefinitionConfigTransformerTest extends TestCase
             'c' => 'd',
             'Choices' => "red\ngreen\nblue",
         ];
-        $transformed = DefinitionConfigTransformer::transform($config);
+        $transformed = DefinitionConfigTransformer::deserialize(
+            new JsonDeserializationVisitor(),
+            $config,
+            [],
+            self::createMock(Context::class)
+        );
         $this->assertEquals([
             'a' => 'b',
             'c' => 'd',
@@ -63,7 +81,12 @@ class DefinitionConfigTransformerTest extends TestCase
             'c' => 'd',
             'Choices' => ["red", "green", "blue"],
         ];
-        $transformed = DefinitionConfigTransformer::reverseTransform($config);
+        $transformed = DefinitionConfigTransformer::serialize(
+            new JsonSerializationVisitor(),
+            $config,
+            [],
+            self::createMock(Context::class)
+        );
         $this->assertEquals([
             'a' => 'b',
             'c' => 'd',

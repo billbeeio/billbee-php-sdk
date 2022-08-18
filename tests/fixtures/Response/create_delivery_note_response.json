@@ -1,0 +1,10 @@
+{
+    "ErrorCode": 0,
+    "Data": {
+        "OrderNumber": "Test",
+        "DeliveryNoteNumber": "20",
+        "PDFData": "base64-encrypted-pdf",
+        "DeliveryNoteDate": "2022-08-16T14:47:00",
+        "PdfDownloadUrl": "https:\/\/objectstore.billbee.io"
+    }
+}

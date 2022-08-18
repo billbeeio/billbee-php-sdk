@@ -1,0 +1,253 @@
+{
+    "ErrorCode": 0,
+    "Data": [
+        {
+            "BillBeeOrderId": 100000186018330,
+            "BillBeeParentOrderId": 2,
+            "Id": "Id",
+            "AcceptLossOfReturnRight": false,
+            "OrderNumber": "Test",
+            "State": 1,
+            "VatMode": 0,
+            "CreatedAt": "2022-07-22T00:00:00+00:00",
+            "ShippedAt": "2022-08-17T00:00:00+00:00",
+            "ConfirmedAt": "2022-08-17T09:47:25+00:00",
+            "PayedAt": "2022-08-10T00:00:00+00:00",
+            "SellerComment": "Eigene Notizen zu der Bestellung",
+            "Comments": [
+                {
+                    "Id": 1,
+                    "Created": "2022-08-16T09:05:01.787Z",
+                    "FromCustomer": true,
+                    "Text": "test",
+                    "Name": "customer"
+                }
+            ],
+            "InvoiceNumberPrefix": "RN-2022-00",
+            "InvoiceNumberPostfix": "-xx",
+            "InvoiceNumber": 83,
+            "InvoiceDate": "2022-07-22T09:54:25+00:00",
+            "InvoiceAddress": {
+                "BillbeeId": 1,
+                "City": "ort",
+                "Street": "Str",
+                "Company": "Firma",
+                "Zip": "12345",
+                "State": "staat",
+                "Country": "DE",
+                "CountryISO2": "DE",
+                "FirstName": "Vorname",
+                "LastName": "Nachname",
+                "Phone": "12345",
+                "Email": "admin@domain.tld",
+                "HouseNumber": "hausnummer",
+                "NameAddition": "Zusatz"
+            },
+            "ShippingAddress": {
+                "BillbeeId": 1,
+                "City": "ort",
+                "Street": "Str",
+                "Company": "Firma",
+                "Zip": "12345",
+                "State": "staat",
+                "Country": "DE",
+                "CountryISO2": "DE",
+                "FirstName": "Vorname",
+                "LastName": "Nachname",
+                "Phone": "12345",
+                "Email": "admin@domain.tld",
+                "HouseNumber": "hausnummer",
+                "NameAddition": "Zusatz"
+            },
+            "PaymentMethod": 22,
+            "ShippingCost": 12.0,
+            "TotalCost": 170.76,
+            "AdjustmentCost": 0.0,
+            "AdjustmentReason": "test",
+            "OrderItems": [
+                {
+                    "BillbeeId": 100000317105650,
+                    "TransactionId": "txid",
+                    "Product": {
+                        "Id": "1234",
+                        "OldId": "4321",
+                        "BillbeeId": 100000058592683,
+                        "Title": "Test Bestandsabgleich",
+                        "Weight": 500,
+                        "SKU": "TESTBESTAND",
+                        "SkuOrId": "TESTBESTAND",
+                        "IsDigital": true,
+                        "EAN": "testejcz",
+                        "TARICCode": "1234",
+                        "CountryOfOrigin": "AX"
+                    },
+                    "Quantity": 12.0,
+                    "TotalPrice": 158.76,
+                    "UnrebatedTotalPrice": 162.0,
+                    "TaxAmount": 25.348235294117647,
+                    "TaxIndex": 1,
+                    "Discount": 2.0,
+                    "Attributes": [
+                        {
+                            "Id": "100000167774144",
+                            "Name": "x",
+                            "Value": "y",
+                            "Price": 0.0
+                        }
+                    ],
+                    "GetPriceFromArticleIfAny": true,
+                    "IsCoupon": false,
+                    "DontAdjustStock": false,
+                    "SerialNumber": "ycwegf",
+                    "InvoiceSKU": "TESTBESTAND"
+                }
+            ],
+            "Currency": "EUR",
+            "Seller": {
+                "Platform": "avocadostore",
+                "BillbeeShopName": "test",
+                "BillbeeShopId": 100000000092372,
+                "Id": "1234",
+                "Nick": "nick name",
+                "FirstName": "vorname",
+                "LastName": "nachname",
+                "FullName": "vorname nachname",
+                "Email": "max@muster.tld"
+            },
+            "Buyer": {
+                "Platform": "avocadostore",
+                "BillbeeShopName": "test",
+                "BillbeeShopId": 100000000092372,
+                "Id": "1234",
+                "Nick": "nick name",
+                "FirstName": "vorname",
+                "LastName": "nachname",
+                "FullName": "vorname nachname",
+                "Email": "max@muster.tld"
+            },
+            "UpdatedAt": "2022-08-17T09:47:25+00:00",
+            "TaxRate1": 19.0,
+            "TaxRate2": 7.0,
+            "VatId": "1234",
+            "Tags": [
+                "test"
+            ],
+            "ShipWeightKg": 6.0,
+            "LanguageCode": "DE",
+            "PaidAmount": 162.0,
+            "ShippingProfileId": 12345,
+            "ShippingProfileName": "ShippingProfileName",
+            "ShippingProviderId": 100000000022240,
+            "ShippingProviderProductId": 100000000288647,
+            "ShippingProviderName": "DHL",
+            "ShippingProviderProductName": "DHL Paket",
+            "PaymentInstruction": "remark",
+            "IsCancelationFor": "IsCancelationFor",
+            "PaymentTransactionId": "txid",
+            "DeliverySourceCountryCode": "AZ",
+            "CustomInvoiceNote": "CustomInvoiceNote",
+            "CustomerNumber": "1",
+            "DistributionCenter": "1234",
+            "Customer": {
+                "Id": 100000150176895,
+                "Name": "Max",
+                "Email": "max@mustermann.tld",
+                "Tel1": "12345",
+                "Tel2": "12345",
+                "Number": 1,
+                "PriceGroupId": 1818,
+                "LanguageId": 3,
+                "VatId": "1234",
+                "Type": 0,
+                "DefaultMailAddress": {
+                    "Id": 208297764,
+                    "TypeId": 1,
+                    "TypeName": "EMail",
+                    "SubType": "",
+                    "Value": "max@mustermann.tld"
+                },
+                "DefaultCommercialMailAddress": {
+                    "Id": 208297764,
+                    "TypeId": 1,
+                    "TypeName": "EMail",
+                    "SubType": "",
+                    "Value": "max@mustermann.tld"
+                },
+                "DefaultStatusUpdatesMailAddress": {
+                    "Id": 208297764,
+                    "TypeId": 1,
+                    "TypeName": "EMail",
+                    "SubType": "",
+                    "Value": "max@mustermann.tld"
+                },
+                "DefaultPhone1": {
+                    "Id": 208297765,
+                    "TypeId": 2,
+                    "TypeName": "Phone",
+                    "SubType": "",
+                    "Value": "12345"
+                },
+                "DefaultPhone2": {
+                    "Id": 208297765,
+                    "TypeId": 2,
+                    "TypeName": "Phone",
+                    "SubType": "",
+                    "Value": "12345"
+                },
+                "DefaultFax": {
+                    "Id": 208297765,
+                    "TypeId": 2,
+                    "TypeName": "Phone",
+                    "SubType": "",
+                    "Value": "12345"
+                },
+                "MetaData": [
+                    {
+                        "Id": 208297764,
+                        "TypeId": 1,
+                        "TypeName": "EMail",
+                        "SubType": "",
+                        "Value": "max@mustermann.tld"
+                    },
+                    {
+                        "Id": 208297765,
+                        "TypeId": 2,
+                        "TypeName": "Phone",
+                        "SubType": "",
+                        "Value": "12345"
+                    }
+                ]
+            },
+            "Payments": [
+                {
+                    "BillbeeId": 100000045032352,
+                    "TransactionId": "txid",
+                    "PayDate": "2022-08-17T00:00:00+00:00",
+                    "PaymentType": 1,
+                    "SourceTechnology": "foo",
+                    "SourceText": "konto",
+                    "PayValue": 162.0,
+                    "Purpose": "bestellung",
+                    "Name": "max muster"
+                }
+            ],
+            "RebateDifference": 15.18,
+            "ShippingIds": [],
+            "History": [
+                {
+                    "Created": "2022-07-22T09:54:00+00:00",
+                    "EventTypeName": "Auftrag eingelesen",
+                    "Text": "Der Auftrag wurde eingelesen",
+                    "EmployeeName": "max",
+                    "TypeId": 0
+                }
+            ],
+            "LastModifiedAt": "2022-08-17T09:47:25+00:00",
+            "ApiAccountId": 92372,
+            "ApiAccountName": "test",
+            "MerchantVatId": "1234",
+            "CustomerVatId": "1234",
+            "PaymentReference": "reference"
+        }
+    ]
+}

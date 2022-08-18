@@ -2,7 +2,7 @@
 /**
  * This file is part of the Billbee API package.
  *
- * Copyright 2017 - 2021 by Billbee GmbH
+ * Copyright 2017 - now by Billbee GmbH
  *
  * For the full copyright and license information, please read the LICENSE
  * file that was distributed with this source code.
@@ -21,7 +21,7 @@ interface ClientInterface
      * Starts an GET request
      *
      * @param string $node The requested node
-     * @param array $query The parameters
+     * @param array<string, mixed> $query The parameters
      * @param string $responseClass The response class
      *
      * @return mixed The mapped response object
@@ -77,7 +77,7 @@ interface ClientInterface
      * Starts an DELETE request
      *
      * @param string $node The requested node
-     * @param array $query The parameters
+     * @param array<string, mixed> $query The parameters
      * @param string $responseClass The response class
      *
      * @return mixed The mapped response object

@@ -1,0 +1,12 @@
+{
+    "ErrorCode": 0,
+    "Data": {
+        "OrderNumber": "Test",
+        "InvoiceNumber": "RN-2022-0083",
+        "PDFData": "base64-data",
+        "InvoiceDate": "2022-07-22T09:54:25.310",
+        "TotalGross": 170.76,
+        "TotalNet": 143.5,
+        "PdfDownloadUrl": "https:\/\/objectstore.billbee.io"
+    }
+}

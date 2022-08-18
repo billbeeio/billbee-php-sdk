@@ -1,0 +1,194 @@
+{
+    "ErrorCode": 0,
+    "Data": [
+        {
+            "Id": 100000060427005,
+            "Type": 1,
+            "Title": [
+                {
+                    "Text": "complete",
+                    "LanguageCode": "EN"
+                },
+                {
+                    "Text": "komplett",
+                    "LanguageCode": "DE"
+                }
+            ],
+            "InvoiceText": [
+                {
+                    "Text": "Override",
+                    "LanguageCode": "EN"
+                },
+                {
+                    "Text": "Ueberschreiben",
+                    "LanguageCode": "DE"
+                }
+            ],
+            "ShortDescription": [
+                {
+                    "Text": "Complete short",
+                    "LanguageCode": "EN"
+                },
+                {
+                    "Text": "Komplett kurz",
+                    "LanguageCode": "DE"
+                }
+            ],
+            "Images": [
+                {
+                    "Id": 493289770,
+                    "Url": "https:\/\/cdn.stocksnap.io\/img-thumbs\/960w\/fruit-slices_NNIRPAXZFX.jpg",
+                    "ThumbPathExt": "ab665923-d288-45ff-8d9e-410d10dda01e\/40986800\/100\/493289770.png",
+                    "ThumbUrl": "https:\/\/cdn.stocksnap.io\/img-thumbs\/960w\/fruit-slices_NNIRPAXZFX.jpg",
+                    "Position": 3,
+                    "IsDefault": true,
+                    "ArticleId": 40986800
+                }
+            ],
+            "Description": [
+                {
+                    "Text": "Complete long",
+                    "LanguageCode": "EN"
+                },
+                {
+                    "Text": "Komplett lang",
+                    "LanguageCode": "DE"
+                }
+            ],
+            "BasicAttributes": [
+                {
+                    "Text": "Details",
+                    "LanguageCode": "EN"
+                },
+                {
+                    "Text": "Wesentliche Merkmale",
+                    "LanguageCode": "DE"
+                }
+            ],
+            "SKU": "SKU",
+            "EAN": "EAN",
+            "Sources": [
+                {
+                    "Id": 36174052,
+                    "Source": "manual",
+                    "SourceId": "test",
+                    "ApiAccountName": "test",
+                    "ApiAccountId": 70815,
+                    "ExportFactor": 1.0,
+                    "StockSyncInactive": false,
+                    "StockSyncMin": 2.0,
+                    "StockSyncMax": 3.0,
+                    "UnitsPerItem": 1.0
+                }
+            ],
+            "Category1": {
+                "Id": 8733,
+                "Name": "Schuhe"
+            },
+            "Category2": {
+                "Id": 8733,
+                "Name": "Schuhe"
+            },
+            "Category3": {
+                "Id": 8733,
+                "Name": "Schuhe"
+            },
+            "Manufacturer": "Hersteller",
+            "VatIndex": 1,
+            "Price": 5.95,
+            "CostPrice": 2.38,
+            "Vat1Rate": 19.0,
+            "Vat2Rate": 7.0,
+            "Materials": [
+                {
+                    "Text": "Material",
+                    "LanguageCode": "EN"
+                },
+                {
+                    "Text": "Material",
+                    "LanguageCode": "DE"
+                }
+            ],
+            "Tags": [
+                {
+                    "Text": "Tags",
+                    "LanguageCode": "EN"
+                },
+                {
+                    "Text": "Tags",
+                    "LanguageCode": "DE"
+                }
+            ],
+            "StockDesired": 3.0,
+            "StockCurrent": 2.0,
+            "StockWarning": 1.0,
+            "LowStock": false,
+            "StockCode": "StockCode",
+            "StockReduceItemsPerSale": 1.0,
+            "Stocks": [
+                {
+                    "Name": "Lager 1",
+                    "StockId": 266,
+                    "StockCurrent": 0.0,
+                    "StockWarning": 0.0,
+                    "StockCode": "test",
+                    "UnfulfilledAmount": 0.0,
+                    "StockDesired": 0.0
+                }
+            ],
+            "Weight": 100,
+            "WeightNet": 50,
+            "Unit": 1,
+            "UnitsPerItem": 1.0,
+            "SoldAmount": 1.0,
+            "SoldSumGross": 20.0,
+            "SoldSumNet": 20.0,
+            "SoldSumNetLast30Days": 20.0,
+            "SoldSumGrossLast30Days": 20.0,
+            "SoldAmountLast30Days": 1.0,
+            "ShippingProductId": 100000000288650,
+            "IsDigital": true,
+            "IsCustomizable": true,
+            "DeliveryTime": 4,
+            "Recipient": 4,
+            "Occasion": 1,
+            "CountryOfOrigin": "AF",
+            "ExportDescription": "Export Beschreibung",
+            "ExportDescriptionMultiLanguage": [],
+            "TaricNumber": "TARIC",
+            "CustomFields": [
+                {
+                    "Id": 100000000658609,
+                    "DefinitionId": 100000000002236,
+                    "Definition": {
+                        "Id": 100000000002236,
+                        "Name": "Multi Dropdown",
+                        "Configuration": {
+                            "Choices": "Test1\nTest2\nTest3",
+                            "Multiple": true
+                        },
+                        "Type": 3,
+                        "IsNullable": true
+                    },
+                    "ArticleId": 100000060427005,
+                    "Value": [
+                        "Test1",
+                        "Test3"
+                    ]
+                }
+            ],
+            "Condition": 2,
+            "WidthCm": 30.0,
+            "LengthCm": 20.0,
+            "HeightCm": 40.0,
+            "BillOfMaterial": [
+                {
+                    "ArticleId": 1234,
+                    "Amount": 1.0,
+                    "SKU": "PROD1234"
+                }
+            ],
+            "IsDeactivated": true
+        }
+    ]
+}

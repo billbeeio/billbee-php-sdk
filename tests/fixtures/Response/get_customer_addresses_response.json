@@ -1,0 +1,25 @@
+{
+    "ErrorCode": 0,
+    "Data": [
+        {
+            "Id": 100000176934711,
+            "AddressType": 1,
+            "CustomerId": 100000150176895,
+            "Company": "firma",
+            "FirstName": "Vorname",
+            "LastName": "Nachname",
+            "Name2": "Name 2",
+            "Street": "Stra\u00dfe",
+            "Housenumber": "Hausnummer",
+            "Zip": "PLZ",
+            "City": "Ort",
+            "State": "Bundesland",
+            "CountryCode": "DE",
+            "Email": "max@mustermann.tld",
+            "Tel1": "12345",
+            "Tel2": "47896",
+            "Fax": "010234",
+            "AddressAddition": "Zusatz"
+        }
+    ]
+}

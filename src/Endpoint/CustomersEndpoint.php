@@ -2,7 +2,7 @@
 /**
  * This file is part of the Billbee API package.
  *
- * Copyright 2017 - 2021 by Billbee GmbH
+ * Copyright 2017 - now by Billbee GmbH
  *
  * For the full copyright and license information, please read the LICENSE
  * file that was distributed with this source code.
@@ -18,7 +18,7 @@ use BillbeeDe\BillbeeAPI\Exception\QuotaExceededException;
 use BillbeeDe\BillbeeAPI\Model as Model;
 use BillbeeDe\BillbeeAPI\Response as Response;
 use Exception;
-use MintWare\DMM\Serializer\SerializerInterface;
+use JMS\Serializer\SerializerInterface;
 
 class CustomersEndpoint
 {
@@ -205,7 +205,7 @@ class CustomersEndpoint
 
         return $this->client->put(
             'customers/' . $customer->id,
-            $this->serializer->serialize($customer),
+            $this->serializer->serialize($customer, 'json'),
             Response\GetCustomerResponse::class
         );
     }
@@ -219,15 +219,15 @@ class CustomersEndpoint
      * Updates one or more fields of an address
      *
      * @param int $addressId The internal id of the address
-     * @param array $model The fields to patch
+     * @param array<string, mixed> $model The fields to patch
      *
-     * @return Response\GetCustomerAddressResponse The address
+     * @return ?Response\GetCustomerAddressResponse The address
      *
      * @throws QuotaExceededException If the maximum number of calls per second exceeded
      * @throws Exception If the response cannot be parsed
      *
      */
-    public function patchAddress($addressId, $model)
+    public function patchAddress(int $addressId, array $model): ?Response\GetCustomerAddressResponse
     {
         return $this->client->patch(
             'customers/addresses/' . $addressId,

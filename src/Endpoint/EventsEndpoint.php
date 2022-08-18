@@ -2,7 +2,7 @@
 /**
  * This file is part of the Billbee API package.
  *
- * Copyright 2017 - 2021 by Billbee GmbH
+ * Copyright 2017 - now by Billbee GmbH
  *
  * For the full copyright and license information, please read the LICENSE
  * file that was distributed with this source code.
@@ -33,24 +33,24 @@ class EventsEndpoint
      *
      * @param int $page The start page
      * @param int $pageSize The page size
-     * @param DateTimeInterface $minDate Start date
-     * @param DateTimeInterface $maxDate End date
-     * @param array $typeIds An array of event type id's
-     * @param int $orderId Filter for specific order id
+     * @param ?DateTimeInterface $minDate Start date
+     * @param ?DateTimeInterface $maxDate End date
+     * @param int[] $typeIds An array of event type id's
+     * @param ?int $orderId Filter for specific order id
      *
-     * @return Response\GetEventsResponse The events
+     * @return ?Response\GetEventsResponse The events
      *
      * @throws QuotaExceededException If the maximum number of calls per second exceeded
      * @throws Exception If the response cannot be parsed
      */
     public function getEvents(
-        $page = 1,
-        $pageSize = 50,
-        DateTimeInterface $minDate = null,
-        DateTimeInterface $maxDate = null,
-        $typeIds = [],
-        $orderId = null
-    ) {
+        int $page = 1,
+        int $pageSize = 50,
+        ?DateTimeInterface $minDate = null,
+        ?DateTimeInterface $maxDate = null,
+        array $typeIds = [],
+        ?int $orderId = null
+    ): ?Response\GetEventsResponse {
         $query = [
             'page' => max(1, $page),
             'pageSize' => max(1, $pageSize),

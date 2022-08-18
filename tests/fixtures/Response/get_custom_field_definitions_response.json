@@ -1,0 +1,15 @@
+{
+    "ErrorCode": 0,
+    "Data": [
+        {
+            "Id": 100000000002236,
+            "Name": "Multi Dropdown",
+            "Configuration": {
+                "Choices": "Test1\nTest2\nTest3",
+                "Multiple": true
+            },
+            "Type": 3,
+            "IsNullable": true
+        }
+    ]
+}

@@ -2,7 +2,7 @@
 /**
  * This file is part of the Billbee API package.
  *
- * Copyright 2017 - 2021 by Billbee GmbH
+ * Copyright 2017 - now by Billbee GmbH
  *
  * For the full copyright and license information, please read the LICENSE
  * file that was distributed with this source code.
@@ -15,22 +15,55 @@ namespace BillbeeDe\Tests\BillbeeAPI\Model;
 use BillbeeDe\BillbeeAPI\Model\Shipment;
 use BillbeeDe\BillbeeAPI\Model\ShippingProduct;
 use BillbeeDe\BillbeeAPI\Model\ShippingProvider;
-use PHPUnit\Framework\TestCase;
+use BillbeeDe\Tests\BillbeeAPI\SerializerTestCase;
 
-class ShipmentTest extends TestCase
+class ShipmentTest extends SerializerTestCase
 {
     public function testCreateFromProviderAndProduct()
     {
-        /** @var ShippingProvider $provider */
-        $provider = $this->createMock(ShippingProvider::class);
-        $provider->id = 4711;
+        $provider = (new ShippingProvider())
+            ->setId(4711);
 
-        /** @var ShippingProduct $product */
-        $product = $this->createMock(ShippingProduct::class);
-        $product->id = 1337;
+        $product = (new ShippingProduct())
+            ->setId(1337);
 
         $shipment = Shipment::fromProviderAndProduct($provider, $product);
-        $this->assertSame(4711, $shipment->shippingProviderId);
-        $this->assertSame(1337, $shipment->shippingProductId);
+        $this->assertSame(4711, $shipment->getShippingProviderId());
+        $this->assertSame(1337, $shipment->getShippingProductId());
+    }
+
+    public function testSerialize(): void
+    {
+        $result = self::getShipment();
+        self::assertSerialize('Model/shipment.json', $result);
+    }
+
+    public function testDeserialize(): void
+    {
+        self::assertDeserialize(
+            'Model/shipment.json',
+            Shipment::class,
+            function (Shipment $result) {
+                self::assertEquals("ShippingId", $result->getShippingId());
+                self::assertEquals("OrderId", $result->getOrderId());
+                self::assertEquals("OrderCommentId", $result->getComment());
+                self::assertEquals(1, $result->getShippingProviderId());
+                self::assertEquals(2, $result->getShippingProductId());
+                self::assertEquals(3, $result->getCarrierId());
+                self::assertEquals(1, $result->getType());
+            }
+        );
+    }
+
+    public static function getShipment(): Shipment
+    {
+        return (new Shipment())
+            ->setShippingId("ShippingId")
+            ->setOrderId("OrderId")
+            ->setComment("OrderCommentId")
+            ->setShippingProviderId(1)
+            ->setShippingProductId(2)
+            ->setCarrierId(3)
+            ->setType(1);
     }
 }

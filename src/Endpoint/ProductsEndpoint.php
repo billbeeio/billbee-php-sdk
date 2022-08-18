@@ -2,7 +2,7 @@
 /**
  * This file is part of the Billbee API package.
  *
- * Copyright 2017 - 2021 by Billbee GmbH
+ * Copyright 2017 - now by Billbee GmbH
  *
  * For the full copyright and license information, please read the LICENSE
  * file that was distributed with this source code.
@@ -19,7 +19,7 @@ use BillbeeDe\BillbeeAPI\Response as Response;
 use BillbeeDe\BillbeeAPI\Type as Type;
 use DateTime;
 use Exception;
-use MintWare\DMM\Serializer\SerializerInterface;
+use JMS\Serializer\SerializerInterface;
 
 class ProductsEndpoint
 {
@@ -157,7 +157,7 @@ class ProductsEndpoint
         return $this->client->post(
             'products/updatestockmultiple',
             $stockModels,
-            Response\UpdateStockResponse::class . '[]'
+            sprintf('array<%s>', Response\UpdateStockResponse::class)
         );
     }
 
@@ -165,16 +165,16 @@ class ProductsEndpoint
      * Updates the stock code for a single  products
      *
      * @param Model\StockCode $stockCodeModel The stock code model
-     * @return Response\BaseResponse The Response
+     * @return Response\BaseResponse<array{}> The Response
      *
      * @throws QuotaExceededException If the maximum number of calls per second exceeded
      * @throws Exception If the response cannot be parsed
      */
-    public function updateStockCode(Model\StockCode $stockCodeModel)
+    public function updateStockCode(Model\StockCode $stockCodeModel): ?Response\BaseResponse
     {
         return $this->client->post(
             'products/updatestockcode',
-            $this->serializer->serialize($stockCodeModel),
+            $this->serialize($stockCodeModel),
             Response\BaseResponse::class
         );
     }
@@ -192,7 +192,7 @@ class ProductsEndpoint
     {
         return $this->client->post(
             'products',
-            $this->serializer->serialize($product),
+            $this->serialize($product),
             Response\GetProductResponse::class
         );
     }
@@ -205,7 +205,7 @@ class ProductsEndpoint
      * Updates one or more fields of a product
      *
      * @param int $productId The internal id of the product
-     * @param array $model The fields to patch
+     * @param array<string, mixed> $model The fields to patch
      *
      * @return Response\GetProductResponse The order
      *
@@ -214,7 +214,7 @@ class ProductsEndpoint
      *
      * @see Client::getPatchableProductFields()
      */
-    public function patchProduct($productId, $model)
+    public function patchProduct(int $productId, array $model): ?Response\GetProductResponse
     {
         return $this->client->patch(
             'products/' . $productId,
@@ -235,12 +235,18 @@ class ProductsEndpoint
      * @throws QuotaExceededException If the maximum number of calls per second exceeded
      * @throws Exception If the response cannot be parsed
      */
-    public function deleteProduct($productId)
+    public function deleteProduct(int $productId): void
     {
         $this->client->delete(
             'products/' . $productId,
             [],
             Response\BaseResponse::class
         );
+    }
+
+    /** @param mixed $data */
+    private function serialize($data): string
+    {
+        return $this->serializer->serialize($data, 'json');
     }
 }

@@ -1,0 +1,8 @@
+{
+    "Sku": "foobar",
+    "Reason": "Import",
+    "OldQuantity": 12.33,
+    "NewQuantity": 19.66,
+    "DeltaQuantity": 7.33,
+    "AutosubtractReservedAmount": true
+}

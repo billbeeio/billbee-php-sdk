@@ -2,7 +2,7 @@
 /**
  * This file is part of the Billbee API package.
  *
- * Copyright 2017 - 2021 by Billbee GmbH
+ * Copyright 2017 - now by Billbee GmbH
  *
  * For the full copyright and license information, please read the LICENSE
  * file that was distributed with this source code.
@@ -12,13 +12,18 @@
 
 namespace BillbeeDe\BillbeeAPI\Response;
 
-use MintWare\DMM\DataField;
+use BillbeeDe\BillbeeAPI\Model\TermsInfo;
+use JMS\Serializer\Annotation as Serializer;
 
+/** @extends BaseResponse<TermsInfo> */
 class GetTermsInfoResponse extends BaseResponse
 {
     /**
-     * @var \BillbeeDe\BillbeeAPI\Model\TermsInfo
-     * @DataField(name="Data", type="\BillbeeDe\BillbeeAPI\Model\TermsInfo")
+     * @var TermsInfo
+     * @Serializer\Type("BillbeeDe\BillbeeAPI\Model\TermsInfo")
+     * @Serializer\SerializedName("Data")
+     *
+     * @deprecated Use getter/setter instead. Will be protected in the next major version.
      */
     public $data = null;
 }

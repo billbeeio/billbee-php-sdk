@@ -1,0 +1,19 @@
+{
+    "ErrorCode": 0,
+    "Data": {
+        "Id": 100000187723587,
+        "ExternalId": "#19405145",
+        "InvoiceNumber": "12345",
+        "InvoiceCreatedAt": "2022-08-17T02:00:00+00:00",
+        "InvoiceDate": "2022-08-17T02:00:00+00:00",
+        "CreatedAt": "2022-08-17T02:00:00+00:00",
+        "PaidAt": "2022-08-17T02:00:00+00:00",
+        "ShippedAt": "2022-08-17T02:00:00+00:00",
+        "HasInvoice": true,
+        "OrderStateId": 1,
+        "OrderStateText": "Bestellt",
+        "TotalGross": 113.11,
+        "ShopName": "Fake Shop 3",
+        "CanCreateAutoInvoice": true
+    }
+}

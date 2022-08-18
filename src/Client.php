@@ -2,7 +2,7 @@
 /**
  * This file is part of the Billbee API package.
  *
- * Copyright 2017 - 2021 by Billbee GmbH
+ * Copyright 2017 - now by Billbee GmbH
  *
  * For the full copyright and license information, please read the LICENSE
  * file that was distributed with this source code.
@@ -27,12 +27,16 @@ use BillbeeDe\BillbeeAPI\Endpoint\WebHooksEndpoint;
 use BillbeeDe\BillbeeAPI\Exception\QuotaExceededException;
 use BillbeeDe\BillbeeAPI\Logger\DiagnosticsLogger;
 use BillbeeDe\BillbeeAPI\Response as Response;
+use BillbeeDe\BillbeeAPI\Transformer\AsIsTransformer;
+use BillbeeDe\BillbeeAPI\Transformer\DefaultDateTimeHandler;
+use BillbeeDe\BillbeeAPI\Transformer\DefinitionConfigTransformer;
 use Exception;
 use GuzzleHttp\Exception\ClientException;
 use GuzzleHttp\Psr7\Message;
 use GuzzleHttp\RequestOptions;
-use MintWare\DMM\ObjectMapper;
-use MintWare\DMM\Serializer\JsonSerializer;
+use JMS\Serializer\Handler\HandlerRegistry;
+use JMS\Serializer\SerializerBuilder;
+use JMS\Serializer\SerializerInterface;
 use Psr\Http\Message\RequestInterface;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Log\LoggerInterface;
@@ -49,11 +53,11 @@ class Client implements ClientInterface, BatchClientInterface
     protected $endpoint = 'https://api.billbee.io/api/v1/';
 
     /**
-     * The JSON Object Mapper
+     * The serializer.
      *
-     * @var ObjectMapper
+     * @var SerializerInterface
      */
-    protected $jom = null;
+    protected $serializer;
 
     /**
      * If true, the requests will be performed using a batch call.
@@ -69,7 +73,7 @@ class Client implements ClientInterface, BatchClientInterface
     /**
      * Contains all requests in batch mode
      *
-     * @var array
+     * @var array{responseClass: class-string, requestFactory: callable}[]
      */
     protected $requestPool = [];
 
@@ -135,30 +139,34 @@ class Client implements ClientInterface, BatchClientInterface
             'auth' => [$username, $apiPassword],
             'headers' => [
                 'X-Billbee-Api-Key' => $apiKey,
-            ]
+            ],
+            'verify' => false
         ]);
 
         $this->setLogger($logger);
         $this->client->setLogger($logger);
-        try {
-            $this->jom = new ObjectMapper(new JsonSerializer());
-        } catch (Exception $ex) {
-            if ($logger !== null) {
-                $this->logger->critical('Object Mapper could not be created.');
-            }
-            throw $ex;
-        }
+        $this->serializer = SerializerBuilder::create()
+            ->addDefaultDeserializationVisitors()
+            ->addDefaultSerializationVisitors()
+            ->addDefaultHandlers()
+            ->addDefaultListeners()
+            ->configureHandlers(
+                function (HandlerRegistry $registry) {
+                    $registry->registerSubscribingHandler(new DefinitionConfigTransformer());
+                    $registry->registerSubscribingHandler(new AsIsTransformer());
+                    $registry->registerSubscribingHandler(new DefaultDateTimeHandler());
+                }
+            )->build();
 
-        $serializer = $this->jom->getSerializer();
-        $this->productsEndpoint = new ProductsEndpoint($this, $serializer);
+        $this->productsEndpoint = new ProductsEndpoint($this, $this->serializer);
         $this->provisioningEndpoint = new ProvisioningEndpoint($this);
         $this->eventsEndpoint = new EventsEndpoint($this);
-        $this->ordersEndpoint = new OrdersEndpoint($this, $serializer, $logger);
+        $this->ordersEndpoint = new OrdersEndpoint($this, $this->serializer, $logger);
         $this->invoicesEndpoint = new InvoiceEndpoint($this);
-        $this->shipmentsEndpoint = new ShipmentsEndpoint($this, $serializer);
+        $this->shipmentsEndpoint = new ShipmentsEndpoint($this, $this->serializer);
         $this->customFieldsEndpoint = new ProductCustomFieldsEndpoint($this);
-        $this->webHooksEndpoint = new WebHooksEndpoint($this, $serializer);
-        $this->customersEndpoint = new CustomersEndpoint($this, $serializer);
+        $this->webHooksEndpoint = new WebHooksEndpoint($this, $this->serializer);
+        $this->customersEndpoint = new CustomersEndpoint($this, $this->serializer);
         $this->cloudStoragesEndpoint = new CloudStorageEndpoint($this);
         $this->layoutsEndpoint = new LayoutsEndpoint($this);
         $this->searchEndpoint = new SearchEndpoint($this);
@@ -297,7 +305,7 @@ class Client implements ClientInterface, BatchClientInterface
      *
      * @see Client::executeBatch()
      */
-    public function enableBatchMode()
+    public function enableBatchMode(): void
     {
         $this->useBatching = true;
     }
@@ -306,7 +314,7 @@ class Client implements ClientInterface, BatchClientInterface
      * Disables the batch mode
      * Requests are executed directly and returns the result.
      */
-    public function disableBatchMode()
+    public function disableBatchMode(): void
     {
         $this->useBatching = false;
     }
@@ -460,7 +468,7 @@ class Client implements ClientInterface, BatchClientInterface
         if ($responseClass !== null) {
             try {
                 if (trim($contents) != '' && trim($responseClass) != '') {
-                    $data = $this->jom->map($contents, $responseClass);
+                    $data = $this->serializer->deserialize($contents, $responseClass, 'json');
                 } elseif (trim($contents) != '') {
                     $data = $contents;
                 }
@@ -475,7 +483,7 @@ class Client implements ClientInterface, BatchClientInterface
                 $contents = Message::parseResponse($response)->getBody()->getContents();
                 try {
                     if (trim($contents) != '' && trim($responseClass) != '') {
-                        $data[$i] = $this->jom->map($contents, $responseClass);
+                        $data[$i] = $this->serializer->deserialize($contents, $responseClass, 'json');
                     } elseif (trim($contents) != '') {
                         $data[$i] = $contents;
                     }
@@ -492,9 +500,9 @@ class Client implements ClientInterface, BatchClientInterface
      * Converts the response of the batch call in single responses
      *
      * @param string $batchResult
-     * @return array
+     * @return string[]
      */
-    private function getResponsesFromBody($batchResult)
+    private function getResponsesFromBody($batchResult): array
     {
         $lines = explode("\r\n", $batchResult, 2);
         $batchName = $lines[0];

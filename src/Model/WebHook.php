@@ -2,7 +2,7 @@
 /**
  * This file is part of the Billbee API package.
  *
- * Copyright 2017 - 2021 by Billbee GmbH
+ * Copyright 2017 - now by Billbee GmbH
  *
  * For the full copyright and license information, please read the LICENSE
  * file that was distributed with this source code.
@@ -12,56 +12,174 @@
 
 namespace BillbeeDe\BillbeeAPI\Model;
 
-use MintWare\DMM\DataField;
+use JMS\Serializer\Annotation as Serializer;
 
 class WebHook
 {
     /**
-     * @var string
-     * @DataField("Id", type="string")
+     * @var ?string
+     * @Serializer\Type("string")
+     * @Serializer\SerializedName("Id")
+     *
+     * @deprecated Use getter/setter instead. Will be private in the next major version.
      */
     public $id;
 
     /**
-     * @var string
-     * @DataField("WebHookUri", type="string")
+     * @var ?string
+     * @Serializer\Type("string")
+     * @Serializer\SerializedName("WebHookUri")
+     *
+     * @deprecated Use getter/setter instead. Will be private in the next major version.
      */
     public $webHookUri;
 
     /**
-     * @var string
-     * @DataField("Secret", type="string")
+     * @var ?string
+     * @Serializer\Type("string")
+     * @Serializer\SerializedName("Secret")
+     *
+     * @deprecated Use getter/setter instead. Will be private in the next major version.
      */
     public $secret;
 
     /**
-     * @var string
-     * @DataField("Description", type="string")
+     * @var ?string
+     * @Serializer\Type("string")
+     * @Serializer\SerializedName("Description")
+     *
+     * @deprecated Use getter/setter instead. Will be private in the next major version.
      */
     public $description;
 
     /**
      * @var bool
-     * @DataField("IsPaused", type="bool")
+     * @Serializer\Type("bool")
+     * @Serializer\SerializedName("IsPaused")
+     *
+     * @deprecated Use getter/setter instead. Will be private in the next major version.
      */
     public $isPaused = false;
 
     /**
-     * @var string[]
-     * @DataField("Filters", type="array")
+     * @var ?string[]
+     * @Serializer\Type("array")
+     * @Serializer\SerializedName("Filters")
+     *
+     * @deprecated Use getter/setter instead. Will be private in the next major version.
      * @see \BillbeeDe\BillbeeAPI\Model\WebHookFilter
      */
     public $filters = null;
 
     /**
-     * @var array
-     * @DataField("Headers", type="array")
+     * @var array<string, string>
+     * @Serializer\Type("array<string, string>")
+     * @Serializer\SerializedName("Headers")
+     *
+     * @deprecated Use getter/setter instead. Will be private in the next major version.
      */
-    public $headers = null;
+    public $headers = [];
 
     /**
-     * @var array
-     * @DataField("Properties", type="array")
+     * @var array<string, mixed>
+     * @Serializer\Type("array<string, AsIs>")
+     * @Serializer\SerializedName("Properties")
+     *
+     * @deprecated Use getter/setter instead. Will be private in the next major version.
      */
-    public $properties = null;
+    public $properties = [];
+
+    public function getId(): ?string
+    {
+        return $this->id;
+    }
+
+    public function setId(?string $id): self
+    {
+        $this->id = $id;
+        return $this;
+    }
+
+    public function getWebHookUri(): ?string
+    {
+        return $this->webHookUri;
+    }
+
+    public function setWebHookUri(?string $webHookUri): self
+    {
+        $this->webHookUri = $webHookUri;
+        return $this;
+    }
+
+    public function getSecret(): ?string
+    {
+        return $this->secret;
+    }
+
+    public function setSecret(?string $secret): self
+    {
+        $this->secret = $secret;
+        return $this;
+    }
+
+    public function getDescription(): ?string
+    {
+        return $this->description;
+    }
+
+    public function setDescription(?string $description): self
+    {
+        $this->description = $description;
+        return $this;
+    }
+
+    public function isPaused(): bool
+    {
+        return $this->isPaused;
+    }
+
+    public function setIsPaused(bool $isPaused): self
+    {
+        $this->isPaused = $isPaused;
+        return $this;
+    }
+
+    /** @return string[]|null */
+    public function getFilters(): ?array
+    {
+        return $this->filters;
+    }
+
+    /** @param string[]|null $filters */
+    public function setFilters(?array $filters): self
+    {
+        $this->filters = $filters;
+        return $this;
+    }
+
+    /** @return array<string, string> */
+    public function getHeaders(): array
+    {
+        return $this->headers;
+    }
+
+    /** @param array<string, string> $headers */
+    public function setHeaders(array $headers): self
+    {
+        $this->headers = $headers;
+        return $this;
+    }
+
+    /** @return array<string, string> */
+    public function getProperties(): array
+    {
+        return $this->properties;
+    }
+
+    /** @param array<string, string> $properties */
+    public function setProperties(array $properties): self
+    {
+        $this->properties = $properties;
+        return $this;
+    }
 }

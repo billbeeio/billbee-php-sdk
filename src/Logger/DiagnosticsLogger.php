@@ -2,7 +2,7 @@
 /**
  * This file is part of the Billbee API package.
  *
- * Copyright 2017 - 2021 by Billbee GmbH
+ * Copyright 2017 - now by Billbee GmbH
  *
  * For the full copyright and license information, please read the LICENSE
  * file that was distributed with this source code.
@@ -28,7 +28,7 @@ class DiagnosticsLogger implements LoggerInterface
     /** @var string */
     private $logFile;
 
-    public function __construct($logFile = null)
+    public function __construct(?string $logFile = null)
     {
         if ($logFile === null) {
             $filename = sprintf('billbee_api_%s.log', date('Y-m-d-H-i-s'));

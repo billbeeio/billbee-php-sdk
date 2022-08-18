@@ -2,7 +2,7 @@
 /**
  * This file is part of the Billbee API package.
  *
- * Copyright 2017 - 2021 by Billbee GmbH
+ * Copyright 2017 - now by Billbee GmbH
  *
  * For the full copyright and license information, please read the LICENSE
  * file that was distributed with this source code.
@@ -13,10 +13,11 @@
 namespace BillbeeDe\BillbeeAPI\Exception;
 
 use Exception;
+use Throwable;
 
 class QuotaExceededException extends Exception
 {
-    public function __construct($message = "", $code = 0, $previous = null)
+    public function __construct(string $message = "", int $code = 0, ?Throwable $previous = null)
     {
         parent::__construct($message, $code, $previous);
     }

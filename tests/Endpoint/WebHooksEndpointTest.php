@@ -2,7 +2,7 @@
 /**
  * This file is part of the Billbee API package.
  *
- * Copyright 2017 - 2021 by Billbee GmbH
+ * Copyright 2017 - now by Billbee GmbH
  *
  * For the full copyright and license information, please read the LICENSE
  * file that was distributed with this source code.
@@ -19,6 +19,8 @@ use BillbeeDe\BillbeeAPI\Response\BaseResponse;
 use BillbeeDe\Tests\BillbeeAPI\FakeSerializer;
 use BillbeeDe\Tests\BillbeeAPI\TestClient;
 use InvalidArgumentException;
+use JMS\Serializer\SerializerInterface;
+use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 
 class WebHooksEndpointTest extends TestCase
@@ -29,10 +31,14 @@ class WebHooksEndpointTest extends TestCase
     /** @var TestClient */
     private $client;
 
+    /** @var SerializerInterface&MockObject */
+    private $mockSerializer;
+
     protected function setUp(): void
     {
         $this->client = new TestClient();
-        $this->endpoint = new WebHooksEndpoint($this->client, new FakeSerializer());
+        $this->mockSerializer = self::createMock(SerializerInterface::class);
+        $this->endpoint = new WebHooksEndpoint($this->client, $this->mockSerializer);
     }
 
     public function testGetWebHooks()
@@ -46,7 +52,7 @@ class WebHooksEndpointTest extends TestCase
         $this->assertSame('GET', $method);
         $this->assertSame('webhooks', $node);
         $this->assertSame([], $query);
-        $this->assertSame(WebHook::class.'[]', $class);
+        $this->assertSame(sprintf('array<%s>', WebHook::class), $class);
     }
 
     public function testGetWebHook()
@@ -74,12 +80,17 @@ class WebHooksEndpointTest extends TestCase
         $this->assertSame('GET', $method);
         $this->assertSame('webhooks/filters', $node);
         $this->assertSame([], $query);
-        $this->assertSame(WebHookFilter::class.'[]', $class);
+        $this->assertSame(sprintf('array<%s>', WebHookFilter::class), $class);
     }
 
     public function testCreateWebHook()
     {
         $webHook = new WebHook();
+
+        $this->mockSerializer->expects(self::once())
+            ->method('serialize')
+            ->with($webHook, 'json');
+
         $this->endpoint->createWebHook($webHook);
 
         $requests = $this->client->getRequests();
@@ -88,7 +99,6 @@ class WebHooksEndpointTest extends TestCase
         list($method, $node, $query, $class) = $requests[0];
         $this->assertSame('POST', $method);
         $this->assertSame('webhooks', $node);
-        $this->assertSame($webHook, $query);
         $this->assertSame(WebHook::class, $class);
     }
 
@@ -105,6 +115,11 @@ class WebHooksEndpointTest extends TestCase
     {
         $webHook = new WebHook();
         $webHook->id = 'HelloWorld';
+
+        $this->mockSerializer->expects(self::once())
+            ->method('serialize')
+            ->with($webHook, 'json');
+
         $this->endpoint->updateWebHook($webHook);
 
         $requests = $this->client->getRequests();
@@ -113,7 +128,6 @@ class WebHooksEndpointTest extends TestCase
         list($method, $node, $query, $class) = $requests[0];
         $this->assertSame('PUT', $method);
         $this->assertSame('webhooks/HelloWorld', $node);
-        $this->assertSame($webHook, $query);
         $this->assertSame(WebHook::class, $class);
     }
 

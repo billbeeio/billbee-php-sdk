@@ -2,7 +2,7 @@
 /**
  * This file is part of the Billbee API package.
  *
- * Copyright 2017 - 2021 by Billbee GmbH
+ * Copyright 2017 - now by Billbee GmbH
  *
  * For the full copyright and license information, please read the LICENSE
  * file that was distributed with this source code.
@@ -12,13 +12,17 @@
 
 namespace BillbeeDe\BillbeeAPI\Response;
 
-use MintWare\DMM\DataField;
+use JMS\Serializer\Annotation as Serializer;
 
+/** @extends BaseResponse<array<array{SKU: ?string, OldStock: ?float, CurrentStock: ?float, UnfulfilledAmount: ?float, Message: string}>> */
 class UpdateStockResponse extends BaseResponse
 {
     /**
-     * @var array<array>
-     * @DataField(name="Data", type="array")
+     * @var array<array{SKU: ?string, OldStock: ?float, CurrentStock: ?float, UnfulfilledAmount: ?float, Message: string}>
+     * @Serializer\Type("array")
+     * @Serializer\SerializedName("Data")
+     *
+     * @deprecated Use getter/setter instead. Will be protected in the next major version.
      */
     public $data = [];
 }

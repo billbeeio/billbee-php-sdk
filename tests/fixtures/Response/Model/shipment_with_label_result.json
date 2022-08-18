@@ -1,0 +1,10 @@
+{
+    "OrderId": 1234,
+    "OrderReference": "ref",
+    "ShippingId": "shipping id",
+    "TrackingUrl": "tracking url",
+    "LabelDataPdf": "data",
+    "ExportDocsPdf": "export docs pdf",
+    "Carrier": "carrier",
+    "ShippingDate": "2022-08-10T00:00:00"
+}

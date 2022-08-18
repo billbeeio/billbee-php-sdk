@@ -1,0 +1,16 @@
+{
+    "BillbeeId": 1,
+    "City": "ort",
+    "Street": "Str",
+    "Company": "Firma",
+    "Zip": "12345",
+    "State": "staat",
+    "Country": "DE",
+    "CountryISO2": "DE",
+    "FirstName": "Vorname",
+    "LastName": "Nachname",
+    "Phone": "12345",
+    "Email": "admin@domain.tld",
+    "HouseNumber": "hausnummer",
+    "NameAddition": "Zusatz"
+}

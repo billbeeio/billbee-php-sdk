@@ -1,0 +1,50 @@
+{
+    "Id": 100000060426878,
+    "Type": 1,
+    "Title": [
+        {
+            "Text": "minimal",
+            "LanguageCode": "DE"
+        }
+    ],
+    "InvoiceText": [],
+    "ShortDescription": [
+        {
+            "Text": "\n",
+            "LanguageCode": "DE"
+        }
+    ],
+    "Images": [],
+    "Description": [
+        {
+            "Text": "\n",
+            "LanguageCode": "DE"
+        }
+    ],
+    "BasicAttributes": [],
+    "Sources": [],
+    "VatIndex": 1,
+    "Price": 0.0,
+    "Vat1Rate": 19.0,
+    "Vat2Rate": 7.0,
+    "Materials": [],
+    "Tags": [],
+    "LowStock": false,
+    "StockReduceItemsPerSale": 1.0,
+    "Stocks": [
+        {
+            "Name": "Lager 1",
+            "StockId": 266,
+            "StockCurrent": 0.0,
+            "StockWarning": 0.0,
+            "StockCode": "test",
+            "UnfulfilledAmount": 0.0,
+            "StockDesired": 0.0
+        }
+    ],
+    "IsDigital": false,
+    "IsCustomizable": false,
+    "ExportDescriptionMultiLanguage": [],
+    "CustomFields": [],
+    "IsDeactivated": false
+}

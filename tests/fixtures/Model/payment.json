@@ -1,0 +1,11 @@
+{
+    "BillbeeId": 100000045032352,
+    "TransactionId": "txid",
+    "PayDate": "2022-08-17T00:00:00+00:00",
+    "PaymentType": 1,
+    "SourceTechnology": "foo",
+    "SourceText": "konto",
+    "PayValue": 162.0,
+    "Purpose": "bestellung",
+    "Name": "max muster"
+}

@@ -1,0 +1,9 @@
+{
+    "Name": "Lager 1",
+    "StockId": 266,
+    "StockCurrent": 0.0,
+    "StockWarning": 0.0,
+    "StockCode": "test",
+    "UnfulfilledAmount": 0.0,
+    "StockDesired": 0.0
+}

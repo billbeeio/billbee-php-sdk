@@ -2,7 +2,7 @@
 /**
  * This file is part of the Billbee API package.
  *
- * Copyright 2017 - 2021 by Billbee GmbH
+ * Copyright 2017 - now by Billbee GmbH
  *
  * For the full copyright and license information, please read the LICENSE
  * file that was distributed with this source code.
@@ -12,211 +12,170 @@
 
 namespace BillbeeDe\BillbeeAPI\Model;
 
-use JsonSerializable;
+use JMS\Serializer\Annotation as Serializer;
 
-class Stock implements JsonSerializable
+class Stock
 {
     /**
+     * @var ?string
      * The SKU of the Product
-     * @var string
+     * @Serializer\Type("string")
+     * @Serializer\SerializedName("Sku")
+     *
+     * @deprecated Use getter/setter instead. Will be private in the next major version.
      */
     protected $sku;
 
     /**
-     * The Id of the stock
-     * @var int|null
+     * @var ?int
+     * The id of the stock
+     * @Serializer\Type("int")
+     * @Serializer\SerializedName("StockId")
+     *
+     * @deprecated Use getter/setter instead. Will be private in the next major version.
      */
     protected $stockId = null;
 
     /**
+     * @var ?string
      * A note for the change
-     * @var string
+     * @Serializer\Type("string")
+     * @Serializer\SerializedName("Reason")
+     *
+     * @deprecated Use getter/setter instead. Will be private in the next major version.
      */
     protected $reason;
 
     /**
+     * @var ?float
      * The old quantity
-     * @var float
+     * @Serializer\Type("float")
+     * @Serializer\SerializedName("OldQuantity")
+     *
+     * @deprecated Use getter/setter instead. Will be private in the next major version.
      */
     protected $oldQuantity = 0;
 
     /**
+     * @var ?float
      * The new quantity
-     * @var float
+     * @Serializer\Type("float")
+     * @Serializer\SerializedName("NewQuantity")
+     *
+     * @deprecated Use getter/setter instead. Will be private in the next major version.
      */
     protected $newQuantity = 0;
 
     /**
-     * The delta change
      * @var float
+     * The delta change
+     * @Serializer\Type("float")
+     * @Serializer\SerializedName("DeltaQuantity")
+     *
+     * @deprecated Use getter/setter instead. Will be private in the next major version.
      */
     protected $deltaQuantity = 0;
 
     /**
-     * If true, the reserved amount will be reduced on update
      * @var bool
+     * If true, the reserved amount will be reduced on update
+     * @Serializer\Type("bool")
+     * @Serializer\SerializedName("AutosubtractReservedAmount")
+     *
+     * @deprecated Use getter/setter instead. Will be private in the next major version.
      */
     protected $autosubtractReservedAmount = false;
 
-    public static function fromProduct(Product $product)
+    public static function fromProduct(Product $product): Stock
     {
-        return new Stock($product->sku, $product->stockCurrent);
+        return new Stock($product->getSku(), $product->getStockCurrent());
     }
 
-    public function __construct($sku, $oldQuantity, $newQuantity = null)
+    public function __construct(?string $sku = null, ?float $oldQuantity = null, ?float $newQuantity = null)
     {
-        $this->sku = $sku;
-        $this->oldQuantity = $oldQuantity;
-        if ($newQuantity === null) {
-            $newQuantity = $oldQuantity;
-        }
-        $this->setNewQuantity($newQuantity);
+        $this
+            ->setSku($sku)
+            ->setOldQuantity($oldQuantity)
+            ->setNewQuantity($newQuantity ?? $oldQuantity);
     }
 
-    /**
-     * @return string
-     */
-    public function getSku()
+    public function getSku(): ?string
     {
         return $this->sku;
     }
 
-    /**
-     * @param string $sku
-     * @return Stock
-     */
-    public function setSku($sku)
+    public function setSku(?string $sku): self
     {
         $this->sku = $sku;
         return $this;
     }
 
-    /**
-     * @return int
-     */
-    public function getStockId()
+    public function getStockId(): ?int
     {
         return $this->stockId;
     }
 
-    /**
-     * @param int $stockId
-     * @return Stock
-     */
-    public function setStockId($stockId)
+    public function setStockId(?int $stockId): self
     {
         $this->stockId = $stockId;
         return $this;
     }
 
-    /**
-     * @return string
-     */
-    public function getReason()
+    public function getReason(): ?string
     {
         return $this->reason;
     }
 
-    /**
-     * @param string $reason
-     * @return Stock
-     */
-    public function setReason($reason)
+    public function setReason(?string $reason): self
     {
         $this->reason = $reason;
         return $this;
     }
 
-    /**
-     * @return float
-     */
-    public function getOldQuantity()
+    public function getOldQuantity(): ?float
     {
         return $this->oldQuantity;
     }
 
-    /**
-     * @param float $oldQuantity
-     * @return Stock
-     */
-    public function setOldQuantity($oldQuantity)
+    public function setOldQuantity(?float $oldQuantity): Stock
     {
         $this->oldQuantity = $oldQuantity;
-        $this->deltaQuantity = $this->oldQuantity - $this->newQuantity;
+        $this->deltaQuantity = $this->getOldQuantity() - $this->getNewQuantity();
         return $this;
     }
 
-    /**
-     * @return float
-     */
-    public function getNewQuantity()
+    public function getNewQuantity(): ?float
     {
         return $this->newQuantity;
     }
 
-    /**
-     * @param float $newQuantity
-     * @return Stock
-     */
-    public function setNewQuantity($newQuantity)
+    public function setNewQuantity(?float $newQuantity): Stock
     {
         $this->newQuantity = $newQuantity;
-        $this->deltaQuantity = $this->oldQuantity - $this->newQuantity;
+        $this->deltaQuantity = $this->getOldQuantity() - $this->getNewQuantity();
         return $this;
     }
 
-    /**
-     * @return float
-     */
-    public function getDeltaQuantity()
+    public function getDeltaQuantity(): ?float
     {
         return $this->deltaQuantity;
     }
 
-    /**
-     * @param float $deltaQuantity
-     * @return Stock
-     */
-    public function setDeltaQuantity($deltaQuantity)
+    public function setDeltaQuantity(float $deltaQuantity): self
     {
         $this->deltaQuantity = $deltaQuantity;
-        $this->newQuantity = $this->oldQuantity + $deltaQuantity;
+        $this->newQuantity = $this->getOldQuantity() + $deltaQuantity;
         return $this;
     }
 
-    /**
-     * @return bool
-     */
-    public function getAutosubtractReservedAmount()
+    public function getAutosubtractReservedAmount(): bool
     {
         return $this->autosubtractReservedAmount;
     }
 
-    /**
-     * @param bool $autosubtractReservedAmount
-     * @return Stock
-     */
-    public function setAutosubtractReservedAmount($autosubtractReservedAmount)
+    public function setAutosubtractReservedAmount(bool $autosubtractReservedAmount): self
     {
         $this->autosubtractReservedAmount = $autosubtractReservedAmount;
         return $this;
-    }
-
-    public function jsonSerialize()
-    {
-        $data = [
-            'Sku' => $this->sku,
-            'Reason' => $this->reason,
-            'OldQuantity' => $this->oldQuantity,
-            'NewQuantity' => $this->newQuantity,
-            'DeltaQuantity' => $this->deltaQuantity,
-            'AutosubtractReservedAmount' => $this->autosubtractReservedAmount,
-        ];
-
-        if (!is_null($this->stockId)) {
-            $data['StockId'] = $this->stockId;
-        }
-
-        return $data;
     }
 }

@@ -2,7 +2,7 @@
 /**
  * This file is part of the Billbee API package.
  *
- * Copyright 2017 - 2021 by Billbee GmbH
+ * Copyright 2017 - now by Billbee GmbH
  *
  * For the full copyright and license information, please read the LICENSE
  * file that was distributed with this source code.
@@ -18,7 +18,7 @@ use BillbeeDe\BillbeeAPI\Exception\QuotaExceededException;
 use BillbeeDe\BillbeeAPI\Model as Model;
 use BillbeeDe\BillbeeAPI\Response as Response;
 use Exception;
-use MintWare\DMM\Serializer\SerializerInterface;
+use JMS\Serializer\SerializerInterface;
 
 class ShipmentsEndpoint
 {
@@ -48,7 +48,7 @@ class ShipmentsEndpoint
         $providers = $this->client->get(
             'shipment/shippingproviders',
             [],
-            Model\ShippingProvider::class.'[]'
+            sprintf('array<%s>', Model\ShippingProvider::class)
         );
 
         if ($this->client instanceof BatchClientInterface && $this->client->isBatchModeEnabled()) {
@@ -77,7 +77,7 @@ class ShipmentsEndpoint
     {
         return $this->client->post(
             'shipment/shipwithlabel',
-            $this->serializer->serialize($shipment),
+            $this->serializer->serialize($shipment, 'json'),
             Response\ShipWithLabelResponse::class
         );
     }
