@@ -1,5 +1,94 @@
 # Changelog
 
+## v2.2.0-RC1 (18 Aug 2022)
+- Copyright updated
+- Replaced the `mintware-de/data-model-mapper` serializer with `jms/serializer`
+- Updated `phpstan/phpstan` to `^1.8.2`
+- Increased the SCA level to 6
+- Added Getters/Setters to models
+- Typing improved
+- Added additional fields 
+  - Customer
+    - Meta Fields
+  - Invoice
+    - VatFlags
+    - ShippingCountry
+    - Title
+    - Salutation
+    - AdditionalFees
+    - MerchantVatId
+    - CustomerVatId
+  - InvoicePosition
+    - totalVatAmount
+    - rebatePercent
+  - Order
+    - RebateDifference
+    - Shipments
+    - HistoryEntries
+    - LastModifiedAt
+    - ApiAccountId
+    - ApiAccountName
+    - MerchantVatId
+    - CustomerVatId
+    - PaymentReference
+  - Shipment
+    - CarrierId
+    - Type [#56](https://github.com/billbeeio/billbee-php-sdk/issues/56)
+  - SoldProduct
+    - skuOrId
+- Added new models
+  - CustomerMetaData
+  - InvoiceAdditionalFee
+  - OrderHistoryEntry
+  - OrderUser
+  - StockProduct
+  - VatFlags
+  - ShipmentType
+  - ShippingCarrier
+- Changed the default value
+  - `Product::$sku: '' => null`
+  - `Product::$ean: '' => null`
+  - `Product::$manufacturer: '' => null`
+  - `Product::$costPrice: 0.00 => null`
+  - `Product::$stockDesired: 0.00 => null`
+  - `Product::$stockCurrent: 0.00 => null`
+  - `Product::$stockWarning: 0.00 => null`
+  - `Product::$stockCode: '' => null`
+  - `Product::$stockReduceItemsPerSale: 1.00 => null`
+  - `Product::$weight: 0 => null`
+  - `Product::$weightNet: 0 => null`
+  - `Product::$unit: Product::UNIT_PIECE => null`
+  - `Product::$unitsPerItem: 1.0 => null`
+  - `Product::$soldAmount: 0 => null`
+  - `Product::$soldSumGross: 0.0 => null`
+  - `Product::$soldSumNet: 0.0 => null`
+  - `Product::$soldSumNetLast30Days: 0.0 => null`
+  - `Product::$soldSumGrossLast30Days: 0.0 => null`
+  - `Product::$soldAmountLast30Days: 0 => null`
+  - `Product::$shippingProductId: 0 => null` [#41](https://github.com/billbeeio/billbee-php-sdk/issues/41), [#55](https://github.com/billbeeio/billbee-php-sdk/issues/55) 
+  - `Product::$deliveryTime: Product::DELIVERY_NA => null`
+  - `Product::$recipient: Product::RECIPIENT_NA => null`
+  - `Product::$occasion: Product::OCCASION_NA => null`
+  - `Product::$countryOfOrigin: '' => null`
+  - `Product::$exportDescription: '' => null`
+  - `Product::$taricNumber: '' => null`
+  - `Product::$condition: ProductCondition::BRAND_NEW => null` [#41](https://github.com/billbeeio/billbee-php-sdk/issues/41)
+  - `CustomerResult::$id: null => 0`
+  - `ShippingProvider::$name: '' => null`
+  - `ShippingProvider::$products: '' => []`
+  - `Source::$source: '' => null`
+  - `Source::$sourceId: '' => null`
+  - `Source::$apiAccountName: '' => null`
+  - `Source::$stockSyncInactive: false => null`
+  - `Source::$unitsPerItem: 1.00 => null`
+  - `WebHook::$headers: null => []`
+  - `WebHook::$properties: null => []`
+  - `BaseResponse::$paging: [] => null`
+  - `BaseResponse::$errorMessage: '' => null`
+  - `BaseResponse::$data: [] => null`
+- Made `BaseResponse` generic.
+- Removed `JsonSerializable` implementation in `Stock`
+- 
 ## v2.1.0 (6 Aug 2022)
 
 - Updated psr/log to ^1.1.0 || ^2.0.0 || ^3.0.0
