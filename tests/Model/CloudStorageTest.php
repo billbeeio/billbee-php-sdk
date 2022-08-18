@@ -9,12 +9,7 @@ class CloudStorageTest extends SerializerTestCase
 {
     public function testSerialize(): void
     {
-        $result = new CloudStorage();
-        $result
-            ->setId(1)
-            ->setName("GDrive")
-            ->setType("GoogleDriveStorage")
-            ->setUsedAsPrinter(true);
+        $result = self::getCloudStorage();
         self::assertSerialize('Model/cloud_storage.json', $result);
     }
 
@@ -30,5 +25,14 @@ class CloudStorageTest extends SerializerTestCase
                 self::assertEquals(true, $result->isUsedAsPrinter());
             }
         );
+    }
+
+    public static function getCloudStorage(): CloudStorage
+    {
+        return (new CloudStorage())
+            ->setId(1)
+            ->setName("GDrive")
+            ->setType("GoogleDriveStorage")
+            ->setUsedAsPrinter(true);
     }
 }

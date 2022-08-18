@@ -125,6 +125,7 @@ class OrderItem
     public $isCoupon = false;
 
     /**
+     * @var mixed
      * @deprecated Removed in the next major version.
      */
     public $shippingProfileId;
@@ -255,11 +256,13 @@ class OrderItem
         return $this;
     }
 
+    /** @return ?OrderItemAttribute[] */
     public function getAttributes(): ?array
     {
         return $this->attributes;
     }
 
+    /** @param ?OrderItemAttribute[] $attributes */
     public function setAttributes(?array $attributes): self
     {
         $this->attributes = $attributes;
@@ -285,17 +288,6 @@ class OrderItem
     public function setIsCoupon(bool $isCoupon): self
     {
         $this->isCoupon = $isCoupon;
-        return $this;
-    }
-
-    public function getShippingProfileId()
-    {
-        return $this->shippingProfileId;
-    }
-
-    public function setShippingProfileId($shippingProfileId)
-    {
-        $this->shippingProfileId = $shippingProfileId;
         return $this;
     }
 

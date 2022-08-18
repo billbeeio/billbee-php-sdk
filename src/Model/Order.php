@@ -273,6 +273,7 @@ class Order
     public $isCanceled = false;
 
     /**
+     * @var mixed
      * @deprecated Will be removed in the next major version.
      */
     public $restfulPath;
@@ -704,11 +705,13 @@ class Order
         return $this;
     }
 
+    /** @return ?Comment[] */
     public function getComments(): ?array
     {
         return $this->comments;
     }
 
+    /** @param ?Comment[] $comments */
     public function setComments(?array $comments): self
     {
         $this->comments = $comments;
@@ -836,11 +839,13 @@ class Order
         return $this;
     }
 
+    /** @return ?OrderItem[] */
     public function getOrderItems(): ?array
     {
         return $this->orderItems;
     }
 
+    /** @param ?OrderItem[] $orderItems */
     public function setOrderItems(?array $orderItems): self
     {
         $this->orderItems = $orderItems;
@@ -924,11 +929,13 @@ class Order
         return $this;
     }
 
+    /** @return ?string[] */
     public function getTags(): ?array
     {
         return $this->tags;
     }
 
+    /** @param ?string[] $tags */
     public function setTags(?array $tags): self
     {
         $this->tags = $tags;
@@ -1122,11 +1129,13 @@ class Order
         return $this;
     }
 
+    /** @return ?Payment[] */
     public function getPayments(): ?array
     {
         return $this->payments;
     }
 
+    /** @param ?Payment[] $payments */
     public function setPayments(?array $payments): self
     {
         $this->payments = $payments;
@@ -1144,22 +1153,26 @@ class Order
         return $this;
     }
 
+    /** @return ?Shipment[] */
     public function getShipments(): ?array
     {
         return $this->shipments;
     }
 
+    /** @param ?Shipment[] $shipments */
     public function setShipments(?array $shipments): self
     {
         $this->shipments = $shipments;
         return $this;
     }
 
+    /** @return ?OrderHistoryEntry[] */
     public function getHistoryEntries(): ?array
     {
         return $this->historyEntries;
     }
 
+    /** @param ?OrderHistoryEntry[] $historyEntries */
     public function setHistoryEntries(?array $historyEntries): self
     {
         $this->historyEntries = $historyEntries;

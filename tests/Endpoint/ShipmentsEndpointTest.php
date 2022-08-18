@@ -50,7 +50,7 @@ class ShipmentsEndpointTest extends TestCase
         $this->assertSame('GET', $method);
         $this->assertSame('shipment/shippingproviders', $node);
         $this->assertSame([], $query);
-        $this->assertSame(ShippingProvider::class . '[]', $class);
+        $this->assertSame(sprintf('array<%s>', ShippingProvider::class), $class);
     }
 
     public function testShipWithLabel()

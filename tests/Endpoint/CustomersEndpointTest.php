@@ -305,7 +305,10 @@ class CustomersEndpointTest extends TestCase
         list($method, $node, $data, $class) = $requests[0];
         $this->assertSame('POST', $method);
         $this->assertSame('customers', $node);
-        $this->assertSame('{"address":{"id":null,"addressType":1,"customerId":null,"company":null,"firstName":null,"lastName":null,"name2":null,"street":null,"houseNumber":null,"zip":null,"city":null,"state":null,"countryCode":null,"email":null,"phone1":null,"phone2":null,"fax":null,"fullAddress":null,"addressAddition":null},"id":null,"name":null,"email":null,"tel1":null,"tel2":null,"number":null,"priceGroupId":null,"languageId":null,"vatId":null}', $data);
+        $this->assertSame(
+            '{"address":{"id":null,"addressType":1,"customerId":null,"company":null,"firstName":null,"lastName":null,"name2":null,"street":null,"houseNumber":null,"zip":null,"city":null,"state":null,"countryCode":null,"email":null,"phone1":null,"phone2":null,"fax":null,"fullAddress":null,"addressAddition":null},"id":null,"name":null,"email":null,"tel1":null,"tel2":null,"number":null,"priceGroupId":null,"languageId":null,"vatId":null}',
+            $data
+        );
         $this->assertSame(GetCustomerResponse::class, $class);
     }
 }

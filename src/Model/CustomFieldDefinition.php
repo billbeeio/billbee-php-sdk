@@ -35,7 +35,7 @@ class CustomFieldDefinition
     public $name;
 
     /**
-     * @var ?array
+     * @var ?array<string, mixed>
      * @Serializer\Type("CustomField")
      * @Serializer\SerializedName("Configuration")
      *
@@ -84,11 +84,13 @@ class CustomFieldDefinition
         return $this;
     }
 
+    /** @return ?array<string, mixed> */
     public function getConfiguration(): ?array
     {
         return $this->configuration;
     }
 
+    /** @param ?array<string, mixed> $configuration */
     public function setConfiguration(?array $configuration): self
     {
         $this->configuration = $configuration;

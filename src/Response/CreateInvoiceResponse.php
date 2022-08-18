@@ -15,12 +15,15 @@ namespace BillbeeDe\BillbeeAPI\Response;
 use BillbeeDe\BillbeeAPI\Model\InvoiceDocument;
 use JMS\Serializer\Annotation as Serializer;
 
+/** @extends BaseResponse<InvoiceDocument> */
 class CreateInvoiceResponse extends BaseResponse
 {
     /**
      * @var InvoiceDocument
      * @Serializer\Type("BillbeeDe\BillbeeAPI\Model\InvoiceDocument")
      * @Serializer\SerializedName("Data")
+     *
+     * @deprecated Use getter/setter instead. Will be private in the next major version.
      */
     public $data = null;
 }

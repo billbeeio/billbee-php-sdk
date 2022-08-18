@@ -641,66 +641,78 @@ class Product
         return $this;
     }
 
+    /** @return ?TranslatableText[] */
     public function getTitle(): ?array
     {
         return $this->title;
     }
 
+    /** @param ?TranslatableText[] $title */
     public function setTitle(?array $title): self
     {
         $this->title = $title;
         return $this;
     }
 
+    /** @return TranslatableText[] */
     public function getInvoiceText(): array
     {
         return $this->invoiceText;
     }
 
+    /** @param TranslatableText[] $invoiceText */
     public function setInvoiceText(array $invoiceText): self
     {
         $this->invoiceText = $invoiceText;
         return $this;
     }
 
+    /** @return TranslatableText[] */
     public function getShortDescription(): array
     {
         return $this->shortDescription;
     }
 
+    /** @param TranslatableText[] $shortDescription */
     public function setShortDescription(array $shortDescription): self
     {
         $this->shortDescription = $shortDescription;
         return $this;
     }
 
+    /** @return Image[] */
     public function getImages(): array
     {
         return $this->images;
     }
 
+    /** @param Image[] $images */
     public function setImages(array $images): self
     {
         $this->images = $images;
         return $this;
     }
 
+    /** @return TranslatableText[] */
     public function getDescription(): array
     {
         return $this->description;
     }
 
+    /** @param TranslatableText[] $description */
     public function setDescription(array $description): self
     {
         $this->description = $description;
         return $this;
     }
 
+    /** @return TranslatableText[] */
     public function getAttributes(): array
     {
         return $this->attributes;
     }
 
+    /** @param TranslatableText[] $attributes */
     public function setAttributes(array $attributes): self
     {
         $this->attributes = $attributes;
@@ -729,11 +741,13 @@ class Product
         return $this;
     }
 
+    /** @return ?Source[] */
     public function getSources(): ?array
     {
         return $this->sources;
     }
 
+    /** @param ?Source[] $sources */
     public function setSources(?array $sources): self
     {
         $this->sources = $sources;
@@ -839,22 +853,26 @@ class Product
         return $this;
     }
 
+    /** @return TranslatableText[] */
     public function getMaterials(): array
     {
         return $this->materials;
     }
 
+    /** @param TranslatableText[] $materials */
     public function setMaterials(array $materials): self
     {
         $this->materials = $materials;
         return $this;
     }
 
+    /** @return TranslatableText[] */
     public function getTags(): array
     {
         return $this->tags;
     }
 
+    /** @param TranslatableText[] $tags */
     public function setTags(array $tags): self
     {
         $this->tags = $tags;
@@ -927,11 +945,13 @@ class Product
         return $this;
     }
 
+    /** @return StockProduct[] */
     public function getStocks(): array
     {
         return $this->stocks;
     }
 
+    /** @param StockProduct[] $stocks */
     public function setStocks(array $stocks): self
     {
         $this->stocks = $stocks;
@@ -1136,11 +1156,13 @@ class Product
         return $this;
     }
 
+    /** @return TranslatableText[] */
     public function getExportDescriptionMultiLanguage(): array
     {
         return $this->exportDescriptionMultiLanguage;
     }
 
+    /** @param TranslatableText[] $exportDescriptionMultiLanguage */
     public function setExportDescriptionMultiLanguage(array $exportDescriptionMultiLanguage): self
     {
         $this->exportDescriptionMultiLanguage = $exportDescriptionMultiLanguage;
@@ -1158,11 +1180,13 @@ class Product
         return $this;
     }
 
+    /** @return ProductCustomField[] */
     public function getCustomFields(): array
     {
         return $this->customFields;
     }
 
+    /** @param ProductCustomField[] $customFields */
     public function setCustomFields(array $customFields): self
     {
         $this->customFields = $customFields;
@@ -1213,11 +1237,13 @@ class Product
         return $this;
     }
 
+    /** @return ?BillOfMaterialProduct[] */
     public function getBillOfMaterial(): ?array
     {
         return $this->billOfMaterial;
     }
 
+    /** @param ?BillOfMaterialProduct[] $billOfMaterial */
     public function setBillOfMaterial(?array $billOfMaterial): self
     {
         $this->billOfMaterial = $billOfMaterial;

@@ -12,8 +12,52 @@ class InvoiceTest extends SerializerTestCase
 {
     public function testSerialize(): void
     {
-        $result = new Invoice();
-        $result
+        $result = self::getInvoice();
+        self::assertSerialize('Model/invoice.json', $result);
+    }
+
+    public function testDeserialize(): void
+    {
+        self::assertDeserialize(
+            'Model/invoice.json',
+            Invoice::class,
+            function (Invoice $result) {
+                self::assertEquals("RN-2022-0083", $result->getInvoiceNumber());
+                self::assertEquals("invoice", $result->getType());
+                self::assertEquals("", $result->getTitle());
+                self::assertEquals("Sir", $result->getSalutation());
+                self::assertEquals("Max", $result->getLastName());
+                self::assertEquals("Muster", $result->getFirstName());
+                self::assertEquals("Firma", $result->getCompany());
+                self::assertEquals(1, $result->getCustomerNumber());
+                self::assertEquals(1, $result->getDebtorNumber());
+                self::assertEquals("2022-07-22T09:54:25+00:00", $result->getInvoiceDate()->format('c'));
+                self::assertEquals(133.41, $result->getTotalNet());
+                self::assertEquals("EUR", $result->getCurrency());
+                self::assertEquals(158.76, $result->getTotalGross());
+                self::assertEquals(22, $result->getPaymentTypeId());
+                self::assertEquals("Test", $result->getOrderNumber());
+                self::assertEquals("txid", $result->getTransactionId());
+                self::assertEquals("max@mustermann.tld", $result->getEmail());
+                self::assertEquals("test", $result->getShopName());
+                self::assertEquals("2022-08-10T00:00:00+00:00", $result->getPayDate()->format('c'));
+                self::assertEquals(0, $result->getVatMode());
+                self::assertEquals(100000186018330, $result->getId());
+                self::assertEquals("DE", $result->getShippingCountry());
+                self::assertEquals("1234", $result->getMerchantVatId());
+                self::assertEquals("1234", $result->getCustomerVatId());
+                self::assertCount(1, $result->getAdditionalFees());
+                self::assertInstanceOf(InvoiceAdditionalFee::class, $result->getAdditionalFees()[0]);
+                self::assertInstanceOf(VatFlags::class, $result->getVatFlags());
+                self::assertCount(1, $result->getPositions());
+                self::assertInstanceOf(InvoicePosition::class, $result->getPositions()[0]);
+            }
+        );
+    }
+
+    public static function getInvoice()
+    {
+        return (new Invoice())
             ->setInvoiceNumber("RN-2022-0083")
             ->setType("invoice")
             ->setTitle("")
@@ -77,45 +121,5 @@ class InvoiceTest extends SerializerTestCase
                     ->setVatIdFrom("destination_country")
                     ->setIsDistanceSale(false)
             );
-        self::assertSerialize('Model/invoice.json', $result);
-    }
-
-    public function testDeserialize(): void
-    {
-        self::assertDeserialize(
-            'Model/invoice.json',
-            Invoice::class,
-            function (Invoice $result) {
-                self::assertEquals("RN-2022-0083", $result->getInvoiceNumber());
-                self::assertEquals("invoice", $result->getType());
-                self::assertEquals("", $result->getTitle());
-                self::assertEquals("Sir", $result->getSalutation());
-                self::assertEquals("Max", $result->getLastName());
-                self::assertEquals("Muster", $result->getFirstName());
-                self::assertEquals("Firma", $result->getCompany());
-                self::assertEquals(1, $result->getCustomerNumber());
-                self::assertEquals(1, $result->getDebtorNumber());
-                self::assertEquals("2022-07-22T09:54:25+00:00", $result->getInvoiceDate()->format('c'));
-                self::assertEquals(133.41, $result->getTotalNet());
-                self::assertEquals("EUR", $result->getCurrency());
-                self::assertEquals(158.76, $result->getTotalGross());
-                self::assertEquals(22, $result->getPaymentTypeId());
-                self::assertEquals("Test", $result->getOrderNumber());
-                self::assertEquals("txid", $result->getTransactionId());
-                self::assertEquals("max@mustermann.tld", $result->getEmail());
-                self::assertEquals("test", $result->getShopName());
-                self::assertEquals("2022-08-10T00:00:00+00:00", $result->getPayDate()->format('c'));
-                self::assertEquals(0, $result->getVatMode());
-                self::assertEquals(100000186018330, $result->getId());
-                self::assertEquals("DE", $result->getShippingCountry());
-                self::assertEquals("1234", $result->getMerchantVatId());
-                self::assertEquals("1234", $result->getCustomerVatId());
-                self::assertCount(1, $result->getAdditionalFees());
-                self::assertInstanceOf(InvoiceAdditionalFee::class, $result->getAdditionalFees()[0]);
-                self::assertInstanceOf(VatFlags::class, $result->getVatFlags());
-                self::assertCount(1, $result->getPositions());
-                self::assertInstanceOf(InvoicePosition::class, $result->getPositions()[0]);
-            }
-        );
     }
 }

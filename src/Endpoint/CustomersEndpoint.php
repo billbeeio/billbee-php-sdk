@@ -219,15 +219,15 @@ class CustomersEndpoint
      * Updates one or more fields of an address
      *
      * @param int $addressId The internal id of the address
-     * @param array $model The fields to patch
+     * @param array<string, mixed> $model The fields to patch
      *
-     * @return Response\GetCustomerAddressResponse The address
+     * @return ?Response\GetCustomerAddressResponse The address
      *
      * @throws QuotaExceededException If the maximum number of calls per second exceeded
      * @throws Exception If the response cannot be parsed
      *
      */
-    public function patchAddress($addressId, $model)
+    public function patchAddress(int $addressId, array $model): ?Response\GetCustomerAddressResponse
     {
         return $this->client->patch(
             'customers/addresses/' . $addressId,

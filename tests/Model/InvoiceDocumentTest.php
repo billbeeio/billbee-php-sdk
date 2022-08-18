@@ -9,15 +9,7 @@ class InvoiceDocumentTest extends SerializerTestCase
 {
     public function testSerialize(): void
     {
-        $result = new InvoiceDocument();
-        $result
-            ->setOrderNumber("Test")
-            ->setInvoiceNumber("RN-2022-0083")
-            ->setPDFData("base64-data")
-            ->setInvoiceDate(new \DateTime("2022-07-22T09:54:25.31"))
-            ->setTotalGross(170.76)
-            ->setTotalNet(143.5)
-            ->setPdfDownloadUrl("https://objectstore.billbee.io");
+        $result = self::getInvoiceDocument();
         self::assertSerialize('Model/invoice_document.json', $result);
     }
 
@@ -36,5 +28,17 @@ class InvoiceDocumentTest extends SerializerTestCase
                 self::assertEquals("https://objectstore.billbee.io", $result->getPdfDownloadUrl());
             }
         );
+    }
+
+    public static function getInvoiceDocument(): InvoiceDocument
+    {
+        return (new InvoiceDocument())
+            ->setOrderNumber("Test")
+            ->setInvoiceNumber("RN-2022-0083")
+            ->setPDFData("base64-data")
+            ->setInvoiceDate(new \DateTime("2022-07-22T09:54:25.31"))
+            ->setTotalGross(170.76)
+            ->setTotalNet(143.5)
+            ->setPdfDownloadUrl("https://objectstore.billbee.io");
     }
 }

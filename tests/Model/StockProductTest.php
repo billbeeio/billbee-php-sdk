@@ -39,7 +39,6 @@ class StockProductTest extends SerializerTestCase
             ->setStockWarning(0.0)
             ->setStockCode("test")
             ->setUnfulfilledAmount(0.0)
-            ->setStockDesired(0.0)
-            ;
+            ->setStockDesired(0.0);
     }
 }

@@ -250,12 +250,12 @@ class InvoicePosition
         return $this;
     }
 
-    public function getTotalVatAmount()
+    public function getTotalVatAmount(): float
     {
         return $this->totalVatAmount;
     }
 
-    public function setTotalVatAmount($totalVatAmount)
+    public function setTotalVatAmount(float $totalVatAmount): self
     {
         $this->totalVatAmount = $totalVatAmount;
         return $this;

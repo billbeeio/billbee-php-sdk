@@ -1,0 +1,71 @@
+{
+    "ErrorCode": 0,
+    "Data": [
+        {
+            "BillbeeId": 100000186018330,
+            "InvoiceNumber": "RN-2022-0083",
+            "Type": "invoice",
+            "LastName": "Max",
+            "FirstName": "Muster",
+            "Company": "Firma",
+            "CustomerNumber": 1,
+            "DebtorNumber": 1,
+            "InvoiceDate": "2022-07-22T09:54:25.310",
+            "TotalNet": 133.41,
+            "TotalGross": 158.76,
+            "Currency": "EUR",
+            "PaymentTypeId": 22,
+            "OrderNumber": "Test",
+            "TransactionId": "txid",
+            "Email": "max@mustermann.tld",
+            "ShopName": "test",
+            "Positions": [
+                {
+                    "BillbeeId": 100000317105650,
+                    "Position": 1,
+                    "Amount": 12.0,
+                    "NetValue": 11.1176,
+                    "TotalNetValue": 133.4118,
+                    "GrossValue": 13.23,
+                    "TotalGrossValue": 158.76,
+                    "VatRate": 19.0,
+                    "ArticleBillbeeId": 58592683,
+                    "Sku": "TESTBESTAND",
+                    "Title": "Test Bestandsabgleich",
+                    "TotalVatAmount": 25.3482,
+                    "RebatePercent": 2.0
+                }
+            ],
+            "PayDate": "2022-08-10T00:00:00.000",
+            "VatMode": 0,
+            "VatFlags": {
+                "ThirdPartyCountry": false,
+                "SrcCountryIsEqualToDstCountry": true,
+                "CustomerHasVatId": false,
+                "EuDeliveryThresholdExceeded": true,
+                "OssEnabled": true,
+                "SellerIsRegisteredInDstCountry": false,
+                "OrderDistributionCountryIsEmpty": true,
+                "UserProfileCountryIsEmpty": false,
+                "SetIglWhenVatIdIsAvailableEnabled": true,
+                "RatesFrom": "destination_country",
+                "VatIdFrom": "destination_country",
+                "IsDistanceSale": false
+            },
+            "ShippingCountry": "DE",
+            "Title": "",
+            "Salutation": "Sir",
+            "AdditionalFees": [
+                {
+                    "Type": "ShipCost",
+                    "Gross": 11.996,
+                    "Net": 10.08,
+                    "VatAmount": 1.916,
+                    "VatRate": 19.0
+                }
+            ],
+            "MerchantVatId": "1234",
+            "CustomerVatId": "1234"
+        }
+    ]
+}

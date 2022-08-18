@@ -16,8 +16,87 @@ class OrderTest extends SerializerTestCase
 {
     public function testSerialize(): void
     {
-        $result = new Order();
-        $result
+        $result = self::getOrder();
+        self::assertSerialize('Model/order.json', $result);
+    }
+
+    public function testDeserialize(): void
+    {
+        self::assertDeserialize(
+            'Model/order.json',
+            Order::class,
+            function (Order $result) {
+                self::assertEquals(15.18, $result->getRebateDifference());
+                self::assertEquals([], $result->getShipments());
+                self::assertEquals(false, $result->isAcceptLossOfReturnRight());
+                self::assertEquals(100000186018330, $result->getId());
+                self::assertEquals("Id", $result->getExternalId());
+                self::assertEquals("Test", $result->getOrderNumber());
+                self::assertEquals(1, $result->getState());
+                self::assertEquals(0, $result->getVatMode());
+                self::assertEquals("2022-07-22T00:00:00+00:00", $result->getCreatedAt()->format('c'));
+                self::assertEquals("2022-08-17T00:00:00+00:00", $result->getShippedAt()->format('c'));
+                self::assertEquals("2022-08-17T09:47:25+00:00", $result->getConfirmedAt()->format('c'));
+                self::assertEquals("2022-08-10T00:00:00+00:00", $result->getPayedAt()->format('c'));
+                self::assertEquals("Eigene Notizen zu der Bestellung", $result->getSellerComment());
+                self::assertEquals("RN-2022-00", $result->getInvoiceNumberPrefix());
+                self::assertEquals("-xx", $result->getInvoiceNumberPostfix());
+                self::assertEquals(83, $result->getInvoiceNumber());
+                self::assertEquals("2022-07-22T09:54:25+00:00", $result->getInvoiceDate()->format('c'));
+                self::assertEquals(22, $result->getPaymentMethod());
+                self::assertEquals(12, $result->getShippingCost());
+                self::assertEquals(170.76, $result->getTotalCost());
+                self::assertEquals(0, $result->getAdjustmentCost());
+                self::assertEquals("test", $result->getAdjustmentReason());
+                self::assertEquals("EUR", $result->getCurrency());
+                self::assertEquals("2022-08-17T09:47:25+00:00", $result->getUpdatedAt()->format('c'));
+                self::assertEquals(19, $result->getTaxRate1());
+                self::assertEquals(7, $result->getTaxRate2());
+                self::assertEquals(100000186018330, $result->getId());
+                self::assertEquals(2, $result->getParentOrderId());
+                self::assertEquals("1234", $result->getVatId());
+                self::assertEquals(["test"], $result->getTags());
+                self::assertEquals(6, $result->getShipWeightKg());
+                self::assertEquals("DE", $result->getLanguageCode());
+                self::assertEquals(162, $result->getPaidAmount());
+                self::assertEquals(12345, $result->getShippingProfileId());
+                self::assertEquals(100000000022240, $result->getShippingProviderId());
+                self::assertEquals(100000000288647, $result->getShippingProviderProductId());
+                self::assertEquals("DHL", $result->getShippingProviderName());
+                self::assertEquals("DHL Paket", $result->getShippingProviderProductName());
+                self::assertEquals("ShippingProfileName", $result->getShippingProfileName());
+                self::assertEquals("remark", $result->getPaymentInstruction());
+                self::assertEquals("IsCancelationFor", $result->getIsCancellationFor());
+                self::assertEquals("txid", $result->getPaymentTransactionId());
+                self::assertEquals("1234", $result->getDistributionCenter());
+                self::assertEquals("AZ", $result->getDeliverySourceCountryCode());
+                self::assertEquals("CustomInvoiceNote", $result->getCustomInvoiceNote());
+                self::assertEquals("1", $result->getCustomerNumber());
+                self::assertEquals("reference", $result->getPaymentReference());
+                self::assertEquals(CustomerTest::getCustomer(), $result->getCustomer());
+                self::assertEquals([PaymentTest::getPayment()], $result->getPayments());
+                self::assertEquals("2022-08-17T09:47:25+00:00", $result->getLastModifiedAt()->format('c'));
+                self::assertEquals(92372, $result->getApiAccountId());
+                self::assertEquals("test", $result->getApiAccountName());
+                self::assertEquals("1234", $result->getMerchantVatId());
+                self::assertEquals("1234", $result->getCustomerVatId());
+                self::assertCount(1, $result->getComments());
+                self::assertInstanceOf(Comment::class, $result->getComments()[0]);
+                self::assertInstanceOf(Address::class, $result->getInvoiceAddress());
+                self::assertInstanceOf(Address::class, $result->getShippingAddress());
+                self::assertCount(1, $result->getOrderItems());
+                self::assertInstanceOf(OrderItem::class, $result->getOrderItems()[0]);
+                self::assertInstanceOf(OrderUser::class, $result->getSeller());
+                self::assertInstanceOf(OrderUser::class, $result->getBuyer());
+                self::assertCount(1, $result->getHistoryEntries());
+                self::assertInstanceOf(OrderHistoryEntry::class, $result->getHistoryEntries()[0]);
+            }
+        );
+    }
+
+    public static function getOrder(): Order
+    {
+        return (new Order())
             ->setRebateDifference(15.18)
             ->setShipments([])
             ->setAcceptLossOfReturnRight(false)
@@ -176,80 +255,5 @@ class OrderTest extends SerializerTestCase
             ->setHistoryEntries([
                 OrderHistoryEntryTest::getOrderHistoryEntry()
             ]);
-        self::assertSerialize('Model/order.json', $result);
-    }
-
-    public function testDeserialize(): void
-    {
-        self::assertDeserialize(
-            'Model/order.json',
-            Order::class,
-            function (Order $result) {
-                self::assertEquals(15.18, $result->getRebateDifference());
-                self::assertEquals([], $result->getShipments());
-                self::assertEquals(false, $result->isAcceptLossOfReturnRight());
-                self::assertEquals(100000186018330, $result->getId());
-                self::assertEquals("Id", $result->getExternalId());
-                self::assertEquals("Test", $result->getOrderNumber());
-                self::assertEquals(1, $result->getState());
-                self::assertEquals(0, $result->getVatMode());
-                self::assertEquals("2022-07-22T00:00:00+00:00", $result->getCreatedAt()->format('c'));
-                self::assertEquals("2022-08-17T00:00:00+00:00", $result->getShippedAt()->format('c'));
-                self::assertEquals("2022-08-17T09:47:25+00:00", $result->getConfirmedAt()->format('c'));
-                self::assertEquals("2022-08-10T00:00:00+00:00", $result->getPayedAt()->format('c'));
-                self::assertEquals("Eigene Notizen zu der Bestellung", $result->getSellerComment());
-                self::assertEquals("RN-2022-00", $result->getInvoiceNumberPrefix());
-                self::assertEquals("-xx", $result->getInvoiceNumberPostfix());
-                self::assertEquals(83, $result->getInvoiceNumber());
-                self::assertEquals("2022-07-22T09:54:25+00:00", $result->getInvoiceDate()->format('c'));
-                self::assertEquals(22, $result->getPaymentMethod());
-                self::assertEquals(12, $result->getShippingCost());
-                self::assertEquals(170.76, $result->getTotalCost());
-                self::assertEquals(0, $result->getAdjustmentCost());
-                self::assertEquals("test", $result->getAdjustmentReason());
-                self::assertEquals("EUR", $result->getCurrency());
-                self::assertEquals("2022-08-17T09:47:25+00:00", $result->getUpdatedAt()->format('c'));
-                self::assertEquals(19, $result->getTaxRate1());
-                self::assertEquals(7, $result->getTaxRate2());
-                self::assertEquals(100000186018330, $result->getId());
-                self::assertEquals(2, $result->getParentOrderId());
-                self::assertEquals("1234", $result->getVatId());
-                self::assertEquals(["test"], $result->getTags());
-                self::assertEquals(6, $result->getShipWeightKg());
-                self::assertEquals("DE", $result->getLanguageCode());
-                self::assertEquals(162, $result->getPaidAmount());
-                self::assertEquals(12345, $result->getShippingProfileId());
-                self::assertEquals(100000000022240, $result->getShippingProviderId());
-                self::assertEquals(100000000288647, $result->getShippingProviderProductId());
-                self::assertEquals("DHL", $result->getShippingProviderName());
-                self::assertEquals("DHL Paket", $result->getShippingProviderProductName());
-                self::assertEquals("ShippingProfileName", $result->getShippingProfileName());
-                self::assertEquals("remark", $result->getPaymentInstruction());
-                self::assertEquals("IsCancelationFor", $result->getIsCancellationFor());
-                self::assertEquals("txid", $result->getPaymentTransactionId());
-                self::assertEquals("1234", $result->getDistributionCenter());
-                self::assertEquals("AZ", $result->getDeliverySourceCountryCode());
-                self::assertEquals("CustomInvoiceNote", $result->getCustomInvoiceNote());
-                self::assertEquals("1", $result->getCustomerNumber());
-                self::assertEquals("reference", $result->getPaymentReference());
-                self::assertEquals(CustomerTest::getCustomer(), $result->getCustomer());
-                self::assertEquals([PaymentTest::getPayment()], $result->getPayments());
-                self::assertEquals("2022-08-17T09:47:25+00:00", $result->getLastModifiedAt()->format('c'));
-                self::assertEquals(92372, $result->getApiAccountId());
-                self::assertEquals("test", $result->getApiAccountName());
-                self::assertEquals("1234", $result->getMerchantVatId());
-                self::assertEquals("1234", $result->getCustomerVatId());
-                self::assertCount(1, $result->getComments());
-                self::assertInstanceOf(Comment::class, $result->getComments()[0]);
-                self::assertInstanceOf(Address::class, $result->getInvoiceAddress());
-                self::assertInstanceOf(Address::class, $result->getShippingAddress());
-                self::assertCount(1, $result->getOrderItems());
-                self::assertInstanceOf(OrderItem::class, $result->getOrderItems()[0]);
-                self::assertInstanceOf(OrderUser::class, $result->getSeller());
-                self::assertInstanceOf(OrderUser::class, $result->getBuyer());
-                self::assertCount(1, $result->getHistoryEntries());
-                self::assertInstanceOf(OrderHistoryEntry::class, $result->getHistoryEntries()[0]);
-            }
-        );
     }
 }

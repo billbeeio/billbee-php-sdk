@@ -52,7 +52,7 @@ class WebHooksEndpointTest extends TestCase
         $this->assertSame('GET', $method);
         $this->assertSame('webhooks', $node);
         $this->assertSame([], $query);
-        $this->assertSame(WebHook::class.'[]', $class);
+        $this->assertSame(sprintf('array<%s>', WebHook::class), $class);
     }
 
     public function testGetWebHook()
@@ -80,7 +80,7 @@ class WebHooksEndpointTest extends TestCase
         $this->assertSame('GET', $method);
         $this->assertSame('webhooks/filters', $node);
         $this->assertSame([], $query);
-        $this->assertSame(WebHookFilter::class.'[]', $class);
+        $this->assertSame(sprintf('array<%s>', WebHookFilter::class), $class);
     }
 
     public function testCreateWebHook()

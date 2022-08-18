@@ -9,11 +9,7 @@ class LayoutTest extends SerializerTestCase
 {
     public function testSerialize(): void
     {
-        $result = new Layout();
-        $result
-            ->setId(100000000132970)
-            ->setName("Lieferschein")
-            ->setType(2);
+        $result = self::getLayout();
         self::assertSerialize('Model/layout.json', $result);
     }
 
@@ -28,5 +24,13 @@ class LayoutTest extends SerializerTestCase
                 self::assertEquals(2, $result->getType());
             }
         );
+    }
+
+    public static function getLayout(): Layout
+    {
+        return (new Layout())
+            ->setId(100000000132970)
+            ->setName("Lieferschein")
+            ->setType(2);
     }
 }

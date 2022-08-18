@@ -12,18 +12,16 @@ trait LoggerAwareTrait
 
     /**
      * Returns the current registered logger
-     * @return LoggerInterface
      */
-    public function getLogger()
+    public function getLogger(): LoggerInterface
     {
         return $this->logger;
     }
 
     /**
      * Sets the logger
-     * @param LoggerInterface $logger
      */
-    public function setLogger(LoggerInterface $logger = null)
+    public function setLogger(LoggerInterface $logger = null): void
     {
         if ($logger == null) {
             $logger = new NullLogger();

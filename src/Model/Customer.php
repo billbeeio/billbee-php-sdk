@@ -329,11 +329,13 @@ class Customer
         return $this;
     }
 
+    /** @return CustomerMetaData[] */
     public function getMetaData(): array
     {
         return $this->metaData;
     }
 
+    /** @param CustomerMetaData[] $metaData */
     public function setMetaData(array $metaData): self
     {
         $this->metaData = $metaData;

@@ -48,7 +48,7 @@ class ShipmentsEndpoint
         $providers = $this->client->get(
             'shipment/shippingproviders',
             [],
-            Model\ShippingProvider::class.'[]'
+            sprintf('array<%s>', Model\ShippingProvider::class)
         );
 
         if ($this->client instanceof BatchClientInterface && $this->client->isBatchModeEnabled()) {

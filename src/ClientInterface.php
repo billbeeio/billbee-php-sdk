@@ -21,7 +21,7 @@ interface ClientInterface
      * Starts an GET request
      *
      * @param string $node The requested node
-     * @param array $query The parameters
+     * @param array<string, mixed> $query The parameters
      * @param string $responseClass The response class
      *
      * @return mixed The mapped response object
@@ -77,7 +77,7 @@ interface ClientInterface
      * Starts an DELETE request
      *
      * @param string $node The requested node
-     * @param array $query The parameters
+     * @param array<string, mixed> $query The parameters
      * @param string $responseClass The response class
      *
      * @return mixed The mapped response object

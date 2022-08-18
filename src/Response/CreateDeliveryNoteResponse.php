@@ -15,12 +15,15 @@ namespace BillbeeDe\BillbeeAPI\Response;
 use BillbeeDe\BillbeeAPI\Model\DeliveryNoteDocument;
 use JMS\Serializer\Annotation as Serializer;
 
+/** @extends BaseResponse<DeliveryNoteDocument> */
 class CreateDeliveryNoteResponse extends BaseResponse
 {
     /**
      * @var DeliveryNoteDocument
      * @Serializer\Type("BillbeeDe\BillbeeAPI\Model\DeliveryNoteDocument")
      * @Serializer\SerializedName("Data")
+     *
+     * @deprecated Use getter/setter instead. Will be private in the next major version.
      */
     public $data = null;
 }

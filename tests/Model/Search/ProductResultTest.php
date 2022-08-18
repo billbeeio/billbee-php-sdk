@@ -9,12 +9,7 @@ class ProductResultTest extends SerializerTestCase
 {
     public function testSerialize(): void
     {
-        $result = new ProductResult();
-        $result
-            ->setId(100000060342904)
-            ->setShortText('test')
-            ->setSku('PROD1234')
-            ->setTags('tag1,tag2');
+        $result = self::getProductResult();
         self::assertSerialize('Model/Search/product_result.json', $result);
     }
 
@@ -30,5 +25,14 @@ class ProductResultTest extends SerializerTestCase
                 self::assertEquals('tag1,tag2', $result->getTags());
             }
         );
+    }
+
+    public static function getProductResult(): ProductResult
+    {
+        return (new ProductResult())
+            ->setId(100000060342904)
+            ->setShortText('test')
+            ->setSku('PROD1234')
+            ->setTags('tag1,tag2');
     }
 }

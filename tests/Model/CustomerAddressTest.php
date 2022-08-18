@@ -10,27 +10,7 @@ class CustomerAddressTest extends SerializerTestCase
 {
     public function testSerialize(): void
     {
-        $result = new CustomerAddress();
-        $result
-            ->setId(100000176934711)
-            ->setAddressType(1)
-            ->setCustomerId(100000150176895)
-            ->setCompany("firma")
-            ->setFirstName("Vorname")
-            ->setLastName("Nachname")
-            ->setName2("Name 2")
-            ->setStreet("Straße")
-            ->setHousenumber("Hausnummer")
-            ->setZip("PLZ")
-            ->setCity("Ort")
-            ->setState("Bundesland")
-            ->setCountryCode("DE")
-            ->setEmail("max@mustermann.tld")
-            ->setPhone1("12345")
-            ->setPhone2("47896")
-            ->setFax("010234")
-            ->setAddressAddition("Zusatz")
-        ;
+        $result = self::getCustomerAddress();
         self::assertSerialize('Model/customer_address.json', $result);
     }
 
@@ -60,5 +40,28 @@ class CustomerAddressTest extends SerializerTestCase
                 self::assertEquals("Zusatz", $result->getAddressAddition());
             }
         );
+    }
+
+    public static function getCustomerAddress(): CustomerAddress
+    {
+        return (new CustomerAddress())
+            ->setId(100000176934711)
+            ->setAddressType(1)
+            ->setCustomerId(100000150176895)
+            ->setCompany("firma")
+            ->setFirstName("Vorname")
+            ->setLastName("Nachname")
+            ->setName2("Name 2")
+            ->setStreet("Straße")
+            ->setHousenumber("Hausnummer")
+            ->setZip("PLZ")
+            ->setCity("Ort")
+            ->setState("Bundesland")
+            ->setCountryCode("DE")
+            ->setEmail("max@mustermann.tld")
+            ->setPhone1("12345")
+            ->setPhone2("47896")
+            ->setFax("010234")
+            ->setAddressAddition("Zusatz");
     }
 }

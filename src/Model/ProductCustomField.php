@@ -53,7 +53,7 @@ class ProductCustomField
     public $articleId;
 
     /**
-     * @var string|array|null
+     * @var string|string[]|null
      * @Serializer\Type("AsIs")
      * @Serializer\SerializedName("Value")
      *
@@ -105,12 +105,14 @@ class ProductCustomField
         return $this;
     }
 
+    /** @return string[]|string|null */
     public function getValue()
     {
         return $this->value;
     }
 
-    public function setValue($value)
+    /** @param string[]|string|null $value */
+    public function setValue($value): self
     {
         $this->value = $value;
         return $this;

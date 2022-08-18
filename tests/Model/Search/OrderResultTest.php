@@ -9,14 +9,7 @@ class OrderResultTest extends SerializerTestCase
 {
     public function testSerialize(): void
     {
-        $result = new OrderResult();
-        $result
-            ->setId(122989702)
-            ->setExternalReference('test')
-            ->setBuyerName('Max Mustermann')
-            ->setInvoiceNumber('IN1234')
-            ->setCustomerName('Max Mustermann2')
-            ->setArticleTexts('4711');
+        $result = self::getOrderResult();
         self::assertSerialize('Model/Search/order_result.json', $result);
     }
 
@@ -34,5 +27,16 @@ class OrderResultTest extends SerializerTestCase
                 self::assertEquals('4711', $result->getArticleTexts());
             }
         );
+    }
+
+    public static function getOrderResult(): OrderResult
+    {
+        return (new OrderResult())
+            ->setId(122989702)
+            ->setExternalReference('test')
+            ->setBuyerName('Max Mustermann')
+            ->setInvoiceNumber('IN1234')
+            ->setCustomerName('Max Mustermann2')
+            ->setArticleTexts('4711');
     }
 }

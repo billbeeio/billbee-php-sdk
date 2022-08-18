@@ -20,7 +20,11 @@ use JMS\Serializer\JsonSerializationVisitor;
 
 class DefinitionConfigTransformer implements SubscribingHandlerInterface
 {
-    /** @inheritdoc */
+    /**
+     * @param array<string, mixed> $data
+     * @param array<string, mixed> $type
+     * @return array<string, mixed>
+     */
     public static function serialize(JsonSerializationVisitor $visitor, array $data, array $type, Context $context)
     {
         if (isset($data['Choices']) && is_array($data['Choices'])) {
@@ -29,7 +33,11 @@ class DefinitionConfigTransformer implements SubscribingHandlerInterface
         return $data;
     }
 
-    /** @inheritdoc */
+    /**
+     * @param mixed $data
+     * @param array<string, mixed> $type
+     * @return array<string, mixed>
+     */
     public static function deserialize(JsonDeserializationVisitor $visitor, $data, array $type, Context $context)
     {
         if (isset($data['Choices']) && !is_array($data['Choices'])) {
@@ -38,6 +46,9 @@ class DefinitionConfigTransformer implements SubscribingHandlerInterface
         return $data;
     }
 
+    /**
+     * @return array{direction: int, format: string, type: string, method: string}[]
+     */
     public static function getSubscribingMethods(): array
     {
         return [

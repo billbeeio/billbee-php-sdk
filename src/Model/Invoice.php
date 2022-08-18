@@ -435,11 +435,13 @@ class Invoice
         return $this;
     }
 
+    /** @return ?InvoicePosition[] */
     public function getPositions(): ?array
     {
         return $this->positions;
     }
 
+    /** @param ?InvoicePosition[] $positions */
     public function setPositions(?array $positions): self
     {
         $this->positions = $positions;
@@ -512,11 +514,13 @@ class Invoice
         return $this;
     }
 
+    /** @return ?InvoiceAdditionalFee[] */
     public function getAdditionalFees(): ?array
     {
         return $this->additionalFees;
     }
 
+    /** @param ?InvoiceAdditionalFee[] $additionalFees */
     public function setAdditionalFees(?array $additionalFees): self
     {
         $this->additionalFees = $additionalFees;

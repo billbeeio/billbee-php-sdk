@@ -17,6 +17,7 @@ use BillbeeDe\BillbeeAPI\ClientInterface;
 class TestClient implements ClientInterface
 {
     private $requests = [];
+    private $handlers = [];
 
     public function get($node, $query, $responseClass)
     {

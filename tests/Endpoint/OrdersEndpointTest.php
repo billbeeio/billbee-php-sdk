@@ -145,7 +145,9 @@ class OrdersEndpointTest extends TestCase
     public function testGetOrdersFailsNonNumericArticleTitleSource()
     {
         $this->expectException(InvalidArgumentException::class);
-        $this->expectExceptionMessage('The articleTitleSource is invalid. Check BillbeeDe\BillbeeAPI\Type\ArticleSource for valid values');
+        $this->expectExceptionMessage(
+            'The articleTitleSource is invalid. Check BillbeeDe\BillbeeAPI\Type\ArticleSource for valid values'
+        );
 
         $this->endpoint->getOrders(
             1,
@@ -165,7 +167,9 @@ class OrdersEndpointTest extends TestCase
     public function testGetOrdersFailsNegativeArticleTitleSource()
     {
         $this->expectException(InvalidArgumentException::class);
-        $this->expectExceptionMessage('The articleTitleSource is invalid. Check BillbeeDe\BillbeeAPI\Type\ArticleSource for valid values');
+        $this->expectExceptionMessage(
+            'The articleTitleSource is invalid. Check BillbeeDe\BillbeeAPI\Type\ArticleSource for valid values'
+        );
 
         $this->endpoint->getOrders(
             1,
@@ -185,7 +189,9 @@ class OrdersEndpointTest extends TestCase
     public function testGetOrdersFailsInvalidArticleTitleSource()
     {
         $this->expectException(InvalidArgumentException::class);
-        $this->expectExceptionMessage('The articleTitleSource is invalid. Check BillbeeDe\BillbeeAPI\Type\ArticleSource for valid values');
+        $this->expectExceptionMessage(
+            'The articleTitleSource is invalid. Check BillbeeDe\BillbeeAPI\Type\ArticleSource for valid values'
+        );
 
         $this->endpoint->getOrders(
             1,
@@ -269,7 +275,7 @@ class OrdersEndpointTest extends TestCase
         list($method, $node, $data, $class) = $requests[0];
         $this->assertSame('POST', $method);
         $this->assertSame('orders?shopId=521', $node);
-        $this->assertSame(BaseResponse::class, $class);
+        $this->assertSame(GetOrderResponse::class, $class);
     }
 
     public function testAddOrderTags()
@@ -360,7 +366,9 @@ class OrdersEndpointTest extends TestCase
         $message = new MessageForCustomer([], [], -1);
 
         $this->expectException(InvalidArgumentException::class);
-        $this->expectExceptionMessage('The sendMode is invalid. Check the BillbeeDe\BillbeeAPI\Type\SendMode class for valid values');
+        $this->expectExceptionMessage(
+            'The sendMode is invalid. Check the BillbeeDe\BillbeeAPI\Type\SendMode class for valid values'
+        );
 
         $this->endpoint->sendMessage(521, $message);
     }

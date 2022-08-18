@@ -28,7 +28,7 @@ class DiagnosticsLogger implements LoggerInterface
     /** @var string */
     private $logFile;
 
-    public function __construct($logFile = null)
+    public function __construct(?string $logFile = null)
     {
         if ($logFile === null) {
             $filename = sprintf('billbee_api_%s.log', date('Y-m-d-H-i-s'));

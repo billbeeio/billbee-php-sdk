@@ -15,12 +15,15 @@ namespace BillbeeDe\BillbeeAPI\Response;
 use BillbeeDe\BillbeeAPI\Model\TermsInfo;
 use JMS\Serializer\Annotation as Serializer;
 
+/** @extends BaseResponse<TermsInfo> */
 class GetTermsInfoResponse extends BaseResponse
 {
     /**
      * @var TermsInfo
      * @Serializer\Type("BillbeeDe\BillbeeAPI\Model\TermsInfo")
      * @Serializer\SerializedName("Data")
+     *
+     * @deprecated Use getter/setter instead. Will be protected in the next major version.
      */
     public $data = null;
 }

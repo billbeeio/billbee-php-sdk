@@ -10,7 +10,11 @@ use JMS\Serializer\JsonSerializationVisitor;
 
 class DefaultDateTimeHandler implements SubscribingHandlerInterface
 {
-    public static function getSubscribingMethods()
+
+    /**
+     * @return array{direction: int, format: string, type: string, method: string}[]
+     */
+    public static function getSubscribingMethods(): array
     {
         return [
             [
@@ -28,21 +32,27 @@ class DefaultDateTimeHandler implements SubscribingHandlerInterface
         ];
     }
 
+    /**
+     * @param array<string, mixed> $type
+     */
     public function serializeDateTimeToJson(
         JsonSerializationVisitor $visitor,
         \DateTime $date,
         array $type,
         Context $context
-    ) {
+    ): string {
         return $date->format($type['params'][0] ?? 'c');
     }
 
+    /**
+     * @param array<string, mixed> $type
+     */
     public function deserializeDateTimeToJson(
         JsonDeserializationVisitor $visitor,
-        $dateAsString,
+        string $dateAsString,
         array $type,
         Context $context
-    ) {
+    ): \DateTime {
         return new \DateTime($dateAsString);
     }
 }

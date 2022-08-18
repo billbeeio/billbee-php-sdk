@@ -107,7 +107,7 @@ class Source
     public $unitsPerItem;
 
     /**
-     * @var ?array
+     * @var ?array<string, mixed>
      * @Serializer\Type("array")
      * @Serializer\SerializedName("Custom")
      *
@@ -225,11 +225,13 @@ class Source
         return $this;
     }
 
+    /** @return ?array<string, mixed> */
     public function getCustom(): ?array
     {
         return $this->custom;
     }
 
+    /** @param ?array<string, mixed> $custom */
     public function setCustom(?array $custom): self
     {
         $this->custom = $custom;

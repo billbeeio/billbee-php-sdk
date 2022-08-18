@@ -1,0 +1,28 @@
+{
+    "Products": [
+        {
+            "Id": 100000060342904,
+            "ShortText": "test",
+            "SKU": "PROD1234",
+            "Tags": "tag1,tag2"
+        }
+    ],
+    "Orders": [
+        {
+            "Id": 122989702,
+            "ExternalReference": "test",
+            "BuyerName": "Max Mustermann",
+            "InvoiceNumber": "IN1234",
+            "CustomerName": "Max Mustermann2",
+            "ArticleTexts": "4711"
+        }
+    ],
+    "Customers": [
+        {
+            "Id": 1,
+            "Name": "Max",
+            "Addresses": "Test",
+            "Number": "1234"
+        }
+    ]
+}

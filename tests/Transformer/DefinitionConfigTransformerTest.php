@@ -27,7 +27,12 @@ class DefinitionConfigTransformerTest extends TestCase
             'a' => 'b',
             'c' => 'd',
         ];
-        $transformed = DefinitionConfigTransformer::serialize(new JsonSerializationVisitor(), $config, [], self::createMock(Context::class));
+        $transformed = DefinitionConfigTransformer::serialize(
+            new JsonSerializationVisitor(),
+            $config,
+            [],
+            self::createMock(Context::class)
+        );
         $this->assertEquals($config, $transformed);
     }
 
@@ -38,7 +43,12 @@ class DefinitionConfigTransformerTest extends TestCase
             'a' => 'b',
             'c' => 'd',
         ];
-        $transformed = DefinitionConfigTransformer::deserialize(new JsonDeserializationVisitor(), $config, [], self::createMock(Context::class));
+        $transformed = DefinitionConfigTransformer::deserialize(
+            new JsonDeserializationVisitor(),
+            $config,
+            [],
+            self::createMock(Context::class)
+        );
         $this->assertEquals($config, $transformed);
     }
 
@@ -50,7 +60,12 @@ class DefinitionConfigTransformerTest extends TestCase
             'c' => 'd',
             'Choices' => "red\ngreen\nblue",
         ];
-        $transformed = DefinitionConfigTransformer::deserialize(new JsonDeserializationVisitor(), $config, [], self::createMock(Context::class));
+        $transformed = DefinitionConfigTransformer::deserialize(
+            new JsonDeserializationVisitor(),
+            $config,
+            [],
+            self::createMock(Context::class)
+        );
         $this->assertEquals([
             'a' => 'b',
             'c' => 'd',
@@ -66,7 +81,12 @@ class DefinitionConfigTransformerTest extends TestCase
             'c' => 'd',
             'Choices' => ["red", "green", "blue"],
         ];
-        $transformed = DefinitionConfigTransformer::serialize(new JsonSerializationVisitor(), $config, [], self::createMock(Context::class));
+        $transformed = DefinitionConfigTransformer::serialize(
+            new JsonSerializationVisitor(),
+            $config,
+            [],
+            self::createMock(Context::class)
+        );
         $this->assertEquals([
             'a' => 'b',
             'c' => 'd',

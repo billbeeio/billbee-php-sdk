@@ -9,12 +9,7 @@ class CustomerResultTest extends SerializerTestCase
 {
     public function testSerialize(): void
     {
-        $result = new CustomerResult();
-        $result
-            ->setId(1)
-            ->setName('Max')
-            ->setAddresses('Test')
-            ->setNumber('1234');
+        $result = self::getCustomerResult();
         self::assertSerialize('Model/Search/customer_result.json', $result);
     }
 
@@ -30,5 +25,14 @@ class CustomerResultTest extends SerializerTestCase
                 self::assertEquals('1234', $result->getNumber());
             }
         );
+    }
+
+    public static function getCustomerResult(): CustomerResult
+    {
+        return (new CustomerResult())
+            ->setId(1)
+            ->setName('Max')
+            ->setAddresses('Test')
+            ->setNumber('1234');
     }
 }

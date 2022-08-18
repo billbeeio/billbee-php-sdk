@@ -15,12 +15,15 @@ namespace BillbeeDe\BillbeeAPI\Response;
 use BillbeeDe\BillbeeAPI\Model\Customer;
 use JMS\Serializer\Annotation as Serializer;
 
+/** @extends BaseResponse<Customer[]> */
 class GetCustomersResponse extends BaseResponse
 {
     /**
      * @var Customer[]
      * @Serializer\Type("array<BillbeeDe\BillbeeAPI\Model\Customer>")
      * @Serializer\SerializedName("Data")
+     *
+     * @deprecated Use getter/setter instead. Will be private in the next major version.
      */
     public $data = null;
 }

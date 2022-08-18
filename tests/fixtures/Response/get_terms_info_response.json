@@ -1,0 +1,9 @@
+{
+    "ErrorCode": 0,
+    "Data": {
+        "LinkToTermsWebPage": "LinkToTermsWebPage",
+        "LinkToPrivacyWebPage": "LinkToPrivacyWebPage",
+        "LinkToTermsHtmlContent": "LinkToTermsHtmlContent",
+        "LinkToPrivacyHtmlContent": "LinkToPrivacyHtmlContent"
+    }
+}

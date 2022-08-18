@@ -9,15 +9,7 @@ class EventTest extends SerializerTestCase
 {
     public function testSerialize(): void
     {
-        $result = new Event();
-        $result
-            ->setCreated(new \DateTime("2022-07-16T09:56:01.903"))
-            ->setTypeId(55)
-            ->setTypeText("Nutzung der API")
-            ->setId(100002922949129)
-            ->setEmployeeId("employee-id")
-            ->setEmployeeName("max muster")
-            ->setOrderId(123);
+        $result = self::getEvent();
         self::assertSerialize('Model/event.json', $result);
     }
 
@@ -36,5 +28,17 @@ class EventTest extends SerializerTestCase
                 self::assertEquals(123, $result->getOrderId());
             }
         );
+    }
+
+    public static function getEvent(): Event
+    {
+        return (new Event())
+            ->setCreated(new \DateTime("2022-07-16T09:56:01.903"))
+            ->setTypeId(55)
+            ->setTypeText("Nutzung der API")
+            ->setId(100002922949129)
+            ->setEmployeeId("employee-id")
+            ->setEmployeeName("max muster")
+            ->setOrderId(123);
     }
 }

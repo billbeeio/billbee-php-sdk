@@ -9,22 +9,7 @@ class PartnerOrderTest extends SerializerTestCase
 {
     public function testSerialize(): void
     {
-        $result = new PartnerOrder();
-        $result
-            ->setId(100000187723587)
-            ->setExternalId("#19405145")
-            ->setInvoiceNumber("12345")
-            ->setInvoiceCreatedAt(new \DateTime("2022-08-17T02:00:00+00:00"))
-            ->setInvoiceDate(new \DateTime("2022-08-17T02:00:00+00:00"))
-            ->setCreatedAt(new \DateTime("2022-08-17T02:00:00+00:00"))
-            ->setPaidAt(new \DateTime("2022-08-17T02:00:00+00:00"))
-            ->setShippedAt(new \DateTime("2022-08-17T02:00:00+00:00"))
-            ->setHasInvoice(true)
-            ->setCanCreateAutoInvoice(true)
-            ->setOrderStateId(1)
-            ->setOrderStateText("Bestellt")
-            ->setTotalGross(113.11)
-            ->setShopName("Fake Shop 3");
+        $result = self::getPartnerOrder();
         self::assertSerialize('Model/partner_order.json', $result);
     }
 
@@ -50,5 +35,24 @@ class PartnerOrderTest extends SerializerTestCase
                 self::assertEquals("Fake Shop 3", $result->getShopName());
             }
         );
+    }
+
+    public static function getPartnerOrder(): PartnerOrder
+    {
+        return (new PartnerOrder())
+            ->setId(100000187723587)
+            ->setExternalId("#19405145")
+            ->setInvoiceNumber("12345")
+            ->setInvoiceCreatedAt(new \DateTime("2022-08-17T02:00:00+00:00"))
+            ->setInvoiceDate(new \DateTime("2022-08-17T02:00:00+00:00"))
+            ->setCreatedAt(new \DateTime("2022-08-17T02:00:00+00:00"))
+            ->setPaidAt(new \DateTime("2022-08-17T02:00:00+00:00"))
+            ->setShippedAt(new \DateTime("2022-08-17T02:00:00+00:00"))
+            ->setHasInvoice(true)
+            ->setCanCreateAutoInvoice(true)
+            ->setOrderStateId(1)
+            ->setOrderStateText("Bestellt")
+            ->setTotalGross(113.11)
+            ->setShopName("Fake Shop 3");
     }
 }

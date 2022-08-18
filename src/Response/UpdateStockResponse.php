@@ -14,12 +14,15 @@ namespace BillbeeDe\BillbeeAPI\Response;
 
 use JMS\Serializer\Annotation as Serializer;
 
+/** @extends BaseResponse<array<array{SKU: ?string, OldStock: ?float, CurrentStock: ?float, UnfulfilledAmount: ?float, Message: string}>> */
 class UpdateStockResponse extends BaseResponse
 {
     /**
-     * @var array<array>
+     * @var array<array{SKU: ?string, OldStock: ?float, CurrentStock: ?float, UnfulfilledAmount: ?float, Message: string}>
      * @Serializer\Type("array")
      * @Serializer\SerializedName("Data")
+     *
+     * @deprecated Use getter/setter instead. Will be protected in the next major version.
      */
     public $data = [];
 }

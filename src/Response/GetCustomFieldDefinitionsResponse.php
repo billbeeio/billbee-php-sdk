@@ -12,15 +12,18 @@
 
 namespace BillbeeDe\BillbeeAPI\Response;
 
-use BillbeeDe\BillbeeAPI\Model\Order;
+use BillbeeDe\BillbeeAPI\Model\CustomFieldDefinition;
 use JMS\Serializer\Annotation as Serializer;
 
+/** @extends BaseResponse<CustomFieldDefinition[]> */
 class GetCustomFieldDefinitionsResponse extends BaseResponse
 {
     /**
-     * @var Order[]
+     * @var CustomFieldDefinition[]
      * @Serializer\Type("array<BillbeeDe\BillbeeAPI\Model\CustomFieldDefinition>")
-* @Serializer\SerializedName("Data")
+     * @Serializer\SerializedName("Data")
+     *
+     * @deprecated Use getter/setter instead. Will be private in the next major version.
      */
     public $data = [];
 }

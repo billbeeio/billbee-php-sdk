@@ -1,0 +1,14 @@
+{
+    "ErrorCode": 0,
+    "Data": [
+        {
+            "Id": 100002922949129,
+            "Created": "2022-07-16T09:56:01.903",
+            "TypeId": 55,
+            "TypeText": "Nutzung der API",
+            "EmployeeId": "employee-id",
+            "EmployeeName": "max muster",
+            "OrderId": 123
+        }
+    ]
+}

@@ -132,7 +132,7 @@ class Stock
         return $this;
     }
 
-    public function getOldQuantity()
+    public function getOldQuantity(): ?float
     {
         return $this->oldQuantity;
     }
@@ -144,7 +144,7 @@ class Stock
         return $this;
     }
 
-    public function getNewQuantity()
+    public function getNewQuantity(): ?float
     {
         return $this->newQuantity;
     }
@@ -156,7 +156,7 @@ class Stock
         return $this;
     }
 
-    public function getDeltaQuantity()
+    public function getDeltaQuantity(): ?float
     {
         return $this->deltaQuantity;
     }

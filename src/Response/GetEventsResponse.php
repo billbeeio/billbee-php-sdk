@@ -15,12 +15,15 @@ namespace BillbeeDe\BillbeeAPI\Response;
 use BillbeeDe\BillbeeAPI\Model\Event;
 use JMS\Serializer\Annotation as Serializer;
 
+/** @extends BaseResponse<Event[]> */
 class GetEventsResponse extends BaseResponse
 {
     /**
      * @var Event[]
      * @Serializer\Type("array<BillbeeDe\BillbeeAPI\Model\Event>")
      * @Serializer\SerializedName("Data")
+     *
+     * @deprecated Use getter/setter instead. Will be private in the next major version.
      */
     public $data = [];
 }

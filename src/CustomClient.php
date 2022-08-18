@@ -22,6 +22,7 @@ use Psr\Http\Message\UriInterface;
  * Helper class to make guzzle methods protected instead of private
  * @package BillbeeDe\BillbeeAPI
  */
+// @phpstan-ignore-next-line
 class CustomClient extends \GuzzleHttp\Client
 {
     use LoggerAwareTrait;
@@ -29,7 +30,7 @@ class CustomClient extends \GuzzleHttp\Client
     /**
      * @param string $method
      * @param string $uri
-     * @param array  $options
+     * @param array<string, mixed> $options
      * @return RequestInterface
      */
     public function createRequest(string $method, ?string $uri, array $options)
@@ -52,6 +53,7 @@ class CustomClient extends \GuzzleHttp\Client
 
 
     /** Guzzle overrides */
+    /** @param array<string, mixed> $config */
     protected function buildUri(?string $uri, array $config): UriInterface
     {
         // for BC we accept null which would otherwise fail in uri_for
@@ -64,7 +66,11 @@ class CustomClient extends \GuzzleHttp\Client
         return $uri->getScheme() === '' && $uri->getHost() !== '' ? $uri->withScheme('http') : $uri;
     }
 
-    protected function prepareDefaults($options)
+    /**
+     * @param array<string, mixed> $options #
+     * @return array<string, mixed>
+     */
+    protected function prepareDefaults(array $options): array
     {
         $defaults = $this->getConfig();
 
@@ -101,7 +107,7 @@ class CustomClient extends \GuzzleHttp\Client
 
     /**
      * @param RequestInterface $request
-     * @param array            $options
+     * @param array<string, mixed> $options
      * @return RequestInterface
      */
     protected function applyOptions(RequestInterface $request, array &$options)
@@ -110,11 +116,13 @@ class CustomClient extends \GuzzleHttp\Client
 
         if (isset($options['form_params'])) {
             if (isset($options['multipart'])) {
-                throw new InvalidArgumentException('You cannot use '
-                    .'form_params and multipart at the same time. Use the '
-                    .'form_params option if you want to send application/'
-                    .'x-www-form-urlencoded requests, and the multipart '
-                    .'option to send multipart/form-data requests.');
+                throw new InvalidArgumentException(
+                    'You cannot use '
+                    . 'form_params and multipart at the same time. Use the '
+                    . 'form_params option if you want to send application/'
+                    . 'x-www-form-urlencoded requests, and the multipart '
+                    . 'option to send multipart/form-data requests.'
+                );
             }
             $options['body'] = http_build_query($options['form_params'], '', '&');
             unset($options['form_params']);
@@ -161,7 +169,7 @@ class CustomClient extends \GuzzleHttp\Client
             switch ($type) {
                 case 'basic':
                     $modify['set_headers']['Authorization'] = 'Basic '
-                        .base64_encode("$value[0]:$value[1]");
+                        . base64_encode("$value[0]:$value[1]");
                     break;
                 case 'digest':
                     $options['curl'][CURLOPT_HTTPAUTH] = CURLAUTH_DIGEST;
@@ -197,7 +205,7 @@ class CustomClient extends \GuzzleHttp\Client
         if ($request->getBody() instanceof Psr7\MultipartStream) {
             // Use a multipart/form-data POST if a Content-Type is not set.
             $options['_conditional']['Content-Type'] = 'multipart/form-data; boundary='
-                .$request->getBody()->getBoundary();
+                . $request->getBody()->getBoundary();
         }
 
         // Merge in conditional headers if they are not present.
@@ -217,12 +225,14 @@ class CustomClient extends \GuzzleHttp\Client
         return $request;
     }
 
-    protected function invalidBody()
+    protected function invalidBody(): void
     {
-        throw new InvalidArgumentException('Passing in the "body" request '
-            .'option as an array to send a POST request has been deprecated. '
-            .'Please use the "form_params" request option to send a '
-            .'application/x-www-form-urlencoded request, or the "multipart" '
-            .'request option to send a multipart/form-data request.');
+        throw new InvalidArgumentException(
+            'Passing in the "body" request '
+            . 'option as an array to send a POST request has been deprecated. '
+            . 'Please use the "form_params" request option to send a '
+            . 'application/x-www-form-urlencoded request, or the "multipart" '
+            . 'request option to send a multipart/form-data request.'
+        );
     }
 }

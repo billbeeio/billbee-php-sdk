@@ -65,11 +65,13 @@ class ShippingProvider
         return $this;
     }
 
+    /** @return ShippingProduct[] */
     public function getProducts(): array
     {
         return $this->products;
     }
 
+    /** @param ShippingProduct[] $products */
     public function setProducts(array $products): self
     {
         $this->products = $products;

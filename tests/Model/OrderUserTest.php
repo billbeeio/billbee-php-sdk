@@ -19,8 +19,7 @@ class OrderUserTest extends SerializerTestCase
             ->setFirstName("vorname")
             ->setLastName("nachname")
             ->setFullName("vorname nachname")
-            ->setEmail("max@muster.tld")
-           ;
+            ->setEmail("max@muster.tld");
         self::assertSerialize('Model/seller.json', $result);
     }
 

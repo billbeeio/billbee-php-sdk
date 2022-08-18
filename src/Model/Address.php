@@ -151,7 +151,10 @@ class Address
      */
     public $houseNumber;
 
-    /** Not Mapped */
+    /**
+     * @var mixed
+     * Not Mapped
+     */
     public $comment;
 
     /**

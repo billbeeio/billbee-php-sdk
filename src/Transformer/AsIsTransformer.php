@@ -20,18 +20,32 @@ use JMS\Serializer\JsonSerializationVisitor;
 
 class AsIsTransformer implements SubscribingHandlerInterface
 {
-    /** @inheritdoc */
+
+    /**
+     * @template T
+     * @param T $data
+     * @param array<string, mixed> $type
+     * @return T
+     */
     public static function serialize(JsonSerializationVisitor $visitor, $data, array $type, Context $context)
     {
         return $data;
     }
 
-    /** @inheritdoc */
+    /**
+     * @template T
+     * @param T $data
+     * @param array<string, mixed> $type
+     * @return T
+     */
     public static function deserialize(JsonDeserializationVisitor $visitor, $data, array $type, Context $context)
     {
         return $data;
     }
 
+    /**
+     * @return array{direction: int, format: string, type: string, method: string}[]
+     */
     public static function getSubscribingMethods(): array
     {
         return [

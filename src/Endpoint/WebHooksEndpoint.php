@@ -49,7 +49,7 @@ class WebHooksEndpoint
         return $this->client->get(
             'webhooks',
             [],
-            Model\WebHook::class . '[]'
+            sprintf('array<%s>', Model\WebHook::class)
         );
     }
 
@@ -73,17 +73,17 @@ class WebHooksEndpoint
     /**
      * Get a list of all available filters
      *
-     * @return array The Response
+     * @return Model\WebHookFilter[] The Response
      *
      * @throws QuotaExceededException If the maximum number of calls per second exceeded
      * @throws Exception If the response cannot be parsed
      */
-    public function getWebHookFilters()
+    public function getWebHookFilters(): ?array
     {
         return $this->client->get(
             'webhooks/filters',
             [],
-            Model\WebHookFilter::class . '[]'
+            sprintf('array<%s>', Model\WebHookFilter::class)
         );
     }
 
@@ -203,6 +203,7 @@ class WebHooksEndpoint
 
     #endregion
 
+    /** @param mixed $data */
     private function serialize($data): string
     {
         return $this->serializer->serialize($data, 'json');

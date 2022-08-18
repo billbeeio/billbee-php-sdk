@@ -73,7 +73,7 @@ class Client implements ClientInterface, BatchClientInterface
     /**
      * Contains all requests in batch mode
      *
-     * @var array
+     * @var array{responseClass: class-string, requestFactory: callable}[]
      */
     protected $requestPool = [];
 
@@ -305,7 +305,7 @@ class Client implements ClientInterface, BatchClientInterface
      *
      * @see Client::executeBatch()
      */
-    public function enableBatchMode()
+    public function enableBatchMode(): void
     {
         $this->useBatching = true;
     }
@@ -314,7 +314,7 @@ class Client implements ClientInterface, BatchClientInterface
      * Disables the batch mode
      * Requests are executed directly and returns the result.
      */
-    public function disableBatchMode()
+    public function disableBatchMode(): void
     {
         $this->useBatching = false;
     }
@@ -500,9 +500,9 @@ class Client implements ClientInterface, BatchClientInterface
      * Converts the response of the batch call in single responses
      *
      * @param string $batchResult
-     * @return array
+     * @return string[]
      */
-    private function getResponsesFromBody($batchResult)
+    private function getResponsesFromBody($batchResult): array
     {
         $lines = explode("\r\n", $batchResult, 2);
         $batchName = $lines[0];

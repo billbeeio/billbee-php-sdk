@@ -34,7 +34,7 @@ class TranslatableText
      */
     public $languageCode;
 
-    public function __construct($text = '', $languageCode = '')
+    public function __construct(string $text = '', string $languageCode = '')
     {
         $this->setText($text);
         $this->setLanguageCode($languageCode);

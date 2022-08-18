@@ -9,13 +9,7 @@ class DeliveryNoteDocumentTest extends SerializerTestCase
 {
     public function testSerialize(): void
     {
-        $result = new DeliveryNoteDocument();
-        $result
-            ->setOrderNumber("Test")
-            ->setDeliveryNoteNumber("20")
-            ->setPDFData("base64-encrypted-pdf")
-            ->setDeliveryNoteDate(new \DateTime("2022-08-16T14:47:00", new \DateTimeZone('Europe/Berlin')))
-            ->setPdfDownloadUrl("https://objectstore.billbee.io");
+        $result = self::getDeliveryNoteDocument();
         self::assertSerialize('Model/delivery_note_document.json', $result);
     }
 
@@ -32,5 +26,15 @@ class DeliveryNoteDocumentTest extends SerializerTestCase
                 self::assertEquals("2022-08-16T14:47:00+00:00", $result->getDeliveryNoteDate()->format('c'));
             }
         );
+    }
+
+    public static function getDeliveryNoteDocument(): DeliveryNoteDocument
+    {
+        return (new DeliveryNoteDocument())
+            ->setOrderNumber("Test")
+            ->setDeliveryNoteNumber("20")
+            ->setPDFData("base64-encrypted-pdf")
+            ->setDeliveryNoteDate(new \DateTime("2022-08-16T14:47:00", new \DateTimeZone('Europe/Berlin')))
+            ->setPdfDownloadUrl("https://objectstore.billbee.io");
     }
 }

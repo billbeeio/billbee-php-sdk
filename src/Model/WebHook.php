@@ -144,33 +144,39 @@ class WebHook
         return $this;
     }
 
+    /** @return string[]|null */
     public function getFilters(): ?array
     {
         return $this->filters;
     }
 
+    /** @param string[]|null $filters */
     public function setFilters(?array $filters): self
     {
         $this->filters = $filters;
         return $this;
     }
 
+    /** @return array<string, string> */
     public function getHeaders(): array
     {
         return $this->headers;
     }
 
+    /** @param array<string, string> $headers */
     public function setHeaders(array $headers): self
     {
         $this->headers = $headers;
         return $this;
     }
 
+    /** @return array<string, string> */
     public function getProperties(): array
     {
         return $this->properties;
     }
 
+    /** @param array<string, string> $properties */
     public function setProperties(array $properties): self
     {
         $this->properties = $properties;

@@ -15,7 +15,15 @@ abstract class SerializerTestCase extends TestCase
     protected static function assertSerialize(string $fixtureFile, $obj): void
     {
         $serialized = self::getSerializer()->serialize($obj, 'json');
-        $expected = trim(file_get_contents(__DIR__ . '/fixtures/' . $fixtureFile));
+        $fullPath = __DIR__ . '/fixtures/' . $fixtureFile;
+        if (!is_file($fullPath)) {
+            touch($fullPath);
+        }
+        $expected = trim(file_get_contents($fullPath));
+
+        if ($serialized != $expected) {
+            echo($serialized);
+        }
 
         self::assertEquals($expected, $serialized);
     }

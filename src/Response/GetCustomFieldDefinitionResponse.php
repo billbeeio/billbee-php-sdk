@@ -15,12 +15,15 @@ namespace BillbeeDe\BillbeeAPI\Response;
 use BillbeeDe\BillbeeAPI\Model\CustomFieldDefinition;
 use JMS\Serializer\Annotation as Serializer;
 
+/** @extends BaseResponse<CustomFieldDefinition> */
 class GetCustomFieldDefinitionResponse extends BaseResponse
 {
     /**
      * @var CustomFieldDefinition
      * @Serializer\Type("BillbeeDe\BillbeeAPI\Model\CustomFieldDefinition")
      * @Serializer\SerializedName("Data")
+     *
+     * @deprecated Use getter/setter instead. Will be private in the next major version.
      */
     public $data = null;
 }

@@ -32,15 +32,15 @@ class InvoiceEndpoint
     /**
      * Get a list of all invoices
      *
-     * @param DateTimeInterface $minInvoiceDate Specifies the oldest invoice date to include
-     * @param DateTimeInterface $maxInvoiceDate Specifies the newest invoice date to include
      * @param int $page Specifies the page to request
      * @param int $pageSize Specifies the number of elements per page. Defaults to 50, max value is 250
-     * @param array $shopId Specifies a list of shop ids for which invoices should be included
-     * @param array $orderStateId Specifies a list of state ids to include in the response
-     * @param array $tag Specifies a list of tags to include in the response
-     * @param DateTimeInterface $minPayDate Specifies the oldest pay date to include
-     * @param DateTimeInterface $maxPayDate Specifies the newest pay date to include
+     * @param ?DateTimeInterface $minInvoiceDate Specifies the oldest invoice date to include
+     * @param ?DateTimeInterface $maxInvoiceDate Specifies the newest invoice date to include
+     * @param int[] $shopId Specifies a list of shop ids for which invoices should be included
+     * @param int[] $orderStateId Specifies a list of state ids to include in the response
+     * @param string[] $tag Specifies a list of tags to include in the response
+     * @param ?DateTimeInterface $minPayDate Specifies the oldest pay date to include
+     * @param ?DateTimeInterface $maxPayDate Specifies the newest pay date to include
      * @param bool $includePositions Specifies to include the positions
      *
      * @return Response\GetInvoicesResponse The Invoices
@@ -49,17 +49,17 @@ class InvoiceEndpoint
      * @throws Exception If the response cannot be parsed
      */
     public function getInvoices(
-        $page = 1,
-        $pageSize = 50,
-        DateTimeInterface $minInvoiceDate = null,
-        DateTimeInterface $maxInvoiceDate = null,
+        int $page = 1,
+        int $pageSize = 50,
+        ?DateTimeInterface $minInvoiceDate = null,
+        ?DateTimeInterface $maxInvoiceDate = null,
         array $shopId = [],
         array $orderStateId = [],
         array $tag = [],
-        DateTimeInterface $minPayDate = null,
-        DateTimeInterface $maxPayDate = null,
-        $includePositions = false
-    ) {
+        ?DateTimeInterface $minPayDate = null,
+        ?DateTimeInterface $maxPayDate = null,
+        bool $includePositions = false
+    ): ?Response\GetInvoicesResponse {
         $query = [
             'page' => max(1, $page),
             'pageSize' => max(1, $pageSize),

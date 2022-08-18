@@ -20,9 +20,9 @@ interface BatchClientInterface
      */
     public function getPoolSize();
 
-    public function enableBatchMode();
+    public function enableBatchMode(): void;
 
-    public function disableBatchMode();
+    public function disableBatchMode(): void;
 
     /**
      * @return bool True if the client use batching, otherwise false

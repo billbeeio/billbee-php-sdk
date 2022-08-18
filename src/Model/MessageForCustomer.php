@@ -57,11 +57,15 @@ class MessageForCustomer
      */
     public $alternativeEmailAddress;
 
+    /**
+     * @param TranslatableText[] $subject
+     * @param TranslatableText[] $body
+     */
     public function __construct(
         array $subject = [],
         array $body = [],
-        $sendMode = SendMode::EMAIL_THEN_API,
-        $alternativeEmailAddress = null
+        int $sendMode = SendMode::EMAIL_THEN_API,
+        ?string $alternativeEmailAddress = null
     ) {
         $this
             ->setSubject($subject)
@@ -70,33 +74,37 @@ class MessageForCustomer
             ->setAlternativeMailAddress($alternativeEmailAddress);
     }
 
-    public function getSendMode()
+    public function getSendMode(): int
     {
         return $this->sendMode;
     }
 
-    public function setSendMode($sendMode)
+    public function setSendMode(int $sendMode): self
     {
         $this->sendMode = $sendMode;
         return $this;
     }
 
+    /** @return TranslatableText[] */
     public function getSubject(): array
     {
         return $this->subject;
     }
 
+    /** @param TranslatableText[] $subject */
     public function setSubject(array $subject): self
     {
         $this->subject = $subject;
         return $this;
     }
 
+    /** @return TranslatableText[] */
     public function getBody(): array
     {
         return $this->body;
     }
 
+    /** @param TranslatableText[] $body */
     public function setBody(array $body): self
     {
         $this->body = $body;

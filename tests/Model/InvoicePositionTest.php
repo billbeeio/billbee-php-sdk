@@ -24,8 +24,7 @@ class InvoicePositionTest extends SerializerTestCase
             ->setTitle("Test Bestandsabgleich")
             ->setId(100000317105650)
             ->setTotalVatAmount(25.3482)
-            ->setRebatePercent(2)
-        ;
+            ->setRebatePercent(2);
         self::assertSerialize('Model/invoice_position.json', $result);
     }
 
