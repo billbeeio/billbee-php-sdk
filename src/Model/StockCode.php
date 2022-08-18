@@ -18,36 +18,75 @@ class StockCode
 {
     /**
      * The SKU of the Product
-     * @var string
+     * @var ?string
      *
      * @Serializer\Type("string")
      * @Serializer\SerializedName("Sku")
+     *
+     * @deprecated Use getter/setter instead. Will be private in the next major version.
      */
     public $sku;
 
     /**
-     * The Id of the stock
+     * The id of the stock
      * @var int
      *
      * @Serializer\Type("int")
      * @Serializer\SerializedName("StockId")
+     *
+     * @deprecated Use getter/setter instead. Will be private in the next major version.
      */
     public $stockId = null;
 
     /**
      * The stock code
-     * @var string
+     * @var ?string
      *
      * @Serializer\Type("string")
      * @Serializer\SerializedName("StockCode")
+     *
+     * @deprecated Use getter/setter instead. Will be private in the next major version.
      */
     public $stockCode;
 
-    public static function fromProduct(Product $product)
+    public static function fromProduct(Product $product): StockCode
     {
         $stockCode = new StockCode();
-        $stockCode->sku = $product->sku;
-        $stockCode->stockCode = $product->stockCode;
+        $stockCode->setSku($product->getSku());
+        $stockCode->setStockCode($product->getStockCode());
         return $stockCode;
+    }
+
+    public function getSku(): ?string
+    {
+        return $this->sku;
+    }
+
+    public function setSku(?string $sku): self
+    {
+        $this->sku = $sku;
+        return $this;
+    }
+
+    public function getStockId(): ?int
+    {
+        return $this->stockId;
+    }
+
+    public function setStockId(?int $stockId): self
+    {
+        $this->stockId = $stockId;
+        return $this;
+    }
+
+    public function getStockCode(): ?string
+    {
+        return $this->stockCode;
+    }
+
+    public function setStockCode(?string $stockCode): self
+    {
+        $this->stockCode = $stockCode;
+        return $this;
     }
 }
