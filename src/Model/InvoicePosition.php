@@ -50,7 +50,7 @@ class InvoicePosition
      *
      * @deprecated Use getter/setter instead. Will be private in the next major version.
      */
-    public $netValue = 0.0000000;
+    public $netValue = 0.00;
 
     /**
      * @var float
@@ -59,7 +59,7 @@ class InvoicePosition
      *
      * @deprecated Use getter/setter instead. Will be private in the next major version.
      */
-    public $totalNetValue = 0.0000000;
+    public $totalNetValue = 0.00;
 
     /**
      * @var float
