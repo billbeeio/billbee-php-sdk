@@ -87,6 +87,4 @@ class Dimensions
         $this->length = $length;
         return $this;
     }
-
-
 }

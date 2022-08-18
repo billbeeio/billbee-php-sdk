@@ -9,10 +9,7 @@ class CategoryTest extends SerializerTestCase
 {
     public function testSerialize(): void
     {
-        $result = new Category();
-        $result
-            ->setName("Schuhe")
-            ->setId(8733);
+        $result = self::getCategory();
         self::assertSerialize('Model/category.json', $result);
     }
 
@@ -26,5 +23,12 @@ class CategoryTest extends SerializerTestCase
                 self::assertEquals(8733, $result->getId());
             }
         );
+    }
+
+    public static function getCategory(): Category
+    {
+        return (new Category())
+            ->setName("Schuhe")
+            ->setId(8733);
     }
 }

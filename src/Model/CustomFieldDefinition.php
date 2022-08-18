@@ -17,8 +17,8 @@ use JMS\Serializer\Annotation as Serializer;
 class CustomFieldDefinition
 {
     /**
-     * @var integer
-     * @Serializer\Type("integer")
+     * @var ?int
+     * @Serializer\Type("int")
      * @Serializer\SerializedName("Id")
      *
      * @deprecated Use getter/setter instead. Will be private in the next major version.
@@ -26,7 +26,7 @@ class CustomFieldDefinition
     public $id;
 
     /**
-     * @var string
+     * @var ?string
      * @Serializer\Type("string")
      * @Serializer\SerializedName("Name")
      *
@@ -35,7 +35,7 @@ class CustomFieldDefinition
     public $name;
 
     /**
-     * @var array
+     * @var ?array
      * @Serializer\Type("CustomField")
      * @Serializer\SerializedName("Configuration")
      *
@@ -44,9 +44,9 @@ class CustomFieldDefinition
     public $configuration;
 
     /**
-     * @var integer
+     * @var ?int
      * @see \BillbeeDe\BillbeeAPI\Type\CustomFieldDefinitionType
-     * @Serializer\Type("integer")
+     * @Serializer\Type("int")
      * @Serializer\SerializedName("Type")
      *
      * @deprecated Use getter/setter instead. Will be private in the next major version.
@@ -62,45 +62,45 @@ class CustomFieldDefinition
      */
     public $isNullable;
 
-    public function getId(): int
+    public function getId(): ?int
     {
         return $this->id;
     }
 
-    public function setId(int $id): self
+    public function setId(?int $id): self
     {
         $this->id = $id;
         return $this;
     }
 
-    public function getName(): string
+    public function getName(): ?string
     {
         return $this->name;
     }
 
-    public function setName(string $name): self
+    public function setName(?string $name): self
     {
         $this->name = $name;
         return $this;
     }
 
-    public function getConfiguration(): array
+    public function getConfiguration(): ?array
     {
         return $this->configuration;
     }
 
-    public function setConfiguration(array $configuration): self
+    public function setConfiguration(?array $configuration): self
     {
         $this->configuration = $configuration;
         return $this;
     }
 
-    public function getType(): int
+    public function getType(): ?int
     {
         return $this->type;
     }
 
-    public function setType(int $type): self
+    public function setType(?int $type): self
     {
         $this->type = $type;
         return $this;
@@ -116,6 +116,4 @@ class CustomFieldDefinition
         $this->isNullable = $isNullable;
         return $this;
     }
-
-
 }

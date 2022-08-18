@@ -17,7 +17,7 @@ use JMS\Serializer\Annotation as Serializer;
 class DeliveryNoteDocument
 {
     /**
-     * @var string
+     * @var ?string
      * @Serializer\Type("string")
      * @Serializer\SerializedName("OrderNumber")
      *
@@ -26,7 +26,7 @@ class DeliveryNoteDocument
     public $orderNumber;
 
     /**
-     * @var string
+     * @var ?string
      * @Serializer\Type("string")
      * @Serializer\SerializedName("DeliveryNoteNumber")
      *
@@ -35,7 +35,7 @@ class DeliveryNoteDocument
     public $deliveryNoteNumber;
 
     /**
-     * @var string|null
+     * @var ?string
      * @Serializer\Type("string")
      * @Serializer\SerializedName("PDFData")
      *
@@ -44,7 +44,7 @@ class DeliveryNoteDocument
     public $pdfData;
 
     /**
-     * @var \DateTime
+     * @var ?\DateTime
      * @Serializer\Type("DateTime<'Y-m-d\TH:i:s'>")
      * @Serializer\SerializedName("DeliveryNoteDate")
      *
@@ -53,7 +53,7 @@ class DeliveryNoteDocument
     public $deliveryNoteDate;
 
     /**
-     * @var string|null
+     * @var ?string
      * @Serializer\Type("string")
      * @Serializer\SerializedName("PdfDownloadUrl")
      *
@@ -61,23 +61,23 @@ class DeliveryNoteDocument
      */
     public $pdfDownloadUrl;
 
-    public function getOrderNumber(): string
+    public function getOrderNumber(): ?string
     {
         return $this->orderNumber;
     }
 
-    public function setOrderNumber(string $orderNumber): self
+    public function setOrderNumber(?string $orderNumber): self
     {
         $this->orderNumber = $orderNumber;
         return $this;
     }
 
-    public function getDeliveryNoteNumber(): string
+    public function getDeliveryNoteNumber(): ?string
     {
         return $this->deliveryNoteNumber;
     }
 
-    public function setDeliveryNoteNumber(string $deliveryNoteNumber): self
+    public function setDeliveryNoteNumber(?string $deliveryNoteNumber): self
     {
         $this->deliveryNoteNumber = $deliveryNoteNumber;
         return $this;
@@ -94,12 +94,12 @@ class DeliveryNoteDocument
         return $this;
     }
 
-    public function getDeliveryNoteDate(): \DateTime
+    public function getDeliveryNoteDate(): ?\DateTime
     {
         return $this->deliveryNoteDate;
     }
 
-    public function setDeliveryNoteDate(\DateTime $deliveryNoteDate): self
+    public function setDeliveryNoteDate(?\DateTime $deliveryNoteDate): self
     {
         $this->deliveryNoteDate = $deliveryNoteDate;
         return $this;

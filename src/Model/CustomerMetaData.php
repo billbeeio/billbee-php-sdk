@@ -34,21 +34,21 @@ class CustomerMetaData
     private $typeId = 0;
 
     /**
-     * @var string
+     * @var ?string
      * @Serializer\Type("string")
      * @Serializer\SerializedName("TypeName")
      */
     private $typeName = '';
 
     /**
-     * @var string
+     * @var ?string
      * @Serializer\Type("string")
      * @Serializer\SerializedName("SubType")
      */
     private $subType = '';
 
     /**
-     * @var string
+     * @var ?string
      * @Serializer\Type("string")
      * @Serializer\SerializedName("Value")
      */
@@ -76,34 +76,34 @@ class CustomerMetaData
         return $this;
     }
 
-    public function getTypeName(): string
+    public function getTypeName(): ?string
     {
         return $this->typeName;
     }
 
-    public function setTypeName(string $typeName): self
+    public function setTypeName(?string $typeName): self
     {
         $this->typeName = $typeName;
         return $this;
     }
 
-    public function getSubType(): string
+    public function getSubType(): ?string
     {
         return $this->subType;
     }
 
-    public function setSubType(string $subType): self
+    public function setSubType(?string $subType): self
     {
         $this->subType = $subType;
         return $this;
     }
 
-    public function getValue(): string
+    public function getValue(): ?string
     {
         return $this->value;
     }
 
-    public function setValue(string $value): self
+    public function setValue(?string $value): self
     {
         $this->value = $value;
         return $this;

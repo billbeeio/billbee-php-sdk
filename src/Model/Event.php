@@ -47,7 +47,7 @@ class Event
     public $typeId = EventType::ACCOUNT_CREATED;
 
     /**
-     * @var string
+     * @var ?string
      * @Serializer\Type("string")
      * @Serializer\SerializedName("TypeText")
      *
@@ -56,7 +56,7 @@ class Event
     public $typeText = '';
 
     /**
-     * @var string|null
+     * @var ?string
      * @Serializer\Type("string")
      * @Serializer\SerializedName("EmployeeId")
      *
@@ -65,7 +65,7 @@ class Event
     public $employeeId = null;
 
     /**
-     * @var string|null
+     * @var ?string
      * @Serializer\Type("string")
      * @Serializer\SerializedName("EmployeeName")
      *
@@ -115,12 +115,12 @@ class Event
         return $this;
     }
 
-    public function getTypeText(): string
+    public function getTypeText(): ?string
     {
         return $this->typeText;
     }
 
-    public function setTypeText(string $typeText): self
+    public function setTypeText(?string $typeText): self
     {
         $this->typeText = $typeText;
         return $this;

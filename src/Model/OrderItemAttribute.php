@@ -17,23 +17,29 @@ use JMS\Serializer\Annotation as Serializer;
 class OrderItemAttribute
 {
     /**
-     * @var int
+     * @var ?string
      * @Serializer\Type("string")
      * @Serializer\SerializedName("Id")
+     *
+     * @deprecated Use getter/setter instead. Will be private in the next major version.
      */
     public $id;
 
     /**
-     * @var string
+     * @var ?string
      * @Serializer\Type("string")
      * @Serializer\SerializedName("Name")
+     *
+     * @deprecated Use getter/setter instead. Will be private in the next major version.
      */
     public $name;
 
     /**
-     * @var string
+     * @var ?string
      * @Serializer\Type("string")
      * @Serializer\SerializedName("Value")
+     *
+     * @deprecated Use getter/setter instead. Will be private in the next major version.
      */
     public $value;
 
@@ -41,6 +47,52 @@ class OrderItemAttribute
      * @var float
      * @Serializer\Type("float")
      * @Serializer\SerializedName("Price")
+     *
+     * @deprecated Use getter/setter instead. Will be private in the next major version.
      */
     public $price;
+
+    public function getId(): ?string
+    {
+        return $this->id;
+    }
+
+    public function setId(?string $id): self
+    {
+        $this->id = $id;
+        return $this;
+    }
+
+    public function getName(): ?string
+    {
+        return $this->name;
+    }
+
+    public function setName(?string $name): self
+    {
+        $this->name = $name;
+        return $this;
+    }
+
+    public function getValue(): ?string
+    {
+        return $this->value;
+    }
+
+    public function setValue(?string $value): self
+    {
+        $this->value = $value;
+        return $this;
+    }
+
+    public function getPrice(): float
+    {
+        return $this->price;
+    }
+
+    public function setPrice(float $price): self
+    {
+        $this->price = $price;
+        return $this;
+    }
 }

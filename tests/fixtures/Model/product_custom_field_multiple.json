@@ -1,0 +1,20 @@
+{
+    "Id": 100000000658609,
+    "DefinitionId": 100000000002236,
+    "Definition": {
+        "Id": 100000000002236,
+        "Name": "Multi Dropdown",
+        "Configuration": {
+            "Choices": "Test1\nTest2\nTest3",
+            "Multiple": true
+        },
+        "Type": 3,
+        "IsNullable": true
+    },
+    "ArticleId": 100000060427005,
+    "Value": [
+        "Test1",
+        "Test3"
+    ]
+}
+

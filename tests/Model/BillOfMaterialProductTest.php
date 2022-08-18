@@ -9,11 +9,7 @@ class BillOfMaterialProductTest extends SerializerTestCase
 {
     public function testSerialize(): void
     {
-        $result = new BillOfMaterialProduct();
-        $result
-            ->setAmount(1)
-            ->setArticleId(1234)
-            ->setSku("PROD1234");
+        $result = self::getBillOfMaterialProduct();
         self::assertSerialize('Model/bill_of_material_product.json', $result);
     }
 
@@ -28,5 +24,13 @@ class BillOfMaterialProductTest extends SerializerTestCase
                 self::assertEquals("PROD1234", $result->getSku());
             }
         );
+    }
+
+    public static function getBillOfMaterialProduct(): BillOfMaterialProduct
+    {
+        return (new BillOfMaterialProduct())
+            ->setAmount(1)
+            ->setArticleId(1234)
+            ->setSku("PROD1234");
     }
 }

@@ -35,7 +35,7 @@ class BillOfMaterialProduct
     public $amount;
 
     /**
-     * @var string
+     * @var ?string
      * @Serializer\Type("string")
      * @Serializer\SerializedName("SKU")
      *
@@ -65,12 +65,12 @@ class BillOfMaterialProduct
         return $this;
     }
 
-    public function getSku(): string
+    public function getSku(): ?string
     {
         return $this->sku;
     }
 
-    public function setSku(string $sku): self
+    public function setSku(?string $sku): self
     {
         $this->sku = $sku;
         return $this;

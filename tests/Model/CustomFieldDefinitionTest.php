@@ -10,16 +10,7 @@ class CustomFieldDefinitionTest extends SerializerTestCase
 {
     public function testSerialize(): void
     {
-        $result = new CustomFieldDefinition();
-        $result
-            ->setId(100000000002236)
-            ->setName('Multi Dropdown')
-            ->setConfiguration([
-                'Choices' => ['Test1', 'Test2', 'Test3'],
-                'Multiple' => true,
-            ])
-            ->setType(3)
-            ->setIsNullable(true);
+        $result = self::getCustomFieldDefinition();
         self::assertSerialize('Model/custom_field_definition.json', $result);
     }
 
@@ -39,5 +30,18 @@ class CustomFieldDefinitionTest extends SerializerTestCase
                 self::assertEquals(true, $result->isNullable());
             }
         );
+    }
+
+    public static function getCustomFieldDefinition(): CustomFieldDefinition
+    {
+        return (new CustomFieldDefinition())
+            ->setId(100000000002236)
+            ->setName('Multi Dropdown')
+            ->setConfiguration([
+                'Choices' => ['Test1', 'Test2', 'Test3'],
+                'Multiple' => true,
+            ])
+            ->setType(3)
+            ->setIsNullable(true);
     }
 }

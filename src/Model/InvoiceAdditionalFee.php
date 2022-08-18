@@ -7,7 +7,7 @@ use JMS\Serializer\Annotation as Serializer;
 class InvoiceAdditionalFee
 {
     /**
-     * @var string
+     * @var ?string
      * @Serializer\Type("string")
      * @Serializer\SerializedName("Type")
      */
@@ -41,12 +41,12 @@ class InvoiceAdditionalFee
      */
     private $vatRate = 0.0;
 
-    public function getType(): string
+    public function getType(): ?string
     {
         return $this->type;
     }
 
-    public function setType(string $type): self
+    public function setType(?string $type): self
     {
         $this->type = $type;
         return $this;

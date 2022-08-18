@@ -117,6 +117,8 @@ class Product
      * @var int
      * @Serializer\Type("int")
      * @Serializer\SerializedName("Id")
+     *
+     * @deprecated Use getter/setter instead. Will be private in the next major version.
      */
     public $id;
 
@@ -124,6 +126,8 @@ class Product
      * @var int
      * @Serializer\Type("int")
      * @Serializer\SerializedName("Type")
+     *
+     * @deprecated Use getter/setter instead. Will be private in the next major version.
      */
     public $type = Product::TYPE_PRODUCT;
 
@@ -131,6 +135,8 @@ class Product
      * @var TranslatableText[]
      * @Serializer\Type("array<BillbeeDe\BillbeeAPI\Model\TranslatableText>")
      * @Serializer\SerializedName("Title")
+     *
+     * @deprecated Use getter/setter instead. Will be private in the next major version.
      */
     public $title = null;
 
@@ -138,6 +144,8 @@ class Product
      * @var TranslatableText[]
      * @Serializer\Type("array<BillbeeDe\BillbeeAPI\Model\TranslatableText>")
      * @Serializer\SerializedName("InvoiceText")
+     *
+     * @deprecated Use getter/setter instead. Will be private in the next major version.
      */
     public $invoiceText = [];
 
@@ -145,13 +153,17 @@ class Product
      * @var TranslatableText[]
      * @Serializer\Type("array<BillbeeDe\BillbeeAPI\Model\TranslatableText>")
      * @Serializer\SerializedName("ShortDescription")
+     *
+     * @deprecated Use getter/setter instead. Will be private in the next major version.
      */
     public $shortDescription = [];
 
     /**
      * @var Image[]
-     * @Serializer\Type("BillbeeDe\BillbeeAPI\Model\Image[]")
+     * @Serializer\Type("array<BillbeeDe\BillbeeAPI\Model\Image>")
      * @Serializer\SerializedName("Images")
+     *
+     * @deprecated Use getter/setter instead. Will be private in the next major version.
      */
     public $images = [];
 
@@ -159,6 +171,8 @@ class Product
      * @var TranslatableText[]
      * @Serializer\Type("array<BillbeeDe\BillbeeAPI\Model\TranslatableText>")
      * @Serializer\SerializedName("Description")
+     *
+     * @deprecated Use getter/setter instead. Will be private in the next major version.
      */
     public $description = [];
 
@@ -166,62 +180,80 @@ class Product
      * @var TranslatableText[]
      * @Serializer\Type("array<BillbeeDe\BillbeeAPI\Model\TranslatableText>")
      * @Serializer\SerializedName("BasicAttributes")
+     *
+     * @deprecated Use getter/setter instead. Will be private in the next major version.
      */
     public $attributes = [];
 
     /**
-     * @var string
+     * @var ?string
      * @Serializer\Type("string")
      * @Serializer\SerializedName("SKU")
+     *
+     * @deprecated Use getter/setter instead. Will be private in the next major version.
      */
-    public $sku = '';
+    public $sku = null;
 
     /**
-     * @var string
+     * @var ?string
      * @Serializer\Type("string")
      * @Serializer\SerializedName("EAN")
+     *
+     * @deprecated Use getter/setter instead. Will be private in the next major version.
      */
-    public $ean = '';
+    public $ean = null;
 
     /**
-     * @var Source[]
-     * @Serializer\Type("BillbeeDe\BillbeeAPI\Model\Source[]")
+     * @var ?Source[]
+     * @Serializer\Type("array<BillbeeDe\BillbeeAPI\Model\Source>")
      * @Serializer\SerializedName("Sources")
+     *
+     * @deprecated Use getter/setter instead. Will be private in the next major version.
      */
     public $sources = [];
 
     /**
-     * @var Category
+     * @var ?Category
      * @Serializer\Type("BillbeeDe\BillbeeAPI\Model\Category")
      * @Serializer\SerializedName("Category1")
+     *
+     * @deprecated Use getter/setter instead. Will be private in the next major version.
      */
     public $category1 = null;
 
     /**
-     * @var Category
+     * @var ?Category
      * @Serializer\Type("BillbeeDe\BillbeeAPI\Model\Category")
      * @Serializer\SerializedName("Category2")
+     *
+     * @deprecated Use getter/setter instead. Will be private in the next major version.
      */
     public $category2 = null;
 
     /**
-     * @var Category
+     * @var ?Category
      * @Serializer\Type("BillbeeDe\BillbeeAPI\Model\Category")
      * @Serializer\SerializedName("Category3")
+     *
+     * @deprecated Use getter/setter instead. Will be private in the next major version.
      */
     public $category3 = null;
 
     /**
-     * @var string
+     * @var ?string
      * @Serializer\Type("string")
      * @Serializer\SerializedName("Manufacturer")
+     *
+     * @deprecated Use getter/setter instead. Will be private in the next major version.
      */
-    public $manufacturer = '';
+    public $manufacturer = null;
 
     /**
      * @var int
      * @Serializer\Type("int")
      * @Serializer\SerializedName("VatIndex")
+     *
+     * @deprecated Use getter/setter instead. Will be private in the next major version.
      */
     public $vatIndex = Product::VAT_INDEX_NORMAL;
 
@@ -229,20 +261,26 @@ class Product
      * @var float
      * @Serializer\Type("float")
      * @Serializer\SerializedName("Price")
+     *
+     * @deprecated Use getter/setter instead. Will be private in the next major version.
      */
     public $price = 0.00;
 
     /**
-     * @var float
+     * @var ?float
      * @Serializer\Type("float")
      * @Serializer\SerializedName("CostPrice")
+     *
+     * @deprecated Use getter/setter instead. Will be private in the next major version.
      */
-    public $costPrice = 0.00;
+    public $costPrice = null;
 
     /**
      * @var float
      * @Serializer\Type("float")
      * @Serializer\SerializedName("Vat1Rate")
+     *
+     * @deprecated Use getter/setter instead. Will be private in the next major version.
      */
     public $vatRateNormal = 0.00;
 
@@ -250,6 +288,8 @@ class Product
      * @var float
      * @Serializer\Type("float")
      * @Serializer\SerializedName("Vat2Rate")
+     *
+     * @deprecated Use getter/setter instead. Will be private in the next major version.
      */
     public $vatRateReduced = 0.00;
 
@@ -257,6 +297,8 @@ class Product
      * @var TranslatableText[]
      * @Serializer\Type("array<BillbeeDe\BillbeeAPI\Model\TranslatableText>")
      * @Serializer\SerializedName("Materials")
+     *
+     * @deprecated Use getter/setter instead. Will be private in the next major version.
      */
     public $materials = [];
 
@@ -264,139 +306,179 @@ class Product
      * @var TranslatableText[]
      * @Serializer\Type("array<BillbeeDe\BillbeeAPI\Model\TranslatableText>")
      * @Serializer\SerializedName("Tags")
+     *
+     * @deprecated Use getter/setter instead. Will be private in the next major version.
      */
     public $tags = [];
 
     /**
-     * @var float
+     * @var ?float
      * @Serializer\Type("float")
      * @Serializer\SerializedName("StockDesired")
+     *
+     * @deprecated Use getter/setter instead. Will be private in the next major version.
      */
-    public $stockDesired = 0.00;
+    public $stockDesired = null;
 
     /**
-     * @var float
+     * @var ?float
      * @Serializer\Type("float")
      * @Serializer\SerializedName("StockCurrent")
+     *
+     * @deprecated Use getter/setter instead. Will be private in the next major version.
      */
-    public $stockCurrent = 0.00;
+    public $stockCurrent = null;
 
     /**
-     * @var float
+     * @var ?float
      * @Serializer\Type("float")
      * @Serializer\SerializedName("StockWarning")
+     *
+     * @deprecated Use getter/setter instead. Will be private in the next major version.
      */
-    public $stockWarning = 0.00;
+    public $stockWarning = null;
 
     /**
      * @var bool
      * @Serializer\Type("bool")
      * @Serializer\SerializedName("LowStock")
+     *
+     * @deprecated Use getter/setter instead. Will be private in the next major version.
      */
     public $lowStock = false;
 
     /**
-     * @var string
+     * @var ?string
      * @Serializer\Type("string")
      * @Serializer\SerializedName("StockCode")
+     *
+     * @deprecated Use getter/setter instead. Will be private in the next major version.
      */
-    public $stockCode = '';
+    public $stockCode = null;
 
     /**
-     * @var float
+     * @var ?float
      * @Serializer\Type("float")
      * @Serializer\SerializedName("StockReduceItemsPerSale")
+     *
+     * @deprecated Use getter/setter instead. Will be private in the next major version.
      */
-    public $stockReduceItemsPerSale = 1.0;
+    public $stockReduceItemsPerSale = null;
 
     /**
-     * @var array
-     * @Serializer\Type("array")
+     * @var StockProduct[]
+     * @Serializer\Type("array<BillbeeDe\BillbeeAPI\Model\StockProduct>")
      * @Serializer\SerializedName("Stocks")
+     *
+     * @deprecated Use getter/setter instead. Will be private in the next major version.
      */
     public $stocks = [];
 
     /**
-     * @var int
+     * @var ?int
      * @Serializer\Type("int")
      * @Serializer\SerializedName("Weight")
+     *
+     * @deprecated Use getter/setter instead. Will be private in the next major version.
      */
-    public $weight = 0;
+    public $weight = null;
 
     /**
-     * @var int
+     * @var ?int
      * @Serializer\Type("int")
      * @Serializer\SerializedName("WeightNet")
+     *
+     * @deprecated Use getter/setter instead. Will be private in the next major version.
      */
-    public $weightNet = 0;
+    public $weightNet = null;
 
     /**
-     * @var int
+     * @var ?int
      * @Serializer\Type("int")
      * @Serializer\SerializedName("Unit")
+     *
+     * @deprecated Use getter/setter instead. Will be private in the next major version.
      */
-    public $unit = Product::UNIT_PIECE;
+    public $unit = null;
 
     /**
-     * @var float
+     * @var ?float
      * @Serializer\Type("float")
      * @Serializer\SerializedName("UnitsPerItem")
+     *
+     * @deprecated Use getter/setter instead. Will be private in the next major version.
      */
-    public $unitsPerItem = 1.0;
+    public $unitsPerItem = null;
 
     /**
-     * @var float
+     * @var ?float
      * @Serializer\Type("float")
      * @Serializer\SerializedName("SoldAmount")
+     *
+     * @deprecated Use getter/setter instead. Will be private in the next major version.
      */
-    public $soldAmount = 0;
+    public $soldAmount = null;
 
     /**
-     * @var float
+     * @var ?float
      * @Serializer\Type("float")
      * @Serializer\SerializedName("SoldSumGross")
+     *
+     * @deprecated Use getter/setter instead. Will be private in the next major version.
      */
-    public $soldSumGross = 0.0;
+    public $soldSumGross = null;
 
     /**
-     * @var float
+     * @var ?float
      * @Serializer\Type("float")
      * @Serializer\SerializedName("SoldSumNet")
+     *
+     * @deprecated Use getter/setter instead. Will be private in the next major version.
      */
-    public $soldSumNet = 0.0;
+    public $soldSumNet = null;
 
     /**
-     * @var float
+     * @var ?float
      * @Serializer\Type("float")
      * @Serializer\SerializedName("SoldSumNetLast30Days")
+     *
+     * @deprecated Use getter/setter instead. Will be private in the next major version.
      */
-    public $soldSumNetLast30Days = 0.0;
+    public $soldSumNetLast30Days = null;
 
     /**
-     * @var float
+     * @var ?float
      * @Serializer\Type("float")
      * @Serializer\SerializedName("SoldSumGrossLast30Days")
+     *
+     * @deprecated Use getter/setter instead. Will be private in the next major version.
      */
-    public $soldSumGrossLast30Days = 0.0;
+    public $soldSumGrossLast30Days = null;
 
     /**
-     * @var float
+     * @var ?float
      * @Serializer\Type("float")
      * @Serializer\SerializedName("SoldAmountLast30Days")
+     *
+     * @deprecated Use getter/setter instead. Will be private in the next major version.
      */
-    public $soldAmountLast30Days = 0.0;
+    public $soldAmountLast30Days = null;
 
     /**
-     * @var int
+     * @var ?int
      * @Serializer\Type("int")
      * @Serializer\SerializedName("ShippingProductId")
+     *
+     * @deprecated Use getter/setter instead. Will be private in the next major version.
      */
-    public $shippingProductId = 0;
+    public $shippingProductId = null;
 
     /**
      * @var bool
      * @Serializer\Type("bool")
      * @Serializer\SerializedName("IsDigital")
+     *
+     * @deprecated Use getter/setter instead. Will be private in the next major version.
      */
     public $isDigital = false;
 
@@ -404,94 +486,752 @@ class Product
      * @var bool
      * @Serializer\Type("bool")
      * @Serializer\SerializedName("IsCustomizable")
+     *
+     * @deprecated Use getter/setter instead. Will be private in the next major version.
      */
     public $isCustomizable = false;
 
     /**
-     * @var int|null
+     * @var ?int
      * @Serializer\Type("int")
      * @Serializer\SerializedName("DeliveryTime")
+     *
+     * @deprecated Use getter/setter instead. Will be private in the next major version.
      */
-    public $deliveryTime = Product::DELIVERY_NA;
+    public $deliveryTime = null;
 
     /**
-     * @var int|null
+     * @var ?int
      * @Serializer\Type("int")
      * @Serializer\SerializedName("Recipient")
+     *
+     * @deprecated Use getter/setter instead. Will be private in the next major version.
      */
-    public $recipient = Product::RECIPIENT_NA;
+    public $recipient = null;
 
     /**
-     * @var int|null
+     * @var ?int
      * @Serializer\Type("int")
      * @Serializer\SerializedName("Occasion")
+     *
+     * @deprecated Use getter/setter instead. Will be private in the next major version.
      */
-    public $occasion = Product::OCCASION_NA;
+    public $occasion = null;
 
     /**
-     * @var string
+     * @var ?string
      * @Serializer\Type("string")
      * @Serializer\SerializedName("CountryOfOrigin")
+     *
+     * @deprecated Use getter/setter instead. Will be private in the next major version.
      */
-    public $countryOfOrigin = '';
+    public $countryOfOrigin = null;
 
     /**
-     * @var string
+     * @var ?string
      * @Serializer\Type("string")
      * @Serializer\SerializedName("ExportDescription")
+     *
+     * @deprecated Use getter/setter instead. Will be private in the next major version.
      */
-    public $exportDescription = '';
+    public $exportDescription = null;
 
     /**
-     * @var string
+     * @var TranslatableText[]
+     * @Serializer\Type("array<BillbeeDe\BillbeeAPI\Model\TranslatableText>")
+     * @Serializer\SerializedName("ExportDescriptionMultiLanguage")
+     *
+     * @deprecated Use getter/setter instead. Will be private in the next major version.
+     */
+    private $exportDescriptionMultiLanguage = [];
+
+    /**
+     * @var ?string
      * @Serializer\Type("string")
      * @Serializer\SerializedName("TaricNumber")
+     *
+     * @deprecated Use getter/setter instead. Will be private in the next major version.
      */
-    public $taricNumber = '';
+    public $taricNumber = null;
 
     /**
      * @var ProductCustomField[]
-     * @Serializer\Type("BillbeeDe\BillbeeAPI\Model\ProductCustomField[]")
+     * @Serializer\Type("array<BillbeeDe\BillbeeAPI\Model\ProductCustomField>")
      * @Serializer\SerializedName("CustomFields")
+     *
+     * @deprecated Use getter/setter instead. Will be private in the next major version.
      */
     public $customFields = [];
 
     /**
-     * @var int
+     * @var ?int
      * @Serializer\Type("int")
      * @Serializer\SerializedName("Condition")
      *
+     * @deprecated Use getter/setter instead. Will be private in the next major version.
+     *
      * @see ProductCondition
      */
-    public $condition = ProductCondition::BRAND_NEW;
+    public $condition = null;
 
     /**
-     * @var float
+     * @var ?float
      * @Serializer\Type("float")
      * @Serializer\SerializedName("WidthCm")
+     *
+     * @deprecated Use getter/setter instead. Will be private in the next major version.
      */
     public $widthCm;
 
     /**
-     * @var float
+     * @var ?float
      * @Serializer\Type("float")
      * @Serializer\SerializedName("LengthCm")
+     *
+     * @deprecated Use getter/setter instead. Will be private in the next major version.
      */
     public $lengthCm;
 
     /**
-     * @var float
+     * @var ?float
      * @Serializer\Type("float")
      * @Serializer\SerializedName("HeightCm")
+     *
+     * @deprecated Use getter/setter instead. Will be private in the next major version.
      */
     public $heightCm;
 
     /**
-     * @var BillOfMaterialProduct[]
-     * @Serializer\Type("BillbeeDe\BillbeeAPI\Model\BillOfMaterialProduct[]")
+     * @var ?BillOfMaterialProduct[]
+     * @Serializer\Type("array<BillbeeDe\BillbeeAPI\Model\BillOfMaterialProduct>")
      * @Serializer\SerializedName("BillOfMaterial")
      *
-     * @see ProductCondition
+     * @deprecated Use getter/setter instead. Will be private in the next major version.
      */
-    public $billOfMaterial = [];
+    public $billOfMaterial = null;
+
+    /**
+     * @var ?bool
+     * @Serializer\Type("bool")
+     * @Serializer\SerializedName("IsDeactivated")
+     *
+     * @deprecated Use getter/setter instead. Will be private in the next major version.
+     */
+    private $isDeactivated = null;
+
+    public function getId(): int
+    {
+        return $this->id;
+    }
+
+    public function setId(int $id): self
+    {
+        $this->id = $id;
+        return $this;
+    }
+
+    public function getType(): int
+    {
+        return $this->type;
+    }
+
+    public function setType(int $type): self
+    {
+        $this->type = $type;
+        return $this;
+    }
+
+    public function getTitle(): ?array
+    {
+        return $this->title;
+    }
+
+    public function setTitle(?array $title): self
+    {
+        $this->title = $title;
+        return $this;
+    }
+
+    public function getInvoiceText(): array
+    {
+        return $this->invoiceText;
+    }
+
+    public function setInvoiceText(array $invoiceText): self
+    {
+        $this->invoiceText = $invoiceText;
+        return $this;
+    }
+
+    public function getShortDescription(): array
+    {
+        return $this->shortDescription;
+    }
+
+    public function setShortDescription(array $shortDescription): self
+    {
+        $this->shortDescription = $shortDescription;
+        return $this;
+    }
+
+    public function getImages(): array
+    {
+        return $this->images;
+    }
+
+    public function setImages(array $images): self
+    {
+        $this->images = $images;
+        return $this;
+    }
+
+    public function getDescription(): array
+    {
+        return $this->description;
+    }
+
+    public function setDescription(array $description): self
+    {
+        $this->description = $description;
+        return $this;
+    }
+
+    public function getAttributes(): array
+    {
+        return $this->attributes;
+    }
+
+    public function setAttributes(array $attributes): self
+    {
+        $this->attributes = $attributes;
+        return $this;
+    }
+
+    public function getSku(): ?string
+    {
+        return $this->sku;
+    }
+
+    public function setSku(?string $sku): self
+    {
+        $this->sku = $sku;
+        return $this;
+    }
+
+    public function getEan(): ?string
+    {
+        return $this->ean;
+    }
+
+    public function setEan(?string $ean): self
+    {
+        $this->ean = $ean;
+        return $this;
+    }
+
+    public function getSources(): ?array
+    {
+        return $this->sources;
+    }
+
+    public function setSources(?array $sources): self
+    {
+        $this->sources = $sources;
+        return $this;
+    }
+
+    public function getCategory1(): ?Category
+    {
+        return $this->category1;
+    }
+
+    public function setCategory1(?Category $category1): self
+    {
+        $this->category1 = $category1;
+        return $this;
+    }
+
+    public function getCategory2(): ?Category
+    {
+        return $this->category2;
+    }
+
+    public function setCategory2(?Category $category2): self
+    {
+        $this->category2 = $category2;
+        return $this;
+    }
+
+    public function getCategory3(): ?Category
+    {
+        return $this->category3;
+    }
+
+    public function setCategory3(?Category $category3): self
+    {
+        $this->category3 = $category3;
+        return $this;
+    }
+
+    public function getManufacturer(): ?string
+    {
+        return $this->manufacturer;
+    }
+
+    public function setManufacturer(?string $manufacturer): self
+    {
+        $this->manufacturer = $manufacturer;
+        return $this;
+    }
+
+    public function getVatIndex(): int
+    {
+        return $this->vatIndex;
+    }
+
+    public function setVatIndex(int $vatIndex): self
+    {
+        $this->vatIndex = $vatIndex;
+        return $this;
+    }
+
+    public function getPrice(): float
+    {
+        return $this->price;
+    }
+
+    public function setPrice(float $price): self
+    {
+        $this->price = $price;
+        return $this;
+    }
+
+    public function getCostPrice(): ?float
+    {
+        return $this->costPrice;
+    }
+
+    public function setCostPrice(?float $costPrice): self
+    {
+        $this->costPrice = $costPrice;
+        return $this;
+    }
+
+    public function getVatRateNormal(): float
+    {
+        return $this->vatRateNormal;
+    }
+
+    public function setVatRateNormal(float $vatRateNormal): self
+    {
+        $this->vatRateNormal = $vatRateNormal;
+        return $this;
+    }
+
+    public function getVatRateReduced(): float
+    {
+        return $this->vatRateReduced;
+    }
+
+    public function setVatRateReduced(float $vatRateReduced): self
+    {
+        $this->vatRateReduced = $vatRateReduced;
+        return $this;
+    }
+
+    public function getMaterials(): array
+    {
+        return $this->materials;
+    }
+
+    public function setMaterials(array $materials): self
+    {
+        $this->materials = $materials;
+        return $this;
+    }
+
+    public function getTags(): array
+    {
+        return $this->tags;
+    }
+
+    public function setTags(array $tags): self
+    {
+        $this->tags = $tags;
+        return $this;
+    }
+
+    public function getStockDesired(): ?float
+    {
+        return $this->stockDesired;
+    }
+
+    public function setStockDesired(?float $stockDesired): self
+    {
+        $this->stockDesired = $stockDesired;
+        return $this;
+    }
+
+    public function getStockCurrent(): ?float
+    {
+        return $this->stockCurrent;
+    }
+
+    public function setStockCurrent(?float $stockCurrent): self
+    {
+        $this->stockCurrent = $stockCurrent;
+        return $this;
+    }
+
+    public function getStockWarning(): ?float
+    {
+        return $this->stockWarning;
+    }
+
+    public function setStockWarning(?float $stockWarning): self
+    {
+        $this->stockWarning = $stockWarning;
+        return $this;
+    }
+
+    public function isLowStock(): bool
+    {
+        return $this->lowStock;
+    }
+
+    public function setLowStock(bool $lowStock): self
+    {
+        $this->lowStock = $lowStock;
+        return $this;
+    }
+
+    public function getStockCode(): ?string
+    {
+        return $this->stockCode;
+    }
+
+    public function setStockCode(?string $stockCode): self
+    {
+        $this->stockCode = $stockCode;
+        return $this;
+    }
+
+    public function getStockReduceItemsPerSale(): ?float
+    {
+        return $this->stockReduceItemsPerSale;
+    }
+
+    public function setStockReduceItemsPerSale(?float $stockReduceItemsPerSale): self
+    {
+        $this->stockReduceItemsPerSale = $stockReduceItemsPerSale;
+        return $this;
+    }
+
+    public function getStocks(): array
+    {
+        return $this->stocks;
+    }
+
+    public function setStocks(array $stocks): self
+    {
+        $this->stocks = $stocks;
+        return $this;
+    }
+
+    public function getWeight(): ?int
+    {
+        return $this->weight;
+    }
+
+    public function setWeight(?int $weight): self
+    {
+        $this->weight = $weight;
+        return $this;
+    }
+
+    public function getWeightNet(): ?int
+    {
+        return $this->weightNet;
+    }
+
+    public function setWeightNet(?int $weightNet): self
+    {
+        $this->weightNet = $weightNet;
+        return $this;
+    }
+
+    public function getUnit(): ?int
+    {
+        return $this->unit;
+    }
+
+    public function setUnit(?int $unit): self
+    {
+        $this->unit = $unit;
+        return $this;
+    }
+
+    public function getUnitsPerItem(): ?float
+    {
+        return $this->unitsPerItem;
+    }
+
+    public function setUnitsPerItem(?float $unitsPerItem): self
+    {
+        $this->unitsPerItem = $unitsPerItem;
+        return $this;
+    }
+
+    public function getSoldAmount(): ?float
+    {
+        return $this->soldAmount;
+    }
+
+    public function setSoldAmount(?float $soldAmount): self
+    {
+        $this->soldAmount = $soldAmount;
+        return $this;
+    }
+
+    public function getSoldSumGross(): ?float
+    {
+        return $this->soldSumGross;
+    }
+
+    public function setSoldSumGross(?float $soldSumGross): self
+    {
+        $this->soldSumGross = $soldSumGross;
+        return $this;
+    }
+
+    public function getSoldSumNet(): ?float
+    {
+        return $this->soldSumNet;
+    }
+
+    public function setSoldSumNet(?float $soldSumNet): self
+    {
+        $this->soldSumNet = $soldSumNet;
+        return $this;
+    }
+
+    public function getSoldSumNetLast30Days(): ?float
+    {
+        return $this->soldSumNetLast30Days;
+    }
+
+    public function setSoldSumNetLast30Days(?float $soldSumNetLast30Days): self
+    {
+        $this->soldSumNetLast30Days = $soldSumNetLast30Days;
+        return $this;
+    }
+
+    public function getSoldSumGrossLast30Days(): ?float
+    {
+        return $this->soldSumGrossLast30Days;
+    }
+
+    public function setSoldSumGrossLast30Days(?float $soldSumGrossLast30Days): self
+    {
+        $this->soldSumGrossLast30Days = $soldSumGrossLast30Days;
+        return $this;
+    }
+
+    public function getSoldAmountLast30Days(): ?float
+    {
+        return $this->soldAmountLast30Days;
+    }
+
+    public function setSoldAmountLast30Days(?float $soldAmountLast30Days): self
+    {
+        $this->soldAmountLast30Days = $soldAmountLast30Days;
+        return $this;
+    }
+
+    public function getShippingProductId(): ?int
+    {
+        return $this->shippingProductId;
+    }
+
+    public function setShippingProductId(?int $shippingProductId): self
+    {
+        $this->shippingProductId = $shippingProductId;
+        return $this;
+    }
+
+    public function isDigital(): bool
+    {
+        return $this->isDigital;
+    }
+
+    public function setIsDigital(bool $isDigital): self
+    {
+        $this->isDigital = $isDigital;
+        return $this;
+    }
+
+    public function isCustomizable(): bool
+    {
+        return $this->isCustomizable;
+    }
+
+    public function setIsCustomizable(bool $isCustomizable): self
+    {
+        $this->isCustomizable = $isCustomizable;
+        return $this;
+    }
+
+    public function getDeliveryTime(): ?int
+    {
+        return $this->deliveryTime;
+    }
+
+    public function setDeliveryTime(?int $deliveryTime): self
+    {
+        $this->deliveryTime = $deliveryTime;
+        return $this;
+    }
+
+    public function getRecipient(): ?int
+    {
+        return $this->recipient;
+    }
+
+    public function setRecipient(?int $recipient): self
+    {
+        $this->recipient = $recipient;
+        return $this;
+    }
+
+    public function getOccasion(): ?int
+    {
+        return $this->occasion;
+    }
+
+    public function setOccasion(?int $occasion): self
+    {
+        $this->occasion = $occasion;
+        return $this;
+    }
+
+    public function getCountryOfOrigin(): ?string
+    {
+        return $this->countryOfOrigin;
+    }
+
+    public function setCountryOfOrigin(?string $countryOfOrigin): self
+    {
+        $this->countryOfOrigin = $countryOfOrigin;
+        return $this;
+    }
+
+    public function getExportDescription(): ?string
+    {
+        return $this->exportDescription;
+    }
+
+    public function setExportDescription(?string $exportDescription): self
+    {
+        $this->exportDescription = $exportDescription;
+        return $this;
+    }
+
+    public function getExportDescriptionMultiLanguage(): array
+    {
+        return $this->exportDescriptionMultiLanguage;
+    }
+
+    public function setExportDescriptionMultiLanguage(array $exportDescriptionMultiLanguage): self
+    {
+        $this->exportDescriptionMultiLanguage = $exportDescriptionMultiLanguage;
+        return $this;
+    }
+
+    public function getTaricNumber(): ?string
+    {
+        return $this->taricNumber;
+    }
+
+    public function setTaricNumber(?string $taricNumber): self
+    {
+        $this->taricNumber = $taricNumber;
+        return $this;
+    }
+
+    public function getCustomFields(): array
+    {
+        return $this->customFields;
+    }
+
+    public function setCustomFields(array $customFields): self
+    {
+        $this->customFields = $customFields;
+        return $this;
+    }
+
+    public function getCondition(): ?int
+    {
+        return $this->condition;
+    }
+
+    public function setCondition(?int $condition): self
+    {
+        $this->condition = $condition;
+        return $this;
+    }
+
+    public function getWidthCm(): ?float
+    {
+        return $this->widthCm;
+    }
+
+    public function setWidthCm(?float $widthCm): self
+    {
+        $this->widthCm = $widthCm;
+        return $this;
+    }
+
+    public function getLengthCm(): ?float
+    {
+        return $this->lengthCm;
+    }
+
+    public function setLengthCm(?float $lengthCm): self
+    {
+        $this->lengthCm = $lengthCm;
+        return $this;
+    }
+
+    public function getHeightCm(): ?float
+    {
+        return $this->heightCm;
+    }
+
+    public function setHeightCm(?float $heightCm): self
+    {
+        $this->heightCm = $heightCm;
+        return $this;
+    }
+
+    public function getBillOfMaterial(): ?array
+    {
+        return $this->billOfMaterial;
+    }
+
+    public function setBillOfMaterial(?array $billOfMaterial): self
+    {
+        $this->billOfMaterial = $billOfMaterial;
+        return $this;
+    }
+
+    public function getIsDeactivated(): ?bool
+    {
+        return $this->isDeactivated;
+    }
+
+    public function setIsDeactivated(?bool $isDeactivated): self
+    {
+        $this->isDeactivated = $isDeactivated;
+        return $this;
+    }
 }

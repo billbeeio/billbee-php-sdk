@@ -25,6 +25,11 @@ class CreateCustomerRequest extends Customer
      */
     public $address;
 
+    public function __construct()
+    {
+        $this->address = new CustomerAddress();
+    }
+
     public function getAddress(): CustomerAddress
     {
         return $this->address;

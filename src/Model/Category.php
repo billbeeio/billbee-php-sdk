@@ -17,7 +17,7 @@ use JMS\Serializer\Annotation as Serializer;
 class Category
 {
     /**
-     * @var int
+     * @var ?int
      * @Serializer\Type("int")
      * @Serializer\SerializedName("Id")
      *
@@ -26,7 +26,7 @@ class Category
     public $id;
 
     /**
-     * @var string
+     * @var ?string
      * @Serializer\Type("string")
      * @Serializer\SerializedName("Name")
      *
@@ -34,23 +34,23 @@ class Category
      */
     public $name = '';
 
-    public function getId(): int
+    public function getId(): ?int
     {
         return $this->id;
     }
 
-    public function setId(int $id): self
+    public function setId(?int $id): self
     {
         $this->id = $id;
         return $this;
     }
 
-    public function getName(): string
+    public function getName(): ?string
     {
         return $this->name;
     }
 
-    public function setName(string $name): self
+    public function setName(?string $name): self
     {
         $this->name = $name;
         return $this;

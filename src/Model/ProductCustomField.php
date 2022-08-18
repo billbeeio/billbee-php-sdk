@@ -17,37 +17,102 @@ use JMS\Serializer\Annotation as Serializer;
 class ProductCustomField
 {
     /**
-     * @var integer
-     * @Serializer\Type("integer")
+     * @var ?int
+     * @Serializer\Type("int")
      * @Serializer\SerializedName("Id")
+     *
+     * @deprecated Use getter/setter instead. Will be private in the next major version.
      */
     public $id;
 
     /**
-     * @var integer
-     * @Serializer\Type("integer")
+     * @var ?int
+     * @Serializer\Type("int")
      * @Serializer\SerializedName("DefinitionId")
+     *
+     * @deprecated Use getter/setter instead. Will be private in the next major version.
      */
     public $definitionId;
 
     /**
-     * @var integer
+     * @var ?CustomFieldDefinition
      * @Serializer\Type("BillbeeDe\BillbeeAPI\Model\CustomFieldDefinition")
      * @Serializer\SerializedName("Definition")
+     *
+     * @deprecated Use getter/setter instead. Will be private in the next major version.
      */
     public $definition;
 
     /**
-     * @var integer
-     * @Serializer\Type("integer")
+     * @var ?int
+     * @Serializer\Type("int")
      * @Serializer\SerializedName("ArticleId")
+     *
+     * @deprecated Use getter/setter instead. Will be private in the next major version.
      */
     public $articleId;
 
     /**
-     * @var string|array
-     * @Serializer\Type("string|array")
+     * @var string|array|null
+     * @Serializer\Type("AsIs")
      * @Serializer\SerializedName("Value")
+     *
+     * @deprecated Use getter/setter instead. Will be private in the next major version.
      */
     public $value;
+
+    public function getId(): ?int
+    {
+        return $this->id;
+    }
+
+    public function setId(?int $id): self
+    {
+        $this->id = $id;
+        return $this;
+    }
+
+    public function getDefinitionId(): ?int
+    {
+        return $this->definitionId;
+    }
+
+    public function setDefinitionId(?int $definitionId): self
+    {
+        $this->definitionId = $definitionId;
+        return $this;
+    }
+
+    public function getDefinition(): ?CustomFieldDefinition
+    {
+        return $this->definition;
+    }
+
+    public function setDefinition(?CustomFieldDefinition $definition): self
+    {
+        $this->definition = $definition;
+        return $this;
+    }
+
+    public function getArticleId(): ?int
+    {
+        return $this->articleId;
+    }
+
+    public function setArticleId(?int $articleId): self
+    {
+        $this->articleId = $articleId;
+        return $this;
+    }
+
+    public function getValue()
+    {
+        return $this->value;
+    }
+
+    public function setValue($value)
+    {
+        $this->value = $value;
+        return $this;
+    }
 }

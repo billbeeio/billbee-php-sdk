@@ -1,0 +1,16 @@
+{
+    "SendMode": 1,
+    "Subject": [
+        {
+            "Text": "Hallo",
+            "LanguageCode": "DE"
+        }
+    ],
+    "Body": [
+        {
+            "Text": "Welt",
+            "LanguageCode": "DE"
+        }
+    ],
+    "AlternativeMail": "foo@bar.tld"
+}

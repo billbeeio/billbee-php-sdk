@@ -26,7 +26,7 @@ class Image
     public $id;
 
     /**
-     * @var string
+     * @var ?string
      * @Serializer\Type("string")
      * @Serializer\SerializedName("Url")
      *
@@ -35,7 +35,7 @@ class Image
     public $url = '';
 
     /**
-     * @var string
+     * @var ?string
      * @Serializer\Type("string")
      * @Serializer\SerializedName("ThumbPathExt")
      *
@@ -44,7 +44,7 @@ class Image
     public $thumbPathExt = '';
 
     /**
-     * @var string|null
+     * @var ?string
      * @Serializer\Type("string")
      * @Serializer\SerializedName("ThumbUrl")
      *
@@ -53,13 +53,13 @@ class Image
     public $thumbUrl = '';
 
     /**
-     * @var int
+     * @var ?int
      * @Serializer\Type("int")
      * @Serializer\SerializedName("Position")
      *
      * @deprecated Use getter/setter instead. Will be private in the next major version.
      */
-    public $position = 1;
+    public $position;
 
     /**
      * @var bool
@@ -75,7 +75,7 @@ class Image
      * @Serializer\Type("int")
      * @Serializer\SerializedName("ArticleId")
      */
-    private $articleId = 1;
+    private $articleId = 0;
 
     public function getId(): int
     {
@@ -88,23 +88,23 @@ class Image
         return $this;
     }
 
-    public function getUrl(): string
+    public function getUrl(): ?string
     {
         return $this->url;
     }
 
-    public function setUrl(string $url): self
+    public function setUrl(?string $url): self
     {
         $this->url = $url;
         return $this;
     }
 
-    public function getThumbPathExt(): string
+    public function getThumbPathExt(): ?string
     {
         return $this->thumbPathExt;
     }
 
-    public function setThumbPathExt(string $thumbPathExt): self
+    public function setThumbPathExt(?string $thumbPathExt): self
     {
         $this->thumbPathExt = $thumbPathExt;
         return $this;
@@ -121,12 +121,12 @@ class Image
         return $this;
     }
 
-    public function getPosition(): int
+    public function getPosition(): ?int
     {
         return $this->position;
     }
 
-    public function setPosition(int $position): self
+    public function setPosition(?int $position): self
     {
         $this->position = $position;
         return $this;

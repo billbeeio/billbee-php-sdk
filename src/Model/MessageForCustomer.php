@@ -22,30 +22,38 @@ class MessageForCustomer
      * @Serializer\Type("int")
      * @Serializer\SerializedName("SendMode")
      *
+     * @deprecated Use getter/setter instead. Will be private in the next major version.
+     *
      * @see SendMode
      */
     public $sendMode;
 
     /**
-     * @var \BillbeeDe\BillbeeAPI\Model\TranslatableText[]
+     * @var TranslatableText[]
      * @Serializer\Type("array<BillbeeDe\BillbeeAPI\Model\TranslatableText>")
      * @Serializer\SerializedName("Subject")
+     *
+     * @deprecated Use getter/setter instead. Will be private in the next major version.
      *
      * @see \BillbeeDe\BillbeeAPI\Model\TranslatableText;
      */
     public $subject;
 
     /**
-     * @var \BillbeeDe\BillbeeAPI\Model\TranslatableText[]
+     * @var TranslatableText[]
      * @Serializer\Type("array<BillbeeDe\BillbeeAPI\Model\TranslatableText>")
      * @Serializer\SerializedName("Body")
+     *
+     * @deprecated Use getter/setter instead. Will be private in the next major version.
      */
     public $body;
 
     /**
-     * @var string
+     * @var ?string
      * @Serializer\Type("string")
      * @Serializer\SerializedName("AlternativeMail")
+     *
+     * @deprecated Use getter/setter instead. Will be private in the next major version.
      */
     public $alternativeEmailAddress;
 
@@ -55,9 +63,54 @@ class MessageForCustomer
         $sendMode = SendMode::EMAIL_THEN_API,
         $alternativeEmailAddress = null
     ) {
-        $this->subject = $subject;
-        $this->body = $body;
+        $this
+            ->setSubject($subject)
+            ->setBody($body)
+            ->setSendMode($sendMode)
+            ->setAlternativeMailAddress($alternativeEmailAddress);
+    }
+
+    public function getSendMode()
+    {
+        return $this->sendMode;
+    }
+
+    public function setSendMode($sendMode)
+    {
         $this->sendMode = $sendMode;
+        return $this;
+    }
+
+    public function getSubject(): array
+    {
+        return $this->subject;
+    }
+
+    public function setSubject(array $subject): self
+    {
+        $this->subject = $subject;
+        return $this;
+    }
+
+    public function getBody(): array
+    {
+        return $this->body;
+    }
+
+    public function setBody(array $body): self
+    {
+        $this->body = $body;
+        return $this;
+    }
+
+    public function getAlternativeMailAddress(): ?string
+    {
+        return $this->alternativeEmailAddress;
+    }
+
+    public function setAlternativeMailAddress(?string $alternativeEmailAddress): self
+    {
         $this->alternativeEmailAddress = $alternativeEmailAddress;
+        return $this;
     }
 }

@@ -1,0 +1,13 @@
+{
+    "Id": "1234",
+    "OldId": "4321",
+    "BillbeeId": 100000058592683,
+    "Title": "Test Bestandsabgleich",
+    "Weight": 500,
+    "SKU": "TESTBESTAND",
+    "SkuOrId": "TESTBESTAND",
+    "IsDigital": true,
+    "EAN": "testejcz",
+    "TARICCode": "1234",
+    "CountryOfOrigin": "AX"
+}

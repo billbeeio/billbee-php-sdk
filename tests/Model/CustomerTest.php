@@ -10,6 +10,40 @@ class CustomerTest extends SerializerTestCase
 {
     public function testSerialize(): void
     {
+        $result = self::getCustomer();
+        self::assertSerialize('Model/customer.json', $result);
+    }
+
+    public function testDeserialize(): void
+    {
+        self::assertDeserialize(
+            'Model/customer.json',
+            Customer::class,
+            function (Customer $result) {
+                self::assertEquals(100000150176895, $result->getId());
+                self::assertEquals("Max", $result->getName());
+                self::assertEquals("max@mustermann.tld", $result->getEmail());
+                self::assertEquals("12345", $result->getTel1());
+                self::assertEquals("12345", $result->getTel2());
+                self::assertEquals(1, $result->getNumber());
+                self::assertEquals(1818, $result->getPriceGroupId());
+                self::assertEquals(3, $result->getLanguageId());
+                self::assertEquals('1234', $result->getVatId());
+                self::assertEquals(0, $result->getType());
+                self::assertInstanceOf(CustomerMetaData::class, $result->getDefaultMailAddress());
+                self::assertInstanceOf(CustomerMetaData::class, $result->getDefaultCommercialMailAddress());
+                self::assertInstanceOf(CustomerMetaData::class, $result->getDefaultStatusUpdatesMailAddress());
+                self::assertInstanceOf(CustomerMetaData::class, $result->getDefaultPhone1());
+                self::assertInstanceOf(CustomerMetaData::class, $result->getDefaultPhone2());
+                self::assertInstanceOf(CustomerMetaData::class, $result->getDefaultFax());
+                self::assertCount(2, $result->getMetaData());
+                self::assertInstanceOf(CustomerMetaData::class, $result->getMetaData()[0]);
+            }
+        );
+    }
+
+    public static function getCustomer(): Customer
+    {
         $result = new Customer();
         $defaultMailAddress = new CustomerMetaData();
         $defaultMailAddress->setId(208297764)
@@ -41,34 +75,6 @@ class CustomerTest extends SerializerTestCase
             ->setDefaultPhone2($defaultPhone1)
             ->setDefaultFax($defaultPhone1)
             ->setMetaData([$defaultMailAddress, $defaultPhone1]);
-        self::assertSerialize('Model/customer.json', $result);
-    }
-
-    public function testDeserialize(): void
-    {
-        self::assertDeserialize(
-            'Model/customer.json',
-            Customer::class,
-            function (Customer $result) {
-                self::assertEquals(100000150176895, $result->getId());
-                self::assertEquals("Max", $result->getName());
-                self::assertEquals("max@mustermann.tld", $result->getEmail());
-                self::assertEquals("12345", $result->getTel1());
-                self::assertEquals("12345", $result->getTel2());
-                self::assertEquals(1, $result->getNumber());
-                self::assertEquals(1818, $result->getPriceGroupId());
-                self::assertEquals(3, $result->getLanguageId());
-                self::assertEquals('1234', $result->getVatId());
-                self::assertEquals(0, $result->getType());
-                self::assertInstanceOf(CustomerMetaData::class, $result->getDefaultMailAddress());
-                self::assertInstanceOf(CustomerMetaData::class, $result->getDefaultCommercialMailAddress());
-                self::assertInstanceOf(CustomerMetaData::class, $result->getDefaultStatusUpdatesMailAddress());
-                self::assertInstanceOf(CustomerMetaData::class, $result->getDefaultPhone1());
-                self::assertInstanceOf(CustomerMetaData::class, $result->getDefaultPhone2());
-                self::assertInstanceOf(CustomerMetaData::class, $result->getDefaultFax());
-                self::assertCount(2, $result->getMetaData());
-                self::assertInstanceOf(CustomerMetaData::class, $result->getMetaData()[0]);
-            }
-        );
+        return $result;
     }
 }

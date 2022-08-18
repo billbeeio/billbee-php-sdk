@@ -17,7 +17,7 @@ use JMS\Serializer\Annotation as Serializer;
 class InvoiceDocument
 {
     /**
-     * @var string
+     * @var ?string
      * @Serializer\Type("string")
      * @Serializer\SerializedName("OrderNumber")
      *
@@ -26,7 +26,7 @@ class InvoiceDocument
     public $orderNumber;
 
     /**
-     * @var string
+     * @var ?string
      * @Serializer\Type("string")
      * @Serializer\SerializedName("InvoiceNumber")
      *
@@ -44,7 +44,7 @@ class InvoiceDocument
     public $pdfData;
 
     /**
-     * @var \DateTime
+     * @var ?\DateTime
      * @Serializer\Type("DateTime<'Y-m-d\TH:i:s.v'>")
      * @Serializer\SerializedName("InvoiceDate")
      *
@@ -79,23 +79,23 @@ class InvoiceDocument
      */
     public $pdfDownloadUrl;
 
-    public function getOrderNumber(): string
+    public function getOrderNumber(): ?string
     {
         return $this->orderNumber;
     }
 
-    public function setOrderNumber(string $orderNumber): self
+    public function setOrderNumber(?string $orderNumber): self
     {
         $this->orderNumber = $orderNumber;
         return $this;
     }
 
-    public function getInvoiceNumber(): string
+    public function getInvoiceNumber(): ?string
     {
         return $this->invoiceNumber;
     }
 
-    public function setInvoiceNumber(string $invoiceNumber): self
+    public function setInvoiceNumber(?string $invoiceNumber): self
     {
         $this->invoiceNumber = $invoiceNumber;
         return $this;
@@ -112,12 +112,12 @@ class InvoiceDocument
         return $this;
     }
 
-    public function getInvoiceDate(): \DateTime
+    public function getInvoiceDate(): ?\DateTime
     {
         return $this->invoiceDate;
     }
 
-    public function setInvoiceDate(\DateTime $invoiceDate): self
+    public function setInvoiceDate(?\DateTime $invoiceDate): self
     {
         $this->invoiceDate = $invoiceDate;
         return $this;

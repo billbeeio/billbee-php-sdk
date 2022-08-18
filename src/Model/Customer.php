@@ -17,8 +17,8 @@ use JMS\Serializer\Annotation as Serializer;
 class Customer
 {
     /**
-     * @var integer
-     * @Serializer\Type("integer")
+     * @var ?int
+     * @Serializer\Type("int")
      * @Serializer\SerializedName("Id")
      *
      * @deprecated Use getter/setter instead. Will be private in the next major version.
@@ -26,7 +26,7 @@ class Customer
     public $id;
 
     /**
-     * @var string
+     * @var ?string
      * @Serializer\Type("string")
      * @Serializer\SerializedName("Name")
      *
@@ -35,7 +35,7 @@ class Customer
     public $name;
 
     /**
-     * @var string
+     * @var ?string
      * @Serializer\Type("string")
      * @Serializer\SerializedName("Email")
      *
@@ -44,7 +44,7 @@ class Customer
     public $email;
 
     /**
-     * @var string
+     * @var ?string
      * @Serializer\Type("string")
      * @Serializer\SerializedName("Tel1")
      *
@@ -53,7 +53,7 @@ class Customer
     public $tel1;
 
     /**
-     * @var string
+     * @var ?string
      * @Serializer\Type("string")
      * @Serializer\SerializedName("Tel2")
      *
@@ -62,8 +62,8 @@ class Customer
     public $tel2;
 
     /**
-     * @var integer
-     * @Serializer\Type("integer")
+     * @var ?int
+     * @Serializer\Type("int")
      * @Serializer\SerializedName("Number")
      *
      * @deprecated Use getter/setter instead. Will be private in the next major version.
@@ -71,8 +71,8 @@ class Customer
     public $number;
 
     /**
-     * @var integer
-     * @Serializer\Type("integer")
+     * @var ?int
+     * @Serializer\Type("int")
      * @Serializer\SerializedName("PriceGroupId")
      *
      * @deprecated Use getter/setter instead. Will be private in the next major version.
@@ -80,8 +80,8 @@ class Customer
     public $priceGroupId;
 
     /**
-     * @var integer
-     * @Serializer\Type("integer")
+     * @var ?int
+     * @Serializer\Type("int")
      * @Serializer\SerializedName("LanguageId")
      *
      * @deprecated Use getter/setter instead. Will be private in the next major version.
@@ -89,7 +89,7 @@ class Customer
     public $languageId;
 
     /**
-     * @var string
+     * @var ?string
      * @Serializer\Type("string")
      * @Serializer\SerializedName("VatId")
      *
@@ -98,11 +98,11 @@ class Customer
     public $vatId;
 
     /**
-     * @var int
+     * @var ?int
      * @Serializer\Type("int")
      * @Serializer\SerializedName("Type")
      */
-    private $type = 0;
+    private $type = null;
 
     /**
      * @var CustomerMetaData|null
@@ -153,111 +153,111 @@ class Customer
      */
     private $metaData = [];
 
-    public function getId(): int
+    public function getId(): ?int
     {
         return $this->id;
     }
 
-    public function setId(int $id): self
+    public function setId(?int $id): self
     {
         $this->id = $id;
         return $this;
     }
 
-    public function getName(): string
+    public function getName(): ?string
     {
         return $this->name;
     }
 
-    public function setName(string $name): self
+    public function setName(?string $name): self
     {
         $this->name = $name;
         return $this;
     }
 
-    public function getEmail(): string
+    public function getEmail(): ?string
     {
         return $this->email;
     }
 
-    public function setEmail(string $email): self
+    public function setEmail(?string $email): self
     {
         $this->email = $email;
         return $this;
     }
 
-    public function getTel1(): string
+    public function getTel1(): ?string
     {
         return $this->tel1;
     }
 
-    public function setTel1(string $tel1): self
+    public function setTel1(?string $tel1): self
     {
         $this->tel1 = $tel1;
         return $this;
     }
 
-    public function getTel2(): string
+    public function getTel2(): ?string
     {
         return $this->tel2;
     }
 
-    public function setTel2(string $tel2): self
+    public function setTel2(?string $tel2): self
     {
         $this->tel2 = $tel2;
         return $this;
     }
 
-    public function getNumber(): int
+    public function getNumber(): ?int
     {
         return $this->number;
     }
 
-    public function setNumber(int $number): self
+    public function setNumber(?int $number): self
     {
         $this->number = $number;
         return $this;
     }
 
-    public function getPriceGroupId(): int
+    public function getPriceGroupId(): ?int
     {
         return $this->priceGroupId;
     }
 
-    public function setPriceGroupId(int $priceGroupId): self
+    public function setPriceGroupId(?int $priceGroupId): self
     {
         $this->priceGroupId = $priceGroupId;
         return $this;
     }
 
-    public function getLanguageId(): int
+    public function getLanguageId(): ?int
     {
         return $this->languageId;
     }
 
-    public function setLanguageId(int $languageId): self
+    public function setLanguageId(?int $languageId): self
     {
         $this->languageId = $languageId;
         return $this;
     }
 
-    public function getVatId(): string
+    public function getVatId(): ?string
     {
         return $this->vatId;
     }
 
-    public function setVatId(string $vatId): self
+    public function setVatId(?string $vatId): self
     {
         $this->vatId = $vatId;
         return $this;
     }
 
-    public function getType(): int
+    public function getType(): ?int
     {
         return $this->type;
     }
 
-    public function setType(int $type): self
+    public function setType(?int $type): self
     {
         $this->type = $type;
         return $this;

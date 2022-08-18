@@ -26,7 +26,7 @@ class Address
     public $id;
 
     /**
-     * @var string
+     * @var ?string
      * @Serializer\Type("string")
      * @Serializer\SerializedName("City")
      *
@@ -35,7 +35,7 @@ class Address
     public $city;
 
     /**
-     * @var string
+     * @var ?string
      * @Serializer\Type("string")
      * @Serializer\SerializedName("Street")
      *
@@ -44,7 +44,7 @@ class Address
     public $street;
 
     /**
-     * @var string
+     * @var ?string
      * @Serializer\Type("string")
      * @Serializer\SerializedName("Company")
      *
@@ -53,7 +53,7 @@ class Address
     public $company;
 
     /**
-     * @var string
+     * @var ?string
      * @Serializer\Type("string")
      * @Serializer\SerializedName("Line2")
      *
@@ -62,7 +62,7 @@ class Address
     public $line2;
 
     /**
-     * @var string
+     * @var ?string
      * @Serializer\Type("string")
      * @Serializer\SerializedName("Line3")
      *
@@ -71,7 +71,7 @@ class Address
     public $line3;
 
     /**
-     * @var string
+     * @var ?string
      * @Serializer\Type("string")
      * @Serializer\SerializedName("Zip")
      *
@@ -80,7 +80,7 @@ class Address
     public $zip;
 
     /**
-     * @var string
+     * @var ?string
      * @Serializer\Type("string")
      * @Serializer\SerializedName("State")
      *
@@ -89,7 +89,7 @@ class Address
     public $state;
 
     /**
-     * @var string
+     * @var ?string
      * @Serializer\Type("string")
      * @Serializer\SerializedName("Country")
      *
@@ -98,7 +98,7 @@ class Address
     public $country;
 
     /**
-     * @var string
+     * @var ?string
      * @Serializer\Type("string")
      * @Serializer\SerializedName("CountryISO2")
      *
@@ -107,7 +107,7 @@ class Address
     public $countryISO2;
 
     /**
-     * @var string
+     * @var ?string
      * @Serializer\Type("string")
      * @Serializer\SerializedName("FirstName")
      *
@@ -116,7 +116,7 @@ class Address
     public $firstName;
 
     /**
-     * @var string
+     * @var ?string
      * @Serializer\Type("string")
      * @Serializer\SerializedName("LastName")
      *
@@ -125,7 +125,7 @@ class Address
     public $lastName;
 
     /**
-     * @var string
+     * @var ?string
      * @Serializer\Type("string")
      * @Serializer\SerializedName("Phone")
      *
@@ -134,7 +134,7 @@ class Address
     public $phone;
 
     /**
-     * @var string
+     * @var ?string
      * @Serializer\Type("string")
      * @Serializer\SerializedName("Email")
      *
@@ -143,7 +143,7 @@ class Address
     public $email;
 
     /**
-     * @var string
+     * @var ?string
      * @Serializer\Type("string")
      * @Serializer\SerializedName("HouseNumber")
      *
@@ -155,7 +155,7 @@ class Address
     public $comment;
 
     /**
-     * @var string
+     * @var ?string
      * @Serializer\Type("string")
      * @Serializer\SerializedName("NameAddition")
      *
@@ -174,177 +174,166 @@ class Address
         return $this;
     }
 
-    public function getCity(): string
+    public function getCity(): ?string
     {
         return $this->city;
     }
 
-    public function setCity(string $city): self
+    public function setCity(?string $city): self
     {
         $this->city = $city;
         return $this;
     }
 
-    public function getStreet(): string
+    public function getStreet(): ?string
     {
         return $this->street;
     }
 
-    public function setStreet(string $street): self
+    public function setStreet(?string $street): self
     {
         $this->street = $street;
         return $this;
     }
 
-    public function getCompany(): string
+    public function getCompany(): ?string
     {
         return $this->company;
     }
 
-    public function setCompany(string $company): self
+    public function setCompany(?string $company): self
     {
         $this->company = $company;
         return $this;
     }
 
-    public function getLine2(): string
+    public function getLine2(): ?string
     {
         return $this->line2;
     }
 
-    public function setLine2(string $line2): self
+    public function setLine2(?string $line2): self
     {
         $this->line2 = $line2;
         return $this;
     }
 
-    public function getLine3(): string
+    public function getLine3(): ?string
     {
         return $this->line3;
     }
 
-    public function setLine3(string $line3): self
+    public function setLine3(?string $line3): self
     {
         $this->line3 = $line3;
         return $this;
     }
 
-    public function getZip(): string
+    public function getZip(): ?string
     {
         return $this->zip;
     }
 
-    public function setZip(string $zip): self
+    public function setZip(?string $zip): self
     {
         $this->zip = $zip;
         return $this;
     }
 
-    public function getState(): string
+    public function getState(): ?string
     {
         return $this->state;
     }
 
-    public function setState(string $state): self
+    public function setState(?string $state): self
     {
         $this->state = $state;
         return $this;
     }
 
-    public function getCountry(): string
+    public function getCountry(): ?string
     {
         return $this->country;
     }
 
-    public function setCountry(string $country): self
+    public function setCountry(?string $country): self
     {
         $this->country = $country;
         return $this;
     }
 
-    public function getCountryISO2(): string
+    public function getCountryISO2(): ?string
     {
         return $this->countryISO2;
     }
 
-    public function setCountryISO2(string $countryISO2): self
+    public function setCountryISO2(?string $countryISO2): self
     {
         $this->countryISO2 = $countryISO2;
         return $this;
     }
 
-    public function getFirstName(): string
+    public function getFirstName(): ?string
     {
         return $this->firstName;
     }
 
-    public function setFirstName(string $firstName): self
+    public function setFirstName(?string $firstName): self
     {
         $this->firstName = $firstName;
         return $this;
     }
 
-    public function getLastName(): string
+    public function getLastName(): ?string
     {
         return $this->lastName;
     }
 
-    public function setLastName(string $lastName): self
+    public function setLastName(?string $lastName): self
     {
         $this->lastName = $lastName;
         return $this;
     }
 
-    public function getPhone(): string
+    public function getPhone(): ?string
     {
         return $this->phone;
     }
 
-    public function setPhone(string $phone): self
+    public function setPhone(?string $phone): self
     {
         $this->phone = $phone;
         return $this;
     }
 
-    public function getEmail(): string
+    public function getEmail(): ?string
     {
         return $this->email;
     }
 
-    public function setEmail(string $email): self
+    public function setEmail(?string $email): self
     {
         $this->email = $email;
         return $this;
     }
 
-    public function getHouseNumber(): string
+    public function getHouseNumber(): ?string
     {
         return $this->houseNumber;
     }
 
-    public function setHouseNumber(string $houseNumber): self
+    public function setHouseNumber(?string $houseNumber): self
     {
         $this->houseNumber = $houseNumber;
         return $this;
     }
 
-    public function getComment()
-    {
-        return $this->comment;
-    }
-
-    public function setComment($comment)
-    {
-        $this->comment = $comment;
-        return $this;
-    }
-
-    public function getNameAddition(): string
+    public function getNameAddition(): ?string
     {
         return $this->nameAddition;
     }
 
-    public function setNameAddition(string $nameAddition): self
+    public function setNameAddition(?string $nameAddition): self
     {
         $this->nameAddition = $nameAddition;
         return $this;

@@ -1,0 +1,11 @@
+{
+    "Platform": "avocadostore",
+    "BillbeeShopName": "test",
+    "BillbeeShopId": 100000000092372,
+    "Id": "1234",
+    "Nick": "nick name",
+    "FirstName": "vorname",
+    "LastName": "nachname",
+    "FullName": "vorname nachname",
+    "Email": "max@muster.tld"
+}

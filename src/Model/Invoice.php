@@ -27,7 +27,7 @@ class Invoice
     public $id;
 
     /**
-     * @var string
+     * @var ?string
      * @Serializer\Type("string")
      * @Serializer\SerializedName("InvoiceNumber")
      *
@@ -36,7 +36,7 @@ class Invoice
     public $invoiceNumber = null;
 
     /**
-     * @var string
+     * @var ?string
      * @Serializer\Type("string")
      * @Serializer\SerializedName("Type")
      *
@@ -98,7 +98,7 @@ class Invoice
      *
      * @deprecated Use getter/setter instead. Will be private in the next major version.
      */
-    public $invoiceDate = null;
+    public $invoiceDate;
 
     /**
      * @var float
@@ -119,7 +119,7 @@ class Invoice
     public $totalGross = 0.00;
 
     /**
-     * @var string
+     * @var ?string
      * @Serializer\Type("string")
      * @Serializer\SerializedName("Currency")
      *
@@ -128,7 +128,7 @@ class Invoice
     public $currency = 'EUR';
 
     /**
-     * @var int
+     * @var ?int
      * @Serializer\Type("int")
      * @Serializer\SerializedName("PaymentTypeId")
      *
@@ -137,7 +137,7 @@ class Invoice
     public $paymentTypeId;
 
     /**
-     * @var string
+     * @var ?string
      * @Serializer\Type("string")
      * @Serializer\SerializedName("OrderNumber")
      *
@@ -146,7 +146,7 @@ class Invoice
     public $orderNumber = null;
 
     /**
-     * @var string
+     * @var ?string
      * @Serializer\Type("string")
      * @Serializer\SerializedName("TransactionId")
      *
@@ -155,7 +155,7 @@ class Invoice
     public $transactionId = null;
 
     /**
-     * @var string
+     * @var ?string
      * @Serializer\Type("string")
      * @Serializer\SerializedName("Email")
      *
@@ -164,7 +164,7 @@ class Invoice
     public $email = '';
 
     /**
-     * @var string
+     * @var ?string
      * @Serializer\Type("string")
      * @Serializer\SerializedName("ShopName")
      *
@@ -173,7 +173,7 @@ class Invoice
     public $shopName = null;
 
     /**
-     * @var InvoicePosition[]
+     * @var ?InvoicePosition[]
      * @Serializer\Type("array<BillbeeDe\BillbeeAPI\Model\InvoicePosition>")
      * @Serializer\SerializedName("Positions")
      *
@@ -182,7 +182,7 @@ class Invoice
     public $positions = [];
 
     /**
-     * @var \DateTime
+     * @var ?\DateTime
      * @Serializer\Type("DateTime<'Y-m-d\TH:i:s.v', 'UTC'>")
      * @Serializer\SerializedName("PayDate")
      *
@@ -200,7 +200,7 @@ class Invoice
     public $vatMode = Product::VAT_INDEX_NORMAL;
 
     /**
-     * @var ?VatFlags
+     * @var VatFlags
      * @Serializer\Type("BillbeeDe\BillbeeAPI\Model\VatFlags")
      * @Serializer\SerializedName("VatFlags")
      */
@@ -228,7 +228,7 @@ class Invoice
     private $salutation = null;
 
     /**
-     * @var InvoiceAdditionalFee
+     * @var ?InvoiceAdditionalFee[]
      * @Serializer\Type("array<BillbeeDe\BillbeeAPI\Model\InvoiceAdditionalFee>")
      * @Serializer\SerializedName("AdditionalFees")
      */
@@ -270,12 +270,12 @@ class Invoice
         return $this;
     }
 
-    public function getType(): string
+    public function getType(): ?string
     {
         return $this->type;
     }
 
-    public function setType(string $type): self
+    public function setType(?string $type): self
     {
         $this->type = $type;
         return $this;
@@ -336,12 +336,12 @@ class Invoice
         return $this;
     }
 
-    public function getInvoiceDate(): ?\DateTime
+    public function getInvoiceDate(): \DateTime
     {
         return $this->invoiceDate;
     }
 
-    public function setInvoiceDate(?\DateTime $invoiceDate): self
+    public function setInvoiceDate(\DateTime $invoiceDate): self
     {
         $this->invoiceDate = $invoiceDate;
         return $this;
@@ -369,23 +369,23 @@ class Invoice
         return $this;
     }
 
-    public function getCurrency(): string
+    public function getCurrency(): ?string
     {
         return $this->currency;
     }
 
-    public function setCurrency(string $currency): self
+    public function setCurrency(?string $currency): self
     {
         $this->currency = $currency;
         return $this;
     }
 
-    public function getPaymentTypeId(): int
+    public function getPaymentTypeId(): ?int
     {
         return $this->paymentTypeId;
     }
 
-    public function setPaymentTypeId(int $paymentTypeId): self
+    public function setPaymentTypeId(?int $paymentTypeId): self
     {
         $this->paymentTypeId = $paymentTypeId;
         return $this;
@@ -413,12 +413,12 @@ class Invoice
         return $this;
     }
 
-    public function getEmail(): string
+    public function getEmail(): ?string
     {
         return $this->email;
     }
 
-    public function setEmail(string $email): self
+    public function setEmail(?string $email): self
     {
         $this->email = $email;
         return $this;
@@ -435,12 +435,12 @@ class Invoice
         return $this;
     }
 
-    public function getPositions(): array
+    public function getPositions(): ?array
     {
         return $this->positions;
     }
 
-    public function setPositions(array $positions): self
+    public function setPositions(?array $positions): self
     {
         $this->positions = $positions;
         return $this;
@@ -512,12 +512,12 @@ class Invoice
         return $this;
     }
 
-    public function getAdditionalFees()
+    public function getAdditionalFees(): ?array
     {
         return $this->additionalFees;
     }
 
-    public function setAdditionalFees($additionalFees)
+    public function setAdditionalFees(?array $additionalFees): self
     {
         $this->additionalFees = $additionalFees;
         return $this;

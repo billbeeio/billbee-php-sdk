@@ -1,0 +1,12 @@
+{
+    "Id": 36174052,
+    "Source": "manual",
+    "SourceId": "test",
+    "ApiAccountName": "test",
+    "ApiAccountId": 70815,
+    "ExportFactor": 1.0,
+    "StockSyncInactive": false,
+    "StockSyncMin": 2.0,
+    "StockSyncMax": 3.0,
+    "UnitsPerItem": 1.0
+}

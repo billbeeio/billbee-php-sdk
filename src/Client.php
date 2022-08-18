@@ -27,6 +27,7 @@ use BillbeeDe\BillbeeAPI\Endpoint\WebHooksEndpoint;
 use BillbeeDe\BillbeeAPI\Exception\QuotaExceededException;
 use BillbeeDe\BillbeeAPI\Logger\DiagnosticsLogger;
 use BillbeeDe\BillbeeAPI\Response as Response;
+use BillbeeDe\BillbeeAPI\Transformer\AsIsTransformer;
 use BillbeeDe\BillbeeAPI\Transformer\DefinitionConfigTransformer;
 use Exception;
 use GuzzleHttp\Exception\ClientException;
@@ -151,6 +152,7 @@ class Client implements ClientInterface, BatchClientInterface
             ->configureHandlers(
                 function (HandlerRegistry $registry) {
                     $registry->registerSubscribingHandler(new DefinitionConfigTransformer());
+                    $registry->registerSubscribingHandler(new AsIsTransformer());
                 }
             )->build();
 

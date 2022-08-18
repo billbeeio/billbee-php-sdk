@@ -44,7 +44,7 @@ class Comment
     public $fromCustomer;
 
     /**
-     * @var string
+     * @var ?string
      * @Serializer\Type("string")
      * @Serializer\SerializedName("Text")
      *
@@ -53,18 +53,13 @@ class Comment
     public $text;
 
     /**
-     * @var string
+     * @var ?string
      * @Serializer\Type("string")
      * @Serializer\SerializedName("Name")
      *
      * @deprecated Use getter/setter instead. Will be private in the next major version.
      */
     public $name;
-
-    public function __construct()
-    {
-        $this->created = new \DateTime();
-    }
 
     public function getId(): int
     {
@@ -99,23 +94,23 @@ class Comment
         return $this;
     }
 
-    public function getText(): string
+    public function getText(): ?string
     {
         return $this->text;
     }
 
-    public function setText(string $text): self
+    public function setText(?string $text): self
     {
         $this->text = $text;
         return $this;
     }
 
-    public function getName(): string
+    public function getName(): ?string
     {
         return $this->name;
     }
 
-    public function setName(string $name): self
+    public function setName(?string $name): self
     {
         $this->name = $name;
         return $this;

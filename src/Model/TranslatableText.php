@@ -17,20 +17,48 @@ use JMS\Serializer\Annotation as Serializer;
 class TranslatableText
 {
     /**
+     * @var ?string
      * @Serializer\Type("string")
      * @Serializer\SerializedName("Text")
+     *
+     * @deprecated Use getter/setter instead. Will be private in the next major version.
      */
     public $text;
 
     /**
+     * @var ?string
      * @Serializer\Type("string")
      * @Serializer\SerializedName("LanguageCode")
+     *
+     * @deprecated Use getter/setter instead. Will be private in the next major version.
      */
     public $languageCode;
 
     public function __construct($text = '', $languageCode = '')
     {
+        $this->setText($text);
+        $this->setLanguageCode($languageCode);
+    }
+
+    public function getText(): ?string
+    {
+        return $this->text;
+    }
+
+    public function setText(?string $text): self
+    {
         $this->text = $text;
+        return $this;
+    }
+
+    public function getLanguageCode(): ?string
+    {
+        return $this->languageCode;
+    }
+
+    public function setLanguageCode(?string $languageCode): self
+    {
         $this->languageCode = $languageCode;
+        return $this;
     }
 }
