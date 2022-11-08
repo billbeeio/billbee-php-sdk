@@ -338,7 +338,7 @@ class OrdersEndpoint
      * @param int|null $templateId The internal id of a template
      * @param int|null $sendToCloudId The internal id of an cloud storage where the invoice is uploaded to
      *
-     * @return Response\CreateDeliveryNoteResponse The response
+     * @return Response\CreateInvoiceResponse The response
      *
      * @throws QuotaExceededException If the maximum number of calls per second exceeded
      * @throws Exception If the response cannot be parsed
