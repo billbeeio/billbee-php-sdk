@@ -179,7 +179,7 @@ class SoldProduct
         return $this;
     }
 
-    public function getSkuOrId(): string
+    public function getSkuOrId(): ?string
     {
         return $this->skuOrId;
     }
@@ -201,7 +201,7 @@ class SoldProduct
         return $this;
     }
 
-    public function getEan(): string
+    public function getEan(): ?string
     {
         return $this->ean;
     }
