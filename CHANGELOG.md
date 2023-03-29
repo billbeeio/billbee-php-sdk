@@ -1,5 +1,8 @@
 # Changelog
 
+## v2.2.0 (29 Mar 2023)
+Stable release
+
 ## v2.2.0-RC1 (18 Aug 2022)
 - Copyright updated
 - Replaced the `mintware-de/data-model-mapper` serializer with `jms/serializer`
