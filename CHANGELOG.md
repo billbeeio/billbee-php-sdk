@@ -1,5 +1,10 @@
 # Changelog
 
+## Next:
+Bugfixes:
+- `SoldProduct::getSkuOrId()` returns ?string [#71](https://github.com/billbeeio/billbee-php-sdk/issues/71)
+- `SoldProduct::getEan()` returns ?string [#71](https://github.com/billbeeio/billbee-php-sdk/issues/71)
+
 ## v2.2.0 (29 Mar 2023)
 Stable release
 
