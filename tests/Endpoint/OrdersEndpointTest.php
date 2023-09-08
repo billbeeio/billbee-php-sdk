@@ -459,4 +459,30 @@ class OrdersEndpointTest extends TestCase
         $this->assertSame($model, $data);
         $this->assertSame(GetOrderResponse::class, $class);
     }
+
+    public function testTiggerEvent()
+    {
+        $this->endpoint->triggerEvent(521, 'test-event');
+        $requests = $this->client->getRequests();
+        $this->assertCount(1, $requests);
+
+        list($method, $node, $data, $class) = $requests[0];
+        $this->assertSame('POST', $method);
+        $this->assertSame('orders/521/trigger-event', $node);
+        $this->assertSame('{"Name":"test-event","DelayInMinutes":0}', $data);
+        $this->assertSame(BaseResponse::class, $class);
+    }
+
+    public function testTiggerEventIncludingDelay()
+    {
+        $this->endpoint->triggerEvent(521, 'test-event',1);
+        $requests = $this->client->getRequests();
+        $this->assertCount(1, $requests);
+
+        list($method, $node, $data, $class) = $requests[0];
+        $this->assertSame('POST', $method);
+        $this->assertSame('orders/521/trigger-event', $node);
+        $this->assertSame('{"Name":"test-event","DelayInMinutes":1}', $data);
+        $this->assertSame(BaseResponse::class, $class);
+    }
 }
