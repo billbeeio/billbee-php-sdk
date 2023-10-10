@@ -1,6 +1,6 @@
 # Changelog
 
-## Next:
+## v2.2.1:
 Bugfixes:
 - `SoldProduct::getSkuOrId()` returns ?string [#71](https://github.com/billbeeio/billbee-php-sdk/issues/71)
 - `SoldProduct::getEan()` returns ?string [#71](https://github.com/billbeeio/billbee-php-sdk/issues/71)
