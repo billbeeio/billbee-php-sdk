@@ -476,6 +476,31 @@ class OrdersEndpoint
         );
     }
 
+     /**
+     * Trigger a new event
+     *
+     * @param  int  $orderId The internal id of the order
+     * @param  string  name The name of the event
+     * @param  int  $delayInMinutes Time in minutes by which the event is delayed, default = 0
+     * @return bool True if the event was added
+     *
+     * @throws QuotaExceededException If the maximum number of calls per second exceeded
+     * @throws Exception If the response cannot be parsed
+     */
+    public function triggerEvent(int $orderId, string $name, int $delayInMinutes = 0): bool
+    {
+        $res = $this->client->post(
+            'orders/'.$orderId.'/trigger-event',
+            json_encode([
+                'Name' => $name,
+                'DelayInMinutes' => $delayInMinutes,
+            ]),
+            Response\BaseResponse::class
+        );
+
+        return $res === '' || $res === null;
+    }
+
     #endregion
 
     /** @param mixed $data */

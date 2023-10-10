@@ -17,7 +17,7 @@ use Psr\Log\AbstractLogger;
 class EchoLogger extends AbstractLogger
 {
     /** @inheritdoc */
-    public function log($level, $message, array $context = array())
+    public function log($level, \Stringable|string $message, array $context = []):void
     {
         echo sprintf('[%s] %s: %s' . PHP_EOL, date('Y-m-d H:i:s'), strtoupper($level), $message);
         if (!empty($context)) {
