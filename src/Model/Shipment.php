@@ -80,6 +80,13 @@ class Shipment
     private $type;
 
     /**
+     * 0 if Shipment, 1 if Retoure
+     * @var int
+     * @DataField(name="ShipmentType", type="int")
+     */
+    public $shipmentType = 0;
+
+    /**
      * Creates a shipment based on models
      *
      * @param ShippingProvider $provider The provider
