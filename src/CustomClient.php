@@ -38,7 +38,7 @@ class CustomClient extends \GuzzleHttp\Client
         $options = $this->prepareDefaults($options);
         // Remove request modifying parameter because it can be done up-front.
         $headers = $options['headers'] ?? [];
-        $body = $options['body'] ?? null;
+        $body = $options['body'] ?? '';
         $version = $options['version'] ?? '1.1';
         // Merge the URI into the base URI.
         $uri = $this->buildUri($uri, $options);

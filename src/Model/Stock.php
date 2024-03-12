@@ -22,9 +22,8 @@ class Stock
      * @Serializer\Type("string")
      * @Serializer\SerializedName("Sku")
      *
-     * @deprecated Use getter/setter instead. Will be private in the next major version.
      */
-    protected $sku;
+    public $sku;
 
     /**
      * @var ?int
@@ -34,7 +33,7 @@ class Stock
      *
      * @deprecated Use getter/setter instead. Will be private in the next major version.
      */
-    protected $stockId = null;
+    public $stockId = null;
 
     /**
      * @var ?string
@@ -44,7 +43,7 @@ class Stock
      *
      * @deprecated Use getter/setter instead. Will be private in the next major version.
      */
-    protected $reason;
+    public $reason;
 
     /**
      * @var ?float
@@ -54,7 +53,7 @@ class Stock
      *
      * @deprecated Use getter/setter instead. Will be private in the next major version.
      */
-    protected $oldQuantity = 0;
+    public $oldQuantity = 0;
 
     /**
      * @var ?float
@@ -64,7 +63,7 @@ class Stock
      *
      * @deprecated Use getter/setter instead. Will be private in the next major version.
      */
-    protected $newQuantity = 0;
+    public $newQuantity = 0;
 
     /**
      * @var float
@@ -74,7 +73,7 @@ class Stock
      *
      * @deprecated Use getter/setter instead. Will be private in the next major version.
      */
-    protected $deltaQuantity = 0;
+    public $deltaQuantity = 0;
 
     /**
      * @var bool
@@ -84,7 +83,7 @@ class Stock
      *
      * @deprecated Use getter/setter instead. Will be private in the next major version.
      */
-    protected $autosubtractReservedAmount = false;
+    public $autosubtractReservedAmount = false;
 
     public static function fromProduct(Product $product): Stock
     {
