@@ -11,11 +11,22 @@
  */
 
 namespace BillbeeDe\BillbeeAPI\Model;
-
+use BillbeeDe\BillbeeAPI\Type\ShippingCarrier;
+use BillbeeDe\BillbeeAPI\Type\ShipmentType;
 use JMS\Serializer\Annotation as Serializer;
 
 class Shipment
 {
+
+    /**
+     * @var ?int
+     * @Serializer\Type("int")
+     * @Serializer\SerializedName("BillbeeId")
+     *
+     * @deprecated Use getter/setter instead. Will be private in the next major version.
+     */
+    public $billbeeId;
+
     /**
      * @var ?string
      * @Serializer\Type("string")
@@ -24,6 +35,33 @@ class Shipment
      * @deprecated Use getter/setter instead. Will be private in the next major version.
      */
     public $shippingId;
+
+    /**
+     * @var ?string
+     * @Serializer\Type("string")
+     * @Serializer\SerializedName("Shipper")
+     *
+     * @deprecated Use getter/setter instead. Will be private in the next major version.
+     */
+    public $shipper;
+
+    /**
+     * @var ?\DateTime
+     * @Serializer\Type("DateTime")
+     * @Serializer\SerializedName("Created")
+     *
+     * @deprecated Use getter/setter instead. Will be private in the next major version.
+     */
+    public $created;
+
+    /**
+     * @var ?string
+     * @Serializer\Type("string")
+     * @Serializer\SerializedName("TrackingUrl")
+     *
+     * @deprecated Use getter/setter instead. Will be private in the next major version.
+     */
+    public $trackingUrl;
 
     /**
      * @var ?string
@@ -64,11 +102,11 @@ class Shipment
     /**
      * @var ?int
      * @Serializer\Type("int")
-     * @Serializer\SerializedName("CarrierId")
-     *
-     * @see \BillbeeDe\BillbeeAPI\Type\ShippingCarrier
+     * @Serializer\SerializedName("ShippingCarrier")
+     * *
+     * * @see \BillbeeDe\BillbeeAPI\Type\ShippingCarrier
      */
-    private $carrierId;
+    private $shippingCarrier;
 
     /**
      * @var ?int
@@ -77,7 +115,8 @@ class Shipment
      *
      * @see \BillbeeDe\BillbeeAPI\Type\ShipmentType
      */
-    private $type;
+    private $shipmentType;
+
 
     /**
      * Creates a shipment based on models
@@ -148,25 +187,45 @@ class Shipment
         return $this;
     }
 
-    public function getCarrierId(): ?int
+    public function getShippingCarrier(): ?int
     {
-        return $this->carrierId;
+        return $this->shippingCarrier;
     }
 
-    public function setCarrierId(?int $carrierId): self
+    public function setShippingCarrier(?int $shippingCarrier): self
     {
-        $this->carrierId = $carrierId;
+        $this->shippingCarrier = $shippingCarrier;
         return $this;
     }
 
-    public function getType(): ?int
+    public function getShipmentType(): ?int
     {
-        return $this->type;
+        return $this->shipmentType;
     }
 
-    public function setType(?int $type): self
+    public function setShipmentType(?int $shipmentType): self
     {
-        $this->type = $type;
+        $this->shipmentType = $shipmentType;
         return $this;
+    }
+
+    public function getBillbeeId(): ?int
+    {
+        return $this->billbeeId;
+    }
+
+    public function getShipper(): ?string
+    {
+        return $this->shipper;
+    }
+
+    public function getCreated(): ?\DateTime
+    {
+        return $this->created;
+    }
+
+    public function getTrackingUrl(): ?string
+    {
+        return $this->trackingUrl;
     }
 }
