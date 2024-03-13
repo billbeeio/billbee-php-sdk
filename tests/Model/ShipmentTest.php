@@ -49,8 +49,8 @@ class ShipmentTest extends SerializerTestCase
                 self::assertEquals("OrderCommentId", $result->getComment());
                 self::assertEquals(1, $result->getShippingProviderId());
                 self::assertEquals(2, $result->getShippingProductId());
-                self::assertEquals(3, $result->getCarrierId());
-                self::assertEquals(1, $result->getType());
+                self::assertEquals(3, $result->getShippingCarrier());
+                self::assertEquals(1, $result->getShipmentType());
             }
         );
     }
@@ -63,7 +63,7 @@ class ShipmentTest extends SerializerTestCase
             ->setComment("OrderCommentId")
             ->setShippingProviderId(1)
             ->setShippingProductId(2)
-            ->setCarrierId(3)
-            ->setType(1);
+            ->setShippingCarrier(3)
+            ->setShipmentType(1);
     }
 }
